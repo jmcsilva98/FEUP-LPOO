@@ -180,23 +180,22 @@ public class Task5 {
 			}
 			int xAux,yAux;
 			xAux=xO+randomGenerator();
+			System.out.println(xAux);
 			yAux=yO+randomGenerator();
+			System.out.println(yAux);
 			if (secondlevel[xAux][yAux]==" ") {
 				xO=xAux;
 				yO=yAux;
 				secondlevel[xOn][yOn] = " ";
 
 			}
-		
+			secondlevel[xO][yO]="O";
 			print2ndLevel(secondlevel);
 		
 			xn = x;
 			yn = y;
 			xOn = xO;
 			yOn = yO;
-			
-			
-
 		}
 		s.close();
 		System.out.println("Game over!!");
