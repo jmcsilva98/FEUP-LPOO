@@ -1,8 +1,20 @@
 package firstProject;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class Task5 {
+	public static int randomGenerator() {
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(3);
+		if (randomInt==2) {
+			randomInt=-1;
+		}
+
+
+		return randomInt;
+		
+	}
 	public static void main(String[] args) {
 
 		String[][] firstlevel ={{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
@@ -147,8 +159,7 @@ public class Task5 {
 
 
 			secondlevel[xn][yn] = " ";
-			secondlevel[xOn][yOn] = " ";
-
+			
 			if(secondlevel[x][y] == " ") {
 				if(hasKey) {
 					secondlevel[x][y] = "K";
@@ -167,9 +178,18 @@ public class Task5 {
 				System.out.println("Game Won!!");
 				System.exit(0);
 			}
+			int xAux,yAux;
+			xAux=xO+randomGenerator();
+			yAux=yO+randomGenerator();
+			if (secondlevel[xAux][yAux]==" ") {
+				xO=xAux;
+				yO=yAux;
+				secondlevel[xOn][yOn] = " ";
 
+			}
+		
 			print2ndLevel(secondlevel);
-
+		
 			xn = x;
 			yn = y;
 			xOn = xO;
