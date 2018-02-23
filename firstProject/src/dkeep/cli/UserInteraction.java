@@ -19,11 +19,11 @@ public class UserInteraction {
 
 	}
 	private void start(String obstacle) {
+		game.start();
 		while(game.isFree()) {
-			game.start();
+			
 			print_map(game.get_map(),game.get_level());
 			user_input();
-
 			if (obstacle=="G") {
 				game.guard_movement();
 			}
@@ -73,11 +73,12 @@ public class UserInteraction {
 		else 
 			n=9;
 		{
-			for(int i = 0; i < n; i++)
+			for(int i = 0; i < n; i++) {
 				for(int j = 0; j < n; j++) {
 					System.out.print(map[i][j]);
 				}
 			System.out.print("\n");
+			}
 		}
 
 	}
@@ -89,21 +90,5 @@ public class UserInteraction {
 		game.get_hero().movement(move);
 
 	}
-	void gameLoop(String obstacle) {
-		while(game.isFree()) {
-			game.start();
-			print_map(game.get_map(),game.get_level());
-			user_input();
-
-			if (obstacle=="G") {
-				game.guard_movement();
-			}
-
-			else if (obstacle=="O") {
-				game.ogre_movement();
-			}
-		}
-	}
-
 
 }

@@ -29,21 +29,35 @@ public class Gamestate {
    public Hero get_hero() {
     	return hero;
     }
+   public void set_hero(Hero hero) {
+	   this.hero=hero;
+   }
+   public void set_ogre(Ogre ogre) {
+	   this.ogre=ogre;
+   }
+   public void set_guard(Guard guard) {
+	   this.guard=guard;
+   }
 	public void start() {
-		
+		Hero hero = new Hero();
+		Guard guard=new Guard();
+		Ogre ogre =new Ogre();
 		if (level==1) {
-			hero.x=1;
-			hero.y=1;
-			guard.x=1;
-			guard.y=8;
+			hero.set_x(1);
+			hero.set_y(1); 
+			guard.set_x(1);
+			guard.set_y(1);
+			set_guard(guard);
 		}
 		else {
-			ogre.x=1;
-			ogre.y=4;
-			hero.x=7;
-			hero.y=1;
+			ogre.set_x(1);
+			ogre.set_x(4);
+			hero.set_x(7);
+			hero.set_y(1); 
+			set_ogre(ogre);
 		}
-			
+	set_hero(hero);
+	
 		
 	}
 	public void game_state(int n) {
