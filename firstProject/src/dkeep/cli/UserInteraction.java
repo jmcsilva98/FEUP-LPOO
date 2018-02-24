@@ -12,59 +12,34 @@ public class UserInteraction {
 	UserInteraction(){
 		
 		this.game =new Gamestate();
+		game.start();
 	}
 	public static void main(String[] args) {
 		UserInteraction new_game=new UserInteraction();
-		new_game.start("G");
+		new_game.start();
 
 	}
-	private void start(String obstacle) {
+	 void start() {
 		game.start();
-		while(game.isFree()) {
+		while(true) {//game.isFree()) {
 			
 			print_map(game.get_map(),game.get_level());
-			user_input();
-			if (obstacle=="G") {
+			System.out.println("Please input the character commands (U/D/L/R)");
+			String move = s.nextLine();
+			System.out.println(move);
+			game.hero_movement(move);
+			//user_input();
+			if (game.get_level()==1) {
 				game.guard_movement();
+				
 			}
 
-			else if (obstacle=="O") {
+			else if (game.get_level()==2) {
 				game.ogre_movement();
 			}
 		}
 		
 
-	}
-	void get_map(int level) {
-
-		if (level==1) {
-			String[][] firstlevel =
-				{		{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
-						{"X", " ", " ", " ", "I", " ", "X", " ", "G", "X"},
-						{"X", "X", "X", " ", "X", "X", "X", " ", " ", "X"},
-						{"X", "I", " ", " ", "I", " ", "X", " ", " ", "X"},
-						{"X", "X", "X", " ", "X", "X", "X", " ", " ", "X"},
-						{"I", " ", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"I", " ", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", "X", "X", " ", "X", "X", "X", "X", " ", "X"},
-						{"X", " ", "I", " ", "I", " ", "X", "K", " ", "X"},
-						{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
-				};
-		}
-		else
-		{
-			String[][] secondlevel =
-				{{"X", "X", "X", "X", "X", "X", "X", "X", "X"},
-						{"I", " ", " ", " ", "O", " ", " ", "k", "X"},
-						{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", "H", " ", " ", " ", " ", " ", " ", "X"},
-						{"X", "X", "X", "X", "X", "X", "X", "X", "X"}};
-
-		}
 	}
 	void print_map(String[][]map,int n)
 	{ 
@@ -84,10 +59,11 @@ public class UserInteraction {
 	}
 
 	void user_input() {
-
 		System.out.println("Please input the character commands (U/D/L/R)");
 		String move = s.nextLine();
-		game.get_hero().movement(move);
+		System.out.println(move);
+		game.hero_movement(move);
+		
 
 	}
 
