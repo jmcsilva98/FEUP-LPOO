@@ -12,6 +12,7 @@ public class Gamestate {
 
 	}
 	public void set_level(int level) {
+		this.current_map=Map.getMap(2);
 		this.level=level;
 	}
 	public String[][] get_map() {
@@ -69,8 +70,6 @@ public class Gamestate {
 
 	}
 	public void hero_movement(String move) {
-		
-		//String aux=new String(" ");
 		current_map[hero.xn][hero.yn]=" ";
 		hero.movement(move);
 		switch (current_map[hero.x][hero.y]) {
@@ -97,11 +96,12 @@ public class Gamestate {
 			}
 			break;
 		case "S":
-			level=2;
+			set_level(2);		
 			break;
 		default:
 			hero.x=hero.xn;
 			hero.y=hero.yn;
+			current_map[hero.x][hero.y]="H";
 		}
 		hero.update_position();
 	}
@@ -117,16 +117,13 @@ public class Gamestate {
 
 	public void ogre_movement() {
 		ogre.movement();
-		if (current_map[ogre.x][ogre.y]==" ")
-			current_map[ogre.x][ogre.y]="O";
-		else
-		{
+		current_map[ogre.xn][ogre.yn]=" ";
+		if (current_map[ogre.x][ogre.y]!=" ") {
 			ogre.x=ogre.xn;
 			ogre.y=ogre.yn;
 		}
+		current_map[ogre.x][ogre.y]="O";
 		ogre.update_position();
-
-
 	}
 	public boolean isFree() {
 
