@@ -1,5 +1,7 @@
 package dkeep.logic;
 
+import java.util.Random;
+
 public class Character{
 	int x,y;
 	int xn,yn; 
@@ -28,5 +30,12 @@ public class Character{
 		xn=x;
 		yn=y;
 	}
-
+	public static int randomGenerator(int n) {
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(n);
+		if (randomInt==2) {
+			randomInt=-1;
+		}
+		return randomInt;
+}
 }

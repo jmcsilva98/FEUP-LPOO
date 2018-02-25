@@ -4,7 +4,9 @@ public class Gamestate {
 	String[][] current_map;
 	int level;
 	Ogre ogre;
-	Guard guard;
+	Guard rookie_guard;
+	Guard drunken_guard;
+	Guard suspicious_guard;
 	Hero hero;
 	public Gamestate() {
 		this.current_map=Map.getMap(1);
@@ -24,8 +26,8 @@ public class Gamestate {
 	public Ogre get_ogre() {
 		return ogre;
 	}
-	public  Guard get_guard() {
-		return guard;
+	public  Guard get_rookie_guard() {
+		return rookie_guard;
 	}
 	public Hero get_hero() {
 		return hero;
@@ -36,19 +38,34 @@ public class Gamestate {
 	public void set_ogre(Ogre ogre) {
 		this.ogre=ogre;
 	}
-	public void set_guard(Guard guard) {
-		this.guard=guard;
+	public void set_rookie_guard(Guard guard) {
+		this.rookie_guard=guard;
+	}
+	public void set_drunken_guard(Guard guard) {
+		this.drunken_guard=guard;
+	}
+	public void set_suspicious_guard(Guard guard) {
+		this.suspicious_guard=guard;
 	}
 	public void start() {
 		Hero hero = new Hero();
-		Guard guard=new Guard();
+		Guard rookie_guard=new Guard();
+		Guard drunken_guard=new Guard();
+		Guard suspicious_guard=new Guard();
 		Ogre ogre =new Ogre();
 		if (level==1) {
 			hero.set_x(1);
 			hero.set_y(1); 
-			guard.set_x(1);
-			guard.set_y(8);
-			set_guard(guard);
+			rookie_guard.set_x(1);
+			rookie_guard.set_y(8);
+			set_rookie_guard(rookie_guard);
+			drunken_guard.set_x(3);
+			drunken_guard.set_y(3);
+			set_drunken_guard(drunken_guard);
+			suspicious_guard.set_x(4);
+			suspicious_guard.set_y(3);
+			set_suspicious_guard(suspicious_guard);
+			
 		}
 		else {
 			ogre.set_x(1);
@@ -107,12 +124,21 @@ public class Gamestate {
 	}
 
 	public void guard_movement() {
-		current_map[guard.xn][guard.yn]=" ";
-		guard.movement();
-		current_map[guard.x][guard.y]="G";
-		guard.update_position();
-
-
+		current_map[rookie_guard.xn][rookie_guard.yn]=" ";
+		rookie_guard.rookie_movement();
+		current_map[rookie_guard.x][rookie_guard.y]="G";
+		rookie_guard.update_position();
+		current_map[drunken_guard.xn][drunken_guard.yn]=" ";
+		
+		if (drunken_guard.drunken_movement()==2) {
+			current_map[drunken_guard.x][drunken_guard.y]="g";
+		}
+		else 
+			current_map[drunken_guard.x][drunken_guard.y]="G";
+		drunken_guard.update_position();
+		current_map[suspicious_guard.xn][suspicious_guard.yn]=" ";
+		current_map[suspicious_guard.x][suspicious_guard.y]="G";
+		suspicious_guard.update_position();
 	}
 
 	public void ogre_movement() {
@@ -132,6 +158,11 @@ public class Gamestate {
 			if (current_map[hero.x][hero.y+1] =="G")return false;
 			if (current_map[hero.x+1][hero.y] =="G")return false;
 			if (current_map[hero.x][hero.y-1] =="G")return false;
+			if (current_map[hero.x-1][hero.y] =="g")  return false;
+			if (current_map[hero.x][hero.y+1] =="g")return false;
+			if (current_map[hero.x+1][hero.y] =="g")return false;
+			if (current_map[hero.x][hero.y-1] =="g")return false;
+
 		}
 		else if (level==2) {
 			if (current_map[hero.x-1][hero.y] =="O")  return false;

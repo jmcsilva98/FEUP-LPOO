@@ -1,12 +1,14 @@
 package dkeep.logic;
 
 public class Guard extends Character {
-	
-	String[] movement= {"0", "L", "D", "D","D","D", "L",  "L", "L", "L", "L", "L", "D", "R", "R", "R", "R", "R", "R", "R", "U","U","U","U" };;
+	 
+	String[] rookie_movement= {"0", "L", "D", "D","D","D", "L",  "L", "L", "L", "L", "L", "D", "R", "R", "R", "R", "R", "R", "R", "U","U","U","U" };
+	String[] suspicous_movement;
 	int length=1;
-	public void movement() {
+	int susp_length=0;
+	public void rookie_movement() {
 		if(length < 24) {
-			switch(movement[length]) {
+			switch(rookie_movement[length]) {
 			case "U" : x--;
 			break;
 			case "D" : x++;
@@ -21,6 +23,52 @@ public class Guard extends Character {
 		}
 			else
 				length=1;
-
 }
+	public int drunken_movement() {
+		int x_move =randomGenerator(4);
+		int y_move=randomGenerator(4);
+		if(x_move==3|| x_move==4) {
+			x=xn;
+			y=yn;
+			return 2;
+		}
+		
+		if (y_move==3 || y_move==4) {
+			x=xn;
+			y=yn;
+			return 2;
+		}
+		x+=x_move;
+		y+=y_move;
+		
+		if (x<0 || x>9) x=xn;
+		else
+			if (y<0 || y>9) y=yn;
+		return 0;
+		
+	}
+	
+	public void suspicious_movement() {
+		int move =randomGenerator(5);
+		int x_aux,y_aux;
+		if(move==3) {
+			x_aux=randomGenerator(2);
+			x+=x_aux;
+			y=yn;
+			if (x_aux>0) suspicous_movement[susp_length]="D";
+			else 
+				suspicous_movement[susp_length]="U";
+			susp_length++;
+		}
+		else if (move==4){
+			y_aux=randomGenerator(2);
+			y+=y_aux;
+			x=xn;
+			if (y_aux>0) 
+				suspicous_movement[susp_length]="R";
+			else 
+				suspicous_movement[susp_length]="D";
+			susp_length++;
+		}
+	}
 }

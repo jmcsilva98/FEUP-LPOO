@@ -21,9 +21,7 @@ public class UserInteraction {
 	}
 	void start() {
 		game.start();
-		boolean free=game.isFree();
-		while(game.get_level()==1 &&game.isFree()) {//game.isFree()) {
-			free=game.isFree();
+		while(game.get_level()==1 &&game.isFree()) {
 			print_map(game.get_map(),game.get_level());
 			user_input();
 			game.guard_movement();
@@ -35,7 +33,6 @@ public class UserInteraction {
 		}
 			game.start();
 		while(game.get_level()==2&&game.isFree()) {
-			free=game.isFree();
 			print_map(game.get_map(),game.get_level());
 			user_input();
 			game.ogre_movement();
