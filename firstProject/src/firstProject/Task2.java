@@ -6,10 +6,11 @@ public class Task2 {
 
 	public static void main(String[] args) {
 		int x = 1, y = 1;
+		Scanner s = new Scanner(System.in);
 		while(true) {
 		System.out.println("Please input the character commands (U/D/L/R)");
 		
-		Scanner s = new Scanner(System.in);
+		
 		String move = s.nextLine();		
 
 		
@@ -53,7 +54,9 @@ public class Task2 {
 	
 					
 		
+		s.close();
+	}
 		
 	}
-	}
+	
 }

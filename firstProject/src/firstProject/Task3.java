@@ -21,11 +21,11 @@ public class Task3 {
 
 		int x = 1, y = 1;
 		int xn = x, yn = y;
-
+		Scanner s = new Scanner(System.in);
 		while(matrix[x-1][y] != "G" && matrix[x][y+1] != "G") {
 			System.out.println("Please input the character commands (U/D/L/R)");
 
-			Scanner s = new Scanner(System.in);
+		
 			String move = s.nextLine();		
 
 
@@ -68,9 +68,10 @@ public class Task3 {
 
 			xn = x;
 			yn = y;
-
+			
+			
 		}
-
+		s.close();
 		System.out.println("Game over!!");
 	}
 

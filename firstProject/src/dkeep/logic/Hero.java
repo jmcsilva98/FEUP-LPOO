@@ -2,6 +2,8 @@ package dkeep.logic;
 
 public class Hero extends Character {
 	boolean hasKey=false;
+	boolean isArmed = false;
+	
 	public void movement(String move) {
 		
 		switch(move) {
@@ -16,5 +18,6 @@ public class Hero extends Character {
 		default : break;
 		}	
 	}
-
+	
+	
 }
