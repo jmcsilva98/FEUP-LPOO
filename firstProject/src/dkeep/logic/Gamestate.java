@@ -6,9 +6,10 @@ import java.util.Vector;
 public class Gamestate {
 	String[][] current_map;
 	int level;
-	
-	Vector<Ogre> ogres; //Using java colletion (vector) to store ogres
-	
+	int stunCounter = 0;
+
+	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
+
 	Ogre ogre;
 	Guard rookie_guard;
 	Guard drunken_guard;
@@ -57,21 +58,23 @@ public class Gamestate {
 		switch(numberOfOgres) {
 		case(0):
 			ogres.setSize(1); //sets ogre's vector to size x
-		break;
+			break;
 		case(1):
-			ogres.setSize(2);
-		break;
+			ogres.setSize(2);			
+			break;
 		case(2):
 			ogres.setSize(3);
-		break;
+			break;
 		case(3):
 			ogres.setSize(4);
-		break;
-
+			break;
+		default:
+			ogres.setSize(1);
+			break;
 		}
 
 
-		for(int i = 0; i < ogres.size(); i++) {
+		for(int i = 0; i < ogres.size()-1; i++) {
 			Ogre ogre = new Ogre();
 			ogres.setElementAt(ogre,i);
 		}
@@ -113,7 +116,7 @@ public class Gamestate {
 		}
 		else {
 			set_ogres(); //generates the vector of ogres
-			for(int i = 0; i < ogres.size(); i++) {			
+			for(int i = 0; i < ogres.size()-1; i++) {			
 				ogres.elementAt(i).set_x(1);	//Assuming that the ogres all start at the same position
 				ogres.elementAt(i).set_y(4);
 				set_ogre(ogres.elementAt(i));
@@ -137,7 +140,7 @@ public class Gamestate {
 	public void hero_movement(String move) {
 		current_map[hero.xn][hero.yn]=" ";
 		hero.movement(move);
-
+		stunCounter++;
 
 		switch (current_map[hero.x][hero.y]) {
 		case " ":
@@ -235,47 +238,47 @@ public class Gamestate {
 				if(hero.isArmed) {
 					current_map[ogre.x-1][ogre.y] = "8";
 					ogre.isStunned = true;
-
-					return true;
 				}
-				else return false;
-
+				//falta voltar a por o ogre a O e a andar apos 2 movimentos
+				return true;
 			}
-			if (current_map[hero.x][hero.y+1] =="O")
-			{
-				if(hero.isArmed) {
-					current_map[ogre.x][ogre.y+1] = "8";
-					ogre.isStunned = true;
-
-					return true;
-				}
-				else return false;
-			}
-
-			if (current_map[hero.x+1][hero.y] =="O")
-			{
-				if(hero.isArmed) {
-					current_map[ogre.x+1][ogre.y] = "8";
-					ogre.isStunned = true;
-
-					return true;
-				}
-				else return false;
-
-			}
-
-			if (current_map[hero.x][hero.y-1] =="O")
-			{
-				if(hero.isArmed) {
-					current_map[ogre.x][ogre.y-1] = "8";
-					ogre.isStunned = true;
-
-					return true;
-				}
-				else return false;
-			}		
+			else return false;
 
 		}
+		if (current_map[hero.x][hero.y+1] =="O")
+		{
+			if(hero.isArmed) {
+				current_map[ogre.x][ogre.y+1] = "8";
+				ogre.isStunned = true;
+
+				return true;
+			}
+			else return false;
+		}
+
+		if (current_map[hero.x+1][hero.y] =="O")
+		{
+			if(hero.isArmed) {
+				current_map[ogre.x+1][ogre.y] = "8";
+				ogre.isStunned = true;
+
+				return true;
+			}
+			else return false;
+
+		}
+
+		if (current_map[hero.x][hero.y-1] =="O")
+		{
+			if(hero.isArmed) {
+				current_map[ogre.x][ogre.y-1] = "8";
+				ogre.isStunned = true;
+
+				return true;
+			}
+			else return false;
+		}		
+
 		return true;
 	}
 }
