@@ -26,6 +26,7 @@ public class Gamestate {
 		this.current_map=Map.getMap(2);
 		this.level=level;
 	}
+	
 	public String[][] get_map() {
 		return current_map;
 	}
@@ -58,16 +59,16 @@ public class Gamestate {
 		switch(numberOfOgres) {
 		case(0):
 			ogres.setSize(1); //sets ogre's vector to size x
-			break;
+		break;
 		case(1):
 			ogres.setSize(2);			
-			break;
+		break;
 		case(2):
 			ogres.setSize(3);
-			break;
+		break;
 		case(3):
 			ogres.setSize(4);
-			break;
+		break;
 		default:
 			ogres.setSize(1);
 			break;
@@ -137,45 +138,55 @@ public class Gamestate {
 		}
 
 	}
+	
+
+	
 	public void hero_movement(String move) {
 		current_map[hero.xn][hero.yn]=" ";
+		current_map[hero.x][hero.y]=" ";
 		hero.movement(move);
 		stunCounter++;
 
 		switch (current_map[hero.x][hero.y]) {
 		case " ":
-			current_map[hero.x][hero.y]="H";
+			if(hero.hasKey) {
+				current_map[hero.x][hero.y]="K";
+			}
+			else if(hero.isArmed) {
+				current_map[hero.x][hero.y]="A";
+			}
+			else {
+				current_map[hero.x][hero.y]="H";
+			}
 			break;
 		case "k":
+				current_map[hero.x][hero.y]="K";
+				hero.hasKey=true;
+				break;
+				
+		case "K":
 			if (level==1) {
 				current_map[5][0] = "S";
 				current_map[6][0] = "S";
-				hero.x=hero.xn;
-				hero.y=hero.yn;
-				current_map[hero.xn][hero.yn]="H";
-			}
-			else {
-				current_map[hero.x][hero.y]="K";
-				hero.hasKey=true;
+				current_map[hero.x][hero.y]="H";
 			}
 			break;
-		case "K":
-			if (current_map[hero.x][hero.y]=="I" && hero.hasKey) {
+		case "I":
+			if(hero.hasKey) {
 				current_map[hero.x][hero.y]="S";
-				game_state(1);	
+				game_state(1);		
 			}
 			break;
-
 		case "C":				//Club (hero's weapon)
 			current_map[hero.x][hero.y]="A";
 			hero.isArmed = true;
 			break;
 		case "S":
-			set_level(2);		
+			if(level == 1) {
+			set_level(2);	
+			}
 			break;
 		default:
-			hero.x=hero.xn;
-			hero.y=hero.yn;
 			current_map[hero.x][hero.y]="H";
 		}
 		hero.update_position();
@@ -201,7 +212,7 @@ public class Gamestate {
 	}
 
 	public void ogre_movement() {
-		for(int i = 0; i < ogres.size(); i++) {
+		for(int i = 0; i < ogres.size()-1; i++) {
 
 			ogres.elementAt(i).movement();
 
@@ -238,48 +249,53 @@ public class Gamestate {
 				if(hero.isArmed) {
 					current_map[ogre.x-1][ogre.y] = "8";
 					ogre.isStunned = true;
+					return true;
 				}
+				else return false;
 				//falta voltar a por o ogre a O e a andar apos 2 movimentos
-				return true;
+
 			}
-			else return false;
+
+
+
+			if (current_map[hero.x][hero.y+1] =="O")
+			{
+				if(hero.isArmed) {
+					current_map[ogre.x][ogre.y+1] = "8";
+					ogre.isStunned = true;
+
+					return true;
+				}
+				else return false;
+			}
+
+			if (current_map[hero.x+1][hero.y] =="O")
+			{
+				if(hero.isArmed) {
+					current_map[ogre.x+1][ogre.y] = "8";
+					ogre.isStunned = true;
+
+					return true;
+				}
+				else return false;
+
+			}
+
+			if (current_map[hero.x][hero.y-1] =="O")
+			{
+				if(hero.isArmed) {
+					current_map[ogre.x][ogre.y-1] = "8";
+					ogre.isStunned = true;
+
+					return true;
+				}
+				else return false;
+			}		
+
 
 		}
-		if (current_map[hero.x][hero.y+1] =="O")
-		{
-			if(hero.isArmed) {
-				current_map[ogre.x][ogre.y+1] = "8";
-				ogre.isStunned = true;
-
-				return true;
-			}
-			else return false;
-		}
-
-		if (current_map[hero.x+1][hero.y] =="O")
-		{
-			if(hero.isArmed) {
-				current_map[ogre.x+1][ogre.y] = "8";
-				ogre.isStunned = true;
-
-				return true;
-			}
-			else return false;
-
-		}
-
-		if (current_map[hero.x][hero.y-1] =="O")
-		{
-			if(hero.isArmed) {
-				current_map[ogre.x][ogre.y-1] = "8";
-				ogre.isStunned = true;
-
-				return true;
-			}
-			else return false;
-		}		
-
 		return true;
 	}
+
 }
 
