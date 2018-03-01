@@ -204,7 +204,7 @@ public class Gamestate {
 			current_map[drunken_guard.x][drunken_guard.y]="g";
 		}
 		else 
-			current_map[drunken_guard.x][drunken_guard.y]="G";
+
 		drunken_guard.update_position();
 		current_map[suspicious_guard.xn][suspicious_guard.yn]=" ";
 		current_map[suspicious_guard.x][suspicious_guard.y]="G";
