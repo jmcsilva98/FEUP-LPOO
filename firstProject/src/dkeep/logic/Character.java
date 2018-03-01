@@ -5,6 +5,20 @@ import java.util.Random;
 public class Character{
 	int x,y;
 	int xn,yn; 
+	public void movement(String move) {
+		
+		switch(move) {
+		case "U" : x--;
+		break;
+		case "D" : x++;
+		break;
+		case "R" : y++;
+		break;
+		case "L" : y--;
+		break;
+		default : break;
+		}	
+	}
 	public int get_x() {
 		return x;
 	}
