@@ -83,6 +83,6 @@ public class TestDungeonGameLogic {
 		hero.set_x(1);
 		hero.set_y(1);
 		gamestate.setHero(hero);
-		assertFalse(gamestate.gameWon());	
+		assertTrue(gamestate.gameWon());	
 	}
 }
