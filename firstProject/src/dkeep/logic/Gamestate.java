@@ -7,9 +7,9 @@ public class Gamestate {
 	String[][] current_map;
 	int level;
 	int stunCounter = 0;
-
+	boolean gameWon=false;
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
-
+	boolean gameOver=false;
 	Ogre ogre;
 	Guard rookie_guard;
 	Guard drunken_guard;
@@ -21,7 +21,14 @@ public class Gamestate {
 		level=1;
 
 	}
+	public Gamestate(Map map) {
+		this.current_map=map.getMap();	
 
+	}
+	
+	public boolean gameWon() {
+		return gameWon;
+	}
 	public void set_level(int level) {
 		this.current_map=Map.getMap(2);
 		this.level=level;
@@ -41,10 +48,10 @@ public class Gamestate {
 	public  Guard get_rookie_guard() {
 		return rookie_guard;
 	}
-	public Hero get_hero() {
+	public Hero getHero() {
 		return hero;
 	}
-	public void set_hero(Hero hero) {
+	public void setHero(Hero hero) {
 		this.hero=hero;
 	}
 	public void set_ogre(Ogre ogre) {
@@ -52,34 +59,32 @@ public class Gamestate {
 	}
 
 	public void set_ogres() {
+		Vector<Ogre> ogres= new Vector<Ogre>();
 		Random n = new Random();
 		int numberOfOgres = n.nextInt(4); //generates a random number to see how many ogres do we have (maximum 4 ogres)
-
 		switch(numberOfOgres) {
 		case(0):
 			ogres.setSize(1); //sets ogre's vector to size x
-			break;
+		break;
 		case(1):
 			ogres.setSize(2);			
-			break;
+		break;
 		case(2):
 			ogres.setSize(3);
-			break;
+		break;
 		case(3):
 			ogres.setSize(4);
-			break;
+		break;
 		default:
 			ogres.setSize(1);
 			break;
 		}
 
-
 		for(int i = 0; i < ogres.size()-1; i++) {
 			Ogre ogre = new Ogre();
 			ogres.setElementAt(ogre,i);
 		}
-
-
+		this.ogres=ogres;
 	}
 
 
@@ -125,17 +130,25 @@ public class Gamestate {
 			hero.set_y(1); 
 		}
 
-		set_hero(hero);
+		setHero(hero);
 
 
 	}
 	public void game_state(int n) {
-		if (n==0) System.out.println("Game Over!");
+		if (n==0) {
+			System.out.println("Game Over!");
+			gameOver=true;
+		}
 		else {
 			System.out.println("Game won!!");
+			gameWon=true;
 			System.exit(0);
 		}
 
+	}
+	
+	public boolean isGameOver() {
+		return gameOver;
 	}
 	public void hero_movement(String move) {
 		current_map[hero.xn][hero.yn]=" ";

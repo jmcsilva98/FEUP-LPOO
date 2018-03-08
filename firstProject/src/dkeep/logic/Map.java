@@ -1,6 +1,7 @@
 package dkeep.logic;
 
 public class Map {
+	String[][] map;
 	static String[][] map1={		
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 			{"X", " ", " ", " ", "I", " ", "X", " ", " ", "X"},
@@ -22,11 +23,20 @@ public class Map {
 			{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
 			{"X", " ", " ", " ", " ", " ", " ", " ", "X"},
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X"}};
-	
+
 	public static String[][] getMap(int level){
 		if (level==1)
 			return map1;
 		else
-			 return map2;
+			return map2;
+	}
+	public Map(String[][]map){
+		this.map=map;
+
+	}
+	
+	public String[][]getMap() {
+		
+		return this.map;
 	}
 }
