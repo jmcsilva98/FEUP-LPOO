@@ -12,16 +12,23 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import dkeep.cli.UserInteraction;
+
 import javax.swing.JTextArea;
+import javax.swing.DefaultComboBoxModel;
 
 public class Application {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField numberOgres;
+	private JTextArea gameArea;
 
 	/**
 	 * Launch the application.
@@ -54,50 +61,53 @@ public class Application {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panel_2 = new JPanel();
+		JPanel configurations = new JPanel();
 		
 		JLabel lblNumberOfOgres = new JLabel("Number of ogres");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		numberOgres = new JTextField();
+		numberOgres.setColumns(10);
 		
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
 		
-		JComboBox comboBox = new JComboBox();
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		JComboBox guardPersonality = new JComboBox();
+		guardPersonality.setEditable(true);
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersonality.setSelectedIndex(3);
+		GroupLayout gl_configurations = new GroupLayout(configurations);
+		gl_configurations.setHorizontalGroup(
+			gl_configurations.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_configurations.createSequentialGroup()
 					.addGap(35)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_configurations.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNumberOfOgres)
 						.addComponent(lblGuardPersonality))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_configurations.createParallelGroup(Alignment.LEADING)
+						.addComponent(numberOgres, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addComponent(guardPersonality, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(36, Short.MAX_VALUE))
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
+		gl_configurations.setVerticalGroup(
+			gl_configurations.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_configurations.createSequentialGroup()
 					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_configurations.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNumberOfOgres)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(numberOgres, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_configurations.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGuardPersonality)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(80, Short.MAX_VALUE))
+						.addComponent(guardPersonality, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18))
 		);
-		panel_2.setLayout(gl_panel_2);
+		configurations.setLayout(gl_configurations);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel game_1 = new JPanel();
 		
-		JPanel panel = new JPanel();
+		JPanel newGame = new JPanel();
 		
-		JPanel panel_4 = new JPanel();
+		JPanel moveButtons = new JPanel();
 		
 		JLabel lblYou = new JLabel("You can start a new game");
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -106,13 +116,13 @@ public class Application {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
+							.addComponent(game_1, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+							.addComponent(moveButtons, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(configurations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(52)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+							.addComponent(newGame, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblYou)))
@@ -122,15 +132,15 @@ public class Application {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
+						.addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(configurations, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
+							.addComponent(game_1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(22)
-							.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addComponent(moveButtons, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
 					.addComponent(lblYou))
 		);
@@ -148,34 +158,34 @@ public class Application {
 		});
 		
 		JButton btnExit = new JButton("Exit");
-		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
+		GroupLayout gl_moveButtons = new GroupLayout(moveButtons);
+		gl_moveButtons.setHorizontalGroup(
+			gl_moveButtons.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_moveButtons.createSequentialGroup()
+					.addGroup(gl_moveButtons.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_moveButtons.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnLeft)
 							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
 							.addComponent(btnNewButton))
-						.addGroup(gl_panel_4.createSequentialGroup()
+						.addGroup(gl_moveButtons.createSequentialGroup()
 							.addGap(52)
 							.addComponent(btnUp))
-						.addGroup(gl_panel_4.createSequentialGroup()
+						.addGroup(gl_moveButtons.createSequentialGroup()
 							.addGap(46)
 							.addComponent(btnLeft_1))
-						.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_moveButtons.createSequentialGroup()
 							.addContainerGap(91, Short.MAX_VALUE)
 							.addComponent(btnExit)))
 					.addContainerGap())
 		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
+		gl_moveButtons.setVerticalGroup(
+			gl_moveButtons.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_moveButtons.createSequentialGroup()
 					.addGap(16)
 					.addComponent(btnUp)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_moveButtons.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
 						.addComponent(btnLeft))
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -183,16 +193,31 @@ public class Application {
 					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
 					.addComponent(btnExit))
 		);
-		panel_4.setLayout(gl_panel_4);
+		moveButtons.setLayout(gl_moveButtons);
 		
 		JButton btnNewGame = new JButton("New Game");
-		panel.add(btnNewGame);
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newGamePressed();
+			}
+		});
+		newGame.add(btnNewGame);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setColumns(27);
-		textArea.setTabSize(10);
-		textArea.setRows(8);
-		panel_1.add(textArea);
+		gameArea = new JTextArea();
+		gameArea.setColumns(27);
+		gameArea.setTabSize(10);
+		gameArea.setRows(8);
+		game_1.add(gameArea);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+
+	private void newGamePressed() {
+		UserInteraction game=new UserInteraction();
+		game.start();
+		int number=Integer.parseInt(numberOgres.getText());
+		if ( number >5 || number <0)
+			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
+		game.getGame().setOgres(number);
+		gameArea.setText(game.getGame().toString());
 	}
 }

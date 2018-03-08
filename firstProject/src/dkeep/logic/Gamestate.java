@@ -64,22 +64,17 @@ public class Gamestate {
 	public void set_ogre(Ogre ogre) {
 		this.ogre = ogre;
 	}
+	
 
+	public void setOgres(int numberOgres) {
 
-	public void generate_ogres(Vector<Ogre> ogres) {
-
-		Random n = new Random();
-		int numberOfOgres = n.nextInt(3) + 1; //generates a random number to see how many ogres do we have (maximum 3 ogres)
-
-		ogres.setSize(numberOfOgres);
+		ogres.setSize(numberOgres);
 
 		for(int i = 0; i < ogres.size(); i++) {
 			
 			Ogre ogre = new Ogre();
 			ogres.setElementAt(ogre,i);
 		}
-
-		this.ogres=ogres;
 	}
 
 
@@ -93,7 +88,23 @@ public class Gamestate {
 		this.suspicious_guard=guard;
 	}
 
-
+	public String toString() {
+		int n;
+		String map="";
+		if (level==1)
+			n=10;
+		else 
+			n=9; 
+		{
+			for(int i = 0; i < n; i++) {
+				for(int j = 0; j < n; j++) {
+					map+=current_map[i][j];
+				}
+				map+="\n";
+			}
+	}
+		return map;
+	}
 	public void start() {
 		Hero hero = new Hero();
 		Guard rookie_guard=new Guard();
