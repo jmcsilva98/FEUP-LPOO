@@ -17,7 +17,9 @@ public class Character{
 		case "L" : y--;
 		break;
 		default : break;
-		}	
+		}
+	if (x>=8 || x<=0) x=xn;
+	if (y>= 8 || y<=0) y=yn;
 	}
 	public int get_x() {
 		return x;

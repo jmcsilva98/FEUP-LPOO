@@ -76,7 +76,6 @@ public class Gamestate {
 		for(int i = 0; i < ogres.size(); i++) {
 			
 			Ogre ogre = new Ogre();
-			ogre.isMoving=true;
 			ogres.setElementAt(ogre,i);
 		}
 
@@ -117,13 +116,16 @@ public class Gamestate {
 
 		}
 		else {
-			generate_ogres(ogres); //generates the vector of ogres
-		
-			for(int i = 0; i < ogres.size(); i++) {			
+			
+			//generate_ogres(ogres); //generates the vector of ogres
+			this.ogre=new Ogre();
+			ogre.set_x(1);
+			ogre.set_y(2);
+			/*for(int i = 0; i < ogres.size(); i++) {			
 				ogres.elementAt(i).set_x(1);	//Assuming that the ogres all start at the same position
 				ogres.elementAt(i).set_y(4);
 				set_ogre(ogres.elementAt(i));
-			}
+			}*/
 			hero.set_x(7);
 			hero.set_y(1); 
 		}
@@ -218,14 +220,20 @@ public class Gamestate {
 		suspicious_guard.update_position();
 	}
 
-	public void ogre_movement() {
+	public String ogre_movement() {
 		int i;
-		for(i = 0; i < ogres.size(); i++) {
-			ogres.elementAt(i).movement();
+		String ret="";
+		ret=ogre.movement();
+		current_map[ogre.x][ogre.y]=" ";
+		current_map[ogre.x][ogre.y]= "O";
+		ogre.update_position();
+		/*for(i = 0; i < ogres.size(); i++) {
+			ret=ogres.elementAt(i).movement();
 			current_map[ogres.elementAt(i).xn][ogres.elementAt(i).yn]=" ";
 			current_map[ogres.elementAt(i).x][ogres.elementAt(i).y]="O";
 			ogres.elementAt(i).update_position();
-		}
+		}*/
+		return ret;
 
 	}
 
