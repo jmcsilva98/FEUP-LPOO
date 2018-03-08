@@ -7,8 +7,9 @@ public class Gamestate {
 	String[][] current_map;
 	int level;
 	int stunCounter = 0;
-
+	boolean gameWon=false;
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
+	boolean gameOver=false;
 	Ogre ogre;
 	Guard rookie_guard;
 	Guard drunken_guard;
@@ -20,10 +21,19 @@ public class Gamestate {
 		level=2;
 
 	}
+	public Gamestate(Map map) {
+		this.current_map=map.getMap();	
+
+	}
+	
+	public boolean gameWon() {
+		return gameWon;
+	}
 
 	public Gamestate(String [][] map) {
 		this.current_map = map;
 	}
+
 
 	public void set_level(int level) {
 		this.current_map=Map.getMap(2);
@@ -45,15 +55,16 @@ public class Gamestate {
 	public  Guard get_rookie_guard() {
 		return rookie_guard;
 	}
-	public Hero get_hero() {
+	public Hero getHero() {
 		return hero;
 	}
-	public void set_hero(Hero hero) {
+	public void setHero(Hero hero) {
 		this.hero=hero;
 	}
 	public void set_ogre(Ogre ogre) {
 		this.ogre = ogre;
 	}
+
 
 	public void generate_ogres(Vector<Ogre> ogres) {
 
@@ -63,12 +74,13 @@ public class Gamestate {
 		ogres.setSize(numberOfOgres);
 
 		for(int i = 0; i < ogres.size(); i++) {
+			
 			Ogre ogre = new Ogre();
+			ogre.isMoving=true;
 			ogres.setElementAt(ogre,i);
 		}
-		this.ogres = ogres;
 
-
+		this.ogres=ogres;
 	}
 
 
@@ -106,6 +118,7 @@ public class Gamestate {
 		}
 		else {
 			generate_ogres(ogres); //generates the vector of ogres
+		
 			for(int i = 0; i < ogres.size(); i++) {			
 				ogres.elementAt(i).set_x(1);	//Assuming that the ogres all start at the same position
 				ogres.elementAt(i).set_y(4);
@@ -115,20 +128,26 @@ public class Gamestate {
 			hero.set_y(1); 
 		}
 
-		set_hero(hero);
+		setHero(hero);
 
 
 	}
 	public void game_state(int n) {
-		if (n==0) System.out.println("Game Over!");
+		if (n==0) {
+			System.out.println("Game Over!");
+			gameOver=true;
+		}
 		else {
 			System.out.println("Game won!!");
+			gameWon=true;
 			System.exit(0);
 		}
 
 	}
-
-
+	
+	public boolean isGameOver() {
+		return gameOver;
+	}
 
 	public void hero_movement(String move) {
 		current_map[hero.xn][hero.yn]=" ";
