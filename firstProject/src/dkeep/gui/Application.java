@@ -219,5 +219,5 @@ public class Application {
 			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 		game.getGame().setOgres(number);
 		gameArea.setText(game.getGame().toString());
-	}
+		}
 }

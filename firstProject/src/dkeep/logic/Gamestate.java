@@ -11,13 +11,11 @@ public class Gamestate {
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
 	boolean gameOver=false;
 	Ogre ogre;
-	Guard rookie_guard;
-	Guard drunken_guard;
-	Guard suspicious_guard;
+	Guard guard;
 	Hero hero;
 
 	public Gamestate() {
-		this.current_map=Map.getMap(2);
+		this.current_map=Map.getMap(1);
 		level=2;
 
 	}
@@ -52,9 +50,6 @@ public class Gamestate {
 	public Vector<Ogre> get_ogres() {
 		return ogres;
 	}
-	public  Guard get_rookie_guard() {
-		return rookie_guard;
-	}
 	public Hero getHero() {
 		return hero;
 	}
@@ -78,14 +73,8 @@ public class Gamestate {
 	}
 
 
-	public void set_rookie_guard(Guard guard) {
-		this.rookie_guard=guard;
-	}
-	public void set_drunken_guard(Guard guard) {
-		this.drunken_guard=guard;
-	}
-	public void set_suspicious_guard(Guard guard) {
-		this.suspicious_guard=guard;
+	public void set_guard(Guard guard) {
+		this.guard=guard;
 	}
 
 	public String toString() {
@@ -107,23 +96,31 @@ public class Gamestate {
 	}
 	public void start() {
 		Hero hero = new Hero();
-		Guard rookie_guard=new Guard();
-		Guard drunken_guard=new Guard();
-		Guard suspicious_guard=new Guard();
 		Vector<Ogre> ogres = new Vector<Ogre>();
-
+		int aux =Guard.randomGenerator(3);
+		switch(aux) {
+		case 0:
+			RookieGuard rookie=new RookieGuard();
+			System.out.println("Guard: rookie");
+			set_guard(rookie);
+			break;
+		case 1:
+			DrunkenGuard drunken=new DrunkenGuard();
+			System.out.println("Guard: drunken");
+			set_guard(drunken);
+			break;
+		case 2:
+			SuspiciousGuard suspicious=new SuspiciousGuard();
+			System.out.println("Guard: suspicious");
+			set_guard(suspicious);
+			break;
+		
+		}
 		if (level==1) {
 			hero.set_x(1);
 			hero.set_y(1); 
-			rookie_guard.set_x(1);
-			rookie_guard.set_y(8);
-			set_rookie_guard(rookie_guard);
-			drunken_guard.set_x(3);
-			drunken_guard.set_y(3);
-			set_drunken_guard(drunken_guard);
-			suspicious_guard.set_x(4);
-			suspicious_guard.set_y(3);
-			set_suspicious_guard(suspicious_guard);
+			guard.set_x(3);
+			guard.set_y(3);
 
 		}
 		else {
@@ -214,21 +211,10 @@ public class Gamestate {
 
 
 	public void guard_movement() {
-		current_map[rookie_guard.xn][rookie_guard.yn]=" ";
-		rookie_guard.rookie_movement();
-		current_map[rookie_guard.x][rookie_guard.y]="G";
-		rookie_guard.update_position();
-		current_map[drunken_guard.xn][drunken_guard.yn]=" ";
-
-		if (drunken_guard.drunken_movement()==2) {
-			current_map[drunken_guard.x][drunken_guard.y]="g";
-		}
-		else 
-
-			drunken_guard.update_position();
-		current_map[suspicious_guard.xn][suspicious_guard.yn]=" ";
-		current_map[suspicious_guard.x][suspicious_guard.y]="G";
-		suspicious_guard.update_position();
+		current_map[guard.xn][guard.yn]=" ";
+		guard.rookie_movement();
+		current_map[guard.x][guard.y]="G";
+		guard.update_position();
 	}
 
 	public String ogre_movement() {
