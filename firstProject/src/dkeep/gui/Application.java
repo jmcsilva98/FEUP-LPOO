@@ -38,6 +38,8 @@ public class Application {
 	private JTextField numberOgres;
 	private JTextArea gameArea;
 	private GuiInteraction game;
+	JButton btnNewGame;
+	JLabel lblYou;
 
 	/**
 	 * Launch the application.
@@ -45,6 +47,7 @@ public class Application {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
 				try {
 					Application window = new Application();
 					window.frame.setVisible(true);
@@ -59,6 +62,7 @@ public class Application {
 	 * Create the application.
 	 */
 	public Application() {
+		
 		initialize();
 	}
 
@@ -78,7 +82,7 @@ public class Application {
 		
 		JPanel moveButtons = new JPanel();
 		
-		JLabel lblYou = new JLabel("You can start a new game");
+		 lblYou = new JLabel("You can start a new game");
 		GridBagLayout gbl_configurations = new GridBagLayout();
 		gbl_configurations.columnWidths = new int[]{35, 85, 74, 0};
 		gbl_configurations.rowHeights = new int[]{20, 20, 0};
@@ -125,20 +129,40 @@ public class Application {
 		configurations.add(guardPersonality, gbc_guardPersonality);
 		
 		JButton btnUp = new JButton("Up");
+		//btnNewGame.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Hero hero=game.getGame().getHero();
-				game.getGame().getHero().set_x(hero.get_x()+1);
+			
+				game.getGame().heroMovement("U");
+				gameArea.removeAll();
+				gameArea.setText(game.getGame().toStr());
+				
+				
 			}
 		});
 		
 		JButton btnNewButton = new JButton("Right");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				game.getGame().heroMovement("R");
+				gameArea.setText(game.getGame().toStr());
+			}
+		});
 		
 		JButton btnLeft = new JButton("Left");
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.getGame().heroMovement("L");
+				gameArea.setText(game.getGame().toStr());
+			}
+		});
 		
 		JButton btnLeft_1 = new JButton("Down");
 		btnLeft_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				game.getGame().heroMovement("D");
+				gameArea.setText(game.getGame().toStr());
 			}
 		});
 		
@@ -162,12 +186,12 @@ public class Application {
 		gameArea.setColumns(27);
 		gameArea.setTabSize(10);
 		gameArea.setRows(8);
-		game_1.add(gameArea, "cell 0 0,alignx left,aligny top");
+		game_1.add(gameArea, "cell 0 0");
 		frame.getContentPane().add(game_1, "cell 0 1,grow");
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		frame.getContentPane().add(layeredPane, "flowx,cell 1 1");
-		frame.getContentPane().add(moveButtons, "cell 1 1,alignx left,aligny bottom");
+		frame.getContentPane().add(moveButtons, "cell 1 1");
 		moveButtons.setLayout(new MigLayout("", "[51px][24px][57px]", "[23px][23px][23px][23px]"));
 		moveButtons.add(btnLeft, "cell 0 1,alignx left,aligny top");
 		moveButtons.add(btnNewButton, "cell 2 1,alignx left,aligny top");
@@ -177,10 +201,10 @@ public class Application {
 		moveButtons.add(btnUp, "cell 0 0 3 1,alignx center,aligny top");
 		moveButtons.add(btnLeft_1, "cell 0 2 3 1,alignx center,aligny top");
 		moveButtons.add(btnExit, "cell 2 3,alignx right,aligny top");
-		frame.getContentPane().add(configurations, "cell 0 0,alignx left,growy");
+		frame.getContentPane().add(configurations, "cell 0 0");
 		frame.getContentPane().add(newGame, "cell 1 0,alignx center,aligny bottom");
 		
-		JButton btnNewGame = new JButton("New Game");
+		btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newGamePressed();
@@ -195,17 +219,25 @@ public class Application {
 	}
 
 	private void newGamePressed() {
+		
 		game=new GuiInteraction();
 		game.start();
-		int number=Integer.parseInt(numberOgres.getText());
-		if(numberOgres.getText()=="") {
+		int number=0;
+		try{
 			number=Integer.parseInt(numberOgres.getText());
+			
+		} catch(NumberFormatException nfe) {
+			
 			JOptionPane.showMessageDialog(frame, "You have to insert the number of ogres!");
+			return;
 		}
-				
-		if ( number >5 || number <0)
+		if ( number >5 || number <0) {
 			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
+			return;
+		}
+		btnNewGame.setEnabled(true);
 		game.getGame().setOgres(number);
 		gameArea.setText(game.getGame().toStr());
+		lblYou.setText("You can play now");
 		}
 }

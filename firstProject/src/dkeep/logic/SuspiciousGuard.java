@@ -5,46 +5,46 @@ public class SuspiciousGuard extends Guard {
 		int move =randomGenerator(5);
 		int x_aux,y_aux;
 		if(move==3 ) {
-			if (susp_pos==susp_length) {
+			if (suspPos==suspLength) {
 			x_aux=randomGenerator(2);
 			x+=x_aux;
 			y=yn;
-			if (x_aux>0) suspicous_movement[susp_length]="D";
+			if (x_aux>0) suspicousMovement[suspLength]="D";
 			else 
-				suspicous_movement[susp_length]="U";
-			susp_length++;
-			susp_pos++;
+				suspicousMovement[suspLength]="U";
+			suspLength++;
+			suspPos++;
 		}
 			else
 			{
-				suspicious_back=false;
-				movement(suspicous_movement[susp_pos]);
-				susp_pos++;
+				suspiciousBack=false;
+				movement(suspicousMovement[suspPos]);
+				suspPos++;
 			}
 		}
 		else if (move==4 ) {
-			if (susp_pos==susp_length){
+			if (suspPos==suspLength){
 			y_aux=randomGenerator(2);
 			y+=y_aux;
 			x=xn;
 			if (y_aux>0) 
-				suspicous_movement[susp_length]="R";
+				suspicousMovement[suspLength]="R";
 			else 
-				suspicous_movement[susp_length]="D";
-			susp_length++;
+				suspicousMovement[suspLength]="D";
+			suspLength++;
 			}
 			else
-			{	suspicious_back=false;
-				movement(suspicous_movement[susp_pos]);
-				susp_pos++;
+			{	suspiciousBack=false;
+				movement(suspicousMovement[suspPos]);
+				suspPos++;
 			}
 		}
 		else {
-			if (!suspicious_back) {
-			suspicious_back=true;
+			if (!suspiciousBack) {
+			suspiciousBack=true;
 			}
-			susp_pos--;
-			movement(suspicous_movement[susp_pos]);
+			suspPos--;
+			movement(suspicousMovement[suspPos]);
 		}
 	}
 
