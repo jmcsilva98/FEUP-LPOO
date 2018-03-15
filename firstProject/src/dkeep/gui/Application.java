@@ -134,7 +134,7 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 			
 				game.getGame().heroMovement("U");
-				gameArea.removeAll();
+				game.getGame().guardMovement();
 				gameArea.setText(game.getGame().toStr());
 				
 				
@@ -146,6 +146,7 @@ public class Application {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				game.getGame().heroMovement("R");
+				game.getGame().guardMovement();
 				gameArea.setText(game.getGame().toStr());
 			}
 		});
@@ -154,6 +155,7 @@ public class Application {
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.getGame().heroMovement("L");
+				game.getGame().guardMovement();
 				gameArea.setText(game.getGame().toStr());
 			}
 		});
@@ -162,6 +164,7 @@ public class Application {
 		btnLeft_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.getGame().heroMovement("D");
+				game.getGame().guardMovement();
 				gameArea.setText(game.getGame().toStr());
 			}
 		});
