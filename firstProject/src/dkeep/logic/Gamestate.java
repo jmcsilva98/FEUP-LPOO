@@ -11,13 +11,11 @@ public class Gamestate {
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
 	boolean gameOver=false;
 	Ogre ogre;
-	Guard rookie_guard;
-	Guard drunken_guard;
-	Guard suspicious_guard;
+	Guard guard;
 	Hero hero;
 
 	public Gamestate() {
-		this.current_map=Map.getMap(2);
+		this.current_map=Map.getMap(1);
 		level=2;
 
 	}
@@ -52,9 +50,6 @@ public class Gamestate {
 	public Vector<Ogre> get_ogres() {
 		return ogres;
 	}
-	public  Guard get_rookie_guard() {
-		return rookie_guard;
-	}
 	public Hero getHero() {
 		return hero;
 	}
@@ -64,66 +59,81 @@ public class Gamestate {
 	public void set_ogre(Ogre ogre) {
 		this.ogre = ogre;
 	}
+	
 
+	public void setOgres(int numberOgres) {
 
-	public void generate_ogres(Vector<Ogre> ogres) {
-
-		Random n = new Random();
-		int numberOfOgres = n.nextInt(3) + 1; //generates a random number to see how many ogres do we have (maximum 3 ogres)
-
-		ogres.setSize(numberOfOgres);
+		ogres.setSize(numberOgres);
 
 		for(int i = 0; i < ogres.size(); i++) {
 			
 			Ogre ogre = new Ogre();
-			ogre.isMoving=true;
 			ogres.setElementAt(ogre,i);
 		}
-
-		this.ogres=ogres;
 	}
 
 
-	public void set_rookie_guard(Guard guard) {
-		this.rookie_guard=guard;
-	}
-	public void set_drunken_guard(Guard guard) {
-		this.drunken_guard=guard;
-	}
-	public void set_suspicious_guard(Guard guard) {
-		this.suspicious_guard=guard;
+	public void set_guard(Guard guard) {
+		this.guard=guard;
 	}
 
-
+	public String toString() {
+		int n;
+		String map="";
+		if (level==1)
+			n=10;
+		else 
+			n=9; 
+		{
+			for(int i = 0; i < n; i++) {
+				for(int j = 0; j < n; j++) {
+					map+=current_map[i][j];
+				}
+				map+="\n";
+			}
+	}
+		return map;
+	}
 	public void start() {
 		Hero hero = new Hero();
-		Guard rookie_guard=new Guard();
-		Guard drunken_guard=new Guard();
-		Guard suspicious_guard=new Guard();
 		Vector<Ogre> ogres = new Vector<Ogre>();
-
+		int aux =Guard.randomGenerator(3);
+		switch(aux) {
+		case 0:
+			RookieGuard rookie=new RookieGuard();
+			System.out.println("Guard: rookie");
+			set_guard(rookie);
+			break;
+		case 1:
+			DrunkenGuard drunken=new DrunkenGuard();
+			System.out.println("Guard: drunken");
+			set_guard(drunken);
+			break;
+		case 2:
+			SuspiciousGuard suspicious=new SuspiciousGuard();
+			System.out.println("Guard: suspicious");
+			set_guard(suspicious);
+			break;
+		
+		}
 		if (level==1) {
 			hero.set_x(1);
 			hero.set_y(1); 
-			rookie_guard.set_x(1);
-			rookie_guard.set_y(8);
-			set_rookie_guard(rookie_guard);
-			drunken_guard.set_x(3);
-			drunken_guard.set_y(3);
-			set_drunken_guard(drunken_guard);
-			suspicious_guard.set_x(4);
-			suspicious_guard.set_y(3);
-			set_suspicious_guard(suspicious_guard);
+			guard.set_x(3);
+			guard.set_y(3);
 
 		}
 		else {
-			generate_ogres(ogres); //generates the vector of ogres
-		
-			for(int i = 0; i < ogres.size(); i++) {			
+			
+			//generate_ogres(ogres); //generates the vector of ogres
+			this.ogre=new Ogre();
+			ogre.set_x(1);
+			ogre.set_y(2);
+			/*for(int i = 0; i < ogres.size(); i++) {			
 				ogres.elementAt(i).set_x(1);	//Assuming that the ogres all start at the same position
 				ogres.elementAt(i).set_y(4);
 				set_ogre(ogres.elementAt(i));
-			}
+			}*/
 			hero.set_x(7);
 			hero.set_y(1); 
 		}
@@ -201,31 +211,26 @@ public class Gamestate {
 
 
 	public void guard_movement() {
-		current_map[rookie_guard.xn][rookie_guard.yn]=" ";
-		rookie_guard.rookie_movement();
-		current_map[rookie_guard.x][rookie_guard.y]="G";
-		rookie_guard.update_position();
-		current_map[drunken_guard.xn][drunken_guard.yn]=" ";
-
-		if (drunken_guard.drunken_movement()==2) {
-			current_map[drunken_guard.x][drunken_guard.y]="g";
-		}
-		else 
-
-			drunken_guard.update_position();
-		current_map[suspicious_guard.xn][suspicious_guard.yn]=" ";
-		current_map[suspicious_guard.x][suspicious_guard.y]="G";
-		suspicious_guard.update_position();
+		current_map[guard.xn][guard.yn]=" ";
+		guard.rookie_movement();
+		current_map[guard.x][guard.y]="G";
+		guard.update_position();
 	}
 
-	public void ogre_movement() {
+	public String ogre_movement() {
 		int i;
-		for(i = 0; i < ogres.size(); i++) {
-			ogres.elementAt(i).movement();
+		String ret="";
+		ret=ogre.movement();
+		current_map[ogre.x][ogre.y]=" ";
+		current_map[ogre.x][ogre.y]= "O";
+		ogre.update_position();
+		/*for(i = 0; i < ogres.size(); i++) {
+			ret=ogres.elementAt(i).movement();
 			current_map[ogres.elementAt(i).xn][ogres.elementAt(i).yn]=" ";
 			current_map[ogres.elementAt(i).x][ogres.elementAt(i).y]="O";
 			ogres.elementAt(i).update_position();
-		}
+		}*/
+		return ret;
 
 	}
 

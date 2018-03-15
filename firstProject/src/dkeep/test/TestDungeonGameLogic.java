@@ -85,4 +85,31 @@ public class TestDungeonGameLogic {
 		gamestate.setHero(hero);
 		assertTrue(gamestate.gameWon());	
 	}
+	
+	@Test(timeout=1000)
+	public void testSomeRandomBehaviour(){
+		Map gameMap=new Map(map1);		
+		Gamestate gamestate=new Gamestate(gameMap);
+		Hero hero= new Hero();
+		String move="";
+		hero.set_x(1);
+		hero.set_y(1);
+		int count=0;
+		gamestate.setHero(hero);
+		Ogre ogre=new Ogre();
+		ogre.set_x(1);
+		ogre.set_y(4);
+		gamestate.set_ogre(ogre);
+		boolean up=false, down=false,right=false, left=false;
+		while((!up || !down || !right || !left) || count<50 ) {
+			move=gamestate.ogre_movement();	
+				if (move=="U")up=true;
+			else if (move=="D") down=true;
+			else if (move=="R") right=true;
+			else if (move=="L") left=true;
+			else if (move ==null) count++;
+			}
+		if (count==50)
+			fail("Some error message");
+	}
 }
