@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.Vector;
 
 public class Gamestate {
+
 	String[][] currentMap;
+	String map;
 	int level;
 	int stunCounter = 0;
 	boolean gameWon=false;
@@ -15,15 +17,16 @@ public class Gamestate {
 	Hero hero;
 
 	public Gamestate() {
-		this.currentMap=Map.getMap(1);
-		level=2;
 
+		this.currentMap=Map.getMap(1);
+		level=1;
 	}
+
 	public Gamestate(Map map) {
 		this.currentMap=map.getMap();	
 
 	}
-	
+
 	public boolean gameWon() {
 		return gameWon;
 	}
@@ -34,7 +37,7 @@ public class Gamestate {
 
 
 	public void setLevel(int level) {
-		this.currentMap=Map.getMap(2);
+		this.currentMap=Map.getMap(1);
 		this.level=level;
 	}
 
@@ -44,6 +47,7 @@ public class Gamestate {
 	public int getLevel() {
 		return level;
 	}
+
 	public Ogre getOgre() {
 		return ogre;
 	}
@@ -59,7 +63,7 @@ public class Gamestate {
 	public void setOgre(Ogre ogre) {
 		this.ogre = ogre;
 	}
-	
+
 
 	public void setOgres(Vector<Ogre> ogres) {
 
@@ -68,7 +72,17 @@ public class Gamestate {
 		ogres.setSize(numberOfOgres);
 
 		for(int i = 0; i < ogres.size(); i++) {
-			
+
+			Ogre ogre = new Ogre();
+			ogres.setElementAt(ogre,i);
+		}
+	}
+	public void setOgres(int numberOfOgres) {
+
+		ogres.setSize(numberOfOgres);
+
+		for(int i = 0; i < ogres.size(); i++) {
+
 			Ogre ogre = new Ogre();
 			ogres.setElementAt(ogre,i);
 		}
@@ -79,7 +93,7 @@ public class Gamestate {
 		this.guard=guard;
 	}
 
-	public String toString() {
+	public String toStr() {
 		int n;
 		String map="";
 		if (level==1)
@@ -91,13 +105,13 @@ public class Gamestate {
 				for(int j = 0; j < n; j++) {
 					map+=currentMap[i][j];
 				}
-				map+="\n";
+				this.map+="\n";
 			}
+		}
+		return this.map;
 	}
-		return map;
-	}
-	
-	
+
+
 	public void start() {
 		Hero hero = new Hero();
 		Vector<Ogre> ogres = new Vector<Ogre>();
@@ -118,17 +132,17 @@ public class Gamestate {
 			System.out.println("Guard: suspicious");
 			setGuard(suspicious);
 			break;
-		
+
 		}
 		if (level==1) {
 			hero.setX(1);
 			hero.setY(1); 
-			guard.setX(3);
-			guard.setY(3);
+			guard.setX(1);
+			guard.setY(9);
 
 		}
 		else {
-			
+
 			setOgres(ogres); //generates the vector of ogres
 			this.ogre=new Ogre();
 			ogre.setX(1);
@@ -158,7 +172,7 @@ public class Gamestate {
 		}
 
 	}
-	
+
 	public boolean isGameOver() {
 		return gameOver;
 	}
