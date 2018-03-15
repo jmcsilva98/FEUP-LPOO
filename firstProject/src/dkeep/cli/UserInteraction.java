@@ -20,10 +20,10 @@ public class UserInteraction {
 
 	}
 	public void start() {
-		while(game.get_level()==1 &&game.isFree()) {
-			print_map(game.get_map(),game.get_level());
+		while(game.getLevel()==1 &&game.isFree()) {
+			print_map(game.getMap(),game.getLevel());
 			user_input();
-			game.guard_movement();
+			game.guardMovement();
 		}
 		if (!game.isFree()) {
 			System.out.println("GAME OVER!");
@@ -31,10 +31,10 @@ public class UserInteraction {
 
 		}
 		game.start();
-		while(game.get_level()==2&&game.isFree()) {
-			print_map(game.get_map(),game.get_level());
+		while(game.getLevel()==2&&game.isFree()) {
+			print_map(game.getMap(),game.getLevel());
 			user_input();
-			game.ogre_movement();
+			game.ogreMovement();
 		}
 		if (!game.isFree()) {
 			System.out.println("GAME OVER!");
@@ -55,7 +55,7 @@ public class UserInteraction {
 		System.out.println("Please input the character commands (U/D/L/R)");
 		String move = s.nextLine();
 		System.out.println(move);
-		game.hero_movement(move);
+		game.heroMovement(move);
 
 
 	}

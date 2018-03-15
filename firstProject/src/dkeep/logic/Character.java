@@ -21,27 +21,27 @@ public class Character{
 	if (x>=8 || x<=0) x=xn;
 	if (y>= 8 || y<=0) y=yn;
 	}
-	public int get_x() {
+	public int getX() {
 		return x;
 	}
-	public int get_y() {
+	public int getY() {
 		return y;
 	}
-	public int get_xn() {
+	public int getXn() {
 		return xn;
 	}
 
-	public int get_yn() {
+	public int getYn() {
 		return yn;
 	}
-	public void set_x(int x) {
+	public void setX(int x) {
 		this.x=x;
 	}
-	public void set_y(int y) {
+	public void setY(int y) {
 		this.y=y;
 	}
 
-	void update_position() {
+	void updatePosition() {
 
 		xn=x;
 		yn=y;
