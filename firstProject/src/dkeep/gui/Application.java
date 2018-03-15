@@ -218,9 +218,13 @@ public class Application {
 		game=new GuiInteraction();
 		game.start();
 		int number=Integer.parseInt(numberOgres.getText());
+		while(numberOgres.getText()==null) {
+			number=Integer.parseInt(numberOgres.getText());
+		}
+				
 		if ( number >5 || number <0)
 			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 		game.getGame().setOgres(number);
-		gameArea.setText("ABCD");//game.getGame().toStr());
+		gameArea.setText(game.getGame().toStr());
 		}
 }
