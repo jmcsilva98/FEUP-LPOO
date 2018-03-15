@@ -19,6 +19,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import dkeep.cli.GuiInteraction;
 import dkeep.cli.UserInteraction;
 
 import javax.swing.JTextArea;
@@ -29,6 +30,7 @@ public class Application {
 	private JFrame frame;
 	private JTextField numberOgres;
 	private JTextArea gameArea;
+	private GuiInteraction game;
 
 	/**
 	 * Launch the application.
@@ -71,9 +73,10 @@ public class Application {
 		JLabel lblGuardPersonality = new JLabel("Guard personality");
 		
 		JComboBox guardPersonality = new JComboBox();
+		guardPersonality.setMaximumRowCount(10);
 		guardPersonality.setEditable(true);
 		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		guardPersonality.setSelectedIndex(3);
+		guardPersonality.setSelectedIndex(2);
 		GroupLayout gl_configurations = new GroupLayout(configurations);
 		gl_configurations.setHorizontalGroup(
 			gl_configurations.createParallelGroup(Alignment.LEADING)
@@ -83,10 +86,10 @@ public class Application {
 						.addComponent(lblNumberOfOgres)
 						.addComponent(lblGuardPersonality))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_configurations.createParallelGroup(Alignment.LEADING)
-						.addComponent(numberOgres, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(guardPersonality, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(36, Short.MAX_VALUE))
+					.addGroup(gl_configurations.createParallelGroup(Alignment.TRAILING)
+						.addComponent(numberOgres, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addComponent(guardPersonality, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		gl_configurations.setVerticalGroup(
 			gl_configurations.createParallelGroup(Alignment.LEADING)
@@ -212,12 +215,12 @@ public class Application {
 	}
 
 	private void newGamePressed() {
-		UserInteraction game=new UserInteraction();
+		game=new GuiInteraction();
 		game.start();
 		int number=Integer.parseInt(numberOgres.getText());
 		if ( number >5 || number <0)
 			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 		game.getGame().setOgres(number);
-		gameArea.setText(game.getGame().toString());
+		gameArea.setText("ABCD");//game.getGame().toStr());
 		}
 }

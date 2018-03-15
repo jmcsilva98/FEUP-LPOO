@@ -44,9 +44,12 @@ public class UserInteraction {
 	}
 	public 	void print_map(String[][]map,int n)
 	{ 
-		//String print= game.toString(map);
-		//System.out.print(print);
+		
+		System.out.print(game.toStr());
 
+	}
+	public String toString() {
+		return game.toStr();
 	}
 	public Gamestate getGame() {
 		return game;

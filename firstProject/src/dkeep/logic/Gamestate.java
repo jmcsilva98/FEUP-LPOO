@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class Gamestate {
 	String[][] current_map;
+	String map;
 	int level;
 	int stunCounter = 0;
 	boolean gameWon=false;
@@ -16,7 +17,7 @@ public class Gamestate {
 
 	public Gamestate() {
 		this.current_map=Map.getMap(1);
-		level=2;
+		level=1;
 
 	}
 	public Gamestate(Map map) {
@@ -40,6 +41,11 @@ public class Gamestate {
 
 	public String[][] get_map() {
 		return current_map;
+	}
+	public String getMap() {
+		return map;
+		
+		
 	}
 	public int get_level() {
 		return level;
@@ -77,7 +83,7 @@ public class Gamestate {
 		this.guard=guard;
 	}
 
-	public String toString() {
+	public String toStr() {
 		int n;
 		String map="";
 		if (level==1)
@@ -87,12 +93,12 @@ public class Gamestate {
 		{
 			for(int i = 0; i < n; i++) {
 				for(int j = 0; j < n; j++) {
-					map+=current_map[i][j];
+					this.map+=current_map[i][j];
 				}
-				map+="\n";
+				this.map+="\n";
 			}
 	}
-		return map;
+		return this.map;
 	}
 	public void start() {
 		Hero hero = new Hero();
