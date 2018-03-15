@@ -20,6 +20,5 @@ public class GuiInteraction {
 	public static void main(String[] args) {
 		GuiInteraction new_game=new GuiInteraction();
 		new_game.start();
-
 	}
 }

@@ -21,9 +21,16 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dkeep.cli.GuiInteraction;
 import dkeep.cli.UserInteraction;
+import dkeep.logic.Hero;
 
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import net.miginfocom.swing.MigLayout;
+import java.awt.Font;
+import javax.swing.JLayeredPane;
 
 public class Application {
 
@@ -65,47 +72,6 @@ public class Application {
 		
 		JPanel configurations = new JPanel();
 		
-		JLabel lblNumberOfOgres = new JLabel("Number of ogres");
-		
-		numberOgres = new JTextField();
-		numberOgres.setColumns(10);
-		
-		JLabel lblGuardPersonality = new JLabel("Guard personality");
-		
-		JComboBox guardPersonality = new JComboBox();
-		guardPersonality.setMaximumRowCount(10);
-		guardPersonality.setEditable(true);
-		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		guardPersonality.setSelectedIndex(2);
-		GroupLayout gl_configurations = new GroupLayout(configurations);
-		gl_configurations.setHorizontalGroup(
-			gl_configurations.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_configurations.createSequentialGroup()
-					.addGap(35)
-					.addGroup(gl_configurations.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNumberOfOgres)
-						.addComponent(lblGuardPersonality))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_configurations.createParallelGroup(Alignment.TRAILING)
-						.addComponent(numberOgres, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-						.addComponent(guardPersonality, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(19, Short.MAX_VALUE))
-		);
-		gl_configurations.setVerticalGroup(
-			gl_configurations.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_configurations.createSequentialGroup()
-					.addGap(4)
-					.addGroup(gl_configurations.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNumberOfOgres)
-						.addComponent(numberOgres, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_configurations.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblGuardPersonality)
-						.addComponent(guardPersonality, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18))
-		);
-		configurations.setLayout(gl_configurations);
-		
 		JPanel game_1 = new JPanel();
 		
 		JPanel newGame = new JPanel();
@@ -113,42 +79,58 @@ public class Application {
 		JPanel moveButtons = new JPanel();
 		
 		JLabel lblYou = new JLabel("You can start a new game");
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(game_1, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(moveButtons, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(configurations, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(52)
-							.addComponent(newGame, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblYou)))
-					.addContainerGap(24, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(newGame, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(configurations, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(game_1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(22)
-							.addComponent(moveButtons, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-					.addComponent(lblYou))
-		);
+		GridBagLayout gbl_configurations = new GridBagLayout();
+		gbl_configurations.columnWidths = new int[]{35, 85, 74, 0};
+		gbl_configurations.rowHeights = new int[]{20, 20, 0};
+		gbl_configurations.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_configurations.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		configurations.setLayout(gbl_configurations);
+		
+		JLabel lblNumberOfOgres = new JLabel("Number of ogres");
+		GridBagConstraints gbc_lblNumberOfOgres = new GridBagConstraints();
+		gbc_lblNumberOfOgres.anchor = GridBagConstraints.WEST;
+		gbc_lblNumberOfOgres.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberOfOgres.gridx = 1;
+		gbc_lblNumberOfOgres.gridy = 0;
+		configurations.add(lblNumberOfOgres, gbc_lblNumberOfOgres);
+		
+		numberOgres = new JTextField();
+		numberOgres.setColumns(10);
+		GridBagConstraints gbc_numberOgres = new GridBagConstraints();
+		gbc_numberOgres.anchor = GridBagConstraints.NORTH;
+		gbc_numberOgres.fill = GridBagConstraints.HORIZONTAL;
+		gbc_numberOgres.insets = new Insets(0, 0, 5, 0);
+		gbc_numberOgres.gridx = 2;
+		gbc_numberOgres.gridy = 0;
+		configurations.add(numberOgres, gbc_numberOgres);
+		
+		JLabel lblGuardPersonality = new JLabel("Guard personality");
+		GridBagConstraints gbc_lblGuardPersonality = new GridBagConstraints();
+		gbc_lblGuardPersonality.anchor = GridBagConstraints.WEST;
+		gbc_lblGuardPersonality.insets = new Insets(0, 0, 0, 5);
+		gbc_lblGuardPersonality.gridx = 1;
+		gbc_lblGuardPersonality.gridy = 1;
+		configurations.add(lblGuardPersonality, gbc_lblGuardPersonality);
+		
+		JComboBox guardPersonality = new JComboBox();
+		guardPersonality.setMaximumRowCount(10);
+		guardPersonality.setEditable(true);
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersonality.setSelectedIndex(2);
+		GridBagConstraints gbc_guardPersonality = new GridBagConstraints();
+		gbc_guardPersonality.anchor = GridBagConstraints.NORTH;
+		gbc_guardPersonality.fill = GridBagConstraints.HORIZONTAL;
+		gbc_guardPersonality.gridx = 2;
+		gbc_guardPersonality.gridy = 1;
+		configurations.add(guardPersonality, gbc_guardPersonality);
 		
 		JButton btnUp = new JButton("Up");
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Hero hero=game.getGame().getHero();
+				game.getGame().getHero().set_x(hero.get_x()+1);
+			}
+		});
 		
 		JButton btnNewButton = new JButton("Right");
 		
@@ -161,42 +143,42 @@ public class Application {
 		});
 		
 		JButton btnExit = new JButton("Exit");
-		GroupLayout gl_moveButtons = new GroupLayout(moveButtons);
-		gl_moveButtons.setHorizontalGroup(
-			gl_moveButtons.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_moveButtons.createSequentialGroup()
-					.addGroup(gl_moveButtons.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_moveButtons.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnLeft)
-							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-							.addComponent(btnNewButton))
-						.addGroup(gl_moveButtons.createSequentialGroup()
-							.addGap(52)
-							.addComponent(btnUp))
-						.addGroup(gl_moveButtons.createSequentialGroup()
-							.addGap(46)
-							.addComponent(btnLeft_1))
-						.addGroup(Alignment.TRAILING, gl_moveButtons.createSequentialGroup()
-							.addContainerGap(91, Short.MAX_VALUE)
-							.addComponent(btnExit)))
-					.addContainerGap())
-		);
-		gl_moveButtons.setVerticalGroup(
-			gl_moveButtons.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_moveButtons.createSequentialGroup()
-					.addGap(16)
-					.addComponent(btnUp)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_moveButtons.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(btnLeft))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnLeft_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-					.addComponent(btnExit))
-		);
-		moveButtons.setLayout(gl_moveButtons);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		GridBagLayout gbl_newGame = new GridBagLayout();
+		gbl_newGame.columnWidths = new int[]{83, 0};
+		gbl_newGame.rowHeights = new int[]{23, 0};
+		gbl_newGame.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_newGame.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		newGame.setLayout(gbl_newGame);
+		frame.getContentPane().setLayout(new MigLayout("", "[240px][152px]", "[65px][160px][14px]"));
+		game_1.setLayout(new MigLayout("", "[220px]", "[148px]"));
+		
+		gameArea = new JTextArea();
+		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		gameArea.setColumns(27);
+		gameArea.setTabSize(10);
+		gameArea.setRows(8);
+		game_1.add(gameArea, "cell 0 0,alignx left,aligny top");
+		frame.getContentPane().add(game_1, "cell 0 1,grow");
+		
+		JLayeredPane layeredPane = new JLayeredPane();
+		frame.getContentPane().add(layeredPane, "flowx,cell 1 1");
+		frame.getContentPane().add(moveButtons, "cell 1 1,alignx left,aligny bottom");
+		moveButtons.setLayout(new MigLayout("", "[51px][24px][57px]", "[23px][23px][23px][23px]"));
+		moveButtons.add(btnLeft, "cell 0 1,alignx left,aligny top");
+		moveButtons.add(btnNewButton, "cell 2 1,alignx left,aligny top");
+		
+		JLayeredPane layeredPane_1 = new JLayeredPane();
+		moveButtons.add(layeredPane_1, "flowx,cell 1 0");
+		moveButtons.add(btnUp, "cell 0 0 3 1,alignx center,aligny top");
+		moveButtons.add(btnLeft_1, "cell 0 2 3 1,alignx center,aligny top");
+		moveButtons.add(btnExit, "cell 2 3,alignx right,aligny top");
+		frame.getContentPane().add(configurations, "cell 0 0,alignx left,growy");
+		frame.getContentPane().add(newGame, "cell 1 0,alignx center,aligny bottom");
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
@@ -204,22 +186,21 @@ public class Application {
 				newGamePressed();
 			}
 		});
-		newGame.add(btnNewGame);
-		
-		gameArea = new JTextArea();
-		gameArea.setColumns(27);
-		gameArea.setTabSize(10);
-		gameArea.setRows(8);
-		game_1.add(gameArea);
-		frame.getContentPane().setLayout(groupLayout);
+		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
+		gbc_btnNewGame.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnNewGame.gridx = 0;
+		gbc_btnNewGame.gridy = 0;
+		newGame.add(btnNewGame, gbc_btnNewGame);
+		frame.getContentPane().add(lblYou, "cell 0 2,alignx left,aligny top");
 	}
 
 	private void newGamePressed() {
 		game=new GuiInteraction();
 		game.start();
 		int number=Integer.parseInt(numberOgres.getText());
-		while(numberOgres.getText()==null) {
+		if(numberOgres.getText()=="") {
 			number=Integer.parseInt(numberOgres.getText());
+			JOptionPane.showMessageDialog(frame, "You have to insert the number of ogres!");
 		}
 				
 		if ( number >5 || number <0)

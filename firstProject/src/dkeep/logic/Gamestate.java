@@ -35,7 +35,7 @@ public class Gamestate {
 
 
 	public void set_level(int level) {
-		this.current_map=Map.getMap(2);
+		this.current_map=Map.getMap(level);
 		this.level=level;
 	}
 
@@ -85,7 +85,7 @@ public class Gamestate {
 
 	public String toStr() {
 		int n;
-		String map="";
+		String map;
 		if (level==1)
 			n=10;
 		else 
@@ -125,8 +125,8 @@ public class Gamestate {
 		if (level==1) {
 			hero.set_x(1);
 			hero.set_y(1); 
-			guard.set_x(3);
-			guard.set_y(3);
+			guard.set_x(1);
+			guard.set_y(9);
 
 		}
 		else {
