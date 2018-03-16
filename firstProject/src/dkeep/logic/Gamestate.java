@@ -17,8 +17,8 @@ public class Gamestate {
 
 	public Gamestate() {
 
-		this.currentMap=Map.getMap(1);
-		level=1;
+		this.currentMap=Map.getMap(2);
+		level=2;
 	}
 
 	public Gamestate(Map map) {
@@ -240,9 +240,9 @@ public class Gamestate {
 	public String ogreMovement() {
 		int i;
 		String ret="";
-		
+
 		for(i = 0; i < ogres.size(); i++) {
-		
+
 			if(ogres.elementAt(i).isStunned) {
 				stunCounter++;
 
@@ -252,7 +252,7 @@ public class Gamestate {
 					return ret;
 				}
 			}
-			
+
 			else {
 
 				ret=ogres.elementAt(i).movement();
@@ -283,61 +283,77 @@ public class Gamestate {
 			if (currentMap[hero.x-1][hero.y] =="O")  
 			{
 				if(hero.isArmed) {
-					if(!ogre.isStunned) {
-					currentMap[ogre.x-1][ogre.y] = "8";
-					ogre.isStunned = true;
+					for(Ogre ogre: ogres)
+					{
+						if((ogre.x == hero.x-1) && (ogre.y == hero.y) && !ogre.isStunned)
+						{
+							currentMap[ogre.x-1][ogre.y] = "8";
+							ogre.isStunned = true;
+						}
+
+						return true;
 					}
-					
-					return true;
 				}
-				else return false;
+					else return false;
+				}
+
+				if (currentMap[hero.x][hero.y+1] =="O")
+				{
+					if(hero.isArmed) {
+						for(Ogre ogre: ogres)
+						{
+							if((ogre.x == hero.x) && (ogre.y == hero.y+1) && !ogre.isStunned)
+							{
+							currentMap[ogre.x][ogre.y+1] = "8";
+							ogre.isStunned = true;
+						}
+
+						return true;
+					}
+					}
+					else return false;
+				}
+
+				if (currentMap[hero.x+1][hero.y] =="O")
+				{
+					if(hero.isArmed) {
+						for(Ogre ogre: ogres)
+						{
+							if((ogre.x == hero.x+1) && (ogre.y == hero.y) && !ogre.isStunned)
+							 {
+							currentMap[ogre.x+1][ogre.y] = "8";
+							ogre.isStunned = true;
+						}
+
+						return true;
+					}
+					}
+					else return false;
+
+				}
+
+				if (currentMap[hero.x][hero.y-1] =="O")
+				{
+					if(hero.isArmed) {
+						for(Ogre ogre: ogres)
+						{
+							if((ogre.x == hero.x) && (ogre.y == hero.y-1) && !ogre.isStunned)
+							{
+							currentMap[ogre.x][ogre.y-1] = "8";
+							ogre.isStunned = true;
+						}
+
+
+						return true;
+					}
+					}
+					else return false;
+				}		
+
+
 			}
-
-			if (currentMap[hero.x][hero.y+1] =="O")
-			{
-				if(hero.isArmed) {
-					if(!ogre.isStunned) {
-					currentMap[ogre.x][ogre.y+1] = "8";
-					ogre.isStunned = true;
-					}
-								
-					return true;
-				}
-				else return false;
-			}
-
-			if (currentMap[hero.x+1][hero.y] =="O")
-			{
-				if(hero.isArmed) {
-					if(!ogre.isStunned) {
-					currentMap[ogre.x+1][ogre.y] = "8";
-					ogre.isStunned = true;
-					}
-					
-					return true;
-				}
-				else return false;
-
-			}
-
-			if (currentMap[hero.x][hero.y-1] =="O")
-			{
-				if(hero.isArmed) {
-					if(!ogre.isStunned) {
-					currentMap[ogre.x][ogre.y-1] = "8";
-					ogre.isStunned = true;
-					}
-					
-
-					return true;
-				}
-				else return false;
-			}		
-
-
+			return true;
 		}
-		return true;
-	}
 
-}
+	}
 
