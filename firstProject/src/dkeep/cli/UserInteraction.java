@@ -56,7 +56,7 @@ public class UserInteraction {
 
 	}
 	public String toString() {
-		return game.toStr();
+		return game.toString();
 	}
 	public Gamestate getGame() {
 		return game;

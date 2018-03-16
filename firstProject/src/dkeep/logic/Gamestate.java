@@ -92,7 +92,7 @@ public class Gamestate {
 		this.guard=guard;
 	}
 
-	public String toStr() {
+	public String toString() {
 		int n;
 		String map="";
 		if (level==1)
@@ -230,7 +230,7 @@ public class Gamestate {
 
 	public void guardMovement() {
 		currentMap[guard.xn][guard.yn]=" ";
-		guard.rookie_movement();
+		guard.movement();
 		currentMap[guard.x][guard.y]="G";
 		guard.updatePosition();
 	}

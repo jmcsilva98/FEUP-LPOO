@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 public class SuspiciousGuard extends Guard {
-	public void suspicious_movement() {
+	public void movement() {
 		int move =randomGenerator(5);
 		int x_aux,y_aux;
 		if(move==3 ) {

@@ -38,8 +38,9 @@ public class Application {
 	private JTextField numberOgres;
 	private JTextArea gameArea;
 	private GuiInteraction game;
-	JButton btnNewGame;
-	JLabel lblYou;
+	private JComboBox guardPersonality;
+	private JButton btnNewGame;
+	private JLabel lblYou;
 
 	/**
 	 * Launch the application.
@@ -116,7 +117,7 @@ public class Application {
 		gbc_lblGuardPersonality.gridy = 1;
 		configurations.add(lblGuardPersonality, gbc_lblGuardPersonality);
 		
-		JComboBox guardPersonality = new JComboBox();
+		guardPersonality = new JComboBox();
 		guardPersonality.setMaximumRowCount(10);
 		guardPersonality.setEditable(true);
 		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
@@ -135,7 +136,7 @@ public class Application {
 			
 				game.getGame().heroMovement("U");
 				game.getGame().guardMovement();
-				gameArea.setText(game.getGame().toStr());
+				gameArea.setText(game.getGame().toString());
 				
 				
 			}
@@ -147,7 +148,7 @@ public class Application {
 				
 				game.getGame().heroMovement("R");
 				game.getGame().guardMovement();
-				gameArea.setText(game.getGame().toStr());
+				gameArea.setText(game.getGame().toString());
 			}
 		});
 		
@@ -156,7 +157,7 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 				game.getGame().heroMovement("L");
 				game.getGame().guardMovement();
-				gameArea.setText(game.getGame().toStr());
+				gameArea.setText(game.getGame().toString());
 			}
 		});
 		
@@ -165,7 +166,7 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 				game.getGame().heroMovement("D");
 				game.getGame().guardMovement();
-				gameArea.setText(game.getGame().toStr());
+				gameArea.setText(game.getGame().toString());
 			}
 		});
 		
@@ -210,6 +211,7 @@ public class Application {
 		btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				newGamePressed();
 			}
 		});
@@ -224,7 +226,7 @@ public class Application {
 	private void newGamePressed() {
 		
 		game=new GuiInteraction();
-		game.start();
+		
 		int number=0;
 		try{
 			number=Integer.parseInt(numberOgres.getText());
@@ -238,9 +240,14 @@ public class Application {
 			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 			return;
 		}
-		btnNewGame.setEnabled(true);
+		
+		
+		game.start(guardPersonality.getSelectedItem().toString());
+		numberOgres.setEnabled(false);
+		guardPersonality.setEnabled(false);
+		btnNewGame.setEnabled(false);
 		game.getGame().setOgres(number);
-		gameArea.setText(game.getGame().toStr());
+		gameArea.setText(game.getGame().toString());
 		lblYou.setText("You can play now");
 		}
 }
