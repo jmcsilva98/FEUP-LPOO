@@ -99,12 +99,12 @@ public class Gamestate {
 			n=10;
 		else 
 			n=9; 
-			for(int i = 0; i < n; i++) {
-				for(int j = 0; j < n; j++) {
-					map+=currentMap[i][j];
-				}
-				map+="\n";
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				map+=currentMap[i][j];
 			}
+			map+="\n";
+		}
 		return map;
 	}
 
@@ -235,22 +235,36 @@ public class Gamestate {
 		guard.updatePosition();
 	}
 
+
+
 	public String ogreMovement() {
 		int i;
 		String ret="";
-		ret=ogre.movement();
-		currentMap[ogre.x][ogre.y]=" ";
-		currentMap[ogre.x][ogre.y]= "O";
-		ogre.updatePosition();
+		
 		for(i = 0; i < ogres.size(); i++) {
-			ret=ogres.elementAt(i).movement();
-			currentMap[ogres.elementAt(i).xn][ogres.elementAt(i).yn]=" ";
-			currentMap[ogres.elementAt(i).x][ogres.elementAt(i).y]="O";
-			ogres.elementAt(i).updatePosition();
+		
+			if(ogres.elementAt(i).isStunned) {
+				stunCounter++;
+
+				if(stunCounter == 2) {
+					ogres.elementAt(i).isStunned = false;
+					stunCounter = 0;
+					return ret;
+				}
+			}
+			
+			else {
+
+				ret=ogres.elementAt(i).movement();
+				currentMap[ogres.elementAt(i).xn][ogres.elementAt(i).yn]=" ";
+				currentMap[ogres.elementAt(i).x][ogres.elementAt(i).y]="O";
+				ogres.elementAt(i).updatePosition();
+			}
 		}
 		return ret;
 
 	}
+
 
 	public boolean isFree() {
 
@@ -269,16 +283,11 @@ public class Gamestate {
 			if (currentMap[hero.x-1][hero.y] =="O")  
 			{
 				if(hero.isArmed) {
+					if(!ogre.isStunned) {
 					currentMap[ogre.x-1][ogre.y] = "8";
 					ogre.isStunned = true;
-					if(stunCounter < 2) {
-						stunCounter++;
 					}
-					else {
-						stunCounter = 0;
-						currentMap[ogre.x][ogre.y+1] = "O";
-						ogre.isStunned = false;
-					}
+					
 					return true;
 				}
 				else return false;
@@ -287,16 +296,11 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="O")
 			{
 				if(hero.isArmed) {
+					if(!ogre.isStunned) {
 					currentMap[ogre.x][ogre.y+1] = "8";
 					ogre.isStunned = true;
-					if(stunCounter < 2) {
-						stunCounter++;
 					}
-					else {
-						stunCounter = 0;
-						currentMap[ogre.x][ogre.y+1] = "O";
-						ogre.isStunned = false;
-					}
+								
 					return true;
 				}
 				else return false;
@@ -305,18 +309,11 @@ public class Gamestate {
 			if (currentMap[hero.x+1][hero.y] =="O")
 			{
 				if(hero.isArmed) {
+					if(!ogre.isStunned) {
 					currentMap[ogre.x+1][ogre.y] = "8";
-					stunCounter++;
 					ogre.isStunned = true;
-					if(stunCounter < 2) {
-						stunCounter++;
 					}
-					else {
-						stunCounter = 0;
-						currentMap[ogre.x][ogre.y+1] = "O";
-						ogre.isStunned = false;
-					}
-
+					
 					return true;
 				}
 				else return false;
@@ -326,16 +323,11 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y-1] =="O")
 			{
 				if(hero.isArmed) {
+					if(!ogre.isStunned) {
 					currentMap[ogre.x][ogre.y-1] = "8";
 					ogre.isStunned = true;
-					if(stunCounter < 2) {
-						stunCounter++;
 					}
-					else {
-						stunCounter = 0;
-						currentMap[ogre.x][ogre.y+1] = "O";
-						ogre.isStunned = false;
-					}
+					
 
 					return true;
 				}
