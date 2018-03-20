@@ -9,7 +9,7 @@ public abstract class Guard extends Character {
 	
 	int suspLength=0;
 	public abstract void movement();
-	
+	public Guard() {}
 	
 	
 	

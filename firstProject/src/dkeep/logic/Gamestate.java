@@ -99,41 +99,60 @@ public class Gamestate {
 			n=10;
 		else 
 			n=9; 
-			for(int i = 0; i < n; i++) {
-				for(int j = 0; j < n; j++) {
-					map+=currentMap[i][j];
-				}
-				map+="\n";
+		for(int i = 0; i < n; i++) {
+			for(int j = 0; j < n; j++) {
+				map+=currentMap[i][j];
 			}
+			map+="\n";
+		}
 		return map;
 	}
 
-
-	public void start() {
-		Hero hero = new Hero();
-		Vector<Ogre> ogres = new Vector<Ogre>();
+	public void startConsole() {
 		int aux =Guard.randomGenerator(3);
 		switch(aux) {
 		case 0:
 			RookieGuard rookie=new RookieGuard();
-			System.out.println("Guard: rookie");
 			setGuard(rookie);
 			break;
 		case 1:
 			DrunkenGuard drunken=new DrunkenGuard();
-			System.out.println("Guard: drunken");
 			setGuard(drunken);
 			break;
-		case 2:
+		case -1:
 			SuspiciousGuard suspicious=new SuspiciousGuard();
-			System.out.println("Guard: suspicious");
 			setGuard(suspicious);
 			break;
-
 		}
-		if (level==1) {
+	}
+	public void startApplication(String guard) {
+		switch(guard) {
+		case "Rookie":
 			RookieGuard rookie=new RookieGuard();
 			setGuard(rookie);
+			break;
+		case "Drunken":
+			DrunkenGuard drunken=new DrunkenGuard();
+			setGuard(drunken);
+			break;
+		case "Suspicious":
+			SuspiciousGuard suspicious=new SuspiciousGuard();
+			setGuard(suspicious);
+			break;
+		}
+		
+	}
+	public void start(boolean application,String gua) {
+		Hero hero = new Hero();
+		Vector<Ogre> ogres = new Vector<Ogre>();
+		if (!application) {
+			startConsole();
+		}
+		else {
+			startApplication(gua);
+			
+		}	
+		if (level==1) {
 			hero.setX(1);
 			hero.setY(1); 
 			guard.setX(1);
@@ -209,6 +228,12 @@ public class Gamestate {
 				currentMap[hero.x][hero.y]="S";
 				gameState(1);		
 			}
+			else {
+				hero.x=hero.xn;
+				hero.y=hero.yn;
+				currentMap[hero.x][hero.y]="H";
+			}
+				
 			break;
 		case "C":				//Club (hero's weapon)
 			currentMap[hero.x][hero.y]="A";
@@ -231,6 +256,10 @@ public class Gamestate {
 	public void guardMovement() {
 		currentMap[guard.xn][guard.yn]=" ";
 		guard.movement();
+		if (currentMap[guard.x][guard.y]!=" ") {
+			guard.x=guard.xn;
+			guard.y=guard.yn;
+		}
 		currentMap[guard.x][guard.y]="G";
 		guard.updatePosition();
 	}

@@ -138,11 +138,11 @@ public class Application {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				game.getGame().heroMovement("U");
-				game.getGame().guardMovement();
+				if (!game.checkGame("U")) {
+					JOptionPane.showMessageDialog(frame, "GAME OVER!");
+					System.exit(0);
+				}
 				gameArea.setText(game.getGame().toString());
-
-
 			}
 		});
 
@@ -151,8 +151,10 @@ public class Application {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				game.getGame().heroMovement("R");
-				game.getGame().guardMovement();
+				if (!game.checkGame("R")) {
+					JOptionPane.showMessageDialog(frame, "GAME OVER!");
+					System.exit(0);
+				}
 				gameArea.setText(game.getGame().toString());
 			}
 		});
@@ -161,8 +163,10 @@ public class Application {
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.getGame().heroMovement("L");
-				game.getGame().guardMovement();
+				if (!game.checkGame("L")) {
+					JOptionPane.showMessageDialog(frame, "GAME OVER!");
+					System.exit(0);
+				}
 				gameArea.setText(game.getGame().toString());
 			}
 		});
@@ -171,8 +175,10 @@ public class Application {
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				game.getGame().heroMovement("D");
-				game.getGame().guardMovement();
+				if (!game.checkGame("D")) {
+					JOptionPane.showMessageDialog(frame, "GAME OVER!");
+					System.exit(0);
+				}
 				gameArea.setText(game.getGame().toString());
 			}
 		});
