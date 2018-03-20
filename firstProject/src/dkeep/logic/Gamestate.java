@@ -207,6 +207,7 @@ public class Gamestate {
 			else if(hero.isArmed) {
 				currentMap[hero.x][hero.y]="A";
 			}
+			
 			else {
 				currentMap[hero.x][hero.y]="H";
 			}

@@ -17,7 +17,8 @@ public class UserInteraction {
 	public static void main(String[] args) {
 		UserInteraction new_game=new UserInteraction();
 		new_game.start();
-
+		
+	
 	}
 	public void start() {
 		while(game.getLevel()==1 &&game.isFree()) {

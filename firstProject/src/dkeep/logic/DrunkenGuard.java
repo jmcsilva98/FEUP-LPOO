@@ -7,6 +7,7 @@ public class DrunkenGuard extends Guard{
 		x+=x_move;
 		y+=y_move;
 		
+		
 		if (x<0 || x>9) x=xn;
 		else
 		if (y<0 || y>9) y=yn;

@@ -170,7 +170,7 @@ public class Application {
 				gameArea.setText(game.getGame().toString());
 			}
 		});
-
+		
 		btnDown = new JButton("Down");
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
