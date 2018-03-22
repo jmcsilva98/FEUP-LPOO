@@ -138,11 +138,7 @@ public class Application {
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if (!game.checkGame("U")) {
-					JOptionPane.showMessageDialog(frame, "GAME OVER!");
-					System.exit(0);
-				}
-				gameArea.setText(game.getGame().toString());
+				buttonPressed("U");
 			}
 		});
 
@@ -151,11 +147,7 @@ public class Application {
 		btnRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (!game.checkGame("R")) {
-					JOptionPane.showMessageDialog(frame, "GAME OVER!");
-					System.exit(0);
-				}
-				gameArea.setText(game.getGame().toString());
+				buttonPressed("R");
 			}
 		});
 
@@ -163,11 +155,7 @@ public class Application {
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!game.checkGame("L")) {
-					JOptionPane.showMessageDialog(frame, "GAME OVER!");
-					System.exit(0);
-				}
-				gameArea.setText(game.getGame().toString());
+				buttonPressed("L");
 			}
 		});
 		
@@ -175,11 +163,7 @@ public class Application {
 		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!game.checkGame("D")) {
-					JOptionPane.showMessageDialog(frame, "GAME OVER!");
-					System.exit(0);
-				}
-				gameArea.setText(game.getGame().toString());
+				buttonPressed("D");
 			}
 		});
 
@@ -264,7 +248,7 @@ public class Application {
 			JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
 		}
 		
-		game.start(guardPersonality.getSelectedItem().toString());
+		game.start(guardPersonality.getSelectedItem().toString(),Integer.parseInt(numberOgres.getText()));
 		numberOgres.setEnabled(false);
 		guardPersonality.setEnabled(false);
 		btnNewGame.setEnabled(false);
@@ -276,4 +260,17 @@ public class Application {
 		gameArea.setText(game.getGame().toString());
 		lblYou.setText("You can play now");
 	}
+	private void buttonPressed(String move) {
+		if (!game.checkGameStatus(move)) {
+			JOptionPane.showMessageDialog(frame, "GAME OVER!");
+			System.exit(0);
+		}
+		if (game.getGame().gameWon) {
+			JOptionPane.showMessageDialog(frame, "GAME WON!");
+			System.exit(0);
+		}
+		gameArea.setText(game.getGame().toString());
+		
+	}
+
 }

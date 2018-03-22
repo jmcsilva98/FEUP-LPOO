@@ -11,24 +11,31 @@ public class GuiInteraction {
 		this.game =new Gamestate();
 		
 	}
-	public void start(String guard) {
+	public void start(String guard, int numberOgres) {
 		
 		this.guard=guard;
-		game.start(true,guard);
+		game.start(true,guard, numberOgres);
 		
 	}
 	public Gamestate getGame() {
 		return game;
 	}
 
-	public boolean checkGame(String move) {
+	public boolean checkGameStatus(String move) {
+		
 		if (game.getLevel()==1 &&game.isFree()) {
 			game.heroMovement(move);
 			game.guardMovement();
 			return true;
 		}
-		else
-		return false;
+	
+		if (game.getLevel()==2 && game.isFree()) {
+			game.heroMovement(move);
+			game.ogreMovement();
+			return true;
+		}
+		else if (!game.isFree()) 		return false;
+		return true;
 		
 	}
 	public static void main(String[] args) {

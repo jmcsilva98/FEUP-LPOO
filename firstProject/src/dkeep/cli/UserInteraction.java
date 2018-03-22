@@ -12,7 +12,7 @@ public class UserInteraction {
 	public UserInteraction(){
 
 		this.game =new Gamestate();
-		game.start(false,null);
+		game.start(false,null,0);
 	}
 	public static void main(String[] args) {
 		UserInteraction new_game=new UserInteraction();
@@ -31,7 +31,7 @@ public class UserInteraction {
 			return;
 
 		}
-		game.start(false,null);
+		game.start(false,null,0);
 		while(game.getLevel()==2&&game.isFree()) {
 			print_map(game.getMap(),game.getLevel());
 			user_input();

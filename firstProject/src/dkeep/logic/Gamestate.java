@@ -8,7 +8,7 @@ public class Gamestate {
 	String[][] currentMap;
 	int level;
 	int stunCounter = 0;
-	boolean gameWon=false;
+	public boolean gameWon=false;
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
 	boolean gameOver=false;
 	Ogre ogre;
@@ -17,8 +17,8 @@ public class Gamestate {
 
 	public Gamestate() {
 
-		this.currentMap=Map.getMap(1);
-		level=1;
+		this.currentMap=Map.getMap(2);
+		level=2;
 	}
 
 	public Gamestate(Map map) {
@@ -110,6 +110,7 @@ public class Gamestate {
 
 	public void startConsole() {
 		int aux =Guard.randomGenerator(3);
+		Vector<Ogre> ogres = new Vector<Ogre>();
 		switch(aux) {
 		case 0:
 			RookieGuard rookie=new RookieGuard();
@@ -124,8 +125,18 @@ public class Gamestate {
 			setGuard(suspicious);
 			break;
 		}
+		setOgres(ogres); //generates the vector of ogres
+		this.ogre=new Ogre();
+		ogre.setX(1);
+		ogre.setY(2);
+		for(int i = 0; i < ogres.size(); i++) {			
+			ogres.elementAt(i).setX(1);	//Assuming that the ogres all start at the same position
+			ogres.elementAt(i).setY(4);
+			setOgre(ogres.elementAt(i));
+		}
 	}
-	public void startApplication(String guard) {
+	public void startApplication(String guard, int numberOgres) {
+		Ogre auxOgre= new Ogre();
 		switch(guard) {
 		case "Rookie":
 			RookieGuard rookie=new RookieGuard();
@@ -140,16 +151,21 @@ public class Gamestate {
 			setGuard(suspicious);
 			break;
 		}
+		for(int i =0; i <numberOgres;i++) {
+			auxOgre.setX(1);
+			auxOgre.setY(4);
+			ogres.add(auxOgre);
+		}
 		
 	}
-	public void start(boolean application,String gua) {
+	public void start(boolean application,String gua, int numberOgres) {
 		Hero hero = new Hero();
-		Vector<Ogre> ogres = new Vector<Ogre>();
+		
 		if (!application) {
 			startConsole();
 		}
 		else {
-			startApplication(gua);
+			startApplication(gua,numberOgres);
 			
 		}	
 		if (level==1) {
@@ -160,15 +176,6 @@ public class Gamestate {
 		}
 		else {
 
-			setOgres(ogres); //generates the vector of ogres
-			this.ogre=new Ogre();
-			ogre.setX(1);
-			ogre.setY(2);
-			for(int i = 0; i < ogres.size(); i++) {			
-				ogres.elementAt(i).setX(1);	//Assuming that the ogres all start at the same position
-				ogres.elementAt(i).setY(4);
-				setOgre(ogres.elementAt(i));
-			}
 			hero.setX(7);
 			hero.setY(1); 
 		}
@@ -214,16 +221,17 @@ public class Gamestate {
 			break;
 		case "k":
 			currentMap[hero.x][hero.y]="K";
+			currentMap[5][0] = "S";
+			currentMap[6][0] = "S";
+			
 			hero.hasKey=true;
 			break;
 
-		case "K":
+	/*	case "K":
 			if (level==1) {
-				currentMap[5][0] = "S";
-				currentMap[6][0] = "S";
 				currentMap[hero.x][hero.y]="H";
 			}
-			break;
+			break;*/
 		case "I":
 			if(hero.hasKey) {
 				currentMap[hero.x][hero.y]="S";
@@ -244,6 +252,8 @@ public class Gamestate {
 			if(level == 1) {
 				setLevel(2);	
 			}
+			else 
+				gameWon=true;
 			break;
 		default:
 			hero.x=hero.xn;
@@ -296,7 +306,7 @@ public class Gamestate {
 
 		}
 		else if (level==2) {
-			if (currentMap[hero.x-1][hero.y] =="O")  
+		/*	if (currentMap[hero.x-1][hero.y] =="O")  
 			{
 				if(hero.isArmed) {
 					currentMap[ogre.x-1][ogre.y] = "8";
@@ -371,8 +381,7 @@ public class Gamestate {
 				}
 				else return false;
 			}		
-
-
+*/
 		}
 		return true;
 	}
