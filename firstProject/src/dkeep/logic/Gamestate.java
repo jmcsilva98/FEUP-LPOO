@@ -16,8 +16,8 @@ public class Gamestate {
 	Hero hero;
 
 	public Gamestate() {
-		this.currentMap=Map.getMap(2);
-		level=2;
+		this.currentMap=Map.getMap(1);
+		level=1;
 	}
 
 	public Gamestate(Map map) {

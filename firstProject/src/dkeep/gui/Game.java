@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -32,12 +35,12 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
 import javax.swing.JLayeredPane;
 
-public class Application {
+public class Game {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField numberOgres;
-	private JTextArea gameArea;
-	private GuiInteraction game;
+	private GamePanel gameArea;
+	public GuiInteraction game;
 	private JComboBox guardPersonality;
 	private JButton btnNewGame;
 	private JLabel lblYou;
@@ -54,7 +57,7 @@ public class Application {
 			public void run() {
 
 				try {
-					Application window = new Application();
+					Game window = new Game();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,7 +69,7 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application() {
+	public Game() {
 
 		initialize();
 	}
@@ -142,15 +145,6 @@ public class Application {
 			}
 		});
 
-		btnRight = new JButton("Right");
-		btnRight.setEnabled(false);
-		btnRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				buttonPressed("R");
-			}
-		});
-
 		btnLeft = new JButton("Left");
 		btnLeft.setEnabled(false);
 		btnLeft.addActionListener(new ActionListener() {
@@ -166,16 +160,6 @@ public class Application {
 				buttonPressed("D");
 			}
 		});
-
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
-				if (exitPressed==JOptionPane.YES_OPTION)
-					System.exit(0);
-					
-			}
-		});
 		GridBagLayout gbl_newGame = new GridBagLayout();
 		gbl_newGame.columnWidths = new int[]{83, 0};
 		gbl_newGame.rowHeights = new int[]{23, 0};
@@ -185,26 +169,51 @@ public class Application {
 		frame.getContentPane().setLayout(new MigLayout("", "[240px][152px]", "[65px][160px][14px]"));
 		game_1.setLayout(new MigLayout("", "[220px]", "[148px]"));
 
-		gameArea = new JTextArea();
+		gameArea = new GamePanel();
 		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		gameArea.setColumns(27);
-		gameArea.setTabSize(10);
-		gameArea.setRows(8);
-		game_1.add(gameArea, "cell 0 0");
+		gameArea.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				pressedKey(e);
+			}
+		});
+		gameArea.requestFocusInWindow();
+		game_1.add(gameArea, "cell 0 0,grow");
 		frame.getContentPane().add(game_1, "cell 0 1,grow");
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		frame.getContentPane().add(layeredPane, "flowx,cell 1 1");
 		frame.getContentPane().add(moveButtons, "cell 1 1");
-		moveButtons.setLayout(new MigLayout("", "[51px][24px][57px]", "[23px][23px][23px][23px]"));
-		moveButtons.add(btnLeft, "cell 0 1,alignx left,aligny top");
-		moveButtons.add(btnRight, "cell 2 1,alignx left,aligny top");
+		moveButtons.setLayout(new MigLayout("", "[51px][][][24px][57px]", "[23px][23px][23px][23px]"));
+		moveButtons.add(btnLeft, "cell 0 1");
 
 		JLayeredPane layeredPane_1 = new JLayeredPane();
-		moveButtons.add(layeredPane_1, "flowx,cell 1 0");
-		moveButtons.add(btnUp, "cell 0 0 3 1,alignx center,aligny top");
-		moveButtons.add(btnDown, "cell 0 2 3 1,alignx center,aligny top");
-		moveButtons.add(btnExit, "cell 2 3,alignx right,aligny top");
+		moveButtons.add(layeredPane_1, "flowx,cell 3 0");
+		moveButtons.add(btnUp, "cell 0 0 5 1,alignx center,aligny top");
+		
+				btnRight = new JButton("Right");
+				btnRight.setEnabled(false);
+				btnRight.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+
+						buttonPressed("R");
+					}
+				});
+				moveButtons.add(btnRight, "cell 1 1,alignx left,aligny top");
+		moveButtons.add(btnDown, "cell 0 2 5 1,alignx center,aligny top");
+						
+								JButton btnMainMenu = new JButton("Main Menu");
+								btnMainMenu.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to go to the main menu?", "Exit", JOptionPane.YES_NO_OPTION);
+										 MenuPanel window = new MenuPanel();
+										if (exitPressed==JOptionPane.YES_OPTION)
+											window.frame.setVisible(true);
+											frame.setVisible(false);
+											
+									}
+								});
+								moveButtons.add(btnMainMenu, "cell 0 3");
 		frame.getContentPane().add(configurations, "cell 0 0");
 		frame.getContentPane().add(newGame, "cell 1 0,alignx center,aligny bottom");
 
@@ -214,6 +223,7 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 
 				newGamePressed();
+				gameArea.requestFocusInWindow();
 			}
 		});
 		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
@@ -257,7 +267,7 @@ public class Application {
 		btnRight.setEnabled(true);
 		btnLeft.setEnabled(true);
 		game.getGame().setOgres(number);
-		gameArea.setText(game.getGame().toString());
+		gameArea.setMaze(game.getGame().getMap());
 		lblYou.setText("You can play now");
 	}
 	private void buttonPressed(String move) {
@@ -269,8 +279,27 @@ public class Application {
 			JOptionPane.showMessageDialog(frame, "GAME WON!");
 			System.exit(0);
 		}
-		gameArea.setText(game.getGame().toString());
 		
+		gameArea.setMaze(game.getGame().getMap());
+		gameArea.requestFocusInWindow();
+	}
+	
+	public void pressedKey(KeyEvent e) {
+		 switch(e.getKeyCode()){
+		 
+		 case KeyEvent.VK_LEFT:
+			 buttonPressed("L");
+			 break;
+		 case KeyEvent.VK_RIGHT:  
+			 buttonPressed("R");
+			 break;
+		 case KeyEvent.VK_UP:  
+			 buttonPressed("U");
+			 break;
+		 case KeyEvent.VK_DOWN: 
+			 buttonPressed("D");
+			 break;
+		 }
 	}
 
 }
