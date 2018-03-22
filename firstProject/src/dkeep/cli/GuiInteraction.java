@@ -28,6 +28,7 @@ public class GuiInteraction {
 			game.guardMovement();
 			return true;
 		}
+		
 	
 		if (game.getLevel()==2 && game.isFree()) {
 			game.heroMovement(move);
