@@ -55,7 +55,7 @@ public class MenuPanel {
 		JButton btnNewGame = new JButton("New game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			Game other=new Game();
+			PlayPanel other=new PlayPanel();
 			other.frame.setVisible(true);
 			frame.setVisible(false);
 				
@@ -67,6 +67,13 @@ public class MenuPanel {
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SettingsPanel other=new SettingsPanel();
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		springLayout.putConstraint(SpringLayout.WEST, btnSettings, 180, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnSettings, -160, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnNewGame, -17, SpringLayout.NORTH, btnSettings);

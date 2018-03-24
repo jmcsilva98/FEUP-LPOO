@@ -6,6 +6,7 @@ public class GuiInteraction {
 
 	private Gamestate game;
 	private String guard;
+	private int numberOgres;
 
 	public GuiInteraction() {
 		this.game =new Gamestate();
@@ -41,6 +42,13 @@ public class GuiInteraction {
 	}
 	public static void main(String[] args) {
 		GuiInteraction new_game=new GuiInteraction();
+	}
+	public void setNumberOgres(int numberOgres) {
+		this.numberOgres=numberOgres;
+		
+	}
+	public void setGuard(String guard) {
+		this.guard=guard;
 	}
 
 }
