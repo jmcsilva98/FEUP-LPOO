@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -66,16 +67,19 @@ public class PlayPanel {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public PlayPanel() {
-
+	public PlayPanel() throws IOException {
+		
 		initialize();
 	}
 
-	/**
+	/** 
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
+		GamePanel.loadImages();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -161,7 +165,13 @@ public class PlayPanel {
 												btnMainMenu.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent arg0) {
 														int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to go to the main menu?", "Exit", JOptionPane.YES_NO_OPTION);
-														 MenuPanel window = new MenuPanel();
+														 MenuPanel window = null;
+														try {
+															window = new MenuPanel();
+														} catch (IOException e) {
+															// TODO Auto-generated catch block
+															e.printStackTrace();
+														}
 														if (exitPressed==JOptionPane.YES_OPTION)
 															window.frame.setVisible(true);
 															frame.setVisible(false);
@@ -173,7 +183,7 @@ public class PlayPanel {
 	}
 
 	private void newGamePressed() {
-
+		
 		/*game=new GuiInteraction();
 		String guard;
 		int number=0;

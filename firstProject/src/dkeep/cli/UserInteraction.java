@@ -10,7 +10,7 @@ public class UserInteraction {
 	Gamestate game;
 	Scanner s = new Scanner(System.in);
 	public UserInteraction(){
-
+ 
 		this.game =new Gamestate();
 		game.start(false,null,0);
 	}

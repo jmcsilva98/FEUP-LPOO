@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -39,8 +40,9 @@ public class MenuPanel {
 
 	/**
 	 * Create the application.
+	 * @throws IOException
 	 */
-	public MenuPanel() {
+	public MenuPanel() throws  IOException{
 		initialize();
 	}
 
@@ -55,7 +57,13 @@ public class MenuPanel {
 		JButton btnNewGame = new JButton("New game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			PlayPanel other=new PlayPanel();
+			PlayPanel other = null;
+			try {
+				other = new PlayPanel();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			other.frame.setVisible(true);
 			frame.setVisible(false);
 				
@@ -69,7 +77,13 @@ public class MenuPanel {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SettingsPanel other=new SettingsPanel();
+				SettingsPanel other = null;
+				try {
+					other = new SettingsPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}
@@ -95,5 +109,5 @@ public class MenuPanel {
 		});
 		frame.getContentPane().add(btnExit);
 	}
-
+ 
 }

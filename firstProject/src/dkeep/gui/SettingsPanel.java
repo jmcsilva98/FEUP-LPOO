@@ -11,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class SettingsPanel {
 
@@ -37,8 +38,9 @@ public class SettingsPanel {
 
 	/**
 	 * Create the application.
+	 * @throws IOException
 	 */
-	public SettingsPanel() {
+	public SettingsPanel() throws IOException{
 		initialize();
 	}
 
@@ -76,7 +78,13 @@ public class SettingsPanel {
 		JButton btnMainMenu = new JButton("Main menu");
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MenuPanel other= new MenuPanel();
+				MenuPanel other = null;
+				try {
+					other = new MenuPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 				
@@ -88,7 +96,13 @@ public class SettingsPanel {
 		JButton btnPlay = new JButton("PLAY");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PlayPanel other = new PlayPanel();
+				PlayPanel other = null;
+				try {
+					other = new PlayPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				playPressed(other);
 				}
 
@@ -104,7 +118,7 @@ public class SettingsPanel {
 					return;
 				}
 				
-				try {
+				try { 
 					guard = guardPersonality.getSelectedItem().toString();
 
 				} catch (Exception e) {
