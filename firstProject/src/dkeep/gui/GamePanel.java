@@ -6,6 +6,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+
 public class GamePanel extends JPanel  {
 
 	String[][]map;
