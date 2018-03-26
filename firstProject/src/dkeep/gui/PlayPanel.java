@@ -223,7 +223,7 @@ public class PlayPanel {
 						default:
 							guardPersonality.setSelectedIndex(0);
 						}
-						guardPersonality.setEnabled(false);
+						guardPersonality.setEnabled(true);
 		newGamePressed();
 	}
 

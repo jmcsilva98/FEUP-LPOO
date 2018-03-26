@@ -1,9 +1,12 @@
 package dkeep.gui;
  
 import java.awt.Color;
+import java.awt.EventQueue;
 //import java.awt.Color;
 import java.awt.Graphics;
 //import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,9 +17,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePanel extends JPanel  {
-
-	String[][]map;
-	
+	private JFrame frame;
+	private String[][] map;
+	private GamePanel gamePanel;
 	private static BufferedImage wall;
 	private static BufferedImage floor;
 	private static BufferedImage closedDoor;
@@ -28,6 +31,11 @@ public class GamePanel extends JPanel  {
 	private static BufferedImage hero;
 	private static BufferedImage heroArmed;
 	private static BufferedImage weapon;
+	
+	public GamePanel() {
+	}
+	
+	
 
 	/*public GamePanel() throws IOException {
 	
@@ -98,7 +106,7 @@ public class GamePanel extends JPanel  {
 						break;
 					default:
 						//g.drawImage(wall, j*xSize, i*ySize, this);
-						g.setColor(Color.WHITE);
+						g.setColor(Color.GREEN);
 						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					}
@@ -164,6 +172,19 @@ public class GamePanel extends JPanel  {
 		public BufferedImage getWeapon() {
 			return weapon;
 		}
-		
+		public static void main(String[] args) {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						GamePanel window = new GamePanel();
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		}
 
+		
 	}
+
