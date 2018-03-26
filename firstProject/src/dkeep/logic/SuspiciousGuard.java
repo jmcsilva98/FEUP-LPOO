@@ -7,14 +7,14 @@ public class SuspiciousGuard extends Guard {
 		if(move==3 ) {
 			if (suspPos==suspLength) {
 			x_aux=randomGenerator(2);
-			x+=x_aux;
+			x+=x_aux; 
 			y=yn;
 			if (x_aux>0) suspicousMovement[suspLength]="D";
 			else 
 				suspicousMovement[suspLength]="U";
 			suspLength++;
 			suspPos++;
-		}
+		} 
 			else
 			{
 				suspiciousBack=false;

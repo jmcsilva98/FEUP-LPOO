@@ -71,7 +71,6 @@ public class GamePanel extends JPanel  {
 			for (int j = 0; j<map[0].length;j++) {
 				switch(map[i][j]) {
 				case " ":
-
 					g.drawImage(floor, j*xSize, i*ySize, null);
 					//g.setColor(Color.PINK);
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
@@ -87,7 +86,7 @@ public class GamePanel extends JPanel  {
 					//g.setColor(Color.ORANGE);
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
 					break;				
-				case "X":
+				case "X": 
 					g.drawImage(wall, j*xSize, i*ySize, null);
 					//g.setColor(Color.GREEN);
 					//	g.fillRect(j*xSize, i*ySize, xSize, ySize);
@@ -113,6 +112,12 @@ public class GamePanel extends JPanel  {
 					break;
 				case "K":
 					g.drawImage(hero, j*xSize, i*ySize, null);
+					break;
+				case "O":
+					g.drawImage(ogre, j*xSize, i*ySize, null);
+					break;
+				case "8":
+					g.drawImage(stunnedOgre, j*xSize, i*ySize, null);
 					break;
 				default:
 					g.drawImage(floor, j*xSize, i*ySize, null);

@@ -9,10 +9,10 @@ public class Gamestate {
 	int level;
 	int stunCounter = 0;
 	public boolean gameWon=false;
-	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres
+	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres 
 	boolean gameOver=false;
 	Ogre ogre;
-	Guard guard;
+	Guard guard; 
 	Hero hero;
 
 	public Gamestate() {
@@ -38,7 +38,7 @@ public class Gamestate {
 		this.currentMap=Map.getMap(level);
 		this.level=level;
 	}
-
+ 
 	public String[][] getMap() {
 		return currentMap;
 	}
@@ -254,7 +254,7 @@ public class Gamestate {
 		case "S":
 			if(level == 1) {
 				setLevel(2);	
-			}
+			} 
 			else 
 				gameWon=true;
 			break;

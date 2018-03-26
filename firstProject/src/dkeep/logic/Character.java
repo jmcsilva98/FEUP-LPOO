@@ -28,10 +28,10 @@ public class Character{
 	public int getXn() {
 		return xn;
 	}
-
+ 
 	public int getYn() {
 		return yn;
-	}
+	} 
 	public void setX(int x) {
 		this.x=x;
 	}
