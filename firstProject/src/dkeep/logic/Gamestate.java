@@ -149,6 +149,10 @@ public class Gamestate {
 			SuspiciousGuard suspicious=new SuspiciousGuard();
 			setGuard(suspicious);
 			break;
+		default:
+			RookieGuard rookie2=new RookieGuard();
+			setGuard(rookie2);
+			
 		}
 		for(int i =0; i <numberOgres;i++) {
 			auxOgre.setX(1);

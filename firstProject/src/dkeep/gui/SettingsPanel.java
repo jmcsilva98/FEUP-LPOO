@@ -119,7 +119,7 @@ public class SettingsPanel {
 				}
 				
 				try { 
-					guard = guardPersonality.getSelectedItem().toString();
+					guard = (String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
@@ -129,8 +129,10 @@ public class SettingsPanel {
 					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 					number=Integer.parseInt(numberOgres.getText());
 				}
-				other.game.setGuard(guardPersonality.toString());
+				other.game.setGuard((String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex()));
+				System.out.println((String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex()));
 				other.game.setNumberOgres(Integer.parseInt(numberOgres.getText().toString()));
+				System.out.println(numberOgres.getText().toString());
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 				

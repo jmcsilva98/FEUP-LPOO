@@ -1,5 +1,6 @@
 package dkeep.gui;
  
+import java.awt.Color;
 //import java.awt.Color;
 import java.awt.Graphics;
 //import java.awt.event.*;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel  {
 
 	public static void loadImages() throws IOException {
 			
-			wall = ImageIO.read(new File("images/bricks.png"));
+			/*wall = ImageIO.read(new File("Images/bricks.png"));
 			floor = ImageIO.read(new File("images/floor.png"));
 			closedDoor = ImageIO.read(new File("images/closedDoor.png"));
 			openDoor = ImageIO.read(new File("images/openDoor.png"));
@@ -45,7 +46,7 @@ public class GamePanel extends JPanel  {
 			stunnedOgre =	ImageIO.read(new File("images/ogreStunned.png"));
 			hero = ImageIO.read(new File("images/hero.png"));
 			heroArmed = ImageIO.read(new File("images/heroArmed.png"));
-			weapon = ImageIO.read(new File("images/weapon.png"));
+			weapon = ImageIO.read(new File("images/weapon.png"));*/
 		
 
 
@@ -65,40 +66,40 @@ public class GamePanel extends JPanel  {
 					switch(map[i][j]) {
 					case " ":
 
-						g.drawImage(floor, j*xSize, i*ySize, this);
-						//g.setColor(Color.PINK);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(floor, j*xSize, i*ySize, this);
+						g.setColor(Color.PINK);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					case "H":
 
-						g.drawImage(hero, j*xSize, i*ySize, this);
-						//g.setColor(Color.BLUE);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(hero, j*xSize, i*ySize, this);
+						g.setColor(Color.BLUE);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					case "S":
-						g.drawImage(openDoor, j*xSize, i*ySize, this);
-						//g.setColor(Color.ORANGE);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(openDoor, j*xSize, i*ySize, this);
+						g.setColor(Color.ORANGE);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;				
 					case "X":
-						g.drawImage(wall, j*xSize, i*ySize, this);
-						//g.setColor(Color.GREEN);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(wall, j*xSize, i*ySize, this);
+						g.setColor(Color.GREEN);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					case "k":
-						g.drawImage(key, j*xSize, i*ySize, this);
-						//g.setColor(Color.BLACK);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(key, j*xSize, i*ySize, this);
+						g.setColor(Color.BLACK);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					case "I":
-						g.drawImage(closedDoor, j*xSize, i*ySize, this);
-						//g.setColor(Color.magenta);
-						//g.fillRect(j*xSize,i*ySize, xSize, ySize);
+						//g.drawImage(closedDoor, j*xSize, i*ySize, this);
+						g.setColor(Color.magenta);
+						g.fillRect(j*xSize,i*ySize, xSize, ySize);
 						break;
 					default:
-						g.drawImage(wall, j*xSize, i*ySize, this);
-						//g.setColor(Color.WHITE);
-						//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+						//g.drawImage(wall, j*xSize, i*ySize, this);
+						g.setColor(Color.WHITE);
+						g.fillRect(j*xSize, i*ySize, xSize, ySize);
 						break;
 					}
 				}

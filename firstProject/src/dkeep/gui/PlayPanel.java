@@ -83,7 +83,7 @@ public class PlayPanel {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		game=new GuiInteraction();
 		JPanel game_1 = new JPanel();
 
 		JPanel moveButtons = new JPanel();
@@ -91,7 +91,6 @@ public class PlayPanel {
 		lblYou = new JLabel("You can start a new game");
 
 		btnUp = new JButton("Up");
-		btnUp.setEnabled(false);
 		btnUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -100,7 +99,6 @@ public class PlayPanel {
 		});
 		
 		btnDown = new JButton("Down");
-		btnDown.setEnabled(false);
 		btnDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonPressed("D");
@@ -125,7 +123,6 @@ public class PlayPanel {
 				Restart.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						newGamePressed();
 						gameArea.requestFocusInWindow();
 					}
 				});
@@ -142,7 +139,6 @@ public class PlayPanel {
 		moveButtons.add(btnUp, "cell 1 0,alignx center,aligny top");
 		
 				btnRight = new JButton("Right");
-				btnRight.setEnabled(false);
 				btnRight.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 
@@ -151,7 +147,6 @@ public class PlayPanel {
 				});
 				
 						btnLeft = new JButton("Left");
-						btnLeft.setEnabled(false);
 						btnLeft.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								buttonPressed("L");
@@ -180,43 +175,12 @@ public class PlayPanel {
 												});
 												moveButtons.add(btnMainMenu, "cell 1 3,alignx left,aligny top");
 		frame.getContentPane().add(lblYou, "cell 0 3,alignx left,aligny top");
+		newGamePressed();
 	}
 
 	private void newGamePressed() {
-		
-		/*game=new GuiInteraction();
-		String guard;
-		int number=0;
-		try{
-			number=Integer.parseInt(numberOgres.getText());
-
-		} catch(NumberFormatException nfe) {
-
-			JOptionPane.showMessageDialog(frame, "You have to insert the number of ogres!");
-			return;
-		}
-		if ( number >5 || number <0) {
-			JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
-			return;
-		}
-		try {
-			guard = guardPersonality.getSelectedItem().toString();
-
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
-		}
-		
-		game.start(guardPersonality.getSelectedItem().toString(),Integer.parseInt(numberOgres.getText()));
-		numberOgres.setEnabled(false);
-		guardPersonality.setEnabled(false);
-		Restart.setEnabled(false);
-		btnUp.setEnabled(true);
-		btnDown.setEnabled(true);
-		btnRight.setEnabled(true);
-		btnLeft.setEnabled(true);
-		game.getGame().setOgres(number);
 		gameArea.setMaze(game.getGame().getMap());
-		lblYou.setText("You can play now");*/
+		lblYou.setText("You can play now");
 	}
 	private void buttonPressed(String move) {
 		if (!game.checkGameStatus(move)) {
