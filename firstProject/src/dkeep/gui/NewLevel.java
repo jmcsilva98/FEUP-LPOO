@@ -9,6 +9,7 @@ import javax.swing.JPasswordField;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.CardLayout;
@@ -82,16 +83,33 @@ public class NewLevel {
 		frame.getContentPane().add(btnHero);
 		
 		JButton btnDoor = new JButton("Exit Door");
+		btnDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, position, "Guard position", JOptionPane.OK_CANCEL_OPTION);
+				chooseGuardPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
+				gameArea.setMaze(map);
+			}
+		});
 		btnDoor.setBounds(285, 96, 89, 23);
 		frame.getContentPane().add(btnDoor);
 		
 		JButton btnWalls = new JButton("Walls");
+		btnWalls.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, position, "Walls position", JOptionPane.OK_CANCEL_OPTION);
+				chooseWallPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
+				gameArea.setMaze(map);
+			}
+		});
 		btnWalls.setBounds(285, 130, 89, 23);
 		frame.getContentPane().add(btnWalls);
 		
 		JButton btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, position, "Ogre position", JOptionPane.OK_CANCEL_OPTION);
+				chooseOgrePosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
+				gameArea.setMaze(map);
 			}
 		});
 		btnOgre.setBounds(285, 32, 89, 23);
@@ -102,6 +120,19 @@ public class NewLevel {
 		frame.getContentPane().add(btnSave);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
+		btnMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuPanel other = null;
+				try {
+					other = new MenuPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		btnMainMenu.setBounds(324, 199, 100, 23);
 		frame.getContentPane().add(btnMainMenu);
 		
