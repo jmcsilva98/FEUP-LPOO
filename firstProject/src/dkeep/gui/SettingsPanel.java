@@ -19,6 +19,8 @@ public class SettingsPanel {
 	private JTextField numberOgres;
 	private JLabel lblNumberOfOgres;
 	private JComboBox guardPersonality;
+	public String guard;
+	public int ogresNumber;
 
 	/**
 	 * Launch the application.
@@ -129,10 +131,11 @@ public class SettingsPanel {
 					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
 					number=Integer.parseInt(numberOgres.getText());
 				}
+				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
+				int ogresNumber=Integer.parseInt(numberOgres.getText().toString());
 				other.game.setGuard((String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex()));
-				System.out.println((String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex()));
 				other.game.setNumberOgres(Integer.parseInt(numberOgres.getText().toString()));
-				System.out.println(numberOgres.getText().toString());
+				other.game.start(guard,ogresNumber);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 				

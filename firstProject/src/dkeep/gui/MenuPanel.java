@@ -57,16 +57,26 @@ public class MenuPanel {
 		JButton btnNewGame = new JButton("New game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			PlayPanel other = null;
+			PlayPanel other=null;
 			try {
 				other = new PlayPanel();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			other.frame.setVisible(true);
-			frame.setVisible(false);
-				
+			playPressed(other);
+			}
+
+			private void playPressed(PlayPanel other) {
+				System.out.println(1);
+				other.setGuard("Rookie");
+				System.out.println(1);
+				other.setOgresNumber(1);
+				System.out.println(1);
+				other.game.start("Rookie",1);
+				System.out.println(1);
+				other.frame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 		SpringLayout springLayout = new SpringLayout();
