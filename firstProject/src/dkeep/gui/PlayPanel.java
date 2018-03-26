@@ -217,6 +217,7 @@ public class PlayPanel {
 						default:
 							guardPersonality.setSelectedIndex(0);
 						}
+
 						guardPersonality.setEnabled(false);
 						
 						numberOgres = new JTextField();
@@ -224,6 +225,9 @@ public class PlayPanel {
 						frame.getContentPane().add(numberOgres);
 						
 						numberOgres.setColumns(10);
+
+						guardPersonality.setEnabled(true);
+
 		newGamePressed();
 	}
 
@@ -263,7 +267,7 @@ public class PlayPanel {
 		 case KeyEvent.VK_DOWN: 
 			 buttonPressed("D");
 			 break;
-		 }
+		 } 
 	}
 	public void setGuard(String guard) {
 		this.guard=guard;

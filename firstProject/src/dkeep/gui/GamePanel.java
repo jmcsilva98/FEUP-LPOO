@@ -1,9 +1,12 @@
 package dkeep.gui;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 //import java.awt.Color;
 import java.awt.Graphics;
 //import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,8 +17,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePanel extends JPanel  {
+	;
 
-	String[][]map;
+	private JFrame frame;
+	private String[][] map;
+	private GamePanel gamePanel;
 
 	private static BufferedImage wall;
 	private static BufferedImage floor;
@@ -29,10 +35,10 @@ public class GamePanel extends JPanel  {
 	private static BufferedImage heroArmed;
 	private static BufferedImage weapon;
 
-	/*public GamePanel() throws IOException {
+	public GamePanel() {
+	}
 
-			loadImages();
-	}*/
+
 
 	public static void loadImages() throws IOException {
 
@@ -71,7 +77,7 @@ public class GamePanel extends JPanel  {
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
 					break;
 				case "H":
-
+ 
 					g.drawImage(hero, j*xSize, i*ySize, null);
 					//g.setColor(Color.BLUE);
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
@@ -90,7 +96,7 @@ public class GamePanel extends JPanel  {
 					g.drawImage(key, j*xSize, i*ySize, null);
 					//g.setColor(Color.BLACK);
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
-					break;
+					break; 
 				case "I":
 					g.drawImage(closedDoor, j*xSize, i*ySize, null);
 					//g.setColor(Color.magenta);
@@ -113,12 +119,14 @@ public class GamePanel extends JPanel  {
 					//g.setColor(Color.WHITE);
 					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
 					break;
+
 				}
 			}
 
 		}
-
 	}
+
+
 
 	public void setMaze(String[][] map) {
 
@@ -176,6 +184,24 @@ public class GamePanel extends JPanel  {
 	public BufferedImage getWeapon() {
 		return weapon;
 	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GamePanel window = new GamePanel();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 
 
 }
+
+
+
+
+

@@ -1,6 +1,6 @@
 package dkeep.logic;
 
-public class Map {
+public class Map { 
 	String[][] map;
 	static String[][] map1={		
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
