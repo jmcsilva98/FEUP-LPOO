@@ -84,11 +84,11 @@ public class PlayPanel {
 	private void initialize() throws IOException {
 		GamePanel.loadImages();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 450, 313);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				JPanel game_1 = new JPanel();
-				game_1.setBounds(0, 102, 166, 140);
+				game_1.setBounds(7, 62, 191, 140);
 				game_1.setLayout(new MigLayout("", "[220px]", "[148px]"));
 				
 						gameArea = new GamePanel();
@@ -103,7 +103,7 @@ public class PlayPanel {
 								frame.getContentPane().setLayout(null);
 						
 								Restart = new JButton("Restart");
-								Restart.setBounds(313, 30, 69, 20);
+								Restart.setBounds(307, 7, 73, 25);
 								frame.getContentPane().add(Restart);
 								//btnNewGame.setEnabled(false);
 								Restart.addActionListener(new ActionListener() {
@@ -116,7 +116,7 @@ public class PlayPanel {
 						frame.getContentPane().add(game_1);
 						
 								JPanel moveButtons = new JPanel();
-								moveButtons.setBounds(194, 113, 230, 118);
+								moveButtons.setBounds(200, 69, 232, 118);
 								
 										btnUp = new JButton("Up");
 										btnUp.addActionListener(new ActionListener() {
@@ -134,14 +134,22 @@ public class PlayPanel {
 										});
 										
 												JLayeredPane layeredPane = new JLayeredPane();
-												layeredPane.setBounds(171, 171, 1, 1);
+												layeredPane.setBounds(206, 132, 1, 1);
 												frame.getContentPane().add(layeredPane);
 										frame.getContentPane().add(moveButtons);
-										moveButtons.setLayout(new MigLayout("", "[51px][][83px][][][57px][1px]", "[23px][23px][23px][23px]"));
+										moveButtons.setLayout(new MigLayout("", "[51px][][][83px][][][][][][57px][1px]", "[23px][23px][23px][23px]"));
 										
 												JLayeredPane layeredPane_1 = new JLayeredPane();
-												moveButtons.add(layeredPane_1, "cell 6 0,alignx left,aligny center");
-												moveButtons.add(btnUp, "cell 2 0,alignx center,aligny top");
+												moveButtons.add(layeredPane_1, "cell 10 0,alignx left,aligny center");
+												moveButtons.add(btnUp, "cell 3 0,alignx center,aligny top");
+																		
+																				btnLeft = new JButton("Left");
+																				btnLeft.addActionListener(new ActionListener() {
+																					public void actionPerformed(ActionEvent e) {
+																						buttonPressed("L");
+																					}
+																				});
+																				moveButtons.add(btnLeft, "cell 2 1,alignx left,aligny top");
 																
 																		btnRight = new JButton("Right");
 																		btnRight.addActionListener(new ActionListener() {
@@ -150,16 +158,8 @@ public class PlayPanel {
 																				buttonPressed("R");
 																			}
 																		});
-																		
-																				btnLeft = new JButton("Left");
-																				btnLeft.addActionListener(new ActionListener() {
-																					public void actionPerformed(ActionEvent e) {
-																						buttonPressed("L");
-																					}
-																				});
-																				moveButtons.add(btnLeft, "cell 1 1,alignx left,aligny top");
-																		moveButtons.add(btnRight, "cell 3 1,alignx left,aligny top");
-																moveButtons.add(btnDown, "cell 2 2,alignx center,aligny top");
+																		moveButtons.add(btnRight, "cell 4 1,alignx left,aligny top");
+																moveButtons.add(btnDown, "cell 3 2,alignx center,aligny top");
 																
 																		JButton btnMainMenu = new JButton("Main Menu");
 																		btnMainMenu.addActionListener(new ActionListener() {
@@ -178,34 +178,28 @@ public class PlayPanel {
 																					
 																			}
 																		});
-																		moveButtons.add(btnMainMenu, "cell 2 3,alignx left,aligny top");
+																		moveButtons.add(btnMainMenu, "cell 3 3,alignx left,aligny top");
 				
 						lblYou = new JLabel("You can start a new game");
-						lblYou.setBounds(0, 247, 166, 14);
+						lblYou.setBounds(7, 206, 191, 16);
 						frame.getContentPane().add(lblYou);
 						
-						numberOgres = new JTextField();
-						numberOgres.setBounds(99, 30, 73, 20);
-						frame.getContentPane().add(numberOgres);
-						
-						numberOgres.setColumns(10);
-						
 						JLabel lblNumberOfOgres = new JLabel("Number of ogres");
-						lblNumberOfOgres.setBounds(10, 33, 90, 14);
+						lblNumberOfOgres.setBounds(7, 12, 96, 16);
 						frame.getContentPane().add(lblNumberOfOgres);
 						
 						 JLabel lblGuardPersonality= new JLabel("Guard Personality");
-						lblGuardPersonality.setBounds(10, 58, 90, 14);
+						 lblGuardPersonality.setBounds(7, 39, 100, 16);
 						frame.getContentPane().add(lblGuardPersonality);
 						
 						guardPersonality = new JComboBox();
+						guardPersonality.setBounds(111, 36, 87, 22);
 						guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
 						guardPersonality.addItem("Rookie");
 						guardPersonality.addItem("Drunken");
 						guardPersonality.addItem("Suspicious");
 						guardPersonality.setSelectedIndex(0);
 						guardPersonality.setToolTipText("");
-						guardPersonality.setBounds(99, 55, 73, 20);
 						frame.getContentPane().add(guardPersonality);
 						switch (this.guard) {
 						case "Rookie":
@@ -224,6 +218,12 @@ public class PlayPanel {
 							guardPersonality.setSelectedIndex(0);
 						}
 						guardPersonality.setEnabled(false);
+						
+						numberOgres = new JTextField();
+						numberOgres.setBounds(107, 7, 91, 25);
+						frame.getContentPane().add(numberOgres);
+						
+						numberOgres.setColumns(10);
 		newGamePressed();
 	}
 
