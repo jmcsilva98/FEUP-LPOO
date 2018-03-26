@@ -43,16 +43,16 @@ public class GamePanel extends JPanel  {
 	public static void loadImages() throws IOException {
 
 		wall = ImageIO.read(new File("Images/bricks.png"));
-		floor = ImageIO.read(new File("images/floor.png"));
-		closedDoor = ImageIO.read(new File("images/closedDoor.png"));
-		openDoor = ImageIO.read(new File("images/openDoor.png"));
-		key = ImageIO.read(new File("images/key.png"));
-		guard = ImageIO.read(new File("images/guard.png"));
-		ogre = ImageIO.read(new File("images/ogre.png"));
-		stunnedOgre =	ImageIO.read(new File("images/ogreStunned.png"));
-		hero = ImageIO.read(new File("images/hero.png"));
-		heroArmed = ImageIO.read(new File("images/heroArmed.png"));
-		weapon = ImageIO.read(new File("images/weapon.png"));
+		floor = ImageIO.read(new File("Images/floor.png"));
+		closedDoor = ImageIO.read(new File("Images/closedDoor.png"));
+		openDoor = ImageIO.read(new File("Images/openDoor.png"));
+		key = ImageIO.read(new File("Images/key.png"));
+		guard = ImageIO.read(new File("Images/guard.png"));
+		ogre = ImageIO.read(new File("Images/ogre.png"));
+		stunnedOgre =	ImageIO.read(new File("Images/ogreStunned.png"));
+		hero = ImageIO.read(new File("Images/hero.png"));
+		heroArmed = ImageIO.read(new File("Images/heroArmed.png"));
+		weapon = ImageIO.read(new File("Images/weapon.png"));
 
 
 
