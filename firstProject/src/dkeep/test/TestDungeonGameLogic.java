@@ -19,7 +19,7 @@ public class TestDungeonGameLogic {
 			{"X", " ", "I", " ", "I", " ", "X", "k", " ", "X"},
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 	};
-
+ 
 	String[][] map2={		 
 			{"X", "X", "X", "X"},
 			{"X", " ", "C", "X"},

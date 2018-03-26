@@ -308,7 +308,7 @@ public class Gamestate {
 
 	}
 
-
+ 
 	public boolean isFree() {
 
 		if (level==1) {
