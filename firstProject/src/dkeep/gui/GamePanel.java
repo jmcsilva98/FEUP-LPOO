@@ -33,7 +33,7 @@ public class GamePanel extends JPanel  {
 	private static BufferedImage stunnedOgre;
 	private static BufferedImage hero;
 	private static BufferedImage heroArmed;
-	private static BufferedImage weapon;
+	private static BufferedImage club;
 
 	public GamePanel() {
 	}
@@ -52,8 +52,8 @@ public class GamePanel extends JPanel  {
 		stunnedOgre =	ImageIO.read(new File("Images/ogreStunned.png"));
 		hero = ImageIO.read(new File("Images/hero.png"));
 		heroArmed = ImageIO.read(new File("Images/heroArmed.png"));
-		weapon = ImageIO.read(new File("Images/weapon.png"));
-
+		club = ImageIO.read(new File("Images/club.png"));
+		
 
 
 	}
@@ -99,16 +99,13 @@ public class GamePanel extends JPanel  {
 				case "I":
 					g.drawImage(closedDoor, j*xSize, i*ySize, null);
 					//g.setColor(Color.magenta);
-					//	g.fillRect(j*xSize,i*ySize, xSize, ySize);
+					//g.fillRect(j*xSize,i*ySize, xSize, ySize);
 					break;
 				case "G":
 					g.drawImage(guard, j*xSize, i*ySize, null);
 					break;
 				case "A":
 					g.drawImage(heroArmed, j*xSize, i*ySize, null);
-					break;
-				case "C":
-					g.drawImage(weapon, j*xSize, i*ySize, null);
 					break;
 				case "K":
 					g.drawImage(hero, j*xSize, i*ySize, null);
@@ -186,8 +183,8 @@ public class GamePanel extends JPanel  {
 		return heroArmed;
 	}
 
-	public BufferedImage getWeapon() {
-		return weapon;
+	public BufferedImage getClub() {
+		return club;
 	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

@@ -1,6 +1,9 @@
 package dkeep.test;
 
 import static org.junit.Assert.*;
+
+import java.util.Vector;
+
 import org.junit.Test;
 
 import dkeep.logic.Character;
@@ -22,7 +25,7 @@ public class TestDungeonGameLogic {
  
 	String[][] map2={		 
 			{"X", "X", "X", "X"},
-			{"X", " ", "C", "X"},
+			{"X", " ", " ", "X"},
 			{"X", " ", " ", "X"},
 			{"X", " ", " ", "X"},
 			{"X", "X", "S", "X"},
@@ -39,6 +42,51 @@ public class TestDungeonGameLogic {
 
 	};
 
+	@Test
+	public void testHeroIsArmed() {
+		Gamestate gamestate=new Gamestate();
+		Hero hero= new Hero();
+		hero.setX(1);
+		hero.setY(1);
+		gamestate.setHero(hero);
+		gamestate.setLevel(1);
+		assertFalse(gamestate.heroIsArmed());
+		gamestate.setLevel(2);
+		assertTrue(gamestate.heroIsArmed());
+	}
+	
+	@Test
+	public void testGetOgre() {
+		Gamestate gamestate=new Gamestate();
+		Ogre ogre = new Ogre();
+		gamestate.setOgre(ogre);
+		assertEquals(ogre, gamestate.getOgre());
+		
+	}
+	
+	/*@Test
+	public void testGetVectorOgres() {
+		Gamestate gamestate=new Gamestate();
+		Vector<Ogre> ogres = new Vector<Ogre>();
+		gamestate.setOgres(ogres);
+		assertEquals(ogres, gamestate.getOgres());
+		
+	}*/
+	
+	@Test
+	public void testGameState() {
+		
+		Gamestate gamestate=new Gamestate();
+		//Gamestate gamestate2=new Gamestate();
+		gamestate.gameState(0);
+		assertTrue(gamestate.isGameOver());
+		//gamestate2.gameState(1);
+		//assertTrue(gamestate2.gameWon());
+	
+	}
+	
+	
+	
 	@Test
 	public void testGetX() {
 		Gamestate gamestate=new Gamestate();
@@ -84,15 +132,13 @@ public class TestDungeonGameLogic {
 
 	@Test
 	public void testHeroGetsWeapon() {
-		Gamestate gamestate=new Gamestate(map2);
+		Gamestate gamestate=new Gamestate(Map.map2);
 		Hero hero= new Hero();
 		hero.setX(1);
 		hero.setY(1);
 		gamestate.setHero(hero);
-		CellPosition cell= gamestate.getHero().position();
-		assertEquals(new CellPosition(1,1) , cell);
-		gamestate.heroMovement("R");
-		assertTrue(gamestate.getHero().isArmed);
+		gamestate.setLevel(2);
+		assertTrue(gamestate.heroIsArmed());
 
 	}
 
@@ -139,20 +185,20 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testMoveHeroIntoFreeCellWithWeapon() {
 
-		Gamestate gamestate=new Gamestate(map2);
+		Gamestate gamestate=new Gamestate();
 		Hero hero= new Hero();
 		hero.setX(1);
 		hero.setY(1);
 		gamestate.setHero(hero);
+		gamestate.setLevel(2);
+		assertTrue(gamestate.heroIsArmed());
 		CellPosition cell= gamestate.getHero().position();
 		assertEquals(new CellPosition(1,1) , cell);
 		gamestate.heroMovement("R");
-		assertTrue(gamestate.getHero().isArmed);
-		gamestate.heroMovement("D");
-		assertEquals(new CellPosition(2,2), gamestate.getHero().position());
+		assertEquals(new CellPosition(1,2), gamestate.getHero().position());
 	} 
 
-
+ 
 	@Test
 	public void testMoveHeroIntoWall() {
 
@@ -262,8 +308,22 @@ public class TestDungeonGameLogic {
 		gamestate.heroMovement("D");
 		assertTrue(gamestate.gameWon());	
 	}
+	
+	/*@Test
+	public void testChangeLevel() {
+		Gamestate gamestate=new Gamestate(map2);
+		gamestate.setLevel(1);
+		Hero hero= new Hero();
+		hero.setX(3);
+		hero.setY(2);
+		gamestate.setHero(hero);
+		gamestate.heroMovement("D");
+		assertEquals(gamestate.getLevel(), 2);
+		
+	}*/
+/*
 
-	/*@Test(timeout=1000)
+	@Test(timeout=1000)
 	public void testSomeRandomBehaviour(){
 		Map gameMap=new Map(map1);		
 		Gamestate gamestate=new Gamestate(gameMap);
@@ -282,7 +342,7 @@ public class TestDungeonGameLogic {
 			move=gamestate.ogreMovement();	
 				if (move=="U")up=true;
 			else if (move=="D") down=true;
-			else if (move=="R") right=true;
+			else if (move=="R") right=true; 
 			else if (move=="L") left=true;
 			else if (move ==null) count++;
 			}
@@ -312,6 +372,7 @@ public class TestDungeonGameLogic {
 		assertFalse(gamestate.isFree());
 
 	}
+	
 	@Test
 	public void testHeroisCapturedUp() {
 		Gamestate gamestate=new Gamestate(map3);
