@@ -44,6 +44,9 @@ public class Gamestate {
 		this.currentMap=Map.getMap(level);
 		this.level=level;
 	}
+	public void setMap(String[][]map) {
+		this.currentMap=map;
+	}
 
 	public String[][] getMap() {
 		return currentMap;

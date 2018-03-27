@@ -4,20 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextArea;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
-import java.awt.Color;
 
 public class NewLevel {
 
@@ -141,7 +133,7 @@ public class NewLevel {
 		btnOgre.setBounds(285, 32, 89, 23);
 		frame.getContentPane().add(btnOgre);
 
-		JButton btnSave = new JButton("Save");
+		JButton btnSave = new JButton("Save and Play");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int selectedOption=JOptionPane.showConfirmDialog(null,  "Are you sure that you want to save the map and play?", "Play with new map", JOptionPane.YES_NO_OPTION); 
@@ -280,8 +272,18 @@ public class NewLevel {
 					break;
 				}
 			}
-		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor)return true;
-
+		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor) {
+			PlayPanel other=null;
+			try {
+				other = new PlayPanel();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			other.editableLevel(map);
+			other.frame.setVisible(true);
+			return true;
+		}
 		return false;
 	}
 

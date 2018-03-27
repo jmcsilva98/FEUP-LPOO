@@ -26,6 +26,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import dkeep.cli.GuiInteraction;
 import dkeep.cli.UserInteraction;
 import dkeep.logic.Hero;
+import dkeep.logic.Ogre;
 
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
@@ -39,6 +40,7 @@ import javax.swing.JLayeredPane;
 public class PlayPanel {
 
 	public JFrame frame;
+	private String[][] map;
 	private GamePanel gameArea;
 	public GuiInteraction game;
 	private JButton Restart;
@@ -271,5 +273,27 @@ public class PlayPanel {
 
 	public void setOgresNumber(int ogresNumber) {
 		this.ogresNumber=ogresNumber;
+	}
+	public void editableLevel(String[][]map) {
+		this.map=map;
+		game.getGame().setMap(map);
+		for (int i =0;i<map.length;i++) {
+			for (int j = 0; j<map.length;j++)
+				switch (map[i][j]) {
+				case "H":
+					Hero hero =new Hero();
+					hero.setX(i);
+					hero.setY(j);
+					game.getGame().setHero(hero);
+					break;
+				case "O":
+					Ogre ogre =new Ogre();
+					ogre.setX(i);
+					ogre.setY(j);
+					game.getGame().setOgre(ogre);
+					break;
+				}
+		}
+		gameArea.setMaze(map);
 	}
 }

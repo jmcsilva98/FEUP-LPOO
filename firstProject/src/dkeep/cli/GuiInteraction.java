@@ -36,8 +36,8 @@ public class GuiInteraction {
 			game.ogreMovement();
 			return true;
 		}
-		else if (!game.isFree()) 		return false;
-		return true;
+		else if (game.isFree()) 		return true;
+		return false;
 
 	}
 	public static void main(String[] args) {

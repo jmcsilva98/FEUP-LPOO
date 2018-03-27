@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePanel extends JPanel  {
-	;
 
 	private JFrame frame;
 	private String[][] map;
