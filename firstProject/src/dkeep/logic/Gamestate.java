@@ -15,6 +15,7 @@ public class Gamestate {
 	Guard guard; 
 	Hero hero;
 
+	
 	public Gamestate() {
 		this.currentMap=Map.getMap(1);
 		level=1;
@@ -29,6 +30,11 @@ public class Gamestate {
 		return gameWon;
 	}
 
+	public boolean heroIsArmed() {
+		if(level == 2) return true;
+
+		return false; 
+	}
 	public Gamestate(String [][] map) {
 		this.currentMap = map;
 	}
@@ -38,7 +44,7 @@ public class Gamestate {
 		this.currentMap=Map.getMap(level);
 		this.level=level;
 	}
- 
+
 	public String[][] getMap() {
 		return currentMap;
 	}
@@ -49,7 +55,7 @@ public class Gamestate {
 	public Ogre getOgre() {
 		return ogre;
 	}
-	public Vector<Ogre> get_ogres() {
+	public Vector<Ogre> getOgres() {
 		return ogres;
 	}
 	public Hero getHero() {
@@ -101,7 +107,7 @@ public class Gamestate {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < n; j++) {
 				map+=currentMap[i][j];
-			}
+			} 
 			map+="\n";
 		}
 		return map;
@@ -152,24 +158,24 @@ public class Gamestate {
 		default:
 			RookieGuard rookie2=new RookieGuard();
 			setGuard(rookie2);
-			
+
 		}
 		for(int i =0; i <numberOgres;i++) {
 			auxOgre.setX(1);
 			auxOgre.setY(4);
 			ogres.add(auxOgre);
 		}
-		
+
 	}
 	public void start(boolean application,String gua, int numberOgres) {
 		Hero hero = new Hero();
-		
+
 		if (!application) {
 			startConsole();
 		}
 		else {
 			startApplication(gua,numberOgres);
-			
+
 		}	
 		if (level==1) {
 			hero.setX(1);
@@ -214,10 +220,11 @@ public class Gamestate {
 			if(hero.hasKey) {
 				currentMap[hero.x][hero.y]="K";
 			}
-			else if(hero.isArmed) {
+			else if(level == 2) {
 				currentMap[hero.x][hero.y]="A";
+				
 			}
-			
+
 			else {
 				currentMap[hero.x][hero.y]="H";
 			}
@@ -226,15 +233,10 @@ public class Gamestate {
 			currentMap[hero.x][hero.y]="K";
 			currentMap[5][0] = "S";
 			currentMap[6][0] = "S";
-			
+
 			hero.hasKey=true;
 			break;
 
-	/*	case "K":
-			if (level==1) {
-				currentMap[hero.x][hero.y]="H";
-			}
-			break;*/
 		case "I":
 			if(hero.hasKey) {
 				currentMap[hero.x][hero.y]="S";
@@ -243,14 +245,14 @@ public class Gamestate {
 			else {
 				hero.x=hero.xn;
 				hero.y=hero.yn;
-				currentMap[hero.x][hero.y]="H";
+				if(level ==1)
+					currentMap[hero.x][hero.y]="H";
+				else
+					currentMap[hero.x][hero.y]="A";
 			}
-				
+
 			break;
-		case "C":				//Club (hero's weapon)
-			currentMap[hero.x][hero.y]="A";
-			hero.isArmed = true;
-			break;
+
 		case "S":
 			if(level == 1) {
 				setLevel(2);	
@@ -261,7 +263,10 @@ public class Gamestate {
 		default:
 			hero.x=hero.xn;
 			hero.y=hero.yn;
-			currentMap[hero.x][hero.y]="H";
+			if(level ==1)
+				currentMap[hero.x][hero.y]="H";
+			else
+				currentMap[hero.x][hero.y]="A";
 		}
 		hero.updatePosition();
 	}
@@ -308,7 +313,7 @@ public class Gamestate {
 
 	}
 
- 
+
 	public boolean isFree() {
 
 		if (level==1) {
@@ -323,7 +328,7 @@ public class Gamestate {
 
 		}
 		else if (level==2) {
-		/*	if (currentMap[hero.x-1][hero.y] =="O")  
+			/*	if (currentMap[hero.x-1][hero.y] =="O")  
 			{
 				if(hero.isArmed) {
 					for(Ogre ogre: ogres)
@@ -414,9 +419,9 @@ public class Gamestate {
 				}
 				else return false;
 			}		
-*/
+			 */
 		}
-			return true;
-		}
+		return true;
+	}
 }
 
