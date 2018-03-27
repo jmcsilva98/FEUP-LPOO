@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class GamePanel extends JPanel  {
-	;
 
 	private JFrame frame;
 	private String[][] map;
@@ -89,7 +88,7 @@ public class GamePanel extends JPanel  {
 				case "X": 
 					g.drawImage(wall, j*xSize, i*ySize, null);
 					//g.setColor(Color.GREEN);
-					//	g.fillRect(j*xSize, i*ySize, xSize, ySize);
+					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
 					break;
 				case "k":
 					g.drawImage(key, j*xSize, i*ySize, null);

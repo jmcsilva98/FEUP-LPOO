@@ -85,6 +85,7 @@ public class MenuPanel {
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnSettings = new JButton("Settings");
+		springLayout.putConstraint(SpringLayout.NORTH, btnSettings, 108, SpringLayout.NORTH, frame.getContentPane());
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SettingsPanel other = null;
@@ -105,10 +106,9 @@ public class MenuPanel {
 		frame.getContentPane().add(btnSettings);
 		
 		JButton btnExit = new JButton("Exit");
+		springLayout.putConstraint(SpringLayout.NORTH, btnExit, 196, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, btnExit, 180, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnExit, -160, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, btnSettings, -18, SpringLayout.NORTH, btnExit);
-		springLayout.putConstraint(SpringLayout.NORTH, btnExit, 149, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnNewGame);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
@@ -118,6 +118,24 @@ public class MenuPanel {
 			}
 		});
 		frame.getContentPane().add(btnExit);
+		
+		JButton btnNewLevel = new JButton("New Level");
+		btnNewLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewLevel other=null;
+				try {
+					other = new NewLevel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+				}
+		});
+		springLayout.putConstraint(SpringLayout.WEST, btnNewLevel, 0, SpringLayout.WEST, btnNewGame);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnNewLevel, -20, SpringLayout.NORTH, btnExit);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewLevel, 0, SpringLayout.EAST, btnNewGame);
+		frame.getContentPane().add(btnNewLevel);
 	}
- 
 }
