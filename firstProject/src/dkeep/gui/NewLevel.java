@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
-import java.awt.CardLayout; 
-import java.awt.FlowLayout; 
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
@@ -21,7 +21,7 @@ import java.awt.Color;
 
 public class NewLevel {
 
-	private JFrame frame;
+	public JFrame frame;
 	private String[][] map;
 	private GamePanel gameArea;
 	JTextField x = new JTextField();
@@ -50,17 +50,19 @@ public class NewLevel {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public NewLevel() {
+	public NewLevel() throws IOException {
 		
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
-		 
+	private void initialize() throws IOException {
+		GamePanel.loadImages();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,8 +87,10 @@ public class NewLevel {
 		JButton btnDoor = new JButton("Exit Door");
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null, position, "Guard position", JOptionPane.OK_CANCEL_OPTION);
-				chooseGuardPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
+				JOptionPane.showConfirmDialog(null, position, "Exit Door position", JOptionPane.OK_CANCEL_OPTION);
+				if (!chooseExitDoorPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+					JOptionPane.showMessageDialog(null,"Exit Door can only be placed in empty spaces or in walls");
+				}
 				gameArea.setMaze(map);
 			}
 		});
@@ -95,20 +99,24 @@ public class NewLevel {
 		
 		JButton btnWalls = new JButton("Walls");
 		btnWalls.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null, position, "Walls position", JOptionPane.OK_CANCEL_OPTION);
-				chooseWallPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
-				gameArea.setMaze(map);
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showConfirmDialog(null, position, "Wall's position", JOptionPane.OK_CANCEL_OPTION);
+			if (!chooseWallPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+				JOptionPane.showMessageDialog(null,"Walls can only be placed in empty spaces");
 			}
-		});
+			gameArea.setMaze(map);
+		}
+	});
 		btnWalls.setBounds(285, 130, 89, 23);
 		frame.getContentPane().add(btnWalls);
 		
 		JButton btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showConfirmDialog(null, position, "Ogre position", JOptionPane.OK_CANCEL_OPTION);
-				chooseOgrePosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()));
+				if (!chooseOgrePosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+					JOptionPane.showMessageDialog(null,"Ogre can only be placed in empty spaces");
+				}
 				gameArea.setMaze(map);
 			}
 		});
@@ -120,19 +128,6 @@ public class NewLevel {
 		frame.getContentPane().add(btnSave);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
-		btnMainMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MenuPanel other = null;
-				try {
-					other = new MenuPanel();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				other.frame.setVisible(true);
-				frame.setVisible(false);
-			}
-		});
 		btnMainMenu.setBounds(324, 199, 100, 23);
 		frame.getContentPane().add(btnMainMenu);
 		
@@ -150,16 +145,17 @@ public class NewLevel {
 			}
 		}
 	}
-	public void chooseHeroPosition(int x, int y) {
-		if (x>=map[0].length|| y>=map.length) return;
-		if (x<0 || y<0) return;
+	public boolean chooseHeroPosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
 		
 		if (map[x][y].equals(" ")) {
 			clearLastPosition("H");
 			map[x][y]="H";
+			return true;
 		}
 		else
-			return;
+			return false;
 	}
 	public void chooseGuardPosition(int x, int y) {
 		if (x>=map[0].length|| y>=map.length) return ;
@@ -171,22 +167,21 @@ public class NewLevel {
 		else
 			return;
 	}
-	public void chooseOgrePosition(int x, int y) {
-		if (x>=map[0].length|| y>=map.length) return ;
-		if (x<0 || y<0) return;
-		if (map[x][y].equals(" ")) map[x][y]="O";
+	public boolean chooseOgrePosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[x][y].equals(" ")) {
+			map[x][y]="O";
+			return true;
+		}
 		else
-			return;
+			return false;
 	}
 	public boolean chooseExitDoorPosition(int x, int y) {
 		if (x>=map[0].length|| y>=map.length) return false;
 		if (x<0 || y<0) return false;
-		if (map[x][y].equals(" ")) {
+		if (map[x][y].equals(" ") || map[x][y].equals("X")) {
 			clearLastPosition("I");
-			map[x][y]="I";
-			return true;
-		}
-		else if (map[x][y].equals("X")) {
 			map[x][y]="I";
 			return true;
 		}
