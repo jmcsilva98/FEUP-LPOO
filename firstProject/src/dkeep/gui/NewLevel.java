@@ -164,6 +164,7 @@ public class NewLevel {
 			clearLastPosition("G");
 			map[x][y]="G";
 		}
+		
 		else
 			return;
 	}
