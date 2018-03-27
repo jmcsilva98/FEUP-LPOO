@@ -39,6 +39,10 @@ public class Gamestate {
 		this.currentMap = map;
 	}
 
+	
+	public void setLevelManualy(int level) {
+	this.level=level;
+	}
 
 	public void setLevel(int level) {
 		this.currentMap=Map.getMap(level);
