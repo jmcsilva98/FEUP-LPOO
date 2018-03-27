@@ -482,7 +482,7 @@ public class TestDungeonGameLogic {
 		int x = drunkenGuard.getX() +Guard.randomGenerator(4) ;
 		int y =  drunkenGuard.getY() +Guard.randomGenerator(4);
 		drunkenGuard.movement();
-		
+		 
 		
 		if(x<0 || x>9)
 			assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
