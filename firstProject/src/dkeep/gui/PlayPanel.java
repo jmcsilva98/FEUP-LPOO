@@ -195,9 +195,6 @@ public class PlayPanel {
 		guardPersonality = new JComboBox();
 		guardPersonality.setBounds(111, 36, 87, 22);
 		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		guardPersonality.addItem("Rookie");
-		guardPersonality.addItem("Drunken");
-		guardPersonality.addItem("Suspicious");
 		guardPersonality.setSelectedIndex(0);
 		guardPersonality.setToolTipText("");
 		frame.getContentPane().add(guardPersonality);
@@ -252,7 +249,6 @@ public class PlayPanel {
 	}
 
 	public void pressedKey(KeyEvent e) {
-		System.out.println(1);
 		switch(e.getKeyCode()){
 
 		case KeyEvent.VK_LEFT:

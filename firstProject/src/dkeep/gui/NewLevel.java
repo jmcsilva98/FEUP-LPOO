@@ -24,11 +24,16 @@ public class NewLevel {
 	public JFrame frame;
 	private String[][] map;
 	private GamePanel gameArea;
+	private boolean hasHero=false;
+	private boolean hasOgre=false;
+	private boolean hasExitDoor=false;
+	private boolean hasKey=false;
+	private boolean hasWall=false;
 	JTextField x = new JTextField();
 	JTextField y = new JTextField();
 	Object[] position = {
-	    "X:", x,
-	    "Y:",y
+			"X:", x,
+			"Y:",y
 	};
 	Object[] heroPosition;
 
@@ -53,7 +58,7 @@ public class NewLevel {
 	 * @throws IOException 
 	 */
 	public NewLevel() throws IOException {
-		
+
 		initialize();
 	}
 
@@ -72,7 +77,7 @@ public class NewLevel {
 		frame.getContentPane().setLayout(null);
 		this.createMap(10);
 		gameArea.setMaze(map);
-		
+
 		JButton btnHero = new JButton("Hero");
 		btnHero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +88,7 @@ public class NewLevel {
 		});
 		btnHero.setBounds(285, 66, 89, 23);
 		frame.getContentPane().add(btnHero);
-		
+
 		JButton btnDoor = new JButton("Exit Door");
 		btnDoor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -94,22 +99,35 @@ public class NewLevel {
 				gameArea.setMaze(map);
 			}
 		});
+
 		btnDoor.setBounds(285, 96, 89, 23);
 		frame.getContentPane().add(btnDoor);
-		
+		JButton btnKey = new JButton("Key");
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, position, "Key position", JOptionPane.OK_CANCEL_OPTION);
+				if (!chooseExitDoorPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+					JOptionPane.showMessageDialog(null,"Key can only be placed in empty spaces or in walls");
+				}
+				gameArea.setMaze(map);
+			}
+		});
+		btnKey.setBounds(285, 126, 89, 23);
+		frame.getContentPane().add(btnKey);
+
 		JButton btnWalls = new JButton("Walls");
 		btnWalls.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showConfirmDialog(null, position, "Wall's position", JOptionPane.OK_CANCEL_OPTION);
-			if (!chooseWallPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
-				JOptionPane.showMessageDialog(null,"Walls can only be placed in empty spaces");
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, position, "Wall's position", JOptionPane.OK_CANCEL_OPTION);
+				if (!chooseWallPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+					JOptionPane.showMessageDialog(null,"Walls can only be placed in empty spaces");
+				}
+				gameArea.setMaze(map);
 			}
-			gameArea.setMaze(map);
-		}
-	});
-		btnWalls.setBounds(285, 130, 89, 23);
+		});
+		btnWalls.setBounds(285, 156, 89, 23);
 		frame.getContentPane().add(btnWalls);
-		
+
 		JButton btnOgre = new JButton("Ogre");
 		btnOgre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -122,16 +140,45 @@ public class NewLevel {
 		});
 		btnOgre.setBounds(285, 32, 89, 23);
 		frame.getContentPane().add(btnOgre);
-		
+
 		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedOption=JOptionPane.showConfirmDialog(null,  "Are you sure that you want to save the map and play?", "Play with new map", JOptionPane.YES_NO_OPTION); 
+				if (selectedOption==JOptionPane.YES_OPTION) {
+					if (!canSaveMap());
+					JOptionPane.showMessageDialog(null, "To play with your own map, you need to place all the game elements(walls, exit door, key, Ogres, hero) ");
+				}
+				else return;
+				gameArea.setMaze(map);
+			}
+		});
 		btnSave.setBounds(184, 199, 89, 23);
 		frame.getContentPane().add(btnSave);
-		
+
 		JButton btnMainMenu = new JButton("Main Menu");
+		btnMainMenu.addActionListener(new ActionListener() {
+			MenuPanel other=null;
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedOption=JOptionPane.showConfirmDialog(null, "Are you sure that you want to the main menu?", "New menu", JOptionPane.YES_NO_OPTION); 
+				if (selectedOption==JOptionPane.NO_OPTION) {
+					return;
+				}
+				try {
+					 other= new MenuPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+				
+			}
+		});
 		btnMainMenu.setBounds(324, 199, 100, 23);
 		frame.getContentPane().add(btnMainMenu);
-		
-		
+
+
 	}
 
 	public void createMap(int length) {
@@ -148,7 +195,7 @@ public class NewLevel {
 	public boolean chooseHeroPosition(int x, int y) {
 		if (x>=map[0].length|| y>=map.length) return false;
 		if (x<0 || y<0) return false;
-		
+
 		if (map[x][y].equals(" ")) {
 			clearLastPosition("H");
 			map[x][y]="H";
@@ -164,7 +211,7 @@ public class NewLevel {
 			clearLastPosition("G");
 			map[x][y]="G";
 		}
-		
+
 		else
 			return;
 	}
@@ -186,9 +233,18 @@ public class NewLevel {
 			map[x][y]="I";
 			return true;
 		}
-			return false;
+		return false;
 	}
 	public boolean chooseWallPosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[x][y].equals(" ")) {
+			map[x][y]="X";
+			return true;
+		}
+		return false;
+	}
+	public boolean chooseKeyPosition(int x, int y) {
 		if (x>=map[0].length|| y>=map.length) return false;
 		if (x<0 || y<0) return false;
 		if (map[x][y].equals(" ")) {
@@ -202,6 +258,31 @@ public class NewLevel {
 			for (int j =0;j< map[0].length;j++)
 				if (map[i][j].equals(character))map[i][j]=" ";
 		}
+	}
+	public boolean canSaveMap() {
+		for (int i =0;i<map.length;i++)
+			for (int j = 0;  j< map.length;j++) {
+				switch (map[i][j]) {
+				case "H":
+					hasHero=true;
+					break;
+				case "K":
+					hasKey=true;
+					break;
+				case "O":
+					hasOgre=true;
+					break;
+				case "X":
+					hasWall=true;
+					break;
+				case "I":
+					hasExitDoor=true;
+					break;
+				}
+			}
+		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor)return true;
+
+		return false;
 	}
 
 }
