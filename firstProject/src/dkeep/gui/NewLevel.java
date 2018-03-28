@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
 public class NewLevel {
-
 	public JFrame frame;
 	private String[][] map;
 	private GamePanel gameArea;

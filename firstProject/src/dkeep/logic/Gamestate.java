@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class Gamestate {
 
+
 	String[][] currentMap;
 	int level;
 	int stunCounter = 0;

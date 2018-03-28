@@ -139,7 +139,7 @@ public class PlayPanel {
 		settings.add(guardPersonality, gbc_guardPersonality);
 		
 		guardPersonality.setEnabled(false);
-		
+	
 		guardPersonality.setEnabled(true);
 		frame.getContentPane().add(settings);
 		JPanel moveButtons = new JPanel();
