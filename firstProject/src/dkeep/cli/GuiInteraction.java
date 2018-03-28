@@ -24,19 +24,19 @@ public class GuiInteraction {
 
 	public boolean checkGameStatus(String move) {
 
-		if (game.getLevel()==1 &&game.isFree()) {
+		if (game.getLevel()==1 &&game.isFreeGuard()) {
 			game.heroMovement(move);
 			game.guardMovement();
 			return true;
 		}
 
 
-		if (game.getLevel()==2 && game.isFree()) {
+		if (game.getLevel()==2 && game.isFreeGuard()) {
 			game.heroMovement(move);
 			game.ogreMovement();
 			return true;
 		}
-		else if (game.isFree()) 		return true;
+		else if (game.isFreeGuard()) 		return true;
 		return false;
 
 	}

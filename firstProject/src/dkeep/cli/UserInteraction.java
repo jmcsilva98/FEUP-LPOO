@@ -21,23 +21,23 @@ public class UserInteraction {
 	
 	}
 	public void start() {
-		while(game.getLevel()==1 &&game.isFree()) {
+		while(game.getLevel()==1 &&game.isFreeGuard()) {
 			print_map(game.getMap(),game.getLevel());
 			user_input();
 			game.guardMovement();
 		}
-		if (!game.isFree()) {
+		if (!game.isFreeGuard()) {
 			System.out.println("GAME OVER!");
 			return;
 
 		}
 		game.start(false,null,0);
-		while(game.getLevel()==2&&game.isFree()) {
+		while(game.getLevel()==2&&game.isFreeOgre()) {
 			print_map(game.getMap(),game.getLevel());
 			user_input();
 			game.ogreMovement();
 		}
-		if (!game.isFree()) {
+		if (!game.isFreeOgre()) {
 			System.out.println("GAME OVER!");
 			return;
 

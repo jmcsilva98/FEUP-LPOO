@@ -2,7 +2,8 @@ package dkeep.logic;
 
 public class Ogre extends Character {
 	public boolean isStunned = false;
-
+	private Character club;
+	int stunCounter = 0;
 	public String movement() {
 
 		int aux=randomGenerator(2);
