@@ -688,6 +688,6 @@ public class TestDungeonGameLogic {
 		assertFalse(pos.equals(null));
 		assertEquals(true, pos.equals(pos));
 		//assertTrue(pos.hashCode()==pos1.hashCode());
-		
+		 
 	}
 }
