@@ -5,6 +5,7 @@ public class Ogre extends Character {
 	private Character club;
 	int stunCounter = 0;
 	public String movement() {
+		
 
 		int aux=randomGenerator(2);
 		switch(aux) {
