@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class CellPosition {
 
-	int x,y;
+	public int x,y;
 
 	public CellPosition(int x,int y){
 
