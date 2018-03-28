@@ -6,16 +6,18 @@ import java.util.Vector;
 public class Gamestate {
 
 
-	String[][] currentMap;
+	public String[][] currentMap;
+
 	int level;
 	
 	public boolean gameWon=false;
+	
 	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres 
 	boolean gameOver=false;
 	Ogre ogre;
 	Guard guard; 
 	Hero hero;
-
+	public boolean testCase = false, testCase0 = false, testCase1 = false, testCase2 = false;
 	
 	public Gamestate() {
 		this.currentMap=Map.getMap(1);
@@ -108,8 +110,10 @@ public class Gamestate {
 	public String toString() {
 		int n;
 		String map="";
-		if (level==1)
+		if (level==1) {
 			n=10;
+			testCase = true;
+		}
 		else 
 			n=9; 
 		for(int i = 0; i < n; i++) {
@@ -128,14 +132,17 @@ public class Gamestate {
 		case 0:
 			RookieGuard rookie=new RookieGuard();
 			setGuard(rookie);
+			testCase0 = true;
 			break;
 		case 1:
 			DrunkenGuard drunken=new DrunkenGuard();
 			setGuard(drunken);
+			testCase1 = true;
 			break;
 		case -1:
 			SuspiciousGuard suspicious=new SuspiciousGuard();
 			setGuard(suspicious);
+			testCase2 = true;
 			break;
 		}
 		setOgres(ogres); //generates the vector of ogres
@@ -211,7 +218,7 @@ public class Gamestate {
 		else {
 			System.out.println("Game won!!");
 			gameWon=true;
-			System.exit(0);
+			return;
 		}
 
 	}
@@ -251,7 +258,7 @@ public class Gamestate {
 		case "I":
 			if(hero.hasKey) {
 				currentMap[hero.x][hero.y]="S";
-				gameState(1);		
+				gameState(1);
 			}
 			else {
 				hero.x=hero.xn;
@@ -289,6 +296,7 @@ public class Gamestate {
 		if (currentMap[guard.x][guard.y]!=" ") {
 			guard.x=guard.xn;
 			guard.y=guard.yn;
+			testCase = true;
 		}
 		currentMap[guard.x][guard.y]="G";
 		guard.updatePosition();

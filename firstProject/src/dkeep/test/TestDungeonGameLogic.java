@@ -74,7 +74,101 @@ public class TestDungeonGameLogic {
 	}
 
 	@Test
-	public void testGetVectorOgres() {
+	public void testGetOgres() {
+		Gamestate gamestate=new Gamestate();
+		Vector<Ogre> ogres = new Vector<Ogre>();
+		gamestate.setOgres(ogres);
+		ogres = gamestate.getOgres();
+		assertEquals(ogres, gamestate.getOgres());
+
+	}
+
+	@Test
+	public void testToString() {
+		Gamestate gamestate=new Gamestate();
+		assertEquals(gamestate.toString(), "XXXXXXXXXX\nXH  I X  X\nXXX XXX  X\n"
+				+ "XI  I X  X\nXXX XXX  X\nI        X\nI        X\nXXX XXXX X\n"
+				+ "X I I Xk X\nXXXXXXXXXX\n");
+		gamestate.setLevel(2);
+		assertEquals(gamestate.toString(), "XXXXXXXXX\nI      kX\nX       X\n"
+				+"X       X\nX       X\nX C     X\nX       X\nX       X\nXXXXXXXXX\n");
+	}
+
+	@Test(timeout=1000)
+	public void testStartConsole() {
+		Gamestate gamestate=new Gamestate();
+		DrunkenGuard drunken=new DrunkenGuard();
+		RookieGuard rookie=new RookieGuard();
+		SuspiciousGuard suspicious = new SuspiciousGuard();
+		boolean dr = false, roo = false, sus = false;
+		int count = 0;
+		while((!dr || !roo || !sus) && count < 50 ) {
+			gamestate.startConsole();
+			if(gamestate.testCase0) {
+				gamestate.setGuard(rookie);
+				roo = true;
+			}
+			else if(gamestate.testCase1) {
+				gamestate.setGuard(drunken); 
+				dr  = true;	
+			}		 
+			else if(gamestate.testCase2) {
+				gamestate.setGuard(suspicious);
+				sus = true;
+			}
+			count++;
+		}
+
+	}
+
+	@Test public void testStartApplication() {
+		Gamestate gamestate=new Gamestate();
+		Gamestate gamestate2=new Gamestate();
+		Gamestate gamestate3=new Gamestate();
+		Gamestate gamestate4=new Gamestate();
+
+		gamestate.startApplication("Drunken",3 );
+		gamestate2.startApplication("Rookie", 3);
+		gamestate3.startApplication("Suspicious", 3);
+		gamestate4.startApplication("", 3);
+
+	}
+
+	@Test public void testStart() {
+		Gamestate gamestate=new Gamestate();
+		Gamestate gamestate2=new Gamestate();
+		Gamestate gamestate3=new Gamestate();
+		Gamestate gamestate4=new Gamestate();
+		Gamestate gamestate5=new Gamestate();
+		Gamestate gamestate6=new Gamestate();
+		Gamestate gamestate7=new Gamestate();
+
+
+		gamestate.start(false, "Rookie", 2);
+		gamestate2.start(false, "Drunken", 2);
+		gamestate3.start(false, "Suspicious", 2);
+		gamestate4.start(true, "Rookie", 2);
+		gamestate5.start(true, "Drunken", 2);
+		gamestate6.start(true, "Suspicious", 2);
+		gamestate7.setLevelManualy(2);
+		gamestate7.start(true, "Suspicious", 2);
+
+
+	}
+
+
+
+
+
+	@Test
+	public void testSetMap() {
+		Gamestate gamestate=new Gamestate();
+		gamestate.setMap(map2);
+		assertEquals(map2, gamestate.getMap());
+	}
+
+	@Test
+	public void testSetVectorOgres() {
 		Gamestate gamestate=new Gamestate();
 		Vector<Ogre> ogres = new Vector<Ogre>();
 		gamestate.setOgres(ogres);
@@ -86,11 +180,11 @@ public class TestDungeonGameLogic {
 	public void testGameState() {
 
 		Gamestate gamestate=new Gamestate();
-		//Gamestate gamestate2=new Gamestate();
+		Gamestate gamestate2=new Gamestate();
 		gamestate.gameState(0);
 		assertTrue(gamestate.isGameOver());
-		//gamestate2.gameState(1);
-		//assertTrue(gamestate2.gameWon());
+		gamestate2.gameState(1);
+		assertTrue(gamestate2.gameWon());
 
 	}
 
@@ -161,7 +255,7 @@ public class TestDungeonGameLogic {
 				assertEquals(rookie.getY(), yn--);
 			length++;
 		}
-
+	
 
 	}
 
@@ -275,6 +369,9 @@ public class TestDungeonGameLogic {
 		gamestate.heroMovement("D");
 		gamestate.heroMovement("D");
 		assertEquals(new CellPosition(2,1), gamestate.getHero().position());
+		gamestate.setLevelManualy(1);
+
+
 	}
 
 	@Test
@@ -303,6 +400,7 @@ public class TestDungeonGameLogic {
 		gamestate.heroMovement("R");
 		gamestate.heroMovement("R");
 		assertTrue(gamestate.getHero().hasKey);	
+
 	}	
 
 	@Test
@@ -338,6 +436,7 @@ public class TestDungeonGameLogic {
 		hero.setY(1);
 		gamestate.setHero(hero);
 		assertFalse(gamestate.gameWon());	
+
 	}
 
 	@Test
@@ -350,11 +449,12 @@ public class TestDungeonGameLogic {
 		hero.setY(1);
 		gamestate.setHero(hero);
 		gamestate.heroMovement("D");
-		gamestate.heroMovement("D");
+		//gamestate.heroMovement("D");
 		gamestate.heroMovement("R");
 		gamestate.heroMovement("D"); 
 		gamestate.heroMovement("D");
-		assertTrue(gamestate.gameWon());	
+		assertTrue(gamestate.gameWon());
+
 	}
 
 	@Test
@@ -476,20 +576,44 @@ public class TestDungeonGameLogic {
 	}
 
 	@Test
-	public void testGuardMovement() {
+	public void testDrunkenGuardMovement() {
 		Gamestate gamestate=new Gamestate();
 		DrunkenGuard drunkenGuard = new DrunkenGuard();
 		int x = drunkenGuard.getX() +Guard.randomGenerator(4) ;
 		int y =  drunkenGuard.getY() +Guard.randomGenerator(4);
 		drunkenGuard.movement();
-		 
-		
+
+
 		if(x<0 || x>9)
 			assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
 		else if(y<0 || y>9)
 			assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
 
 	}
+
+	/*@Test
+	public void testGuardMovement() {
+		Gamestate gamestate=new Gamestate();
+		RookieGuard guard = new RookieGuard();
+		gamestate.setGuard(guard);
+		gamestate.currentMap[guard.getXn()][guard.getYn()] = " ";
+		assertEquals(gamestate.currentMap[guard.getXn()][guard.getYn()] , " ");
+		
+		boolean empty = false;
+		while(!empty) {
+		if(gamestate.testCase) {
+			assertEquals(guard.getX(), guard.getXn());
+			assertEquals(guard.getY(), guard.getYn());
+
+		}
+		
+		}
+		assertEquals(gamestate.currentMap[guard.getX()][guard.getY()] , "G");
+
+
+	}*/
+
+
 
 	@Test
 	public void testSuspiciousMovement() {
@@ -508,7 +632,7 @@ public class TestDungeonGameLogic {
 				xn = Guard.randomGenerator(2);
 				x+=xn;
 				assertEquals(suspiciousGuard.getY(), suspiciousGuard.getYn());
-				
+
 
 				assertEquals(suspiciousGuard.suspLength, suspl);
 				assertEquals(suspiciousGuard.suspPos, suspos);
@@ -541,24 +665,29 @@ public class TestDungeonGameLogic {
 			}
 			assertEquals(suspiciousGuard.suspPos, (suspos -2));
 		}
-*/
+		 */
 
-		}
-	
-	
-	
-	
-/*	@Test
-	public void testEquals() {
-		Object obj = new Object();
-		
-		Gamestate gamestate = new Gamestate();
-		//RookieGuard guard = new RookieGuard();
-		//CellPosition pos = new CellPosition(guard.getX(), guard.getY());
-	
-		if(pos == obj) assertTrue(gamestate.equals(obj));
-		if(obj == null) assertFalse(gamestate.equals(obj));
-		
-	}*/
 	}
-	
+
+
+
+
+	@Test
+	public void testEquals() {
+		
+
+		Gamestate gamestate = new Gamestate();
+		
+		CellPosition pos = new CellPosition(2, 2);
+		CellPosition pos1 = new CellPosition(2, 2);
+		DrunkenGuard guard = new DrunkenGuard();
+		
+		
+		assertTrue(pos.equals(pos1));
+		assertFalse(pos.equals(guard));
+		assertFalse(pos.equals(null));
+		assertEquals(true, pos.equals(pos));
+		//assertTrue(pos.hashCode()==pos1.hashCode());
+		 
+	}
+}
