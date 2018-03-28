@@ -185,14 +185,16 @@ public class Gamestate {
 			hero.setY(1); 
 			guard.setX(1);
 			guard.setY(8);
+			setHero(hero);
 		}
-		else {
+		else if (level==2) {
 
 			hero.setX(7);
 			hero.setY(1); 
+			setHero(hero);
 		}
 
-		setHero(hero);
+		
 
 
 	}
@@ -233,10 +235,11 @@ public class Gamestate {
 			}
 			break;
 		case "k":
-			currentMap[hero.x][hero.y]="K";
-			currentMap[5][0] = "S";
+			if (level==1) {
+				currentMap[5][0] = "S";
 			currentMap[6][0] = "S";
-
+			}
+			currentMap[hero.x][hero.y]="K";
 			hero.hasKey=true;
 			break;
 
@@ -330,7 +333,7 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y-1] =="g")return false;
 
 		}
-		else if (level==2) {
+		else  {
 			/*	if (currentMap[hero.x-1][hero.y] =="O")  
 			{
 				if(hero.isArmed) {

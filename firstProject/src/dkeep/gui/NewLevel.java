@@ -18,9 +18,9 @@ public class NewLevel {
 	private GamePanel gameArea;
 	private boolean hasHero=false;
 	private boolean hasOgre=false;
-	private boolean hasExitDoor=false;
-	private boolean hasKey=false;
-	private boolean hasWall=false;
+	private boolean hasExitDoor=true;
+	private boolean hasKey=true;
+	private boolean hasWall=true;
 	JTextField x = new JTextField();
 	JTextField y = new JTextField();
 	Object[] position = {
@@ -98,7 +98,7 @@ public class NewLevel {
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showConfirmDialog(null, position, "Key position", JOptionPane.OK_CANCEL_OPTION);
-				if (!chooseExitDoorPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
+				if (!chooseKeyPosition(Integer.parseInt(x.getText()),Integer.parseInt(y.getText()))) {
 					JOptionPane.showMessageDialog(null,"Key can only be placed in empty spaces or in walls");
 				}
 				gameArea.setMaze(map);
@@ -240,7 +240,7 @@ public class NewLevel {
 		if (x>=map[0].length|| y>=map.length) return false;
 		if (x<0 || y<0) return false;
 		if (map[x][y].equals(" ")) {
-			map[x][y]="X";
+			map[x][y]="I";
 			return true;
 		}
 		return false;
@@ -252,6 +252,7 @@ public class NewLevel {
 		}
 	}
 	public boolean canSaveMap() {
+		int ogresNumber=0;
 		for (int i =0;i<map.length;i++)
 			for (int j = 0;  j< map.length;j++) {
 				switch (map[i][j]) {
@@ -263,6 +264,7 @@ public class NewLevel {
 					break;
 				case "O":
 					hasOgre=true;
+					ogresNumber++;
 					break;
 				case "X":
 					hasWall=true;
@@ -272,19 +274,17 @@ public class NewLevel {
 					break;
 				}
 			}
-		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor) {
+		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor && ogresNumber<5) {
 			PlayPanel other=null;
 			try {
 				other = new PlayPanel();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			other.editableLevel(map);
 			other.frame.setVisible(true);
+			other.editableLevel(map);
 			return true;
 		}
 		return false;
 	}
-
 }
