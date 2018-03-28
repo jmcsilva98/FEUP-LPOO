@@ -3,7 +3,7 @@ package dkeep.logic;
 import java.util.Random;
 
 public class Character{
-	int x,y;
+	 int x,y;
 	int xn,yn; 
 	public void movement(String move) {
 		
