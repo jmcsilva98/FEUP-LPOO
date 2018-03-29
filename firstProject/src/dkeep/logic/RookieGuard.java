@@ -20,4 +20,8 @@ public class RookieGuard extends Guard{
 			else
 				length=1;
 }
+	public int getLength() {
+		return length;
+	}
+
 }

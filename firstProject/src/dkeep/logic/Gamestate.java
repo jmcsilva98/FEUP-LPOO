@@ -20,8 +20,8 @@ public class Gamestate {
 	public boolean testCase = false, testCase0 = false, testCase1 = false, testCase2 = false;
 	
 	public Gamestate() {
-		this.currentMap=Map.getMap(2);
-		level=2;
+		this.currentMap=Map.getMap(1);
+		level=1;
 	}
 
 	public Gamestate(Map map) {
@@ -353,15 +353,8 @@ public class Gamestate {
 	}
 	
 	public boolean isFreeGuard() {
-		if (hero.x==0) {
-			if (currentMap[hero.x][hero.y+1] =="G")return false;
-			if (currentMap[hero.x+1][hero.y] =="G")return false;
-			if (currentMap[hero.x][hero.y-1] =="G")return false;
-			if (currentMap[hero.x][hero.y+1] =="g")return false;
-			if (currentMap[hero.x+1][hero.y] =="g")return false;
-			if (currentMap[hero.x][hero.y-1] =="g")return false;
-		}
-		else if (hero.y==0) {
+	
+		 if (hero.y==0) {
 			if (currentMap[hero.x-1][hero.y] =="G")return false;
 			if (currentMap[hero.x][hero.y+1] =="G")return false;
 			if (currentMap[hero.x+1][hero.y] =="G")return false;
@@ -369,22 +362,7 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="g")return false;
 			if (currentMap[hero.x+1][hero.y] =="g")return false;
 		}
-		else if (hero.x == currentMap.length) {
-			if (currentMap[hero.x-1][hero.y] =="G")return false;
-			if (currentMap[hero.x][hero.y+1] =="G")return false;
-			if (currentMap[hero.x][hero.y-1] =="G")return false;
-			if (currentMap[hero.x-1][hero.y] =="g")return false;
-			if (currentMap[hero.x][hero.y+1] =="g")return false;
-			if (currentMap[hero.x][hero.y-1] =="g")return false;
-		}
-		else if (hero.y==currentMap.length) {
-			if (currentMap[hero.x-1][hero.y] =="G")return false;
-			if (currentMap[hero.x+1][hero.y] =="G")return false;
-			if (currentMap[hero.x][hero.y-1] =="G")return false;
-			if (currentMap[hero.x-1][hero.y] =="g")return false;
-			if (currentMap[hero.x+1][hero.y] =="g")return false;
-			if (currentMap[hero.x][hero.y-1] =="g")return false;
-		}
+	
 		else {
 		if (currentMap[hero.x-1][hero.y] =="G")return false;
 		if (currentMap[hero.x][hero.y+1] =="G")return false;
@@ -415,7 +393,7 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="*")return false;
 			if (currentMap[hero.x+1][hero.y] =="*")return false;
 		}
-		else if (hero.x == currentMap.length) {
+		else if (hero.x == currentMap.length-1) {
 			if (currentMap[hero.x-1][hero.y] =="O")return false;
 			if (currentMap[hero.x][hero.y+1] =="O")return false;
 			if (currentMap[hero.x][hero.y-1] =="O")return false;
@@ -423,7 +401,7 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="*")return false;
 			if (currentMap[hero.x][hero.y-1] =="*")return false;
 		}
-		else if (hero.y==currentMap.length) {
+		else if (hero.y==currentMap.length-1) {
 			if (currentMap[hero.x-1][hero.y] =="O")return false;
 			if (currentMap[hero.x+1][hero.y] =="O")return false;
 			if (currentMap[hero.x][hero.y-1] =="O")return false;

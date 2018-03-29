@@ -5,6 +5,8 @@ public class Ogre extends Character {
 	private Character club;
 	public String symbol="O";
 	int stunCounter = 0;
+	
+	
 	public String movement() {
 		
 
