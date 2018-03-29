@@ -1,5 +1,6 @@
 package dkeep.logic;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -9,10 +10,9 @@ public class Gamestate {
 	public String[][] currentMap;
 
 	int level;
-	int stunCounter = 0;
-	public boolean gameWon=false;
 	
-	Vector<Ogre> ogres = new Vector<Ogre>(); //Using java colletion (vector) to store ogres 
+	public boolean gameWon=false;
+	ArrayList<Ogre> ogres = new ArrayList<Ogre>(); //Using java colletion (vector) to store ogres 
 	boolean gameOver=false;
 	Ogre ogre;
 	Guard guard; 
@@ -20,8 +20,8 @@ public class Gamestate {
 	public boolean testCase = false, testCase0 = false, testCase1 = false, testCase2 = false;
 	
 	public Gamestate() {
-		this.currentMap=Map.getMap(1);
-		level=1;
+		this.currentMap=Map.getMap(2);
+		level=2;
 	}
 
 	public Gamestate(Map map) {
@@ -65,7 +65,7 @@ public class Gamestate {
 	public Ogre getOgre() {
 		return ogre;
 	}
-	public Vector<Ogre> getOgres() {
+	public ArrayList<Ogre> getOgres() {
 		return ogres;
 	}
 	public Hero getHero() {
@@ -79,27 +79,31 @@ public class Gamestate {
 	}
 
 
-	public void setOgres(Vector<Ogre> ogres) {
+	public void setOgres(ArrayList<Ogre> ogres) {
 
 		Random n = new Random();
+		Character club= new Character();
+		club.setX(2);
+		club.setY(4);
 		int numberOfOgres = n.nextInt(3) + 1;
-		ogres.setSize(numberOfOgres);
 
-		for(int i = 0; i < ogres.size(); i++) {
-
+		for(int i = 0; i <numberOfOgres; i++) {
 			Ogre ogre = new Ogre();
-			ogres.setElementAt(ogre,i);
+			ogre.setX(1);
+			ogre.setY(4);
+			ogre.setClub(club);
+			ogres.add(ogre);
 		}
+		this.ogres=ogres;
 	}
 	public void setOgres(int numberOfOgres) {
 
-		ogres.setSize(numberOfOgres);
-
-		for(int i = 0; i < ogres.size(); i++) {
+		for(int i = 0; i < numberOfOgres; i++) {
 
 			Ogre ogre = new Ogre();
-			ogres.setElementAt(ogre,i);
+			ogres.add(ogre);
 		}
+		this.ogres=ogres;
 	}
 
 
@@ -126,8 +130,12 @@ public class Gamestate {
 	}
 
 	public void startConsole() {
+		ArrayList <Ogre> ogres= new ArrayList<Ogre>();
 		int aux =Guard.randomGenerator(3);
-		Vector<Ogre> ogres = new Vector<Ogre>();
+		Character club= new Character();
+		club.setX(2);
+		club.setY(4);
+		if (level==1) {
 		switch(aux) {
 		case 0:
 			RookieGuard rookie=new RookieGuard();
@@ -145,18 +153,15 @@ public class Gamestate {
 			testCase2 = true;
 			break;
 		}
+		}
+		
+		else {
 		setOgres(ogres); //generates the vector of ogres
-		this.ogre=new Ogre();
-		ogre.setX(1);
-		ogre.setY(2);
-		for(int i = 0; i < ogres.size(); i++) {			
-			ogres.elementAt(i).setX(1);	//Assuming that the ogres all start at the same position
-			ogres.elementAt(i).setY(4);
-			setOgre(ogres.elementAt(i));
 		}
 	}
 	public void startApplication(String guard, int numberOgres) {
 		Ogre auxOgre= new Ogre();
+		Character club= new Character();
 		switch(guard) {
 		case "Rookie":
 			RookieGuard rookie=new RookieGuard();
@@ -178,6 +183,9 @@ public class Gamestate {
 		for(int i =0; i <numberOgres;i++) {
 			auxOgre.setX(1);
 			auxOgre.setY(4);
+			club.setX(2);
+			club.setY(4);
+			auxOgre.setClub(club);
 			ogres.add(auxOgre);
 		}
 
@@ -220,6 +228,7 @@ public class Gamestate {
 			gameWon=true;
 			return;
 		}
+		
 
 	}
 
@@ -307,138 +316,130 @@ public class Gamestate {
 	public String ogreMovement() {
 		int i;
 		String ret="";
-
-		for(i = 0; i < ogres.size(); i++) {
-
-			if(ogres.elementAt(i).isStunned) {
-				stunCounter++;
-
-				if(stunCounter == 2) {
-					ogres.elementAt(i).isStunned = false;
-					stunCounter = 0;
-					return ret;
-				}
+		System.out.println(ogres.size());
+		for (Ogre ogre : ogres) {
+			if (ogre.isStunned) {
+				ogre.stunCounter++;
+			if (ogre.stunCounter==2) {
+				ogre.isStunned=false;
+				ogre.stunCounter=0;
 			}
-
+			}
 			else {
-
-				ret=ogres.elementAt(i).movement();
-				currentMap[ogres.elementAt(i).xn][ogres.elementAt(i).yn]=" ";
-				currentMap[ogres.elementAt(i).x][ogres.elementAt(i).y]="O";
-				ogres.elementAt(i).updatePosition();
+				
+				ret=ogre.movement();
+				if (currentMap[ogre.x][ogre.y]!=" ") {
+					ogre.x=ogre.xn;
+					ogre.y=ogre.yn;
+				}
+				if (currentMap[ogre.getClub().x][ogre.getClub().y]!=" ") {
+					ogre.getClub().x=ogre.x-1;
+					ogre.getClub().y=ogre.y;
+				}
+				if (currentMap[ogre.getClub().x][ogre.getClub().y]=="k") {
+					ogre.symbol="$";
+				}
+				currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
+				currentMap[ogre.getClub().x][ogre.getClub().y]="*";
+				ogre.getClub().updatePosition();
+				currentMap[ogre.xn][ogre.yn]=" ";
+				currentMap[ogre.x][ogre.y]=ogre.symbol;
+				ogre.updatePosition();
+				
 			}
 		}
 		return ret;
 
 	}
-
-
-	public boolean isFree() {
-
-		if (level==1) {
-			if (currentMap[hero.x-1][hero.y] =="G")return false;
+	
+	public boolean isFreeGuard() {
+		if (hero.x==0) {
 			if (currentMap[hero.x][hero.y+1] =="G")return false;
 			if (currentMap[hero.x+1][hero.y] =="G")return false;
 			if (currentMap[hero.x][hero.y-1] =="G")return false;
-			if (currentMap[hero.x-1][hero.y] =="g")return false;
 			if (currentMap[hero.x][hero.y+1] =="g")return false;
 			if (currentMap[hero.x+1][hero.y] =="g")return false;
 			if (currentMap[hero.x][hero.y-1] =="g")return false;
-
 		}
-		else  {
-			/*	if (currentMap[hero.x-1][hero.y] =="O")  
-			{
-				if(hero.isArmed) {
-					for(Ogre ogre: ogres)
-					{
-						if((ogre.x == hero.x-1) && (ogre.y == hero.y) && !ogre.isStunned)
-						{
-							currentMap[ogre.x-1][ogre.y] = "8";
-							ogre.isStunned = true;
-						}
+		else if (hero.y==0) {
+			if (currentMap[hero.x-1][hero.y] =="G")return false;
+			if (currentMap[hero.x][hero.y+1] =="G")return false;
+			if (currentMap[hero.x+1][hero.y] =="G")return false;
+			if (currentMap[hero.x-1][hero.y] =="g")return false;
+			if (currentMap[hero.x][hero.y+1] =="g")return false;
+			if (currentMap[hero.x+1][hero.y] =="g")return false;
+		}
+		else if (hero.x == currentMap.length) {
+			if (currentMap[hero.x-1][hero.y] =="G")return false;
+			if (currentMap[hero.x][hero.y+1] =="G")return false;
+			if (currentMap[hero.x][hero.y-1] =="G")return false;
+			if (currentMap[hero.x-1][hero.y] =="g")return false;
+			if (currentMap[hero.x][hero.y+1] =="g")return false;
+			if (currentMap[hero.x][hero.y-1] =="g")return false;
+		}
+		else if (hero.y==currentMap.length) {
+			if (currentMap[hero.x-1][hero.y] =="G")return false;
+			if (currentMap[hero.x+1][hero.y] =="G")return false;
+			if (currentMap[hero.x][hero.y-1] =="G")return false;
+			if (currentMap[hero.x-1][hero.y] =="g")return false;
+			if (currentMap[hero.x+1][hero.y] =="g")return false;
+			if (currentMap[hero.x][hero.y-1] =="g")return false;
+		}
+		else {
+		if (currentMap[hero.x-1][hero.y] =="G")return false;
+		if (currentMap[hero.x][hero.y+1] =="G")return false;
+		if (currentMap[hero.x+1][hero.y] =="G")return false;
+		if (currentMap[hero.x][hero.y-1] =="G")return false;
+		if (currentMap[hero.x-1][hero.y] =="g")return false;
+		if (currentMap[hero.x][hero.y+1] =="g")return false;
+		if (currentMap[hero.x+1][hero.y] =="g")return false;
+		if (currentMap[hero.x][hero.y-1] =="g")return false;
+		}
 
-						return true;
-					}
-				}
-					else return false;
-				}
-
-				if (currentMap[hero.x][hero.y+1] =="O")
-				{
-					if(hero.isArmed) {
-						for(Ogre ogre: ogres)
-						{
-							if((ogre.x == hero.x) && (ogre.y == hero.y+1) && !ogre.isStunned)
-							{
-							currentMap[ogre.x][ogre.y+1] = "8";
-							ogre.isStunned = true;
-						}
-
-						return true;
-					}
-					}
-					else return false;
-				}
-
-				if (currentMap[hero.x+1][hero.y] =="O")
-				{
-					if(hero.isArmed) {
-						for(Ogre ogre: ogres)
-						{
-							if((ogre.x == hero.x+1) && (ogre.y == hero.y) && !ogre.isStunned)
-							 {
-							currentMap[ogre.x+1][ogre.y] = "8";
-							ogre.isStunned = true;
-						}
-
-						return true;
-					}
-					}
-					else return false;
-
-				}
-
-				if (currentMap[hero.x][hero.y-1] =="O")
-				{
-					if(hero.isArmed) {
-						for(Ogre ogre: ogres)
-						{
-							if((ogre.x == hero.x) && (ogre.y == hero.y-1) && !ogre.isStunned)
-							{
-							currentMap[ogre.x][ogre.y-1] = "8";
-							ogre.isStunned = true;
-						}
-
-
-						return true;
-					}
-					}
-					else return false;
-				}		
-
-
-			}
-
-			if (currentMap[hero.x][hero.y-1] =="O")
-			{
-				if(hero.isArmed) {
-					currentMap[ogre.x][ogre.y-1] = "8";
-					ogre.isStunned = true;
-					if(stunCounter < 2) {
-						stunCounter++;
-					}
-					else {
-						stunCounter = 0;
-						currentMap[ogre.x][ogre.y+1] = "O";
-						ogre.isStunned = false;
-					}
-
-					return true;
-				}
-				else return false;
-			}		
-			 */
+		return true;
+	}
+	public boolean isFreeOgre() {
+		if (hero.x==0) {
+			if (currentMap[hero.x][hero.y+1] =="O")return false;
+			if (currentMap[hero.x+1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y-1] =="O")return false;
+			if (currentMap[hero.x][hero.y+1] =="*")return false;
+			if (currentMap[hero.x+1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y-1] =="*")return false;
+		}
+		else if (hero.y==0) {
+			if (currentMap[hero.x-1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y+1] =="O")return false;
+			if (currentMap[hero.x+1][hero.y] =="O")return false;
+			if (currentMap[hero.x-1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y+1] =="*")return false;
+			if (currentMap[hero.x+1][hero.y] =="*")return false;
+		}
+		else if (hero.x == currentMap.length) {
+			if (currentMap[hero.x-1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y+1] =="O")return false;
+			if (currentMap[hero.x][hero.y-1] =="O")return false;
+			if (currentMap[hero.x-1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y+1] =="*")return false;
+			if (currentMap[hero.x][hero.y-1] =="*")return false;
+		}
+		else if (hero.y==currentMap.length) {
+			if (currentMap[hero.x-1][hero.y] =="O")return false;
+			if (currentMap[hero.x+1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y-1] =="O")return false;
+			if (currentMap[hero.x-1][hero.y] =="*")return false;
+			if (currentMap[hero.x+1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y-1] =="*")return false;
+		}
+		else {
+		if (currentMap[hero.x-1][hero.y] =="O")return false;
+		if (currentMap[hero.x][hero.y+1] =="O")return false;
+		if (currentMap[hero.x+1][hero.y] =="O")return false;
+		if (currentMap[hero.x][hero.y-1] =="O")return false;
+		if (currentMap[hero.x-1][hero.y] =="*")return false;
+		if (currentMap[hero.x][hero.y+1] =="*")return false;
+		if (currentMap[hero.x+1][hero.y] =="*")return false;
+		if (currentMap[hero.x][hero.y-1] =="*")return false;
 		}
 		return true;
 	}

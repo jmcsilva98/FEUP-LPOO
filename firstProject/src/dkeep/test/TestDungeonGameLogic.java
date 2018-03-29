@@ -2,6 +2,7 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.junit.Test;
@@ -76,7 +77,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testGetOgres() {
 		Gamestate gamestate=new Gamestate();
-		Vector<Ogre> ogres = new Vector<Ogre>();
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		gamestate.setOgres(ogres);
 		ogres = gamestate.getOgres();
 		assertEquals(ogres, gamestate.getOgres());
@@ -170,7 +171,7 @@ public class TestDungeonGameLogic {
 	@Test
 	public void testSetVectorOgres() {
 		Gamestate gamestate=new Gamestate();
-		Vector<Ogre> ogres = new Vector<Ogre>();
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		gamestate.setOgres(ogres);
 		Gamestate gamestate2=new Gamestate();
 		gamestate2.setOgres(3);
@@ -532,7 +533,7 @@ public class TestDungeonGameLogic {
 		hero.setX(1);
 		hero.setY(1);
 		gamestate.setHero(hero);
-		assertTrue(gamestate.isFree());
+		assertTrue(gamestate.isFreeGuard());
 
 	}
 	@Test
@@ -548,8 +549,8 @@ public class TestDungeonGameLogic {
 		gamestate2.setLevelManualy(1);
 		gamestate2.setHero(hero);
 		gamestate2.heroMovement("D");
-		assertFalse(gamestate.isFree());
-		assertFalse(gamestate2.isFree());
+		assertFalse(gamestate.isFreeGuard());
+		assertFalse(gamestate2.isFreeGuard());
 
 	}
 
@@ -566,8 +567,8 @@ public class TestDungeonGameLogic {
 		gamestate2.setLevelManualy(1);
 		gamestate2.setHero(hero);
 		gamestate2.heroMovement("U");
-		assertFalse(gamestate.isFree());
-		assertFalse(gamestate2.isFree());
+		assertFalse(gamestate.isFreeGuard());
+		assertFalse(gamestate2.isFreeGuard());
 
 	}
 
@@ -584,8 +585,8 @@ public class TestDungeonGameLogic {
 		gamestate2.setLevelManualy(1);
 		gamestate2.setHero(hero);
 		gamestate2.heroMovement("L");
-		assertFalse(gamestate.isFree());
-		assertFalse(gamestate2.isFree());
+		assertFalse(gamestate.isFreeGuard());
+		assertFalse(gamestate2.isFreeGuard());
 
 	}
 
@@ -602,8 +603,8 @@ public class TestDungeonGameLogic {
 		gamestate2.setLevelManualy(1);
 		gamestate2.setHero(hero);
 		gamestate2.heroMovement("R");
-		assertFalse(gamestate.isFree());
-		assertFalse(gamestate2.isFree());
+		assertFalse(gamestate.isFreeGuard());
+		assertFalse(gamestate2.isFreeGuard());
 	}
 
 	@Test

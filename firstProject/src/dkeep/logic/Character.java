@@ -40,7 +40,7 @@ public class Character{
 	}
 
 	void updatePosition() {
-
+		
 		xn=x;
 		yn=y;
 	}
