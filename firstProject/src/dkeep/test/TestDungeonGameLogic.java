@@ -370,6 +370,8 @@ public class TestDungeonGameLogic {
 		gamestate.heroMovement("D");
 		assertEquals(new CellPosition(2,1), gamestate.getHero().position());
 		gamestate.setLevelManualy(1);
+		
+		
 
 
 	}
@@ -388,9 +390,8 @@ public class TestDungeonGameLogic {
 	}
 
 	@Test
-	public void testGetsKey() {
-		Map gameMap=new Map(map1);		
-		Gamestate gamestate=new Gamestate(gameMap);
+	public void testGetsKey() {	
+		Gamestate gamestate=new Gamestate(map1);
 		Hero hero= new Hero();
 		hero.setX(1);
 		hero.setY(1);
@@ -399,9 +400,39 @@ public class TestDungeonGameLogic {
 		gamestate.heroMovement("D");
 		gamestate.heroMovement("R");
 		gamestate.heroMovement("R");
+		assertTrue(gamestate.getHero().hasKey);
+		gamestate.setLevelManualy(1);
+		
+		}
+	
+	@Test
+	public void testGetsKeyAndOpensDoors() {
+		Gamestate gamestate=new Gamestate();
+		Hero hero= new Hero();
+		hero.setX(1);
+		hero.setY(1);
+		gamestate.setLevelManualy(1);
+		gamestate.setHero(hero);
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("R");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("D");
+		gamestate.heroMovement("L");
 		assertTrue(gamestate.getHero().hasKey);	
-
-	}	
+		
+		assertEquals(gamestate.currentMap[5][0], "S");
+		assertEquals(gamestate.currentMap[6][0], "S");
+	}
 
 	@Test
 	public void testHeroIsCaptureByOgre() {		
