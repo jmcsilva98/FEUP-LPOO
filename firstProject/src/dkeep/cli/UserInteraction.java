@@ -67,8 +67,5 @@ public class UserInteraction {
 		String move = s.nextLine();
 		System.out.println(move);
 		game.heroMovement(move);
-
-
 	}
-
 }
