@@ -281,7 +281,7 @@ public class TestOgreLevel {
 
 	}
 
-	@Test
+	@Test 
 
 	public void testClubMovement() {
 		Gamestate gamestate = new Gamestate();

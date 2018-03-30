@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestFirstLevel {
+public class TestFirstLevel { 
 
 	String[][] map1={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},

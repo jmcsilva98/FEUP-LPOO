@@ -73,7 +73,7 @@ public class TestDungeonGameLogic {
 		assertTrue(gamestate.heroIsArmed());
 	}  
 
-	
+	  
 	@Test
 	public void testToString() {
 		Gamestate gamestate=new Gamestate();
