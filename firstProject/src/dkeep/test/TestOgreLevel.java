@@ -281,6 +281,58 @@ public class TestOgreLevel {
 
 	}
 
+	@Test
+	public void testOgreMovement() {
+		Gamestate gamestate = new Gamestate(map2);
+		//Ogre ogre = new Ogre();
+		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
+		//int counter;
+
+		gamestate.setOgres(ogres);
+		ogres = gamestate.getOgres();
+
+		for(Ogre ogre: ogres) {
+			ogre.stunCounter = 2;
+			ogre.isStunned  = true;		
+			gamestate.ogreMovement();
+			assertEquals(ogre.symbol, "8");
+			assertEquals(3, ogre.stunCounter);
+			ogre.stunCounter = 2;
+			ogre.isStunned = false;
+			assertFalse(ogre.isStunned);
+			ogre.stunCounter = 0;
+			assertEquals(ogre.stunCounter, 0);
+
+			ogre.isStunned  = false;
+			gamestate.ogreMovement();
+			gamestate.currentMap[ogre.getX()][ogre.getY()] ="S";
+			assertEquals(ogre.getX(),ogre.getXn());
+			assertEquals(ogre.getY(),ogre.getYn());
+			gamestate.currentMap[ogre.getX()][ogre.getY()] ="k";
+			ogre.symbol = "$";
+			assertEquals(ogre.symbol,"$");
+
+
+		}
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@Test 
 
 	public void testClubMovement() {
@@ -291,7 +343,7 @@ public class TestOgreLevel {
 		gamestate.getOgre().setClub(club);
 		ogre.clubMovement();
 		assertEquals(club, ogre.getClub());
-	
+
 		ogre.clubMovement();
 		ogre.setX(8);
 		club.setX(9);

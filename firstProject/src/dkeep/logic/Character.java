@@ -32,6 +32,12 @@ public class Character{
 	public int getYn() {
 		return yn;
 	} 
+	public void setXn(int xn) {
+		this.xn = xn;
+	}
+	public void setYn(int yn) {
+		this.yn = yn;
+	}
 	public void setX(int x) {
 		this.x=x;
 	}

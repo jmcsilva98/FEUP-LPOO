@@ -305,7 +305,7 @@ public class Gamestate {
 		if (currentMap[guard.x][guard.y]!=" ") {
 			guard.x=guard.xn;
 			guard.y=guard.yn;
-			testCase = true;
+			
 		}
 		currentMap[guard.x][guard.y]="G";
 		guard.updatePosition();

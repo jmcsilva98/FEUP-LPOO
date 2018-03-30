@@ -204,7 +204,7 @@ public class TestFirstLevel {
 
 	}
 
-	@Test(timeout = 1000)
+	/*@Test(timeout = 1000)
 	public void testDrunkenGuardMovement() {
 		Gamestate gamestate=new Gamestate();
 		DrunkenGuard drunkenGuard = new DrunkenGuard();
@@ -213,6 +213,7 @@ public class TestFirstLevel {
 		while((!test1 || !test2) && count < 500)
 		{
 			drunkenGuard.movement();
+			
 			if(drunkenGuard.getX()<0 || drunkenGuard.getX() >9) {
 				assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
 				test1 = true;
@@ -225,75 +226,118 @@ public class TestFirstLevel {
 			count++;
 
 		}
+	}*/
+	@Test
+	
+	public void testDrunkenGuardMovement() {
+		
+		DrunkenGuard drunkenGuard = new DrunkenGuard();
+		
+		drunkenGuard.movement();
+		drunkenGuard.setX(10);
+		drunkenGuard.setXn(10);
+		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setX(-2);
+		drunkenGuard.setXn(-2);
+		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setY(10);
+		drunkenGuard.setYn(10);
+		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setY(-2);
+		drunkenGuard.setYn(-2);
+		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
+		
 	}
 
 
-	/*@Test
+	@Test
 	public void testGuardMovement() {
-		Gamestate gamestate=new Gamestate();
+		Gamestate gamestate=new Gamestate(map3);
 		RookieGuard guard = new RookieGuard();
 		gamestate.setGuard(guard);
+		
 		gamestate.currentMap[guard.getXn()][guard.getYn()] = " ";
 		assertEquals(gamestate.currentMap[guard.getXn()][guard.getYn()] , " ");
 
-
-		boolean empty = false;
-		while(!empty) {
-			gamestate.guardMovement();
-			if(gamestate.testCase) {
-				assertEquals(guard.getX(), guard.getXn());
-				assertEquals(guard.getY(), guard.getYn());
-				empty = true;
-
-			}
-
-		}
+		guard.setX(1);
+		guard.setY(4);
+		guard.setXn(1);
+		guard.setYn(4);
+		gamestate.setGuard(guard);
+		gamestate.currentMap[guard.getX()][guard.getY()] = "G";
+		gamestate.guardMovement();
+		
+		assertEquals(guard.getX(),guard.getXn());
+		assertEquals(guard.getY(),guard.getYn());
+		
+		
+		gamestate.currentMap[guard.getX()][guard.getY()] = " ";
+		gamestate.guardMovement();
 		assertEquals(gamestate.currentMap[guard.getX()][guard.getY()] , "G");
 
-	}*/
+	}
 
 
 
 	@Test
 	public void testSuspiciousMovement() {
 		SuspiciousGuard suspiciousGuard = new SuspiciousGuard();
-	
+
 		suspiciousGuard.position = 24;
 		suspiciousGuard.movement();
 		assertTrue(suspiciousGuard.backMovement);
+
+		suspiciousGuard.position = 1;
+		suspiciousGuard.movement();
+		assertFalse(suspiciousGuard.backMovement);
+		
+		assertTrue(suspiciousGuard.functionWasCalled);
+	
 		
 	}
-	
-	
-	
-	@Test 
+
+
+
+	@Test (timeout = 1000)
 	public void testAuxMovement() {
-		
+
 		SuspiciousGuard suspicious = new SuspiciousGuard();
-		suspicious.movement();
-		suspicious.setX(3);
-		suspicious.setY(3);
-		suspicious.movement[suspicious.position] = "U";
-		assertEquals(suspicious.getX()-1, 2);
-		
-		suspicious.movement();
-		suspicious.setX(3);
-		suspicious.setY(3);
-		suspicious.movement[suspicious.position] = "D";
-		assertEquals(suspicious.getX()+1, 4);
-		
-		suspicious.movement();
-		suspicious.setX(3);
-		suspicious.setY(3);
-		suspicious.movement[suspicious.position] = "R";
-		assertEquals(suspicious.getY()+1, 4);
-		
-		suspicious.movement();
-		suspicious.setX(3);
-		suspicious.setY(3);
-		suspicious.movement[suspicious.position] = "L";
-		assertEquals(suspicious.getY()-1, 2);
-		
+		boolean up = false, down = false, right = false, left = false;
+		while(!up || !down || !left || !right) {
+			suspicious.movement();
+
+			if(suspicious.movement[suspicious.position] == "U")
+			{	
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getX()-1, 2);
+				up = true;
+			}
+			if(suspicious.movement[suspicious.position] =="D") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getX()+1, 4);
+				down = true;
+			}
+			if(suspicious.movement[suspicious.position] == "R") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getY()+1, 4);
+				right = true;
+			}
+			if(suspicious.movement[suspicious.position] == "L") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getY()-1, 2);
+				left = true;
+			}
+		}
 	}
-	
+
 }
