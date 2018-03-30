@@ -4,7 +4,7 @@ public class RookieGuard extends Guard{
 	int length=1;
 	public void movement() {
 		if(length < 24) {
-			switch(rookieMovement[length]) {
+			switch(movement[length]) {
 			case "U" : x--;
 			break;
 			case "D" : x++;

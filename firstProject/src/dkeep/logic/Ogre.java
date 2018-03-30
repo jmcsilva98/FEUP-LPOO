@@ -48,9 +48,9 @@ public void clubMovement() {
 			break;
 		}
 		if (x>=8 || x<=0)
-			club.x= this.x+1;
+			club.x= club.xn;
 		if (y>=8 || y<=0)
-			club.y=this.y+1;
+			club.y=club.yn;
 	}
 
 public Character getClub() {

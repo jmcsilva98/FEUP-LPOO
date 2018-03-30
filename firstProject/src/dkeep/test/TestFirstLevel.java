@@ -177,7 +177,7 @@ public class TestFirstLevel {
 		gamestate.setGuard(rookie);
 
 		String[] path= {"0", "L", "D", "D","D","D", "L",  "L", "L", "L", "L", "L", "D", "R", "R", "R", "R", "R", "R", "R", "U","U","U","U" };
-		assertEquals(rookie.rookieMovement, path);
+		assertEquals(rookie.movement, path);
 		int length = rookie.getLength();
 
 
@@ -186,13 +186,13 @@ public class TestFirstLevel {
 			int xn = rookie.getX();
 			int yn = rookie.getY();
 
-			if(rookie.rookieMovement[length] == "U") 
+			if(rookie.movement[length] == "U") 
 				assertEquals(rookie.getX(), xn--);
-			else if(rookie.rookieMovement[length] == "D") 
+			else if(rookie.movement[length] == "D") 
 				assertEquals(rookie.getX(), xn++);
-			else if(rookie.rookieMovement[length] == "R") 
+			else if(rookie.movement[length] == "R") 
 				assertEquals(rookie.getY(), yn++);
-			else if(rookie.rookieMovement[length] == "L") 
+			else if(rookie.movement[length] == "L") 
 				assertEquals(rookie.getY(), yn--);
 			length++;
 		}

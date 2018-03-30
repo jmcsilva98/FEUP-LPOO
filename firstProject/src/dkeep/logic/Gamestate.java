@@ -10,7 +10,7 @@ public class Gamestate {
 	public String[][] currentMap;
 
 	int level;
-	
+
 	public boolean gameWon=false;
 	ArrayList<Ogre> ogres = new ArrayList<Ogre>(); //Using java colletion (vector) to store ogres 
 	boolean gameOver=false;
@@ -18,7 +18,7 @@ public class Gamestate {
 	Guard guard; 
 	Hero hero;
 	public boolean testCase = false, testCase0 = false, testCase1 = false, testCase2 = false;
-	
+
 	public Gamestate() {
 		this.currentMap=Map.getMap(1);
 		level=1;
@@ -42,9 +42,9 @@ public class Gamestate {
 		this.currentMap = map;
 	}
 
-	
+
 	public void setLevelManualy(int level) {
-	this.level=level;
+		this.level=level;
 	}
 
 	public void setLevel(int level) {
@@ -132,31 +132,32 @@ public class Gamestate {
 	public void startConsole() {
 		ArrayList <Ogre> ogres= new ArrayList<Ogre>();
 		int aux =Guard.randomGenerator(3);
+		aux=-1;
 		Character club= new Character();
 		club.setX(2);
 		club.setY(4);
 		if (level==1) {
-		switch(aux) {
-		case 0:
-			RookieGuard rookie=new RookieGuard();
-			setGuard(rookie);
-			testCase0 = true;
-			break;
-		case 1:
-			DrunkenGuard drunken=new DrunkenGuard();
-			setGuard(drunken);
-			testCase1 = true;
-			break;
-		case -1:
-			SuspiciousGuard suspicious=new SuspiciousGuard();
-			setGuard(suspicious);
-			testCase2 = true;
-			break;
+			switch(aux) {
+			case 0:
+				RookieGuard rookie=new RookieGuard();
+				setGuard(rookie);
+				testCase0 = true;
+				break;
+			case 1:
+				DrunkenGuard drunken=new DrunkenGuard();
+				setGuard(drunken);
+				testCase1 = true;
+				break;
+			case -1:
+				SuspiciousGuard suspicious=new SuspiciousGuard();
+				setGuard(suspicious);
+				testCase2 = true;
+				break;
+			}
 		}
-		}
-		
+
 		else {
-		setOgres(ogres); //generates the vector of ogres
+			setOgres(ogres); //generates the vector of ogres
 		}
 	}
 	public void startApplication(String guard, int numberOgres) {
@@ -214,7 +215,7 @@ public class Gamestate {
 			setHero(hero);
 		}
 
-		
+
 
 
 	}
@@ -228,7 +229,7 @@ public class Gamestate {
 			gameWon=true;
 			return;
 		}
-		
+
 
 	}
 
@@ -248,7 +249,7 @@ public class Gamestate {
 			}
 			else if(level == 2) {
 				currentMap[hero.x][hero.y]="A";
-				
+
 			}
 
 			else {
@@ -258,7 +259,7 @@ public class Gamestate {
 		case "k":
 			if (level==1) {
 				currentMap[5][0] = "S";
-			currentMap[6][0] = "S";
+				currentMap[6][0] = "S";
 			}
 			currentMap[hero.x][hero.y]="K";
 			hero.hasKey=true;
@@ -319,42 +320,40 @@ public class Gamestate {
 		System.out.println(ogres.size());
 		for (Ogre ogre : ogres) {
 			if (ogre.isStunned) {
+				ogre.symbol="8";
 				ogre.stunCounter++;
-			if (ogre.stunCounter==2) {
-				ogre.isStunned=false;
-				ogre.stunCounter=0;
-			}
+				if (ogre.stunCounter==2) {
+					ogre.isStunned=false;
+					ogre.stunCounter=0;
+				}
 			}
 			else {
-				
+
 				ret=ogre.movement();
 				if (currentMap[ogre.x][ogre.y]!=" ") {
 					ogre.x=ogre.xn;
 					ogre.y=ogre.yn;
 				}
-				if (currentMap[ogre.getClub().x][ogre.getClub().y]!=" ") {
-					ogre.getClub().x=ogre.x-1;
-					ogre.getClub().y=ogre.y;
-				}
-				if (currentMap[ogre.getClub().x][ogre.getClub().y]=="k") {
+				if (currentMap[ogre.x][ogre.y]=="k") {
 					ogre.symbol="$";
 				}
-				currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
-				currentMap[ogre.getClub().x][ogre.getClub().y]="*";
-				ogre.getClub().updatePosition();
-				currentMap[ogre.xn][ogre.yn]=" ";
-				currentMap[ogre.x][ogre.y]=ogre.symbol;
-				ogre.updatePosition();
 				
 			}
+			currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
+			newPositionClub(ogre);
+			currentMap[ogre.getClub().x][ogre.getClub().y]="*";
+			ogre.getClub().updatePosition();
+			currentMap[ogre.xn][ogre.yn]=" ";
+			currentMap[ogre.x][ogre.y]=ogre.symbol;
+			ogre.updatePosition();
 		}
 		return ret;
 
 	}
-	
+
 	public boolean isFreeGuard() {
-	
-		 if (hero.y==0) {
+
+		if (hero.y==0) {
 			if (currentMap[hero.x-1][hero.y] =="G")return false;
 			if (currentMap[hero.x][hero.y+1] =="G")return false;
 			if (currentMap[hero.x+1][hero.y] =="G")return false;
@@ -362,16 +361,16 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="g")return false;
 			if (currentMap[hero.x+1][hero.y] =="g")return false;
 		}
-	
+
 		else {
-		if (currentMap[hero.x-1][hero.y] =="G")return false;
-		if (currentMap[hero.x][hero.y+1] =="G")return false;
-		if (currentMap[hero.x+1][hero.y] =="G")return false;
-		if (currentMap[hero.x][hero.y-1] =="G")return false;
-		if (currentMap[hero.x-1][hero.y] =="g")return false;
-		if (currentMap[hero.x][hero.y+1] =="g")return false;
-		if (currentMap[hero.x+1][hero.y] =="g")return false;
-		if (currentMap[hero.x][hero.y-1] =="g")return false;
+			if (currentMap[hero.x-1][hero.y] =="G")return false;
+			if (currentMap[hero.x][hero.y+1] =="G")return false;
+			if (currentMap[hero.x+1][hero.y] =="G")return false;
+			if (currentMap[hero.x][hero.y-1] =="G")return false;
+			if (currentMap[hero.x-1][hero.y] =="g")return false;
+			if (currentMap[hero.x][hero.y+1] =="g")return false;
+			if (currentMap[hero.x+1][hero.y] =="g")return false;
+			if (currentMap[hero.x][hero.y-1] =="g")return false;
 		}
 
 		return true;
@@ -410,16 +409,37 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y-1] =="*")return false;
 		}
 		else {
-		if (currentMap[hero.x-1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y+1] =="O")return false;
-		if (currentMap[hero.x+1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y-1] =="O")return false;
-		if (currentMap[hero.x-1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y+1] =="*")return false;
-		if (currentMap[hero.x+1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y-1] =="*")return false;
+			if (currentMap[hero.x-1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y+1] =="O")return false;
+			if (currentMap[hero.x+1][hero.y] =="O")return false;
+			if (currentMap[hero.x][hero.y-1] =="O")return false;
+			if (currentMap[hero.x-1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y+1] =="*")return false;
+			if (currentMap[hero.x+1][hero.y] =="*")return false;
+			if (currentMap[hero.x][hero.y-1] =="*")return false;
 		}
 		return true;
 	}
+	public void newPositionClub(Ogre ogre) {
+		if ( ogre.x>0 && currentMap[ogre.x-1][ogre.y]==" ") {
+			ogre.getClub().x=ogre.x-1;
+			ogre.getClub().y=ogre.y;
+		}
+		 if ( ogre.x<currentMap.length && currentMap[ogre.x+1][ogre.y]==" "  ) {
+			ogre.getClub().x=ogre.x+1;
+			ogre.getClub().y=ogre.y;
+		}
+		else if (ogre.y>0 && currentMap[ogre.x][ogre.y-1]==" ") {
+			ogre.getClub().x=ogre.x;
+			ogre.getClub().y=ogre.y-1;
+		}
+		else if (ogre.y<currentMap.length &&currentMap[ogre.x][ogre.y+1]==" ") {
+			ogre.getClub().x=ogre.x;
+			ogre.getClub().y=ogre.y+1;
+		}
+
+	}
 }
+
+
 

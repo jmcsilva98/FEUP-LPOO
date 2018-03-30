@@ -1,52 +1,41 @@
 package dkeep.logic;
 
 public class SuspiciousGuard extends Guard {
-	
+	int position=1;
+	boolean backMovement;
+
 	public void movement() {
-		int move =randomGenerator(5);
-		int x_aux,y_aux;
-		if(move==3 ) {
-			if (suspPos==suspLength) {
-			x_aux=randomGenerator(2);
-			x+=x_aux; 
-			y=yn;
-			if (x_aux>0) suspicousMovement[suspLength]="D";
-			else 
-				suspicousMovement[suspLength]="U";
-			suspLength++;
-			suspPos++;
-		} 
-			else
-			{
-				suspiciousBack=false;
-				movement(suspicousMovement[suspPos]);
-				suspPos++;
-			}
-		}
-		else if (move==4 ) {
-			if (suspPos==suspLength){
-			y_aux=randomGenerator(2);
-			y+=y_aux;
-			x=xn;
-			if (y_aux>0) 
-				suspicousMovement[suspLength]="R";
-			else 
-				suspicousMovement[suspLength]="D";
-			suspLength++;
-			}
-			else
-			{	suspiciousBack=false;
-				movement(suspicousMovement[suspPos]);
-				suspPos++;
-			}
-		}
-		else {
-			if (!suspiciousBack) {
-			suspiciousBack=true;
-			}
-			suspPos--;
-			movement(suspicousMovement[suspPos]);
-		}
+		int aux =randomGenerator(2);
+		if (aux==0)
+			backMovement=true;
+		else 
+			backMovement=false;
+
+		if (position==1)
+			backMovement=false;
+
+		if (position==24)
+			backMovement=true;
+
+		if (backMovement)
+			position--;
+		else
+			position++;
+		auxMovement();
 	}
 
+	public void auxMovement() {
+		switch(movement[position]) {
+		case "U" : x--;
+		break;
+		case "D" : x++;
+		break;
+		case "R" : y++;
+		break;
+		case "L" : y--;
+		break;
+		default : break;
+		}
+	}
 }
+
