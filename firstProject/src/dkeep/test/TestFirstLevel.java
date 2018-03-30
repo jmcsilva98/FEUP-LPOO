@@ -256,55 +256,44 @@ public class TestFirstLevel {
 
 	@Test
 	public void testSuspiciousMovement() {
-		Gamestate gamestate=new Gamestate();
 		SuspiciousGuard suspiciousGuard = new SuspiciousGuard();
-
-		int xn, yn;
-		int x = suspiciousGuard.getX();
-		int y = suspiciousGuard.getY();
-		int suspl = suspiciousGuard.suspLength++;
-		int suspos = suspiciousGuard.suspPos++;
-		/*suspiciousGuard.movement();
-
-		if(suspiciousGuard.testMove == 3) {
-			if(suspiciousGuard.suspPos == suspiciousGuard.suspLength) {
-				xn = Guard.randomGenerator(2);
-				x+=xn;
-				assertEquals(suspiciousGuard.getY(), suspiciousGuard.getYn());
-
-
-				assertEquals(suspiciousGuard.suspLength, suspl);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-
-
-			}
-
-			else {
-				assertFalse(suspiciousGuard.suspiciousBack);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-
-			}
-		}
-		else if(suspiciousGuard.testMove == 4) {
-			if(suspiciousGuard.suspPos == suspiciousGuard.suspLength) {
-				yn = Guard.randomGenerator(2);
-				y+=yn;
-
-				assertEquals(suspiciousGuard.suspLength, suspl);
-
-			}
-			else {
-				assertFalse(suspiciousGuard.suspiciousBack);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-			}
-		}
-		else {
-			if(suspiciousGuard.suspiciousBack) {
-				assertTrue(suspiciousGuard.suspiciousBack);
-			}
-			assertEquals(suspiciousGuard.suspPos, (suspos -2));
-		}
-
-		 */
+	
+		suspiciousGuard.position = 24;
+		suspiciousGuard.movement();
+		assertTrue(suspiciousGuard.backMovement);
+		
 	}
+	
+	
+	
+	@Test 
+	public void testAuxMovement() {
+		
+		SuspiciousGuard suspicious = new SuspiciousGuard();
+		suspicious.movement();
+		suspicious.setX(3);
+		suspicious.setY(3);
+		suspicious.movement[suspicious.position] = "U";
+		assertEquals(suspicious.getX()-1, 2);
+		
+		suspicious.movement();
+		suspicious.setX(3);
+		suspicious.setY(3);
+		suspicious.movement[suspicious.position] = "D";
+		assertEquals(suspicious.getX()+1, 4);
+		
+		suspicious.movement();
+		suspicious.setX(3);
+		suspicious.setY(3);
+		suspicious.movement[suspicious.position] = "R";
+		assertEquals(suspicious.getY()+1, 4);
+		
+		suspicious.movement();
+		suspicious.setX(3);
+		suspicious.setY(3);
+		suspicious.movement[suspicious.position] = "L";
+		assertEquals(suspicious.getY()-1, 2);
+		
+	}
+	
 }
