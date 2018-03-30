@@ -92,7 +92,7 @@ public class SettingsPanel {
 				
 			}
 		});
-		btnMainMenu.setBounds(324, 192, 89, 23);
+		btnMainMenu.setBounds(302, 192, 111, 23);
 		frame.getContentPane().add(btnMainMenu);
 		
 		JButton btnPlay = new JButton("PLAY");
@@ -141,8 +141,25 @@ public class SettingsPanel {
 				
 			}
 		});
-		btnPlay.setBounds(324, 157, 89, 23);
+		btnPlay.setBounds(302, 157, 111, 23);
 		frame.getContentPane().add(btnPlay);
+		
+		JButton btnCreateNewLevel = new JButton("Create new level");
+		btnCreateNewLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewLevel other= null;
+				 try {
+					other= new NewLevel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 other.frame.setVisible(true);
+				 frame.setVisible(false);
+				
+			}
+		});
+		btnCreateNewLevel.setBounds(302, 123, 113, 23);
+		frame.getContentPane().add(btnCreateNewLevel);
 	}
-	
 }

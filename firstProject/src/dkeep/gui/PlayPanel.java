@@ -206,7 +206,7 @@ public class PlayPanel {
 		JPanel exitButtons= new JPanel();
 		gameArea = new GamePanel();
 		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		gameArea.setLayout(new GridLayout(1, 1, 0, 0));
+		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
 		frame.getContentPane().add(gameArea);
 		//frame.getContentPane().add(lblYou);
 		frame.getContentPane().add(exitButtons);

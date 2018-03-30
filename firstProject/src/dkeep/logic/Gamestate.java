@@ -132,7 +132,6 @@ public class Gamestate {
 	public void startConsole() {
 		ArrayList <Ogre> ogres= new ArrayList<Ogre>();
 		int aux =Guard.randomGenerator(3);
-		aux=-1;
 		Character club= new Character();
 		club.setX(2);
 		club.setY(4);

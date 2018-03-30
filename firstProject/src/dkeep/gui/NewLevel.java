@@ -51,6 +51,7 @@ public class NewLevel {
 	public NewLevel() throws IOException {
 
 		initialize();
+	
 	}
 
 	/**
@@ -65,8 +66,11 @@ public class NewLevel {
 		gameArea = new GamePanel();
 		gameArea.setBounds(10, 66, 164, 167);
 		frame.getContentPane().add(gameArea);
+		
 		frame.getContentPane().setLayout(null);
-		this.createMap(10);
+		String length = JOptionPane.showInputDialog(frame, "Map dimensions");
+		this.createMap(Integer.parseInt(length));
+		
 		gameArea.setMaze(map);
 
 		JButton btnHero = new JButton("Hero");
