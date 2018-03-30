@@ -11,7 +11,7 @@ import dkeep.logic.*;
 import dkeep.logic.Character;
 
 public class TestOgreLevel {
-	
+
 	String[][] map1={		
 			{" ", " ", "O", " ", " ", " ", "O", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " ", " "},
@@ -24,8 +24,8 @@ public class TestOgreLevel {
 			{" ", " ", "O", " ", " ", " ", "O", " ", " "},
 
 	};
-	
-	
+
+
 	String[][] map2={		
 			{" ", " ", "*", " ", " ", " ", "*", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " ", " "},
@@ -38,7 +38,7 @@ public class TestOgreLevel {
 			{" ", " ", "*", " ", " ", " ", "*", " ", " "},
 
 	};
-	
+
 	String[][] map3={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 			{"X", " ", "O", " ", "I", " ", "X", " ", " ", "X"},
@@ -51,8 +51,8 @@ public class TestOgreLevel {
 			{"X", " ", "I", " ", "I", " ", " ", "k", " ", "X"},
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 	};
-	
-	
+
+
 
 	@Test
 	public void testGetOgre() {
@@ -72,7 +72,7 @@ public class TestOgreLevel {
 		assertEquals(ogres, gamestate.getOgres());
 
 	}
-	
+
 	@Test
 	public void testSetArrayOgres() {
 		Gamestate gamestate=new Gamestate();
@@ -81,8 +81,8 @@ public class TestOgreLevel {
 		Gamestate gamestate2=new Gamestate();
 		gamestate2.setOgres(3);
 	}
-	
-	
+
+
 
 	@Test(timeout=1000)
 	public void testSomeRandomBehaviour(){
@@ -104,7 +104,7 @@ public class TestOgreLevel {
 		}
 
 	}
-	
+
 	@Test
 	public void testHeroIsCaptureByOgre() {		
 		Gamestate gamestate=new Gamestate(map3);
@@ -116,7 +116,7 @@ public class TestOgreLevel {
 		gamestate.heroMovement("R");
 		assertFalse(gamestate.isGameOver());	
 	}
-	
+
 	@Test
 	public void testHeroisCapturedDown() {
 		Gamestate gamestate=new Gamestate(map1);
@@ -132,7 +132,7 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("D");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(4);
 		hero.setY(0);
 		gamestate.heroMovement("D");
@@ -146,16 +146,16 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("D");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-	
+
 		hero.setX(4);
 		hero.setY(8);
 		gamestate.heroMovement("D");
 		gamestate2.heroMovement("D");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
-		
-		
+
+
+
 	}
 
 	@Test
@@ -168,41 +168,41 @@ public class TestOgreLevel {
 		gamestate.setHero(hero);
 		gamestate2.setHero(hero);
 		assertTrue(gamestate.isFreeOgre());
-		
+
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-	
+
 		hero.setX(4);
 		hero.setY(0);
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(4);
 		hero.setY(8);
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(8);
 		hero.setY(4);
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-	
-	
+
+
 	}
 
 	@Test
 	public void testHeroisCapturedLeft() {
 		Gamestate gamestate=new Gamestate(map1);
 		Gamestate gamestate2=new Gamestate(map2);
-		
+
 		Hero hero= new Hero();
 		hero.setX(4);
 		hero.setY(4);
@@ -213,21 +213,21 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(0);
 		hero.setY(4);
 		gamestate.heroMovement("L");
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(8);
 		hero.setY(4);
 		gamestate.heroMovement("L");
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 
 		hero.setX(4);
 		hero.setY(8);
@@ -235,9 +235,9 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
-		
-	
+
+
+
 	}
 
 	@Test
@@ -255,34 +255,34 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("R");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(4);
 		hero.setY(0);
 		gamestate.heroMovement("R");
 		gamestate2.heroMovement("R");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(0);
 		hero.setY(4);
 		gamestate.heroMovement("R");
 		gamestate2.heroMovement("R");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(8);
 		hero.setY(4);
 		gamestate.heroMovement("R");
 		gamestate2.heroMovement("R");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
-		
-	
+
+
+
 	}
-	
-	@Test(timeout = 5000)
-	
+
+	@Test
+
 	public void testClubMovement() {
 		Gamestate gamestate = new Gamestate();
 		Character club = new Character();
@@ -291,34 +291,78 @@ public class TestOgreLevel {
 		gamestate.getOgre().setClub(club);
 		ogre.clubMovement();
 		assertEquals(club, ogre.getClub());
-		int count = 0;
-		boolean test0 = false, test1 = false;
-		
-		while((!test0 && !test1) || count < 50) {
-			ogre.clubMovement();
-			
-			if(ogre.getX() >= 8 || ogre.getX() <= 0) {
-				assertEquals(ogre.getClub().getX(), ogre.getX()+1);
-				test0 = true;
-			}
-			
-			if(ogre.getY() >= 8 || ogre.getY() <= 0) {
-				assertEquals(ogre.getClub().getY(), ogre.getY()+1);
-				test1 = true;
-			}
-			count++;
-			
-		}
+	
+		ogre.clubMovement();
+		ogre.setX(8);
+		club.setX(9);
+		gamestate.setOgre(ogre);
+		gamestate.getOgre().setClub(club);
+		assertEquals(ogre.getClub().getX(), ogre.getX()+1);
+
+		ogre.clubMovement();
+		ogre.setY(8);
+		club.setY(9);
+		gamestate.setOgre(ogre);
+		gamestate.getOgre().setClub(club);
+		assertEquals(ogre.getClub().getY(), ogre.getY()+1);
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+	@Test
+	public void testNewPositionClub() {
+		Gamestate gamestate = new Gamestate();
+		Ogre ogre = new Ogre();
+		Character club = new Character();
+
+
+		gamestate.newPositionClub(ogre);
+		ogre.setX(3);
+		ogre.setY(3);
+		gamestate.setOgre(ogre);
+		club.setX(2);
+		club.setY(3);
+		gamestate.getOgre().setClub(club);
+		gamestate.currentMap[ogre.getX()-1][ogre.getY()] = " ";
+		assertEquals(ogre.getClub().getX(), ogre.getX()-1);
+		assertEquals(ogre.getClub().getY(), ogre.getY());
+
+		gamestate.newPositionClub(ogre);
+		ogre.setX(3);
+		ogre.setY(3);
+		gamestate.setOgre(ogre);
+		club.setX(4);
+		club.setY(3);
+		gamestate.getOgre().setClub(club);
+		gamestate.currentMap[ogre.getX()+1][ogre.getY()] = " ";
+		assertEquals(ogre.getClub().getX(), ogre.getX()+1);
+		assertEquals(ogre.getClub().getY(), ogre.getY());
+
+		gamestate.newPositionClub(ogre);
+		ogre.setX(3);
+		ogre.setY(3);
+		gamestate.setOgre(ogre);
+		ogre.getClub().setX(3);
+		ogre.getClub().setY(2);
+		gamestate.currentMap[ogre.getX()][ogre.getY()-1] = " ";
+		assertEquals(ogre.getClub().getX(), ogre.getX());
+		assertEquals(ogre.getClub().getY(), ogre.getY()-1);
+
+		gamestate.newPositionClub(ogre);
+		ogre.setX(3);
+		ogre.setY(3);
+		gamestate.setOgre(ogre);
+		club.setX(3);
+		club.setY(4);
+		gamestate.getOgre().setClub(club);
+		gamestate.currentMap[ogre.getX()][ogre.getY()+1] = " ";
+		assertEquals(ogre.getClub().getX(), ogre.getX());
+		assertEquals(ogre.getClub().getY(), ogre.getY()+1);
+
+	}
+
+
+
+
+
 }

@@ -78,7 +78,7 @@ public class TestDungeonGameLogic {
 	public void testToString() {
 		Gamestate gamestate=new Gamestate();
 		assertEquals(gamestate.toString(), "XXXXXXXXXX\nXH  I X  X\nXXX XXX  X\n"
-				+ "XI  I X  X\nXXX XXX  X\nI        X\nI        X\nXXX XXXX X\n"
+				+ "XI    X  X\nXXX XXX  X\nI        X\nI        X\nXXX XXXX X\n"
 				+ "X I I Xk X\nXXXXXXXXXX\n");
 		gamestate.setLevel(2);
 		assertEquals(gamestate.toString(), "XXXXXXXXX\nI      kX\nX       X\n"
