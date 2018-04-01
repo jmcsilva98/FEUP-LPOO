@@ -6,7 +6,7 @@ public class GuiInteraction {
 
 	private Gamestate game;
 	private String guard;
-	private int numberOgres;
+	public int numberOgres;
 
 	public GuiInteraction() {
 		this.game =new Gamestate();

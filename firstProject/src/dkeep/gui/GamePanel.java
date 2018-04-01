@@ -2,9 +2,7 @@ package dkeep.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-//import java.awt.Color;
 import java.awt.Graphics;
-//import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +18,6 @@ public class GamePanel extends JPanel  {
 
 	private JFrame frame;
 	private String[][] map;
-	private GamePanel gamePanel;
 
 	private static BufferedImage wall;
 	private static BufferedImage floor;
@@ -71,34 +68,27 @@ public class GamePanel extends JPanel  {
 				switch(map[i][j]) {
 				case " ":
 					g.drawImage(floor, j*xSize, i*ySize, null);
-					//g.setColor(Color.PINK);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
 					break;
 				case "H":
  
 					g.drawImage(hero, j*xSize, i*ySize, null);
-					//g.setColor(Color.BLUE);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+			
 					break;
 				case "S":
 					g.drawImage(openDoor, j*xSize, i*ySize, null);
-					//g.setColor(Color.ORANGE);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+
 					break;				
 				case "X": 
 					g.drawImage(wall, j*xSize, i*ySize, null);
-					//g.setColor(Color.GREEN);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+					
 					break;
 				case "k":
 					g.drawImage(key, j*xSize, i*ySize, null);
-					//g.setColor(Color.BLACK);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+					
 					break; 
 				case "I":
 					g.drawImage(closedDoor, j*xSize, i*ySize, null);
-					//g.setColor(Color.magenta);
-					//g.fillRect(j*xSize,i*ySize, xSize, ySize);
+					
 					break;
 				case "G":
 					g.drawImage(guard, j*xSize, i*ySize, null);
@@ -117,8 +107,7 @@ public class GamePanel extends JPanel  {
 					break;
 				default:
 					g.drawImage(floor, j*xSize, i*ySize, null);
-					//g.setColor(Color.WHITE);
-					//g.fillRect(j*xSize, i*ySize, xSize, ySize);
+	
 					break;
 
 				}

@@ -320,19 +320,6 @@ public class TestOgreLevel {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@Test 
 
 	public void testClubMovement() {
@@ -346,18 +333,30 @@ public class TestOgreLevel {
 
 		ogre.clubMovement();
 		ogre.setX(8);
-		club.setX(9);
+		ogre.setY(8);
+		club.setX(2);
+		club.setXn(2);
+		club.setY(2);
+		club.setYn(2);
 		gamestate.setOgre(ogre);
 		gamestate.getOgre().setClub(club);
-		assertEquals(ogre.getClub().getX(), ogre.getX()+1);
+		assertEquals(club.getX(), club.getXn());
+		assertEquals(club.getY(), club.getYn());
+		
 
 		ogre.clubMovement();
-		ogre.setY(8);
-		club.setY(9);
+		ogre.setX(0);
+		ogre.setY(0);
+		club.setX(2);
+		club.setXn(2);
+		club.setY(2);
+		club.setYn(2);
 		gamestate.setOgre(ogre);
 		gamestate.getOgre().setClub(club);
-		assertEquals(ogre.getClub().getY(), ogre.getY()+1);
-
+		assertEquals(club.getY(), club.getYn());
+		assertEquals(club.getX(), club.getXn());
+		
+	
 	}
 
 

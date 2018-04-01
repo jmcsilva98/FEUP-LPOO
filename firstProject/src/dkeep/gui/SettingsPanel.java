@@ -1,5 +1,5 @@
 package dkeep.gui;
- 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class SettingsPanel {
 
 	public JFrame frame;
-	private JTextField numberOgres;
+	public JTextField numberOgres;
 	private JLabel lblNumberOfOgres;
 	private JComboBox guardPersonality;
 	public String guard;
@@ -54,29 +54,96 @@ public class SettingsPanel {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		numberOgres = new JTextField();
-		numberOgres.setText("1");
-		numberOgres.setToolTipText("");
-		numberOgres.setBounds(196, 63, 91, 20);
-		frame.getContentPane().add(numberOgres);
-		numberOgres.setColumns(10);
-		
-	   lblNumberOfOgres = new JLabel("Number of ogres");
-		lblNumberOfOgres.setBounds(95, 66, 101, 14);
-		frame.getContentPane().add(lblNumberOfOgres);
-		
-		 guardPersonality = new JComboBox();
-		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		guardPersonality.setSelectedIndex(0);
-		guardPersonality.setToolTipText("Rookie\r\n");
-		guardPersonality.setBounds(196, 94, 91, 20);
-		frame.getContentPane().add(guardPersonality);
-		
-		JLabel lblGuardPersonality = new JLabel("Guard personality");
-		lblGuardPersonality.setBounds(95, 97, 91, 14);
-		frame.getContentPane().add(lblGuardPersonality);
-		
+
+		initializeSettingsButtons();
+
+		initializeMainButtons();
+
+		initializeNewLevelButton();
+	}
+
+	private void initializeNewLevelButton() {
+		JButton btnCreateNewLevel = new JButton("Create new level");
+		btnCreateNewLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewLevel other= null;
+				try {
+					other= new NewLevel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+
+			}
+		});
+		btnCreateNewLevel.setBounds(302, 123, 113, 23);
+		frame.getContentPane().add(btnCreateNewLevel);
+	}
+
+	private void initializeMainButtons() {
+		initializeMainMenuButton();
+
+		initializePlayButton();
+	}
+
+	private void initializePlayButton() {
+		JButton btnPlay = new JButton("PLAY");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PlayPanel other = null;
+				try {
+					other = new PlayPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				playPressed(other);
+			}
+
+			private void playPressed(PlayPanel other) {
+				playPressedAction(other);
+
+			}
+
+			public void playPressedAction(PlayPanel other) {
+				int number=0;
+				String guard;
+				try{
+					number=Integer.parseInt(numberOgres.getText());
+
+				} catch(NumberFormatException nfe) {
+
+					JOptionPane.showMessageDialog(frame, "You have to insert the number of ogres!");
+					return;
+				}
+
+				try { 
+					guard = (String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
+				}
+				if ( number >5 || number <0) {
+
+					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
+					number=Integer.parseInt(numberOgres.getText());
+				}
+				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
+				int ogresNumber=Integer.parseInt(numberOgres.getText());
+				other.setGuard(guard);
+				other.setOgresNumber(ogresNumber);
+				other.game.start(guard,ogresNumber);
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		btnPlay.setBounds(302, 157, 111, 23);
+		frame.getContentPane().add(btnPlay);
+	}
+
+	private void initializeMainMenuButton() {
 		JButton btnMainMenu = new JButton("Main menu");
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -89,77 +156,34 @@ public class SettingsPanel {
 				}
 				other.frame.setVisible(true);
 				frame.setVisible(false);
-				
+
 			}
 		});
 		btnMainMenu.setBounds(302, 192, 111, 23);
 		frame.getContentPane().add(btnMainMenu);
-		
-		JButton btnPlay = new JButton("PLAY");
-		btnPlay.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PlayPanel other = null;
-				try {
-					other = new PlayPanel();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				playPressed(other);
-				}
+	}
 
-			private void playPressed(PlayPanel other) {
-				int number=0;
-				String guard;
-				try{
-					number=Integer.parseInt(numberOgres.getText());
+	private void initializeSettingsButtons() {
+		numberOgres = new JTextField();
+		numberOgres.setText("1");
+		numberOgres.setToolTipText("");
+		numberOgres.setBounds(196, 63, 91, 20);
+		frame.getContentPane().add(numberOgres);
+		numberOgres.setColumns(10);
 
-				} catch(NumberFormatException nfe) {
+		lblNumberOfOgres = new JLabel("Number of ogres");
+		lblNumberOfOgres.setBounds(95, 66, 101, 14);
+		frame.getContentPane().add(lblNumberOfOgres);
 
-					JOptionPane.showMessageDialog(frame, "You have to insert the number of ogres!");
-					return;
-				}
-				
-				try { 
-					guard = (String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
+		guardPersonality = new JComboBox();
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersonality.setSelectedIndex(0);
+		guardPersonality.setToolTipText("Rookie\r\n");
+		guardPersonality.setBounds(196, 94, 91, 20);
+		frame.getContentPane().add(guardPersonality);
 
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
-				}
-				if ( number >5 || number <0) {
-					
-					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
-					number=Integer.parseInt(numberOgres.getText());
-				}
-				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
-				int ogresNumber=Integer.parseInt(numberOgres.getText().toString());
-				other.game.setGuard((String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex()));
-				other.game.setNumberOgres(Integer.parseInt(numberOgres.getText().toString()));
-				other.game.start(guard,ogresNumber);
-				other.frame.setVisible(true);
-				frame.setVisible(false);
-				
-			}
-		});
-		btnPlay.setBounds(302, 157, 111, 23);
-		frame.getContentPane().add(btnPlay);
-		
-		JButton btnCreateNewLevel = new JButton("Create new level");
-		btnCreateNewLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				NewLevel other= null;
-				 try {
-					other= new NewLevel();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				 other.frame.setVisible(true);
-				 frame.setVisible(false);
-				
-			}
-		});
-		btnCreateNewLevel.setBounds(302, 123, 113, 23);
-		frame.getContentPane().add(btnCreateNewLevel);
+		JLabel lblGuardPersonality = new JLabel("Guard personality");
+		lblGuardPersonality.setBounds(95, 97, 91, 14);
+		frame.getContentPane().add(lblGuardPersonality);
 	}
 }
