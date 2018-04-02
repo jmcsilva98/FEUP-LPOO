@@ -8,8 +8,20 @@ public class Ogre extends Character {
 	
 	
 	public String movement() {
-		
+	
+		calculateNewPosition();
+		if (x >= 8 || x <=0)
+			x =xn;
+		if (y>=8 || y<= 0)
+			y=yn;
+		if (x>xn )return "D";
+		if (x<xn) return "U";
+		if (y>yn) return "R";
+		if (y<yn) return "L";
 
+		return null;
+	}
+	public void calculateNewPosition() {
 		int aux=randomGenerator(2);
 		switch(aux) {
 		case 0:
@@ -23,34 +35,21 @@ public class Ogre extends Character {
 		default:
 			break;
 		}
-		if (x >= 8 || x <=0)
-			x =xn;
-		if (y>=8 || y<= 0)
-			y=yn;
-		if (x>xn )return "D";
-		if (x<xn) return "U";
-		if (y>yn) return "R";
-		if (y<yn) return "L";
-
-		return null;
 	}
 public void clubMovement() {
 		int x= this.x;
 		int y =this.y;
 		int auxR= randomGenerator(2);
-		int aux = randomGenerator(3);
 		switch(auxR) {
 		case 0:
-			x+=aux;
+			x+=randomGenerator(3);
 			break;
 		case 1:
-			y+=aux;
+			y+=randomGenerator(3);
 			break;
 		}
-		if (x>=8 || x<=0)
-			club.x= club.xn;
-		if (y>=8 || y<=0)
-			club.y=club.yn;
+		if (x>=8 || x<=0) club.x= club.xn;
+		if (y>=8 || y<=0) club.y=club.yn;
 	}
 
 public Character getClub() {

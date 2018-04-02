@@ -1,5 +1,5 @@
 package dkeep.gui;
- 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,7 +21,10 @@ import javax.swing.SpringLayout;
 public class MenuPanel {
 
 	public JFrame frame;
-
+	private JButton btnNewGame;
+	private SpringLayout springLayout;
+	private JButton btnExit;
+	private JButton btnNewLevel;
 	/**
 	 * Launch the application.
 	 */
@@ -53,37 +56,55 @@ public class MenuPanel {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JButton btnNewGame = new JButton("New game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			PlayPanel other=null;
-			try {
-				other = new PlayPanel();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			playPressed(other);
-			}
 
-			private void playPressed(PlayPanel other) {
-				System.out.println(1);
-				other.setGuard("Rookie");
-				System.out.println(1);
-				other.setOgresNumber(1);
-				System.out.println(1);
-				other.game.start("Rookie",1);
-				System.out.println(1);
+		initializeNewGameButton();
+
+		initializeSettingsButton();
+
+		initializeExitButton();
+
+		initializeNewLevelButton();
+		
+	}
+
+	private void initializeNewLevelButton() {
+		btnNewLevel = new JButton("New Level");
+		btnNewLevel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewLevel other=null;
+				try {
+					other = new NewLevel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}
 		});
-		SpringLayout springLayout = new SpringLayout();
-		springLayout.putConstraint(SpringLayout.WEST, btnNewGame, 180, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().setLayout(springLayout);
-		frame.getContentPane().add(btnNewGame);
-		
+		springLayout.putConstraint(SpringLayout.WEST, btnNewLevel, 0, SpringLayout.WEST, btnNewGame);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnNewLevel, -20, SpringLayout.NORTH, btnExit);
+		springLayout.putConstraint(SpringLayout.EAST, btnNewLevel, 0, SpringLayout.EAST, btnNewGame);
+		frame.getContentPane().add(btnNewLevel);
+	}
+
+	private void initializeExitButton() {
+		btnExit = new JButton("Exit");
+		springLayout.putConstraint(SpringLayout.NORTH, btnExit, 196, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, btnExit, 180, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnNewGame);
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
+				if (exitPressed==JOptionPane.YES_OPTION)
+					System.exit(0);
+
+			}
+		});
+		frame.getContentPane().add(btnExit);
+	}
+
+	private void initializeSettingsButton() {
 		JButton btnSettings = new JButton("Settings");
 		springLayout.putConstraint(SpringLayout.NORTH, btnSettings, 108, SpringLayout.NORTH, frame.getContentPane());
 		btnSettings.addActionListener(new ActionListener() {
@@ -104,38 +125,31 @@ public class MenuPanel {
 		springLayout.putConstraint(SpringLayout.SOUTH, btnNewGame, -17, SpringLayout.NORTH, btnSettings);
 		springLayout.putConstraint(SpringLayout.EAST, btnNewGame, 0, SpringLayout.EAST, btnSettings);
 		frame.getContentPane().add(btnSettings);
-		
-		JButton btnExit = new JButton("Exit");
-		springLayout.putConstraint(SpringLayout.NORTH, btnExit, 196, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnExit, 180, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnNewGame);
-		btnExit.addActionListener(new ActionListener() {
+	}
+
+	private void initializeNewGameButton() {
+		btnNewGame = new JButton("New game");
+		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
-				if (exitPressed==JOptionPane.YES_OPTION)
-					System.exit(0);
-					
-			}
-		});
-		frame.getContentPane().add(btnExit);
-		
-		JButton btnNewLevel = new JButton("New Level");
-		btnNewLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				NewLevel other=null;
+				PlayPanel other=null;
 				try {
-					other = new NewLevel();
+					other = new PlayPanel();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				playPressed(other);
+			}
+
+			private void playPressed(PlayPanel other) {
+				other.game.start("Rookie",1);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
-				}
+			}
 		});
-		springLayout.putConstraint(SpringLayout.WEST, btnNewLevel, 0, SpringLayout.WEST, btnNewGame);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnNewLevel, -20, SpringLayout.NORTH, btnExit);
-		springLayout.putConstraint(SpringLayout.EAST, btnNewLevel, 0, SpringLayout.EAST, btnNewGame);
-		frame.getContentPane().add(btnNewLevel);
+		springLayout = new SpringLayout();
+		springLayout.putConstraint(SpringLayout.WEST, btnNewGame, 180, SpringLayout.WEST, frame.getContentPane());
+		frame.getContentPane().setLayout(springLayout);
+		frame.getContentPane().add(btnNewGame);
 	}
 }

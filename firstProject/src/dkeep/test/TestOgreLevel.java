@@ -298,12 +298,12 @@ public class TestOgreLevel {
 			ogre.clubMovement();
 			
 			if(ogre.getX() >= 8 || ogre.getX() <= 0) {
-				assertEquals(ogre.getClub().getX(), ogre.getX()+1);
+				assertEquals(ogre.getClub().getX(), ogre.getX());
 				test0 = true;
 			}
 			
 			if(ogre.getY() >= 8 || ogre.getY() <= 0) {
-				assertEquals(ogre.getClub().getY(), ogre.getY()+1);
+				assertEquals(ogre.getClub().getY(), ogre.getY()-1);
 				test1 = true;
 			}
 			count++;

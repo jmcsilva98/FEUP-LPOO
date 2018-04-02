@@ -6,7 +6,7 @@ public class GuiInteraction {
 
 	private Gamestate game;
 	private String guard;
-	private int numberOgres;
+	public int numberOgres;
 
 	public GuiInteraction() {
 		this.game =new Gamestate();
@@ -15,6 +15,7 @@ public class GuiInteraction {
 	public void start(String guard, int numberOgres) {
 
 		this.guard=guard;
+		this.numberOgres=numberOgres;
 		game.start(true,guard, numberOgres);
 
 	}
@@ -31,17 +32,14 @@ public class GuiInteraction {
 		}
 
 
-		if (game.getLevel()==2 && game.isFreeGuard()) {
+		if (game.getLevel()==2 && game.isFreeOgre()) {
 			game.heroMovement(move);
 			game.ogreMovement();
 			return true;
 		}
-		else if (game.isFreeGuard()) 		return true;
+		else if (game.isFreeOgre()) 		return true;
 		return false;
 
-	}
-	public static void main(String[] args) {
-		GuiInteraction new_game=new GuiInteraction();
 	}
 	public void setNumberOgres(int numberOgres) {
 		this.numberOgres=numberOgres;
@@ -49,6 +47,12 @@ public class GuiInteraction {
 	}
 	public void setGuard(String guard) {
 		this.guard=guard;
+	}
+public int getNumberOgres() {
+	return numberOgres;
+}
+	public static void main(String[] args) {
+		GuiInteraction new_game=new GuiInteraction();
 	}
 
 }

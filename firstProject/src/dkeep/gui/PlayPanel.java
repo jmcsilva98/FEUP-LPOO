@@ -50,13 +50,20 @@ public class PlayPanel {
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnDown;
-	private String guard="";
-	private int ogresNumber=1;
+	private String guard="Rookie";
+	private JPanel settings;
+	public int ogresNumber;
 	private JTextField numberOgres;
 	private JComboBox guardPersonality;
+	private JPanel exitButtons;
+	private JPanel moveButtons;
 	/**
 	 * Launch the application.
 	 */
+	public PlayPanel(String guard,int ogresNumber) {
+		this.guard=guard;
+		this.ogresNumber=ogresNumber;
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -78,6 +85,7 @@ public class PlayPanel {
 	public PlayPanel() throws IOException {
 		this.game=new GuiInteraction();
 		initialize();
+		numberOgres.setText(""+this.game.numberOgres);
 	}
 
 	/** 
@@ -92,57 +100,69 @@ public class PlayPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 2));
 
-		JPanel settings = new JPanel();
-		GridBagLayout gbl_settings = new GridBagLayout();
-		gbl_settings.columnWidths = new int[]{108, 0, 108, 0};
-		gbl_settings.rowHeights = new int[]{68, 0, 0, 0, 0, 68, 0};
-		gbl_settings.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_settings.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		settings.setLayout(gbl_settings);
-		JLabel lblNumberOfOgres = new JLabel("Number of ogres");
-		GridBagConstraints gbc_lblNumberOfOgres = new GridBagConstraints();
-		gbc_lblNumberOfOgres.fill = GridBagConstraints.BOTH;
-		gbc_lblNumberOfOgres.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfOgres.gridx = 0;
-		gbc_lblNumberOfOgres.gridy = 1;
-		settings.add(lblNumberOfOgres, gbc_lblNumberOfOgres);
-		//frame.getContentPane().add(lblNumberOfOgres);
-
-		numberOgres = new JTextField();
-		GridBagConstraints gbc_numberOgres = new GridBagConstraints();
-		gbc_numberOgres.gridwidth = 2;
-		gbc_numberOgres.fill = GridBagConstraints.BOTH;
-		gbc_numberOgres.insets = new Insets(0, 0, 5, 0);
-		gbc_numberOgres.gridx = 2;
-		gbc_numberOgres.gridy = 1;
-		settings.add(numberOgres, gbc_numberOgres);
-		//frame.getContentPane().add(numberOgres);
-
-		numberOgres.setColumns(10);
-		JLabel lblGuardPersonality = new JLabel("Guard Personality");
-		GridBagConstraints gbc_lblGuardPersonality = new GridBagConstraints();
-		gbc_lblGuardPersonality.fill = GridBagConstraints.BOTH;
-		gbc_lblGuardPersonality.insets = new Insets(0, 0, 5, 5);
-		gbc_lblGuardPersonality.gridx = 0;
-		gbc_lblGuardPersonality.gridy = 2;
-		settings.add(lblGuardPersonality, gbc_lblGuardPersonality);
-		guardPersonality = new JComboBox();
-		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
-		guardPersonality.setSelectedIndex(0);
-		guardPersonality.setToolTipText("");
-		GridBagConstraints gbc_guardPersonality = new GridBagConstraints();
-		gbc_guardPersonality.gridwidth = 2;
-		gbc_guardPersonality.insets = new Insets(0, 0, 5, 0);
-		gbc_guardPersonality.fill = GridBagConstraints.HORIZONTAL;
-		gbc_guardPersonality.gridx = 2;
-		gbc_guardPersonality.gridy = 2;
-		settings.add(guardPersonality, gbc_guardPersonality);
+		initializeSettings();
+		initializeMoveButtons();
+		initializeExitButton();
 		
-		guardPersonality.setEnabled(false);
-	
-		guardPersonality.setEnabled(true);
-		frame.getContentPane().add(settings);
-		JPanel moveButtons = new JPanel();
+		getFocus();
+		gameArea.requestFocusInWindow();
+		JPanel game_1 = new JPanel();
+
+		newGamePressed();
+	}
+	public void getFocus() {
+		lblYou = new JLabel("You can start a new game");
+		GridBagConstraints gbc_lblYou = new GridBagConstraints();
+		gbc_lblYou.insets = new Insets(0, 0, 5, 0);
+		gbc_lblYou.gridx = 0;
+		gbc_lblYou.gridy = 5;
+		exitButtons.add(lblYou, gbc_lblYou);
+		gameArea.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				pressedKey(e);
+			}
+		});
+	}
+	private void initializeExitButton() {
+		exitButtons= new JPanel();
+		gameArea = new GamePanel();
+		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
+		frame.getContentPane().add(gameArea);
+		frame.getContentPane().add(exitButtons);
+		GridBagLayout gbl_exitButtons = new GridBagLayout();
+		gbl_exitButtons.columnWidths = new int[]{217, 0};
+		gbl_exitButtons.rowHeights = new int[]{30, 0, 0, 22, 0, 23, 0, 0};
+		gbl_exitButtons.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_exitButtons.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		exitButtons.setLayout(gbl_exitButtons);
+		initializeMainMenuButton();
+	}
+	public void initializeMainMenuButton() {
+		mainMenu = new JButton("Main Menu");
+		GridBagConstraints gbc_Restart = new GridBagConstraints();
+		gbc_Restart.insets = new Insets(0, 0, 5, 0);
+		gbc_Restart.gridx = 0;
+		gbc_Restart.gridy = 2;
+		exitButtons.add(mainMenu, gbc_Restart);
+		mainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuPanel other=null;
+				try {
+					other = new MenuPanel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+				gameArea.requestFocusInWindow();
+			}
+		});
+	}
+	private void initializeMoveButtons() {
+		moveButtons = new JPanel();
 		GridBagLayout gbl_moveButtons = new GridBagLayout();
 		gbl_moveButtons.columnWidths = new int[]{101, 0, 0, 0, 106, 0};
 		gbl_moveButtons.rowHeights = new int[]{38, 0, 0, 0, 0, 0, 0, 43, 0};
@@ -150,33 +170,32 @@ public class PlayPanel {
 		gbl_moveButtons.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		moveButtons.setLayout(gbl_moveButtons);
 		frame.getContentPane().add(moveButtons);
-				
-						btnUp = new JButton("Up");
-						GridBagConstraints gbc_btnUp = new GridBagConstraints();
-						gbc_btnUp.fill = GridBagConstraints.BOTH;
-						gbc_btnUp.insets = new Insets(0, 0, 5, 5);
-						gbc_btnUp.gridx = 2;
-						gbc_btnUp.gridy = 3;
-						moveButtons.add(btnUp, gbc_btnUp);
-						btnUp.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
 
-								buttonPressed("U");
-							}
-						});
+		initializeUpDownButtons();
+		initializeLeftRightButtons();
+
 		
-				btnLeft = new JButton("Left");
-				GridBagConstraints gbc_btnLeft = new GridBagConstraints();
-				gbc_btnLeft.fill = GridBagConstraints.BOTH;
-				gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
-				gbc_btnLeft.gridx = 1;
-				gbc_btnLeft.gridy = 4;
-				moveButtons.add(btnLeft, gbc_btnLeft);
-				btnLeft.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						buttonPressed("L");
-					}
-				});
+		
+	}
+	private void initializeLeftRightButtons() {
+		initializeLeftButton();
+		initializeRightButton();
+	}
+	public void initializeLeftButton() {
+		btnLeft = new JButton("Left");
+		GridBagConstraints gbc_btnLeft = new GridBagConstraints();
+		gbc_btnLeft.fill = GridBagConstraints.BOTH;
+		gbc_btnLeft.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLeft.gridx = 1;
+		gbc_btnLeft.gridy = 4;
+		moveButtons.add(btnLeft, gbc_btnLeft);
+		btnLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonPressed("L");
+			}
+		});
+	}
+	public void initializeRightButton() {
 		btnRight = new JButton("Right");
 		GridBagConstraints gbc_btnRight = new GridBagConstraints();
 		gbc_btnRight.insets = new Insets(0, 0, 5, 5);
@@ -190,88 +209,112 @@ public class PlayPanel {
 				buttonPressed("R");
 			}
 		});
+	}
+	private void initializeUpDownButtons() {
+		initializeUpButton();
 		
-				btnDown = new JButton("Down");
-				btnDown.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						buttonPressed("D");
-					}
-				});
-				GridBagConstraints gbc_btnDown = new GridBagConstraints();
-				gbc_btnDown.insets = new Insets(0, 0, 5, 5);
-				gbc_btnDown.fill = GridBagConstraints.BOTH;
-				gbc_btnDown.gridx = 2;
-				gbc_btnDown.gridy = 5;
-				moveButtons.add(btnDown, gbc_btnDown);
-		JPanel exitButtons= new JPanel();
-		gameArea = new GamePanel();
-		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
-		frame.getContentPane().add(gameArea);
-		//frame.getContentPane().add(lblYou);
-		frame.getContentPane().add(exitButtons);
-		GridBagLayout gbl_exitButtons = new GridBagLayout();
-		gbl_exitButtons.columnWidths = new int[]{217, 0};
-		gbl_exitButtons.rowHeights = new int[]{30, 0, 0, 22, 0, 23, 0, 0};
-		gbl_exitButtons.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_exitButtons.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		exitButtons.setLayout(gbl_exitButtons);
-								mainMenu = new JButton("Restart");
-								GridBagConstraints gbc_Restart = new GridBagConstraints();
-								gbc_Restart.insets = new Insets(0, 0, 5, 0);
-								gbc_Restart.gridx = 0;
-								gbc_Restart.gridy = 2;
-								exitButtons.add(mainMenu, gbc_Restart);
-								mainMenu.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										MenuPanel other=null;
-										try {
-											other = new MenuPanel();
-										} catch (IOException e1) {
-											// TODO Auto-generated catch block
-											e1.printStackTrace();
-										}
-										other.frame.setVisible(true);
-										frame.setVisible(false);
-										gameArea.requestFocusInWindow();
-									}
-								});
-						
-						
-						
-						
-								lblYou = new JLabel("You can start a new game");
-								GridBagConstraints gbc_lblYou = new GridBagConstraints();
-								gbc_lblYou.insets = new Insets(0, 0, 5, 0);
-								gbc_lblYou.gridx = 0;
-								gbc_lblYou.gridy = 5;
-								exitButtons.add(lblYou, gbc_lblYou);
-		gameArea.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				pressedKey(e);
+		initializeDownButton();
+	}
+	public void initializeDownButton() {
+		btnDown = new JButton("Down");
+		GridBagConstraints gbc_btnDown = new GridBagConstraints();
+		gbc_btnDown.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDown.fill = GridBagConstraints.BOTH;
+		gbc_btnDown.gridx = 2;
+		gbc_btnDown.gridy = 5;
+		moveButtons.add(btnDown, gbc_btnDown);
+		btnDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buttonPressed("D");
 			}
 		});
-		gameArea.requestFocusInWindow();
-		JPanel game_1 = new JPanel();
-		switch (this.guard) {
+	}
+	public void initializeUpButton() {
+		btnUp = new JButton("Up");
+		GridBagConstraints gbc_btnUp = new GridBagConstraints();
+		gbc_btnUp.fill = GridBagConstraints.BOTH;
+		gbc_btnUp.insets = new Insets(0, 0, 5, 5);
+		gbc_btnUp.gridx = 2;
+		gbc_btnUp.gridy = 3;
+		moveButtons.add(btnUp, gbc_btnUp);
+		btnUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				buttonPressed("U");
+			}
+		});
+	}
+	private void initializeSettings() {
+		settings = new JPanel();
+		GridBagLayout gbl_settings = new GridBagLayout();
+		gbl_settings.columnWidths = new int[]{108, 0, 108, 0};
+		gbl_settings.rowHeights = new int[]{68, 0, 0, 0, 0, 68, 0};
+		gbl_settings.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_settings.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		settings.setLayout(gbl_settings);
+		initializeNumberOgresTextField();
+		initializeGuardPersonality();
+	}
+	private void initializeGuardPersonality() {
+		JLabel lblGuardPersonality = new JLabel("Guard Personality");
+		GridBagConstraints gbc_lblGuardPersonality = new GridBagConstraints();
+		gbc_lblGuardPersonality.fill = GridBagConstraints.BOTH;
+		gbc_lblGuardPersonality.insets = new Insets(0, 0, 5, 5);
+		gbc_lblGuardPersonality.gridx = 0;
+		gbc_lblGuardPersonality.gridy = 2;
+		settings.add(lblGuardPersonality, gbc_lblGuardPersonality);
+		guardPersonality = new JComboBox();
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+
+		selectGuardPersonality();
+		GridBagConstraints gbc_guardPersonality = new GridBagConstraints();
+		gbc_guardPersonality.gridwidth = 2;
+		gbc_guardPersonality.insets = new Insets(0, 0, 5, 0);
+		gbc_guardPersonality.fill = GridBagConstraints.HORIZONTAL;
+		gbc_guardPersonality.gridx = 2;
+		gbc_guardPersonality.gridy = 2;
+		settings.add(guardPersonality, gbc_guardPersonality);
+
+		guardPersonality.setEnabled(false);
+		frame.getContentPane().add(settings);
+	}
+	public void selectGuardPersonality() {
+		switch(guard) {
 		case "Rookie":
 			guardPersonality.setSelectedIndex(0);
-			setGuard("Rookie");
 			break;
 		case "Drunken":
 			guardPersonality.setSelectedIndex(1);
-			setGuard("Drunken");
 			break;
 		case "Suspicious":
 			guardPersonality.setSelectedIndex(2);
-			setGuard("Suspicious");
 			break;
 		default:
 			guardPersonality.setSelectedIndex(0);
-		}
+			break;
 
-		newGamePressed();
+		}
+	}
+	private void initializeNumberOgresTextField() {
+		JLabel lblNumberOfOgres = new JLabel("Number of ogres");
+		GridBagConstraints gbc_lblNumberOfOgres = new GridBagConstraints();
+		gbc_lblNumberOfOgres.fill = GridBagConstraints.BOTH;
+		gbc_lblNumberOfOgres.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumberOfOgres.gridx = 0;
+		gbc_lblNumberOfOgres.gridy = 1;
+		settings.add(lblNumberOfOgres, gbc_lblNumberOfOgres);
+
+		numberOgres = new JTextField();
+
+		numberOgres.setEnabled(false);
+		GridBagConstraints gbc_numberOgres = new GridBagConstraints();
+		gbc_numberOgres.gridwidth = 2;
+		gbc_numberOgres.fill = GridBagConstraints.BOTH;
+		gbc_numberOgres.insets = new Insets(0, 0, 5, 0);
+		gbc_numberOgres.gridx = 2;
+		gbc_numberOgres.gridy = 1;
+		settings.add(numberOgres, gbc_numberOgres);
+		numberOgres.setColumns(10);
 	}
 
 	private void newGamePressed() {
