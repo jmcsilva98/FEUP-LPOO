@@ -1,0 +1,312 @@
+package dkeep.gui;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+public class MapCreator extends JFrame {
+
+	private JFrame frame;
+	private int xPressed, yPressed;
+	private String[][] map;
+	int dimension;
+	private boolean hasHero=false;
+	private boolean hasOgre=false;
+	private boolean hasExitDoor=false;
+	private boolean hasKey=false;
+	private boolean hasWall=false;
+	private GamePanel gameArea;
+	private String element;
+	private JLabel label;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MapCreator window = new MapCreator();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 * @throws IOException 
+	 */
+	public MapCreator() throws IOException {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 */
+	private void initialize() throws IOException {
+		GamePanel.loadImages();
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		String length = JOptionPane.showInputDialog(frame, "Map dimensions");
+		dimension=Integer.parseInt(length);
+		gameArea = new GamePanel();
+		this.createMap(10);
+		gameArea.setBounds(24, 36, 200,200);
+		gameArea.setMaze(map);
+		frame.getContentPane().add(gameArea);
+		
+		JButton btnHero = new JButton("Hero");
+		btnHero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				element="H";
+				gameArea.requestFocus();
+			}
+		});
+		btnHero.setBounds(282, 50, 89, 23);
+		frame.getContentPane().add(btnHero);
+		
+		JButton btnOgre = new JButton("Ogre");
+		btnOgre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element="O";
+				gameArea.requestFocus();
+			}
+			
+		});
+		btnOgre.setBounds(282, 84, 89, 23);
+		frame.getContentPane().add(btnOgre);
+		
+		JButton btnWall = new JButton("Wall");
+		btnWall.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element="X";
+				gameArea.requestFocus();
+			}
+		});
+		btnWall.setBounds(282, 118, 89, 23);
+		frame.getContentPane().add(btnWall);
+		
+		JButton btnKey = new JButton("Key");
+		btnKey.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element="I";
+				gameArea.requestFocus();
+			}
+		});
+		btnKey.setBounds(282, 152, 89, 23);
+		frame.getContentPane().add(btnKey);
+		
+		JButton btnExitDoor = new JButton("Exit door");
+		btnExitDoor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				element="I";
+				gameArea.requestFocus();
+			}
+		});
+		btnExitDoor.setBounds(282, 186, 89, 23);
+		frame.getContentPane().add(btnExitDoor);
+
+		gameArea.addMouseListener(new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e){
+				xPressed=e.getX();
+				yPressed=e.getY();
+				System.out.println("X:"+xPressed);
+				whichElement();
+			}
+
+		});  
+	}
+	private void initializeHero() {
+		chooseHeroPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		gameArea.setMaze(map);
+	}
+	private void initializeOgre() {
+		chooseOgrePosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		gameArea.setMaze(map);
+	}
+	private void initializeWalls() {
+		chooseWallPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		gameArea.setMaze(map);
+	}
+	private void initializeKey() {
+		chooseKeyPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		gameArea.setMaze(map);
+	}
+	private void initializeExitDoor() {
+		chooseExitDoorPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		gameArea.setMaze(map);
+	}
+	public void createMap(int length) {
+		this.map=new String[length][length];
+		if (length==0)return;
+		for (int i =0; i < length;i++) {
+			for (int j=0;j<length;j++) {
+				if (i == 0 || i== length-1 || j==0 || j== length-1)
+					this.map[i][j]="X";
+				else this.map[i][j]=" ";
+			}
+		}
+	}
+
+	public void paint() {
+		int x,y;
+		for (int i =0;i<dimension;i++)
+			for(int j =0;j<dimension;j++) {
+				x=i*20;
+				y=j*20;
+
+				if (xPressed > x && xPressed < i+20)
+					if (yPressed > y && yPressed < j+20)
+						if (map[xPressed][yPressed]==" ")
+							return;
+
+			}
+	}
+	public void clearLastPosition(String character) {
+		for (int i =0;i<map.length;i++) {
+			for (int j =0;j< map[0].length;j++)
+				if (map[i][j].equals(character))map[i][j]=" ";
+		}
+	}
+
+	public boolean canSaveMap() {
+		int ogresNumber=verifyAllElements();
+		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor && ogresNumber<5) {
+			return generatePlayPanel();
+		}
+		else  return false;
+	}
+	public boolean chooseHeroPosition(int x, int y) {
+		System.out.println("HERO X:"+ x+ ":::::" +"HERO Y:"+y);
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+
+		if (map[y][x].equals(" ")) {
+			clearLastPosition("H");
+			map[y][x]="H";
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public boolean chooseOgrePosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[y][x].equals(" ")) {
+			map[y][x]="O";
+			return true;
+		}
+		else
+			return false;
+	}
+	public boolean chooseExitDoorPosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[y][x].equals(" ") || map[x][y].equals("X")) {
+			clearLastPosition("I");
+			map[y][x]="I";
+			return true;
+		}
+		return false;
+	}
+	public boolean chooseWallPosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[y][x].equals(" ")) {
+			map[y][x]="X";
+			return true;
+		}
+		else if (map[y][x].equals("X")) {
+			map[y][x]=" ";
+		}
+		return false;
+	}
+	public boolean chooseKeyPosition(int x, int y) {
+		if (x>=map[0].length|| y>=map.length) return false;
+		if (x<0 || y<0) return false;
+		if (map[y][x].equals(" ")) {
+			map[y][x]="I";
+			return true;
+		}
+		return false;
+	}
+	public boolean generatePlayPanel() {
+		PlayPanel other=null;
+		try {
+			other = new PlayPanel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		other.frame.setVisible(true);
+		other.editableLevel(map);
+		return true;
+	}
+	public int verifyAllElements() {
+		int ogresNumber=0;
+		for (int i =0;i<map.length;i++)
+			for (int j = 0;  j< map.length;j++) {
+				switch (map[i][j]) {
+				case "H":
+					hasHero=true;
+					break;
+				case "K":
+					hasKey=true;
+					break;
+				case "O":
+					hasOgre=true;
+					ogresNumber++;
+					break;
+				case "X":
+					hasWall=true;
+					break;
+				case "I":
+					hasExitDoor=true;
+					break;
+				}
+			}
+		return ogresNumber;
+	}
+	
+	public void whichElement() {
+		switch (element) {
+		case "H":
+			initializeHero();
+			break;
+		case "K":
+			initializeKey();
+			break;
+		case "O":
+			initializeOgre();
+			break;
+		case "X":
+			initializeWalls();
+			break;
+		case "I":
+			initializeExitDoor();
+			break;
+		}
+	}
+}

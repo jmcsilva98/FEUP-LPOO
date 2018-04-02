@@ -36,7 +36,6 @@ public class GamePanel extends JPanel  {
 
 
 
-
 	public static void loadImages() throws IOException {
 
 		wall = ImageIO.read(new File("Images/bricks.png"));
@@ -50,7 +49,7 @@ public class GamePanel extends JPanel  {
 		hero = ImageIO.read(new File("Images/hero.png"));
 		heroArmed = ImageIO.read(new File("Images/heroArmed.png"));
 		club = ImageIO.read(new File("Images/club.png"));
-
+		
 
 
 	}
@@ -58,6 +57,7 @@ public class GamePanel extends JPanel  {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+
 
 		if (map==null) return;
 		int xSize=getWidth()/map[0].length;
@@ -70,9 +70,9 @@ public class GamePanel extends JPanel  {
 					g.drawImage(floor, j*xSize, i*ySize, null);
 					break;
 				case "H":
-
+ 
 					g.drawImage(hero, j*xSize, i*ySize, null);
-
+			
 					break;
 				case "S":
 					g.drawImage(openDoor, j*xSize, i*ySize, null);
@@ -80,15 +80,15 @@ public class GamePanel extends JPanel  {
 					break;				
 				case "X": 
 					g.drawImage(wall, j*xSize, i*ySize, null);
-
+					
 					break;
 				case "k":
 					g.drawImage(key, j*xSize, i*ySize, null);
-
+					
 					break; 
 				case "I":
 					g.drawImage(closedDoor, j*xSize, i*ySize, null);
-
+					
 					break;
 				case "G":
 					g.drawImage(guard, j*xSize, i*ySize, null);
@@ -107,6 +107,7 @@ public class GamePanel extends JPanel  {
 					break;
 				default:
 					g.drawImage(floor, j*xSize, i*ySize, null);
+	
 					break;
 
 				}

@@ -12,6 +12,7 @@ public class GuiInteraction {
 		this.game =new Gamestate();
 
 	}
+	
 	public void start(String guard, int numberOgres) {
 
 		this.guard=guard;
@@ -30,8 +31,6 @@ public class GuiInteraction {
 			game.guardMovement();
 			return true;
 		}
-
-
 		if (game.getLevel()==2 && game.isFreeOgre()) {
 			game.heroMovement(move);
 			game.ogreMovement();

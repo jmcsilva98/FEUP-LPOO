@@ -1,5 +1,5 @@
 package dkeep.gui;
-
+ 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -142,10 +142,13 @@ public class MenuPanel {
 			}
 
 			private void playPressed(PlayPanel other) {
+				other.setGuard("Rookie");
+				other.setOgresNumber(1);
 				other.game.start("Rookie",1);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}
+			
 		});
 		springLayout = new SpringLayout();
 		springLayout.putConstraint(SpringLayout.WEST, btnNewGame, 180, SpringLayout.WEST, frame.getContentPane());

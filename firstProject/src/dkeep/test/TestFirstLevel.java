@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import dkeep.logic.*;
 
-public class TestFirstLevel {
+public class TestFirstLevel { 
 
 	String[][] map1={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
@@ -180,7 +180,7 @@ public class TestFirstLevel {
 		assertEquals(rookie.movement, path);
 		int length = rookie.getLength();
 
-
+		
 		while(length < 24) {
 			rookie.movement();
 			int xn = rookie.getX();
@@ -194,6 +194,7 @@ public class TestFirstLevel {
 				assertEquals(rookie.getY(), yn++);
 			else if(rookie.movement[length] == "L") 
 				assertEquals(rookie.getY(), yn--);
+		
 			length++;
 		}
 
@@ -210,9 +211,11 @@ public class TestFirstLevel {
 		DrunkenGuard drunkenGuard = new DrunkenGuard();
 		int count = 0;
 		boolean test1 = false, test2 = false;
+		
 		while((!test1 || !test2) && count < 500)
 		{
 			drunkenGuard.movement();
+			
 			if(drunkenGuard.getX()<0 || drunkenGuard.getX() >9) {
 				assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
 				test1 = true;
@@ -224,87 +227,126 @@ public class TestFirstLevel {
 
 			count++;
 
-		}
+		} //VER QUAL DAS VERSOES E MELHOR
 	}
-
-
 	/*@Test
+	
+	public void testDrunkenGuardMovement() {
+		
+		DrunkenGuard drunkenGuard = new DrunkenGuard();
+		
+		drunkenGuard.movement();
+		drunkenGuard.setX(-2);
+		drunkenGuard.setXn(-2);
+		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setX(10);
+		drunkenGuard.setXn(10);
+		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setY(-2);
+		drunkenGuard.setYn(-2);
+		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
+		
+		drunkenGuard.movement();
+		drunkenGuard.setY(10);
+		drunkenGuard.setYn(10);
+		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
+		
+		
+		
+	}*/
+
+
+	@Test
 	public void testGuardMovement() {
-		Gamestate gamestate=new Gamestate();
+		Gamestate gamestate=new Gamestate(map3);
 		RookieGuard guard = new RookieGuard();
 		gamestate.setGuard(guard);
+		
+		
 		gamestate.currentMap[guard.getXn()][guard.getYn()] = " ";
 		assertEquals(gamestate.currentMap[guard.getXn()][guard.getYn()] , " ");
 
-
-		boolean empty = false;
-		while(!empty) {
-			gamestate.guardMovement();
-			if(gamestate.testCase) {
-				assertEquals(guard.getX(), guard.getXn());
-				assertEquals(guard.getY(), guard.getYn());
-				empty = true;
-
-			}
-
-		}
+		guard.setX(1);
+		guard.setY(4);
+		guard.setXn(1);
+		guard.setYn(4);
+		gamestate.setGuard(guard);
+		gamestate.currentMap[guard.getX()][guard.getY()] = "G";
+		gamestate.guardMovement();
+		
+		assertEquals(guard.getX(),guard.getXn());
+		assertEquals(guard.getY(),guard.getYn());
+		
+		
+		gamestate.currentMap[guard.getX()][guard.getY()] = " ";
+		gamestate.guardMovement();
 		assertEquals(gamestate.currentMap[guard.getX()][guard.getY()] , "G");
 
-	}*/
+	}
 
 
 
 	@Test
 	public void testSuspiciousMovement() {
-		Gamestate gamestate=new Gamestate();
 		SuspiciousGuard suspiciousGuard = new SuspiciousGuard();
 
-		int xn, yn;
-		int x = suspiciousGuard.getX();
-		int y = suspiciousGuard.getY();
-		int suspl = suspiciousGuard.suspLength++;
-		int suspos = suspiciousGuard.suspPos++;
-		/*suspiciousGuard.movement();
+		suspiciousGuard.position = 24;
+		suspiciousGuard.movement();
+		assertTrue(suspiciousGuard.backMovement);
 
-		if(suspiciousGuard.testMove == 3) {
-			if(suspiciousGuard.suspPos == suspiciousGuard.suspLength) {
-				xn = Guard.randomGenerator(2);
-				x+=xn;
-				assertEquals(suspiciousGuard.getY(), suspiciousGuard.getYn());
-
-
-				assertEquals(suspiciousGuard.suspLength, suspl);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-
-
-			}
-
-			else {
-				assertFalse(suspiciousGuard.suspiciousBack);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-
-			}
-		}
-		else if(suspiciousGuard.testMove == 4) {
-			if(suspiciousGuard.suspPos == suspiciousGuard.suspLength) {
-				yn = Guard.randomGenerator(2);
-				y+=yn;
-
-				assertEquals(suspiciousGuard.suspLength, suspl);
-
-			}
-			else {
-				assertFalse(suspiciousGuard.suspiciousBack);
-				assertEquals(suspiciousGuard.suspPos, suspos);
-			}
-		}
-		else {
-			if(suspiciousGuard.suspiciousBack) {
-				assertTrue(suspiciousGuard.suspiciousBack);
-			}
-			assertEquals(suspiciousGuard.suspPos, (suspos -2));
-		}
-
-		 */
+		suspiciousGuard.position = 1;
+		suspiciousGuard.movement();
+		assertFalse(suspiciousGuard.backMovement);
+		
+		assertTrue(suspiciousGuard.functionWasCalled);
+	
+		
 	}
+
+
+
+	@Test (timeout = 1000)
+	public void testAuxMovement() {
+		
+		SuspiciousGuard suspicious = new SuspiciousGuard();
+		boolean up = false, down = false, right = false, left = false;
+		while(!up || !down || !left || !right) {
+			suspicious.movement();
+
+			if(suspicious.movement[suspicious.position] == "U")
+			{	
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getX()-1, 2);
+				up = true;
+			}
+			if(suspicious.movement[suspicious.position] =="D") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getX()+1, 4);
+				down = true;
+			}
+			if(suspicious.movement[suspicious.position] == "R") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getY()+1, 4);
+				right = true;
+			}
+			if(suspicious.movement[suspicious.position] == "L") {
+				suspicious.setX(3);
+				suspicious.setY(3);
+				assertEquals(suspicious.getY()-1, 2);
+				left = true;
+			}
+			
+			if(suspicious.movement[suspicious.position] == null) {
+				continue;
+			}
+		}
+	}
+
 }

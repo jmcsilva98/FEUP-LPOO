@@ -103,6 +103,11 @@ public class SettingsPanel {
 			}
 
 			private void playPressed(PlayPanel other) {
+				playPressedAction(other);
+
+			}
+
+			public void playPressedAction(PlayPanel other) {
 				int number=0;
 				String guard;
 				try{
@@ -132,7 +137,6 @@ public class SettingsPanel {
 				other.game.start(guard,ogresNumber);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
-
 			}
 		});
 		btnPlay.setBounds(302, 157, 111, 23);

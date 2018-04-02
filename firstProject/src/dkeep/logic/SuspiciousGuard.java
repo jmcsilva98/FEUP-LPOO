@@ -1,8 +1,9 @@
 package dkeep.logic;
 
 public class SuspiciousGuard extends Guard {
-	int position=1;
-	boolean backMovement;
+	public int position=1;
+	public boolean backMovement;
+	public boolean functionWasCalled;
 
 	public void movement() {
 		int aux =randomGenerator(2);
@@ -25,6 +26,7 @@ public class SuspiciousGuard extends Guard {
 	}
 
 	public void auxMovement() {
+		functionWasCalled = true;
 		switch(movement[position]) {
 		case "U" : x--;
 		break;

@@ -86,7 +86,6 @@ public class Gamestate {
 		club.setX(1);
 		club.setY(3);
 		int numberOfOgres = n.nextInt(3) + 1;
-		System.out.println(numberOfOgres);
 
 		for(int i = 0; i <numberOfOgres; ++i) {
 			Ogre ogre = new Ogre();
@@ -96,7 +95,6 @@ public class Gamestate {
 			ogres.add(ogre);
 		}
 		this.ogres=ogres;
-		System.out.println(ogres.size());
 	}
 	public void setOgres(int numberOfOgres) {
 
@@ -163,8 +161,10 @@ public class Gamestate {
 	}
 	public void startApplication(String guard, int numberOgres) {
 		ArrayList <Ogre> ogres= new ArrayList<Ogre>();
+		Vector<Ogre> ogresVector = new Vector<Ogre>();
 		Ogre auxOgre= new Ogre();
 		Character club= new Character();
+		if (level==1)
 		switch(guard) {
 		case "Rookie":
 			RookieGuard rookie=new RookieGuard();
@@ -182,6 +182,9 @@ public class Gamestate {
 			RookieGuard rookie2=new RookieGuard();
 			setGuard(rookie2);
 
+		}
+		for (int i =0;i< numberOgres; i++) {
+			ogresVector.add(auxOgre);
 		}
 		setOgres(ogres);
 	}
@@ -202,8 +205,8 @@ public class Gamestate {
 			guard.setY(8);
 			setHero(hero);
 		}
+		
 		else if (level==2) {
-
 			hero.setX(7);
 			hero.setY(1); 
 			setHero(hero);
@@ -277,8 +280,12 @@ public class Gamestate {
 	}
 
 	public void heroChangeLevel() {
+		System.out.print("hero change level");
 		if(level == 1) {
-			setLevel(2);	
+			
+			setLevel(2);
+			hero.setX(7);
+			hero.setY(1);
 		} 
 		else 
 			gameWon=true;
@@ -367,16 +374,16 @@ public class Gamestate {
 
 		if (!isFreeOgreX()) return false;
 
-		if (!isFreeOgreY()) return false;
+		else if (!isFreeOgreY()) return false;
 
-		if (!isFreeDefault("O","*"))return false;
+		else if (!isFreeDefault("O","*"))return false;
 		return true;
 	}
 	public boolean isFreeDefault(String type,String type2) {
-		if (currentMap[hero.x-1][hero.y] ==type)return false;
+		if (currentMap[hero.x-1][hero.y]==type)return false;
 		if (currentMap[hero.x][hero.y+1] ==type)return false;
 		if (currentMap[hero.x+1][hero.y] ==type)return false;
-		if (currentMap[hero.x][hero.y-1] ==type)return false;
+		if (currentMap[hero.x][hero.y-1]==type)return false;
 		if (currentMap[hero.x-1][hero.y] ==type2)return false;
 		if (currentMap[hero.x][hero.y+1] ==type2)return false;
 		if (currentMap[hero.x+1][hero.y] ==type2)return false;

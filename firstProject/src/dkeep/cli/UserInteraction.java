@@ -32,6 +32,7 @@ public class UserInteraction {
 
 		}
 		game.start(false,null,0);
+		
 		while(game.getLevel()==2&&game.isFreeOgre()) {
 			print_map(game.getMap(),game.getLevel());
 			user_input();

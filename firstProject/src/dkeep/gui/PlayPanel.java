@@ -50,9 +50,9 @@ public class PlayPanel {
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnDown;
-	private String guard="Rookie";
+	static String guard="Rookie";
 	private JPanel settings;
-	public int ogresNumber;
+	public static int ogresNumber;
 	private JTextField numberOgres;
 	private JComboBox guardPersonality;
 	private JPanel exitButtons;
@@ -64,6 +64,7 @@ public class PlayPanel {
 		this.guard=guard;
 		this.ogresNumber=ogresNumber;
 	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -85,7 +86,7 @@ public class PlayPanel {
 	public PlayPanel() throws IOException {
 		this.game=new GuiInteraction();
 		initialize();
-		numberOgres.setText(""+this.game.numberOgres);
+		numberOgres.setText(""+PlayPanel.ogresNumber);
 	}
 
 	/** 
@@ -359,7 +360,7 @@ public class PlayPanel {
 	}
 
 	public void setOgresNumber(int ogresNumber) {
-		this.ogresNumber=ogresNumber;
+		PlayPanel.ogresNumber=ogresNumber;
 	}
 	public void editableLevel(String[][]map) {
 		this.map=map;

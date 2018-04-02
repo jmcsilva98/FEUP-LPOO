@@ -19,6 +19,12 @@ public class Character{
 		default : break;
 		}
 	}
+	public void setXn(int xn) {
+		this.xn = xn;
+	}
+	public void setYn(int yn) {
+		this.yn = yn;
+	}
 	public int getX() {
 		return x;
 	}
@@ -44,6 +50,7 @@ public class Character{
 		xn=x;
 		yn=y;
 	}
+	
 	public static int randomGenerator(int n) {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(n);
