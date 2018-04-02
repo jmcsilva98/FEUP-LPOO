@@ -36,7 +36,11 @@ public class GuiInteraction {
 			game.ogreMovement();
 			return true;
 		}
-		else if (game.isFreeOgre()) 		return true;
+		else if (game.isFreeOgre()) {
+			game.ogreMovement();
+			game.heroMovement(move);
+			return true;
+		}
 		return false;
 
 	}

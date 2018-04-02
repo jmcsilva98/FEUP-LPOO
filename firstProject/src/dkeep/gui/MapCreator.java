@@ -1,13 +1,10 @@
 package dkeep.gui;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -15,10 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 
 public class MapCreator extends JFrame {
 
@@ -30,7 +23,7 @@ public class MapCreator extends JFrame {
 	private boolean hasOgre=false;
 	private boolean hasExitDoor=false;
 	private boolean hasKey=false;
-	private boolean hasWall=false;
+	private boolean hasWall=true;
 	private GamePanel gameArea;
 	private String element;
 	private JLabel label;
@@ -71,7 +64,7 @@ public class MapCreator extends JFrame {
 		String length = JOptionPane.showInputDialog(frame, "Map dimensions");
 		dimension=Integer.parseInt(length);
 		gameArea = new GamePanel();
-		this.createMap(10);
+		this.createMap(dimension);
 		gameArea.setBounds(24, 36, 200,200);
 		gameArea.setMaze(map);
 		frame.getContentPane().add(gameArea);
@@ -83,7 +76,7 @@ public class MapCreator extends JFrame {
 				gameArea.requestFocus();
 			}
 		});
-		btnHero.setBounds(282, 50, 89, 23);
+		btnHero.setBounds(282, 36, 89, 23);
 		frame.getContentPane().add(btnHero);
 		
 		JButton btnOgre = new JButton("Ogre");
@@ -94,7 +87,7 @@ public class MapCreator extends JFrame {
 			}
 			
 		});
-		btnOgre.setBounds(282, 84, 89, 23);
+		btnOgre.setBounds(282, 70, 89, 23);
 		frame.getContentPane().add(btnOgre);
 		
 		JButton btnWall = new JButton("Wall");
@@ -104,17 +97,17 @@ public class MapCreator extends JFrame {
 				gameArea.requestFocus();
 			}
 		});
-		btnWall.setBounds(282, 118, 89, 23);
+		btnWall.setBounds(282, 104, 89, 23);
 		frame.getContentPane().add(btnWall);
 		
 		JButton btnKey = new JButton("Key");
 		btnKey.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				element="I";
+				element="k";
 				gameArea.requestFocus();
 			}
 		});
-		btnKey.setBounds(282, 152, 89, 23);
+		btnKey.setBounds(282, 138, 89, 23);
 		frame.getContentPane().add(btnKey);
 		
 		JButton btnExitDoor = new JButton("Exit door");
@@ -124,8 +117,42 @@ public class MapCreator extends JFrame {
 				gameArea.requestFocus();
 			}
 		});
-		btnExitDoor.setBounds(282, 186, 89, 23);
+		btnExitDoor.setBounds(282, 172, 89, 23);
 		frame.getContentPane().add(btnExitDoor);
+		
+		JButton btnNewButton = new JButton("Main Menu");
+		btnNewButton.addActionListener(new ActionListener() {
+			MenuPanel other=null;
+			public void actionPerformed(ActionEvent arg0) {
+				int selectedOption=JOptionPane.showConfirmDialog(null, "Are you sure that you want to the main menu?", "New menu", JOptionPane.YES_NO_OPTION); 
+				if (selectedOption==JOptionPane.NO_OPTION) {
+					return;
+				}
+				try {
+					 other= new MenuPanel();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				other.frame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		btnNewButton.setBounds(243, 206, 89, 23);
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnPlay = new JButton("Play");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				canSaveMap();
+			}
+		});
+		btnPlay.setBounds(335, 206, 89, 23);
+		frame.getContentPane().add(btnPlay);
+		
+		JLabel lblNowYouCan = new JLabel("Now, you can create your own map.");
+		lblNowYouCan.setBounds(24, 236, 200, 14);
+		frame.getContentPane().add(lblNowYouCan);
 
 		gameArea.addMouseListener(new MouseAdapter() {
 
@@ -198,6 +225,18 @@ public class MapCreator extends JFrame {
 		}
 		else  return false;
 	}
+
+	public boolean generatePlayPanel() {
+		PlayPanel other=null;
+		try {
+			other = new PlayPanel();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		other.frame.setVisible(true);
+		other.editableLevel(map);
+		return true;
+	}
 	public boolean chooseHeroPosition(int x, int y) {
 		System.out.println("HERO X:"+ x+ ":::::" +"HERO Y:"+y);
 		if (x>=map[0].length|| y>=map.length) return false;
@@ -217,6 +256,11 @@ public class MapCreator extends JFrame {
 		if (x<0 || y<0) return false;
 		if (map[y][x].equals(" ")) {
 			map[y][x]="O";
+			return true;
+		}
+		if (map[y][x].equals("O"))
+		{
+			map[y][x]=" ";
 			return true;
 		}
 		else
@@ -248,22 +292,13 @@ public class MapCreator extends JFrame {
 		if (x>=map[0].length|| y>=map.length) return false;
 		if (x<0 || y<0) return false;
 		if (map[y][x].equals(" ")) {
-			map[y][x]="I";
+			clearLastPosition("k");
+			map[y][x]="k";
 			return true;
 		}
 		return false;
 	}
-	public boolean generatePlayPanel() {
-		PlayPanel other=null;
-		try {
-			other = new PlayPanel();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		other.frame.setVisible(true);
-		other.editableLevel(map);
-		return true;
-	}
+
 	public int verifyAllElements() {
 		int ogresNumber=0;
 		for (int i =0;i<map.length;i++)
@@ -272,7 +307,7 @@ public class MapCreator extends JFrame {
 				case "H":
 					hasHero=true;
 					break;
-				case "K":
+				case "k":
 					hasKey=true;
 					break;
 				case "O":
@@ -295,7 +330,7 @@ public class MapCreator extends JFrame {
 		case "H":
 			initializeHero();
 			break;
-		case "K":
+		case "k":
 			initializeKey();
 			break;
 		case "O":
