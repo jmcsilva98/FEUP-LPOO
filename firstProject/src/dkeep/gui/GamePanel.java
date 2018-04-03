@@ -121,7 +121,6 @@ public class GamePanel extends JPanel  {
 		}
 	}
 
-
 	public void setMaze(String[][] map) {
 
 		this.map=map;
