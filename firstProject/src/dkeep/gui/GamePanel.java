@@ -66,6 +66,7 @@ public class GamePanel extends JPanel  {
 		for (int i =0; i <map.length ;i++) {
 			for (int j = 0; j<map[0].length;j++) {
 				switchPaintComponent(g, xSize, ySize, i, j);
+				switchPaintComponent1(g, xSize, ySize, i, j);
 			}
 
 		}
@@ -93,6 +94,12 @@ public class GamePanel extends JPanel  {
 		case "I":
 			g.drawImage(closedDoor, j*xSize, i*ySize, null);
 			break;
+
+		}
+	}
+	private void switchPaintComponent1(Graphics g, int xSize, int ySize, int i, int j) {
+
+		switch(map[i][j]) {
 		case "G":
 			g.drawImage(guard, j*xSize, i*ySize, null);
 			break;
@@ -113,7 +120,6 @@ public class GamePanel extends JPanel  {
 			break;
 		}
 	}
-
 
 
 	public void setMaze(String[][] map) {
