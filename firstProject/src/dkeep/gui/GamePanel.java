@@ -65,53 +65,59 @@ public class GamePanel extends JPanel  {
 		g.drawRect(0, 0, (map.length-1)*xSize,(map.length-1)*ySize);
 		for (int i =0; i <map.length ;i++) {
 			for (int j = 0; j<map[0].length;j++) {
-				switch(map[i][j]) {
-				case " ":
-					g.drawImage(floor, j*xSize, i*ySize, null);
-					break;
-				case "H":
- 
-					g.drawImage(hero, j*xSize, i*ySize, null);
-			
-					break;
-				case "S":
-					g.drawImage(openDoor, j*xSize, i*ySize, null);
-
-					break;				
-				case "X": 
-					g.drawImage(wall, j*xSize, i*ySize, null);
-					
-					break;
-				case "k":
-					g.drawImage(key, j*xSize, i*ySize, null);
-					
-					break; 
-				case "I":
-					g.drawImage(closedDoor, j*xSize, i*ySize, null);
-					
-					break;
-				case "G":
-					g.drawImage(guard, j*xSize, i*ySize, null);
-					break;
-				case "A":
-					g.drawImage(heroArmed, j*xSize, i*ySize, null);
-					break;
-				case "K":
-					g.drawImage(hero, j*xSize, i*ySize, null);
-					break;
-				case "O":
-					g.drawImage(ogre, j*xSize, i*ySize, null);
-					break;
-				case "8":
-					g.drawImage(stunnedOgre, j*xSize, i*ySize, null);
-					break;
-				default:
-					g.drawImage(floor, j*xSize, i*ySize, null);
-	
-					break;
-
-				}
+				switchPaintComponent(g, xSize, ySize, i, j);
 			}
+
+		}
+	}
+
+
+
+	private void switchPaintComponent(Graphics g, int xSize, int ySize, int i, int j) {
+		switch(map[i][j]) {
+		case " ":
+			g.drawImage(floor, j*xSize, i*ySize, null);
+			break;
+		case "H":
+ 
+			g.drawImage(hero, j*xSize, i*ySize, null);
+
+			break;
+		case "S":
+			g.drawImage(openDoor, j*xSize, i*ySize, null);
+
+			break;				
+		case "X": 
+			g.drawImage(wall, j*xSize, i*ySize, null);
+			
+			break;
+		case "k":
+			g.drawImage(key, j*xSize, i*ySize, null);
+			
+			break; 
+		case "I":
+			g.drawImage(closedDoor, j*xSize, i*ySize, null);
+			
+			break;
+		case "G":
+			g.drawImage(guard, j*xSize, i*ySize, null);
+			break;
+		case "A":
+			g.drawImage(heroArmed, j*xSize, i*ySize, null);
+			break;
+		case "K":
+			g.drawImage(hero, j*xSize, i*ySize, null);
+			break;
+		case "O":
+			g.drawImage(ogre, j*xSize, i*ySize, null);
+			break;
+		case "8":
+			g.drawImage(stunnedOgre, j*xSize, i*ySize, null);
+			break;
+		default:
+			g.drawImage(floor, j*xSize, i*ySize, null);
+
+			break;
 
 		}
 	}
