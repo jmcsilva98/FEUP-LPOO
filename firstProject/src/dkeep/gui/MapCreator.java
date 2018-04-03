@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class MapCreator extends JFrame {
 
-	private JFrame frame;
+	public JFrame frame;
 	private int xPressed, yPressed;
 	private String[][] map;
 	int dimension;

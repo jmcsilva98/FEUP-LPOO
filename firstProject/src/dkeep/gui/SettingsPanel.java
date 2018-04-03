@@ -66,9 +66,9 @@ public class SettingsPanel {
 		JButton btnCreateNewLevel = new JButton("Create new level");
 		btnCreateNewLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NewLevel other= null;
+				MapCreator other= null;
 				try {
-					other= new NewLevel();
+					other= new MapCreator();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

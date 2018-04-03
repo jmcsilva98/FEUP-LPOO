@@ -71,9 +71,9 @@ public class MenuPanel {
 		btnNewLevel = new JButton("New Level");
 		btnNewLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NewLevel other=null;
+				MapCreator other=null;
 				try {
-					other = new NewLevel();
+					other = new MapCreator();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
