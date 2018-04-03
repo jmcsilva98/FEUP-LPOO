@@ -17,6 +17,7 @@ public class GuiInteraction {
 
 		this.guard=guard;
 		this.numberOgres=numberOgres;
+		System.out.println("NUMBER OGRES:::"+numberOgres);
 		game.start(true,guard, numberOgres);
 
 	}
@@ -31,14 +32,14 @@ public class GuiInteraction {
 			game.guardMovement();
 			return true;
 		}
-		if (game.getLevel()==2 && game.isFreeOgre()) {
+		else if (game.getLevel()==2 && game.isFreeOgre()) {
 			game.heroMovement(move);
 			game.ogreMovement();
 			return true;
 		}
 		else if (game.isFreeOgre()) {
-			game.ogreMovement();
 			game.heroMovement(move);
+			game.ogreMovement();
 			return true;
 		}
 		return false;

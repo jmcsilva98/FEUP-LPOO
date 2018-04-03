@@ -45,7 +45,7 @@ public class Character{
 		this.y=y;
 	}
 
-	void updatePosition() {
+	public void updatePosition() {
 		
 		xn=x;
 		yn=y;

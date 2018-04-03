@@ -25,8 +25,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dkeep.cli.GuiInteraction;
 import dkeep.cli.UserInteraction;
-import dkeep.logic.Hero;
-import dkeep.logic.Ogre;
+import dkeep.logic.*;
+import dkeep.logic.Character;
 
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
@@ -319,7 +319,7 @@ public class PlayPanel {
 	}
 
 	private void newGamePressed() {
-		this.game.start(guard,1);
+		this.game.start(guard,game.getGame().getLevel());
 		guardPersonality.setEnabled(false);
 		gameArea.setMaze(game.getGame().getMap());
 		lblYou.setText("You can play now");
@@ -364,7 +364,10 @@ public class PlayPanel {
 	}
 	public void editableLevel(String[][]map) {
 		this.map=map;
+		int ogresNumber=0;
+		game.getGame().setLevel(0);
 		game.getGame().setMap(map);
+		System.out.println(game.getGame().getLevel());
 		for (int i =0;i<map.length;i++) {
 			for (int j = 0; j<map.length;j++)
 				switch (map[i][j]) {
@@ -378,7 +381,11 @@ public class PlayPanel {
 					Ogre ogre =new Ogre();
 					ogre.setX(i);
 					ogre.setY(j);
+					ogre.updatePosition();
+					
+					System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
 					game.getGame().setOgre(ogre);
+					ogresNumber++;
 					break;
 				}
 		}
