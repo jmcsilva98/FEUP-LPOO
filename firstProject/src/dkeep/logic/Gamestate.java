@@ -370,7 +370,8 @@ public class Gamestate {
 		if (hero.y==0) {
 			if (!isFreeGuardY()) return false;
 		}
-		if (!isFreeDefault("G","g"))return false;
+		if (!isFreeDefault("G"))return false;
+		if (!isFreeDefault("g")) return false;
 
 		return true;
 	}
@@ -390,18 +391,15 @@ public boolean isFreeOgre() {
 
 	else if (!isFreeOgreY()) return false;
 
-	else if (!isFreeDefault("O","*"))return false;
+	else if (!isFreeDefault("O"))return false;
+	else if (!isFreeDefault("*")) return false;
 	return true;
 }
-public boolean isFreeDefault(String type,String type2) {
+public boolean isFreeDefault(String type) {
 	if (currentMap[hero.x-1][hero.y]==type)return false;
 	if (currentMap[hero.x][hero.y+1] ==type)return false;
 	if (currentMap[hero.x+1][hero.y] ==type)return false;
 	if (currentMap[hero.x][hero.y-1]==type)return false;
-	if (currentMap[hero.x-1][hero.y] ==type2)return false;
-	if (currentMap[hero.x][hero.y+1] ==type2)return false;
-	if (currentMap[hero.x+1][hero.y] ==type2)return false;
-	if (currentMap[hero.x][hero.y-1] ==type2)return false;
 	return true;
 }
 public boolean isFreeOgreX() {
