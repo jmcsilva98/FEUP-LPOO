@@ -50,7 +50,6 @@ public class MapCreator extends JFrame {
 	public MapCreator() throws IOException {
 		initialize();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
