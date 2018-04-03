@@ -74,7 +74,7 @@ public class TestDungeonGameLogic {
 	}  
 
 
-	/*@Test
+	@Test
 	public void testToString() {
 		Gamestate gamestate=new Gamestate();
 		assertEquals(gamestate.toString(), "XXXXXXXXXX\nXH  I X  X\nXXX XXX  X\n"
@@ -83,7 +83,7 @@ public class TestDungeonGameLogic {
 		gamestate.setLevel(2);
 		assertEquals(gamestate.toString(), "XXXXXXXXX\nI      kX\nX       X\n"
 				+"X       X\nX       X\nX C     X\nX       X\nX       X\nXXXXXXXXX\n");
-	}*/
+	}
 
 	@Test(timeout=1000)
 	public void testStartConsole() {
@@ -451,7 +451,6 @@ public class TestDungeonGameLogic {
 		assertTrue(gamestate.isFreeGuard());
 
 	}
-
 
 
 

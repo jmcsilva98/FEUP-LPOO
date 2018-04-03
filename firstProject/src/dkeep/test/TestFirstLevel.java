@@ -216,11 +216,11 @@ public class TestFirstLevel {
 		{
 			drunkenGuard.movement();
 			
-			if(drunkenGuard.getX()<0 || drunkenGuard.getX() >9) {
+			if(drunkenGuard.getX()<0 || drunkenGuard.getX() > gamestate.getMap().length) {
 				assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
 				test1 = true;
 			}
-			if(drunkenGuard.getY() <0 ||drunkenGuard.getY()>9) {
+			if(drunkenGuard.getY() <0 ||drunkenGuard.getY()>gamestate.getMap().length) {
 				assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
 				test2 = true;
 			}
@@ -294,6 +294,7 @@ public class TestFirstLevel {
 	public void testSuspiciousMovement() {
 		SuspiciousGuard suspiciousGuard = new SuspiciousGuard();
 
+	
 		suspiciousGuard.position = 24;
 		suspiciousGuard.movement();
 		assertTrue(suspiciousGuard.backMovement);
