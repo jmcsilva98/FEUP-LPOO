@@ -20,8 +20,8 @@ public class Gamestate {
 	public boolean testCase = false, testCase0 = false, testCase1 = false, testCase2 = false;
 
 	public Gamestate() {
-		this.currentMap=Map.getMap(2);
-		level=2;
+		this.currentMap=Map.getMap(1);
+		level=1;
 	}
 
 	public Gamestate(Map map) {
@@ -325,8 +325,7 @@ public class Gamestate {
 
 	public String ogreMovement() {
 		String ret="";
-
-		for (int i =0;i< ogres.size();i++) {
+		for (Ogre ogre: ogres) {
 			
 			currentMap[ogre.xn][ogre.yn]=" ";
 			ret=ogre.movement();
@@ -334,34 +333,34 @@ public class Gamestate {
 			currentMap[ogre.x][ogre.y]="O";
 			
 			ogre.updatePosition();
-			i++;
-			if (ogres.get(i).isStunned) {
-				ogres.get(i).symbol="8";
-				ogres.get(i).stunCounter++;
-				if (ogres.get(i).stunCounter==2) {
-					ogres.get(i).isStunned=false;
-					ogres.get(i).stunCounter=0;
+			
+			if (ogre.isStunned) {
+				ogre.symbol="8";
+				ogre.stunCounter++;
+				if (ogre.stunCounter==2) {
+					ogre.isStunned=false;
+					ogre.stunCounter=0;
 				}
 			}
 			else {
 
-				ret=ogres.get(i).movement();
-				if (currentMap[ogres.get(i).x][ogres.get(i).y]!=" ") {
-					ogres.get(i).x=ogres.get(i).xn;
-					ogres.get(i).y=ogres.get(i).yn;
+				ret=ogre.movement();
+				if (currentMap[ogre.x][ogre.y]!=" ") {
+					ogre.x=ogre.xn;
+					ogre.y=ogre.yn;
 				}
-				if (currentMap[ogres.get(i).x][ogres.get(i).y]=="k") {
-					ogres.get(i).symbol="$";
+				if (currentMap[ogre.x][ogre.y]=="k") {
+					ogre.symbol="$";
 				}
 
 			}
-			currentMap[ogres.get(i).getClub().xn][ogres.get(i).getClub().yn]=" ";
-			newPositionClub(ogres.get(i));
-			currentMap[ogres.get(i).getClub().x][ogres.get(i).getClub().y]="*";
-			ogres.get(i).getClub().updatePosition();
-			currentMap[ogres.get(i).x][ogres.get(i).y]=" ";
-			currentMap[ogres.get(i).x][ogres.get(i).y]=ogres.get(i).symbol;
-			ogres.get(i).updatePosition();
+			currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
+			newPositionClub(ogre);
+			currentMap[ogre.getClub().x][ogre.getClub().y]="*";
+			ogre.getClub().updatePosition();
+			currentMap[ogre.x][ogre.y]=" ";
+			currentMap[ogre.x][ogre.y]=ogre.symbol;
+			ogre.updatePosition();
 		}
 		return ret;
 
