@@ -410,24 +410,28 @@ public boolean isFreeOgreX() {
 }
 public boolean isFreeOgreX0() {
 	if (hero.x==0) {
-		if (currentMap[hero.x][hero.y+1] =="O")return false;
-		if (currentMap[hero.x+1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y-1] =="O")return false;
-		if (currentMap[hero.x][hero.y+1] =="*")return false;
-		if (currentMap[hero.x+1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y-1] =="*")return false;
+		if (!isFreeOgreX0Default("O")) return false;
+		if (!isFreeOgreX0Default("*")) return false;
 	}
+	return true;
+}
+public boolean isFreeOgreX0Default(String type) {
+	if (currentMap[hero.x][hero.y+1] ==type)return false;
+	if (currentMap[hero.x+1][hero.y] ==type)return false;
+	if (currentMap[hero.x][hero.y-1] ==type)return false;
 	return true;
 }
 public boolean isFreeOgreLength() {
 	if (hero.x == currentMap.length-1) {
-		if (currentMap[hero.x-1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y+1] =="O")return false;
-		if (currentMap[hero.x][hero.y-1] =="O")return false;
-		if (currentMap[hero.x-1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y+1] =="*")return false;
-		if (currentMap[hero.x][hero.y-1] =="*")return false;
+		if (!isFreeOgreLengthDefault("O")) return false;
+		if (!isFreeOgreLengthDefault("*")) return false;
 	}
+	return true;
+}
+public boolean isFreeOgreLengthDefault(String type) {
+	if (currentMap[hero.x-1][hero.y] ==type)return false;
+	if (currentMap[hero.x][hero.y+1] ==type)return false;
+	if (currentMap[hero.x][hero.y-1] ==type)return false;
 	return true;
 }
 public boolean isFreeOgreY() {
@@ -438,25 +442,30 @@ public boolean isFreeOgreY() {
 }
 public boolean isFreeOgreY0() {
 	if (hero.y==0) {
-		if (currentMap[hero.x-1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y+1] =="O")return false;
-		if (currentMap[hero.x+1][hero.y] =="O")return false;
-		if (currentMap[hero.x-1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y+1] =="*")return false;
-		if (currentMap[hero.x+1][hero.y] =="*")return false;
+		if (!isFreeOgreY0Default("O")) return false;
+		if (!isFreeOgreY0Default("*")) return false;
 	}
 	return true;
 
 }
+public boolean isFreeOgreY0Default(String type) {
+	if (currentMap[hero.x-1][hero.y] ==type)return false;
+	if (currentMap[hero.x][hero.y+1] ==type)return false;
+	if (currentMap[hero.x+1][hero.y] ==type)return false;
+	return true;
+}
 public boolean isFreeOgreYLength() {
 	if (hero.y==currentMap.length-1) {
-		if (currentMap[hero.x-1][hero.y] =="O")return false;
-		if (currentMap[hero.x+1][hero.y] =="O")return false;
-		if (currentMap[hero.x][hero.y-1] =="O")return false;
-		if (currentMap[hero.x-1][hero.y] =="*")return false;
-		if (currentMap[hero.x+1][hero.y] =="*")return false;
-		if (currentMap[hero.x][hero.y-1] =="*")return false;
+		if (!isFreeOgreYLengthDefault("O")) return false;
+		if (!isFreeOgreYLengthDefault("*")) return false;
+		
 	}
+	return true;
+}
+public boolean isFreeOgreYLengthDefault(String type) {
+	if (currentMap[hero.x-1][hero.y] ==type)return false;
+	if (currentMap[hero.x+1][hero.y] ==type)return false;
+	if (currentMap[hero.x][hero.y-1] ==type)return false;
 	return true;
 }
 public void newPositionClub(Ogre ogre) {
