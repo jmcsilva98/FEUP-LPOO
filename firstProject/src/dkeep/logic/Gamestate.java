@@ -103,7 +103,7 @@ public class Gamestate {
 			Ogre ogre = new Ogre();
 			ogres.add(ogre);
 		}
-		
+
 		this.ogres=ogres;
 		System.out.println("size::::"+this.ogres.size());
 	}
@@ -167,24 +167,24 @@ public class Gamestate {
 		Ogre auxOgre= new Ogre();
 		Character club= new Character();
 		if (level==1) {
-		switch(guard) {
-		case "Rookie":
-			RookieGuard rookie=new RookieGuard();
-			setGuard(rookie);
-			break;
-		case "Drunken":
-			DrunkenGuard drunken=new DrunkenGuard();
-			setGuard(drunken);
-			break;
-		case "Suspicious":
-			SuspiciousGuard suspicious=new SuspiciousGuard();
-			setGuard(suspicious);
-			break;
-		default:
-			RookieGuard rookie2=new RookieGuard();
-			setGuard(rookie2);
+			switch(guard) {
+			case "Rookie":
+				RookieGuard rookie=new RookieGuard();
+				setGuard(rookie);
+				break;
+			case "Drunken":
+				DrunkenGuard drunken=new DrunkenGuard();
+				setGuard(drunken);
+				break;
+			case "Suspicious":
+				SuspiciousGuard suspicious=new SuspiciousGuard();
+				setGuard(suspicious);
+				break;
+			default:
+				RookieGuard rookie2=new RookieGuard();
+				setGuard(rookie2);
 
-		}
+			}
 		}
 		for (int i =0;i< numberOgres; i++) {
 			ogresVector.add(auxOgre);
@@ -208,7 +208,7 @@ public class Gamestate {
 			guard.setY(8);
 			setHero(hero);
 		}
-		
+
 		else if (level==2) {
 			hero.setX(7);
 			hero.setY(1); 
@@ -285,7 +285,7 @@ public class Gamestate {
 	public void heroChangeLevel() {
 		System.out.print("hero change level");
 		if(level == 1) {
-			
+
 			setLevel(2);
 			hero.setX(7);
 			hero.setY(1);
@@ -326,14 +326,14 @@ public class Gamestate {
 	public String ogreMovement() {
 		String ret="";
 		for (Ogre ogre: ogres) {
-			
+
 			currentMap[ogre.xn][ogre.yn]=" ";
 			ret=ogre.movement();
 			if (currentMap[ogre.x][ogre.y]==" ")
-			currentMap[ogre.x][ogre.y]="O";
-			
+				currentMap[ogre.x][ogre.y]="O";
+
 			ogre.updatePosition();
-			
+
 			if (ogre.isStunned) {
 				ogre.symbol="8";
 				ogre.stunCounter++;
@@ -367,59 +367,62 @@ public class Gamestate {
 	}
 
 	public boolean isFreeGuard() {
-
 		if (hero.y==0) {
-			if (currentMap[hero.x-1][hero.y] =="G")return false;
-			if (currentMap[hero.x][hero.y+1] =="G")return false;
-			if (currentMap[hero.x+1][hero.y] =="G")return false;
-			if (currentMap[hero.x-1][hero.y] =="g")return false;
-			if (currentMap[hero.x][hero.y+1] =="g")return false;
-			if (currentMap[hero.x+1][hero.y] =="g")return false;
+			if (!isFreeGuardY()) return false;
 		}
-
 		if (!isFreeDefault("G","g"))return false;
 
 		return true;
 	}
-	public boolean isFreeOgre() {
+	public boolean isFreeGuardY() {
 
-		if (!isFreeOgreX()) return false;
+		if (currentMap[hero.x-1][hero.y] =="G")return false;
+		if (currentMap[hero.x][hero.y+1] =="G")return false;
+		if (currentMap[hero.x+1][hero.y] =="G")return false;
+		if (currentMap[hero.x-1][hero.y] =="g")return false;
+		if (currentMap[hero.x][hero.y+1] =="g")return false;
+		if (currentMap[hero.x+1][hero.y] =="g")return false;
+	return true;
+}
+public boolean isFreeOgre() {
 
-		else if (!isFreeOgreY()) return false;
+	if (!isFreeOgreX()) return false;
 
-		else if (!isFreeDefault("O","*"))return false;
-		return true;
+	else if (!isFreeOgreY()) return false;
+
+	else if (!isFreeDefault("O","*"))return false;
+	return true;
+}
+public boolean isFreeDefault(String type,String type2) {
+	if (currentMap[hero.x-1][hero.y]==type)return false;
+	if (currentMap[hero.x][hero.y+1] ==type)return false;
+	if (currentMap[hero.x+1][hero.y] ==type)return false;
+	if (currentMap[hero.x][hero.y-1]==type)return false;
+	if (currentMap[hero.x-1][hero.y] ==type2)return false;
+	if (currentMap[hero.x][hero.y+1] ==type2)return false;
+	if (currentMap[hero.x+1][hero.y] ==type2)return false;
+	if (currentMap[hero.x][hero.y-1] ==type2)return false;
+	return true;
+}
+public boolean isFreeOgreX() {
+	if (!isFreeOgreX0()) return false;
+
+	if (! isFreeOgreLength()) return false;
+	return true;
+}
+public boolean isFreeOgreX0() {
+	if (hero.x==0) {
+		if (currentMap[hero.x][hero.y+1] =="O")return false;
+		if (currentMap[hero.x+1][hero.y] =="O")return false;
+		if (currentMap[hero.x][hero.y-1] =="O")return false;
+		if (currentMap[hero.x][hero.y+1] =="*")return false;
+		if (currentMap[hero.x+1][hero.y] =="*")return false;
+		if (currentMap[hero.x][hero.y-1] =="*")return false;
 	}
-	public boolean isFreeDefault(String type,String type2) {
-		if (currentMap[hero.x-1][hero.y]==type)return false;
-		if (currentMap[hero.x][hero.y+1] ==type)return false;
-		if (currentMap[hero.x+1][hero.y] ==type)return false;
-		if (currentMap[hero.x][hero.y-1]==type)return false;
-		if (currentMap[hero.x-1][hero.y] ==type2)return false;
-		if (currentMap[hero.x][hero.y+1] ==type2)return false;
-		if (currentMap[hero.x+1][hero.y] ==type2)return false;
-		if (currentMap[hero.x][hero.y-1] ==type2)return false;
-		return true;
-	}
-	public boolean isFreeOgreX() {
-		if (!isFreeOgreX0()) return false;
-		
-		if (! isFreeOgreLength()) return false;
-		return true;
-	}
-	public boolean isFreeOgreX0() {
-		if (hero.x==0) {
-			if (currentMap[hero.x][hero.y+1] =="O")return false;
-			if (currentMap[hero.x+1][hero.y] =="O")return false;
-			if (currentMap[hero.x][hero.y-1] =="O")return false;
-			if (currentMap[hero.x][hero.y+1] =="*")return false;
-			if (currentMap[hero.x+1][hero.y] =="*")return false;
-			if (currentMap[hero.x][hero.y-1] =="*")return false;
-		}
-		return true;
-	}
-	public boolean isFreeOgreLength() {
-		if (hero.x == currentMap.length-1) {
+	return true;
+}
+public boolean isFreeOgreLength() {
+	if (hero.x == currentMap.length-1) {
 		if (currentMap[hero.x-1][hero.y] =="O")return false;
 		if (currentMap[hero.x][hero.y+1] =="O")return false;
 		if (currentMap[hero.x][hero.y-1] =="O")return false;
@@ -427,64 +430,64 @@ public class Gamestate {
 		if (currentMap[hero.x][hero.y+1] =="*")return false;
 		if (currentMap[hero.x][hero.y-1] =="*")return false;
 	}
-		return true;
-	}
-	public boolean isFreeOgreY() {
-		
-		if (!isFreeOgreY0()) return false;
-		if (!isFreeOgreYLength()) return false;
-		return true;
-	}
-	public boolean isFreeOgreY0() {
-		if (hero.y==0) {
-			if (currentMap[hero.x-1][hero.y] =="O")return false;
-			if (currentMap[hero.x][hero.y+1] =="O")return false;
-			if (currentMap[hero.x+1][hero.y] =="O")return false;
-			if (currentMap[hero.x-1][hero.y] =="*")return false;
-			if (currentMap[hero.x][hero.y+1] =="*")return false;
-			if (currentMap[hero.x+1][hero.y] =="*")return false;
-		}
-		return true;
-		
-	}
-	public boolean isFreeOgreYLength() {
-		if (hero.y==currentMap.length-1) {
-			if (currentMap[hero.x-1][hero.y] =="O")return false;
-			if (currentMap[hero.x+1][hero.y] =="O")return false;
-			if (currentMap[hero.x][hero.y-1] =="O")return false;
-			if (currentMap[hero.x-1][hero.y] =="*")return false;
-			if (currentMap[hero.x+1][hero.y] =="*")return false;
-			if (currentMap[hero.x][hero.y-1] =="*")return false;
-		}
-		return true;
-	}
-	public void newPositionClub(Ogre ogre) {
-		if ( ogre.x>0 && currentMap[ogre.x-1][ogre.y]==" ") {
-			ogre.getClub().x=ogre.x;
-			ogre.getClub().y=ogre.y-1;
-		}
-		else if ( ogre.x<currentMap.length && currentMap[ogre.x+1][ogre.y]==" ") {
-			ogre.getClub().x=ogre.x+1;
-			ogre.getClub().y=ogre.y;
-		}
-		else if (ogre.y>0 && currentMap[ogre.x][ogre.y-1]==" ") {
-			ogre.getClub().x=ogre.x;
-			ogre.getClub().y=ogre.y-1;
-		}
-		else if (ogre.y<currentMap.length &&currentMap[ogre.x][ogre.y+1]==" ") {
-			ogre.getClub().x=ogre.x;
-			ogre.getClub().y=ogre.y+1;
-		}
+	return true;
+}
+public boolean isFreeOgreY() {
 
+	if (!isFreeOgreY0()) return false;
+	if (!isFreeOgreYLength()) return false;
+	return true;
+}
+public boolean isFreeOgreY0() {
+	if (hero.y==0) {
+		if (currentMap[hero.x-1][hero.y] =="O")return false;
+		if (currentMap[hero.x][hero.y+1] =="O")return false;
+		if (currentMap[hero.x+1][hero.y] =="O")return false;
+		if (currentMap[hero.x-1][hero.y] =="*")return false;
+		if (currentMap[hero.x][hero.y+1] =="*")return false;
+		if (currentMap[hero.x+1][hero.y] =="*")return false;
 	}
-	public void heroDefaultMovement() {
-		hero.x=hero.xn;
-		hero.y=hero.yn;
-		if(level ==1)
-			currentMap[hero.x][hero.y]="H";
-		else
-			currentMap[hero.x][hero.y]="A";
+	return true;
+
+}
+public boolean isFreeOgreYLength() {
+	if (hero.y==currentMap.length-1) {
+		if (currentMap[hero.x-1][hero.y] =="O")return false;
+		if (currentMap[hero.x+1][hero.y] =="O")return false;
+		if (currentMap[hero.x][hero.y-1] =="O")return false;
+		if (currentMap[hero.x-1][hero.y] =="*")return false;
+		if (currentMap[hero.x+1][hero.y] =="*")return false;
+		if (currentMap[hero.x][hero.y-1] =="*")return false;
 	}
+	return true;
+}
+public void newPositionClub(Ogre ogre) {
+	if ( ogre.x>0 && currentMap[ogre.x-1][ogre.y]==" ") {
+		ogre.getClub().x=ogre.x;
+		ogre.getClub().y=ogre.y-1;
+	}
+	else if ( ogre.x<currentMap.length && currentMap[ogre.x+1][ogre.y]==" ") {
+		ogre.getClub().x=ogre.x+1;
+		ogre.getClub().y=ogre.y;
+	}
+	else if (ogre.y>0 && currentMap[ogre.x][ogre.y-1]==" ") {
+		ogre.getClub().x=ogre.x;
+		ogre.getClub().y=ogre.y-1;
+	}
+	else if (ogre.y<currentMap.length &&currentMap[ogre.x][ogre.y+1]==" ") {
+		ogre.getClub().x=ogre.x;
+		ogre.getClub().y=ogre.y+1;
+	}
+
+}
+public void heroDefaultMovement() {
+	hero.x=hero.xn;
+	hero.y=hero.yn;
+	if(level ==1)
+		currentMap[hero.x][hero.y]="H";
+	else
+		currentMap[hero.x][hero.y]="A";
+}
 
 }
 
