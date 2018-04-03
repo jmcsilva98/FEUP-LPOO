@@ -227,16 +227,13 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-
-
+		
 		hero.setX(4);
 		hero.setY(8);
 		gamestate.heroMovement("L");
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-
-
 
 	}
 
@@ -284,10 +281,7 @@ public class TestOgreLevel {
 	@Test
 	public void testOgreMovement() {
 		Gamestate gamestate = new Gamestate(map2);
-		//Ogre ogre = new Ogre();
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-		//int counter;
-
 		gamestate.setOgres(ogres);
 		ogres = gamestate.getOgres();
 
@@ -303,8 +297,9 @@ public class TestOgreLevel {
 			ogre.stunCounter = 0;
 			assertEquals(ogre.stunCounter, 0);
 
-			ogre.isStunned  = false;
+		
 			gamestate.ogreMovement();
+			ogre.isStunned  = false;
 			gamestate.currentMap[ogre.getX()][ogre.getY()] ="S";
 			assertEquals(ogre.getX(),ogre.getXn());
 			assertEquals(ogre.getY(),ogre.getYn());
@@ -314,9 +309,6 @@ public class TestOgreLevel {
 
 
 		}
-
-
-
 	}
 
 

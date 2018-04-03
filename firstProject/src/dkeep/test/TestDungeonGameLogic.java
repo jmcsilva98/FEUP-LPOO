@@ -164,7 +164,6 @@ public class TestDungeonGameLogic {
 		assertEquals(map2, gamestate.getMap());
 	}
 
-
 	@Test
 	public void testGameState() {
 
@@ -179,7 +178,7 @@ public class TestDungeonGameLogic {
 
 
 
-	@Test
+	/*@Test
 	public void testGetX() {
 		Gamestate gamestate=new Gamestate();
 		Hero hero= new Hero();
@@ -219,7 +218,7 @@ public class TestDungeonGameLogic {
 		assertEquals(gamestate.getHero().getYn(), hero.getYn());
 	} 	 
 
-
+*/
 	@Test
 	public void testGetMapLevel1() {
 		Gamestate gamestate=new Gamestate();
@@ -246,12 +245,12 @@ public class TestDungeonGameLogic {
 	}
 
 
-	@Test
+	/*@Test
 	public void testLevel() {
 		Gamestate gamestate=new Gamestate();
 		assertEquals(gamestate.getLevel(), 1);
 	}
-
+	 */
 	@Test
 	public void testMoveHeroIntoFreeCell() {
 
@@ -343,6 +342,7 @@ public class TestDungeonGameLogic {
 		hero.setX(1);
 		hero.setY(1);
 		gamestate.setHero(hero);
+		assertFalse(gamestate.getHero().hasKey);	
 		gamestate.heroMovement("D");
 		gamestate.heroMovement("D");
 		gamestate.heroMovement("R");
@@ -382,7 +382,7 @@ public class TestDungeonGameLogic {
 	} 
 
 
-
+/*
 	@Test
 	public void testHeroHasNoKey() {
 
@@ -392,7 +392,7 @@ public class TestDungeonGameLogic {
 		hero.setY(1);
 		gamestate.setHero(hero);
 		assertFalse(gamestate.getHero().hasKey);	
-	}
+	}*/
 
 	@Test
 	public void testHeroArrivesAtTheDoorWithoutTheKey() {
@@ -416,8 +416,8 @@ public class TestDungeonGameLogic {
 		hero.setX(1);
 		hero.setY(1);
 		gamestate.setHero(hero);
+		assertFalse(gamestate.gameWon());
 		gamestate.heroMovement("D");
-		//gamestate.heroMovement("D");
 		gamestate.heroMovement("R");
 		gamestate.heroMovement("D"); 
 		gamestate.heroMovement("D");
@@ -437,21 +437,6 @@ public class TestDungeonGameLogic {
 		assertEquals(gamestate.getLevel(), 2);
 
 	}
-
-
-
-
-	@Test
-	public void testHeroisFree() {
-		Gamestate gamestate=new Gamestate(map1);
-		Hero hero= new Hero();
-		hero.setX(1);
-		hero.setY(1);
-		gamestate.setHero(hero);
-		assertTrue(gamestate.isFreeGuard());
-
-	}
-
 
 
 

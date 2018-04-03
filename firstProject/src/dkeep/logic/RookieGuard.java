@@ -1,7 +1,7 @@
 package dkeep.logic;
 
 public class RookieGuard extends Guard{
-	int length=1;
+	public int length=1;
 	public void movement() {
 		if(length < 24) {
 			switch(movement[length]) {
