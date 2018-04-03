@@ -431,6 +431,12 @@ public class Gamestate {
 		return true;
 	}
 	public boolean isFreeOgreY() {
+		
+		if (!isFreeOgreY0()) return false;
+		else 
+		return true;
+	}
+	public boolean isFreeOgreY0() {
 		if (hero.y==0) {
 			if (currentMap[hero.x-1][hero.y] =="O")return false;
 			if (currentMap[hero.x][hero.y+1] =="O")return false;
@@ -439,8 +445,11 @@ public class Gamestate {
 			if (currentMap[hero.x][hero.y+1] =="*")return false;
 			if (currentMap[hero.x+1][hero.y] =="*")return false;
 		}
-
-		else if (hero.y==currentMap.length-1) {
+		return true;
+		
+	}
+	public boolean isFreeOgreYLength() {
+		if (hero.y==currentMap.length-1) {
 			if (currentMap[hero.x-1][hero.y] =="O")return false;
 			if (currentMap[hero.x+1][hero.y] =="O")return false;
 			if (currentMap[hero.x][hero.y-1] =="O")return false;
