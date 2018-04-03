@@ -336,25 +336,30 @@ public class MapCreator extends JFrame {
 		int ogresNumber=0;
 		for (int i =0;i<map.length;i++)
 			for (int j = 0;  j< map.length;j++) {
-				switch (map[i][j]) {
-				case "H":
-					hasHero=true;
-					break;
-				case "k":
-					hasKey=true;
-					break;
-				case "O":
-					hasOgre=true;
-					ogresNumber++;
-					break;
-				case "X":
-					hasWall=true;
-					break;
-				case "I":
-					hasExitDoor=true;
-					break;
-				}
+				ogresNumber = switchElements(ogresNumber, i, j);
 			}
+		return ogresNumber;
+	}
+
+	private int switchElements(int ogresNumber, int i, int j) {
+		switch (map[i][j]) {
+		case "H":
+			hasHero=true;
+			break;
+		case "k":
+			hasKey=true;
+			break;
+		case "O":
+			hasOgre=true;
+			ogresNumber++;
+			break;
+		case "X":
+			hasWall=true;
+			break;
+		case "I":
+			hasExitDoor=true;
+			break;
+		}
 		return ogresNumber;
 	}
 
