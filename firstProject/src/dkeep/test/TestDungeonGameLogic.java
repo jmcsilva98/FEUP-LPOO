@@ -178,7 +178,7 @@ public class TestDungeonGameLogic {
 
 
 
-	/*@Test
+	@Test
 	public void testGetX() {
 		Gamestate gamestate=new Gamestate();
 		Hero hero= new Hero();
@@ -218,7 +218,7 @@ public class TestDungeonGameLogic {
 		assertEquals(gamestate.getHero().getYn(), hero.getYn());
 	} 	 
 
-*/
+
 	@Test
 	public void testGetMapLevel1() {
 		Gamestate gamestate=new Gamestate();
@@ -245,12 +245,12 @@ public class TestDungeonGameLogic {
 	}
 
 
-	/*@Test
+	@Test
 	public void testLevel() {
 		Gamestate gamestate=new Gamestate();
 		assertEquals(gamestate.getLevel(), 1);
 	}
-	 */
+	 
 	@Test
 	public void testMoveHeroIntoFreeCell() {
 
@@ -382,7 +382,7 @@ public class TestDungeonGameLogic {
 	} 
 
 
-/*
+
 	@Test
 	public void testHeroHasNoKey() {
 
@@ -392,7 +392,7 @@ public class TestDungeonGameLogic {
 		hero.setY(1);
 		gamestate.setHero(hero);
 		assertFalse(gamestate.getHero().hasKey);	
-	}*/
+	}
 
 	@Test
 	public void testHeroArrivesAtTheDoorWithoutTheKey() {
