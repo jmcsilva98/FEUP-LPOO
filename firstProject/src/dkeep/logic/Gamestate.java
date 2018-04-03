@@ -432,7 +432,7 @@ public class Gamestate {
 	public boolean isFreeOgreY() {
 		
 		if (!isFreeOgreY0()) return false;
-		else 
+		if (!isFreeOgreYLength()) return false;
 		return true;
 	}
 	public boolean isFreeOgreY0() {
