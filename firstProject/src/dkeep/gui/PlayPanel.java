@@ -351,6 +351,7 @@ public class PlayPanel {
 		}
 
 		gameArea.setMaze(game.getGame().getMap());
+		
 		gameArea.requestFocusInWindow();
 	}
 
@@ -398,14 +399,12 @@ public class PlayPanel {
 					ogre.setX(i);
 					ogre.setY(j);
 					ogre.updatePosition();
-					System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
 					game.getGame().setOgre(ogre);
 					ogresNumber++;
 					break;
 				default:
 					break;
 				}
-			System.out.println("OGRES NUMBER ::::"+ogresNumber);
 		}
 		gameArea.setMaze(map);
 	}

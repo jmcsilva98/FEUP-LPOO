@@ -96,6 +96,7 @@ public class MenuPanel {
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
+				
 				if (exitPressed==JOptionPane.YES_OPTION)
 					System.exit(0);
 

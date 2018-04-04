@@ -2,7 +2,6 @@ package dkeep.logic;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
 
 public class Gamestate {
 
@@ -275,8 +274,11 @@ public class Gamestate {
 		if (level==1) {
 			currentMap[5][0] = "S";
 			currentMap[6][0] = "S";
+			hero.hasKey=true;
 		}
-		currentMap[hero.x][hero.y]="K";
+		if (level==2)
+			currentMap[1][0]="S";
+		currentMap[hero.x][hero.y]="A";
 		hero.hasKey=true;
 	}
 
@@ -303,13 +305,8 @@ public class Gamestate {
 
 	public void heroHasKey() {
 		if(hero.hasKey) {
-			currentMap[hero.x][hero.y]="K";
-		}
-		else if(level == 2) {
 			currentMap[hero.x][hero.y]="A";
-
 		}
-
 		else {
 			currentMap[hero.x][hero.y]="H";
 		}
@@ -332,7 +329,6 @@ public class Gamestate {
 
 		public String ogreMovement() {
 			String ret="";
-			int i =0;
 			if (ogres.size()==0) return ret;
 			for (Ogre ogre : ogres) {
 				currentMap[ogre.x][ogre.y]=" ";
