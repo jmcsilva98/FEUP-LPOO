@@ -87,6 +87,7 @@ public class MenuPanel {
 		springLayout.putConstraint(SpringLayout.EAST, btnNewLevel, 0, SpringLayout.EAST, btnNewGame);
 		frame.getContentPane().add(btnNewLevel);
 	}
+	
 
 	private void initializeExitButton() {
 		btnExit = new JButton("Exit");

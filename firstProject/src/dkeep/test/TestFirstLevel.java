@@ -9,6 +9,7 @@ import dkeep.logic.*;
 
 public class TestFirstLevel { 
 
+	
 	String[][] map1={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 			{"X", " ", "O", " ", "I", " ", "X", " ", " ", "X"},

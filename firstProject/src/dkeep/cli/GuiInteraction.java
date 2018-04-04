@@ -36,6 +36,7 @@ public class GuiInteraction {
 			game.ogreMovement();
 			return true;
 		}
+		
 		else if (game.isFreeOgre()) {
 			game.heroMovement(move);
 			game.ogreMovement();

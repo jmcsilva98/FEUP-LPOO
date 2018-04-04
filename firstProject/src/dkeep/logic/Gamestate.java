@@ -6,6 +6,7 @@ import java.util.Random;
 public class Gamestate {
 
 
+	
 	public String[][] currentMap;
 
 	int level;

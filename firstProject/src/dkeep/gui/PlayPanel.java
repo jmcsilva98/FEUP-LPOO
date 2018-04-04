@@ -66,7 +66,7 @@ public class PlayPanel {
 		this.ogresNumber=ogresNumber;
 		this.game=game;
 		initialize();
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -92,7 +92,7 @@ public class PlayPanel {
 		initialize();
 	}
 	public PlayPanel(String guard,int ogres) throws IOException {
-		
+
 		this.guard=guard;
 		this.ogresNumber=ogres;
 		this.game=new GuiInteraction();
@@ -112,7 +112,7 @@ public class PlayPanel {
 		frame.getContentPane().setLayout(new GridLayout(2, 2));
 
 		initializeSettings();
-	
+
 		initializeMoveButtons();
 		initializeExitButton();
 
@@ -266,7 +266,7 @@ public class PlayPanel {
 		settings.setLayout(gbl_settings);
 		initializeNumberOgresTextField();
 		initializeGuardPersonality();
-		
+
 	}
 	private void initializeGuardPersonality() {
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
@@ -351,7 +351,7 @@ public class PlayPanel {
 		}
 
 		gameArea.setMaze(game.getGame().getMap());
-		
+
 		gameArea.requestFocusInWindow();
 	}
 
