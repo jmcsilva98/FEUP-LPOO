@@ -65,7 +65,7 @@ public class GamePanel extends JPanel  {
 		g.drawRect(0, 0, (map.length-1)*xSize,(map.length-1)*ySize);
 		for (int i =0; i <map.length ;i++) {
 			for (int j = 0; j<map[0].length;j++) {
-				switchPaintComponent(g, xSize, ySize, i, j);
+				if(!switchPaintComponent(g, xSize, ySize, i, j))
 				switchPaintComponent1(g, xSize, ySize, i, j);
 			}
 
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel  {
 
 
 
-	private void switchPaintComponent(Graphics g, int xSize, int ySize, int i, int j) {
+	private boolean switchPaintComponent(Graphics g, int xSize, int ySize, int i, int j) {
 		switch(map[i][j]) {
 		case " ":
 			g.drawImage(floor, j*xSize, i*ySize, null);
@@ -94,8 +94,12 @@ public class GamePanel extends JPanel  {
 		case "I":
 			g.drawImage(closedDoor, j*xSize, i*ySize, null);
 			break;
+			default:
+				return false;
+				
 
 		}
+		return true;
 	}
 	private void switchPaintComponent1(Graphics g, int xSize, int ySize, int i, int j) {
 

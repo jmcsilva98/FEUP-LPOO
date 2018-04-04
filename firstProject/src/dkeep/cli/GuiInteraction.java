@@ -5,19 +5,19 @@ import dkeep.logic.*;
 public class GuiInteraction {
 
 	private Gamestate game;
-	private String guard;
-	public int numberOgres;
+	private String guard="Rookie";
+	public int numberOgres=1;
 
 	public GuiInteraction() {
 		this.game =new Gamestate();
+		this.start(guard, numberOgres);
 
 	}
-	
 	public void start(String guard, int numberOgres) {
 
 		this.guard=guard;
 		this.numberOgres=numberOgres;
-		System.out.println("NUMBER OGRES:::"+numberOgres);
+		
 		game.start(true,guard, numberOgres);
 
 	}

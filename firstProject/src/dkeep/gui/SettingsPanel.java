@@ -94,7 +94,7 @@ public class SettingsPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayPanel other = null;
 				try {
-					other = new PlayPanel();
+					other = new PlayPanel(guard,ogresNumber);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -131,6 +131,7 @@ public class SettingsPanel {
 					number=Integer.parseInt(numberOgres.getText());
 				}
 				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
+				System.out.println(guard);
 				int ogresNumber=Integer.parseInt(numberOgres.getText());
 				other.setGuard(guard);
 				other.setOgresNumber(ogresNumber);

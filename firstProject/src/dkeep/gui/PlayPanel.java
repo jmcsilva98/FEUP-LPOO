@@ -52,19 +52,23 @@ public class PlayPanel {
 	private JButton btnDown;
 	static String guard="Rookie";
 	private JPanel settings;
-	public static int ogresNumber;
+	public  int ogresNumber;
 	private JTextField numberOgres;
 	private JComboBox guardPersonality;
 	private JPanel exitButtons;
 	private JPanel moveButtons;
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
-	public PlayPanel(String guard,int ogresNumber) {
+	public PlayPanel(String guard,int ogresNumber,GuiInteraction game) throws IOException {
 		this.guard=guard;
 		this.ogresNumber=ogresNumber;
+		this.game=game;
+		initialize();
+		
 	}
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -86,7 +90,13 @@ public class PlayPanel {
 	public PlayPanel() throws IOException {
 		this.game=new GuiInteraction();
 		initialize();
-		numberOgres.setText(""+PlayPanel.ogresNumber);
+	}
+	public PlayPanel(String guard,int ogres) throws IOException {
+		
+		this.guard=guard;
+		this.ogresNumber=ogres;
+		this.game=new GuiInteraction();
+		initialize();
 	}
 
 	/** 
@@ -104,7 +114,7 @@ public class PlayPanel {
 		initializeSettings();
 		initializeMoveButtons();
 		initializeExitButton();
-		
+
 		getFocus();
 		gameArea.requestFocusInWindow();
 		JPanel game_1 = new JPanel();
@@ -127,10 +137,6 @@ public class PlayPanel {
 	}
 	private void initializeExitButton() {
 		exitButtons= new JPanel();
-		gameArea = new GamePanel();
-		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
-		frame.getContentPane().add(gameArea);
 		frame.getContentPane().add(exitButtons);
 		GridBagLayout gbl_exitButtons = new GridBagLayout();
 		gbl_exitButtons.columnWidths = new int[]{217, 0};
@@ -138,6 +144,10 @@ public class PlayPanel {
 		gbl_exitButtons.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_exitButtons.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		exitButtons.setLayout(gbl_exitButtons);
+		gameArea = new GamePanel();
+		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
+		frame.getContentPane().add(gameArea);
 		initializeMainMenuButton();
 	}
 	public void initializeMainMenuButton() {
@@ -175,8 +185,8 @@ public class PlayPanel {
 		initializeUpDownButtons();
 		initializeLeftRightButtons();
 
-		
-		
+
+
 	}
 	private void initializeLeftRightButtons() {
 		initializeLeftButton();
@@ -213,7 +223,7 @@ public class PlayPanel {
 	}
 	private void initializeUpDownButtons() {
 		initializeUpButton();
-		
+
 		initializeDownButton();
 	}
 	public void initializeDownButton() {
@@ -254,7 +264,7 @@ public class PlayPanel {
 		gbl_settings.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		settings.setLayout(gbl_settings);
 		initializeNumberOgresTextField();
-		initializeGuardPersonality();
+		
 	}
 	private void initializeGuardPersonality() {
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
@@ -319,8 +329,8 @@ public class PlayPanel {
 	}
 
 	private void newGamePressed() {
-		this.game.start(guard,game.getGame().getLevel());
-		guardPersonality.setEnabled(false);
+		this.game.start(guard,ogresNumber);
+		//guardPersonality.setEnabled(false);
 		gameArea.setMaze(game.getGame().getMap());
 		lblYou.setText("You can play now");
 	}
@@ -360,7 +370,7 @@ public class PlayPanel {
 	}
 
 	public void setOgresNumber(int ogresNumber) {
-		PlayPanel.ogresNumber=ogresNumber;
+		this.ogresNumber=ogresNumber;
 	}
 	public void editableLevel(String[][]map) {
 		this.map=map;
@@ -382,12 +392,14 @@ public class PlayPanel {
 					ogre.setX(i);
 					ogre.setY(j);
 					ogre.updatePosition();
-					
 					System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
 					game.getGame().setOgre(ogre);
 					ogresNumber++;
 					break;
+				default:
+					break;
 				}
+			System.out.println("OGRES NUMBER ::::"+ogresNumber);
 		}
 		gameArea.setMaze(map);
 	}

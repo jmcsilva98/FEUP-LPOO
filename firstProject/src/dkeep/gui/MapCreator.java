@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import dkeep.cli.GuiInteraction;
+
 
 public class MapCreator extends JFrame {
 
@@ -19,6 +21,7 @@ public class MapCreator extends JFrame {
 	private int xPressed, yPressed;
 	private String[][] map;
 	int dimension;
+	private int numberOgres;
 	private boolean hasHero=false;
 	private boolean hasOgre=false;
 	private boolean hasExitDoor=true;
@@ -77,7 +80,12 @@ public class MapCreator extends JFrame {
 		JButton btnPlay = new JButton("Play");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canSaveMap();
+				try {
+					canSaveMap();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnPlay.setBounds(335, 206, 89, 23);
@@ -248,7 +256,7 @@ public class MapCreator extends JFrame {
 		}
 	}
 
-	public boolean canSaveMap() {
+	public boolean canSaveMap() throws IOException {
 		int ogresNumber=verifyAllElements();
 		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor && ogresNumber<5) {
 			return generatePlayPanel();
@@ -256,15 +264,11 @@ public class MapCreator extends JFrame {
 		else  return false;
 	}
 
-	public boolean generatePlayPanel() {
+	public boolean generatePlayPanel() throws IOException {
 		PlayPanel other=null;
-
-		try {
-			other = new PlayPanel();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		other.game.getGame().setLevel(0);
+		GuiInteraction game= new GuiInteraction();
+		game.getGame().setLevel(0);
+		other = new PlayPanel(null,numberOgres,game);
 		other.editableLevel(map);
 		other.frame.setVisible(true);
 
@@ -338,6 +342,8 @@ public class MapCreator extends JFrame {
 			for (int j = 0;  j< map.length;j++) {
 				ogresNumber = switchElements(ogresNumber, i, j);
 			}
+		this.numberOgres=ogresNumber;
+		System.out.println("NUMBER OGRES:::"+ogresNumber);
 		return ogresNumber;
 	}
 
