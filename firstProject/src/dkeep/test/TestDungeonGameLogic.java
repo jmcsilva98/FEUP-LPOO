@@ -8,6 +8,7 @@ import org.junit.Test;
 
 
 import dkeep.logic.*;
+import dkeep.logic.Character;
 public class TestDungeonGameLogic {
 
 	String[][] map1={		 
@@ -73,7 +74,6 @@ public class TestDungeonGameLogic {
 		assertTrue(gamestate.heroIsArmed());
 	}  
 
-
 	@Test
 	public void testToString() {
 		Gamestate gamestate=new Gamestate();
@@ -94,6 +94,12 @@ public class TestDungeonGameLogic {
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		boolean dr = false, roo = false, sus = false;
 		int count = 0;
+		Character club= new Character();
+		club.setX(2);
+		club.setY(4);
+		assertEquals(club.getX(),2);
+		assertEquals(club.getY(),4);
+
 		gamestate.setLevelManualy(1);
 
 		while((!dr || !roo || !sus) && count < 50 ) {

@@ -13,7 +13,7 @@ import dkeep.logic.Character;
 public class TestOgreLevel {
 
 	String[][] map1={		
-			{" ", " ", "O", " ", " ", " ", "O", " ", " "},
+			{" ", "O", "O", " ", " ", " ", "O", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " ", " "},
 			{"O", " ", " ", " ", "O", " ", " ", " ", "O"},
 			{" ", " ", " ", " ", " ", " ", " ", " ", " "},
@@ -76,11 +76,38 @@ public class TestOgreLevel {
 	@Test
 	public void testSetArrayOgres() {
 		Gamestate gamestate=new Gamestate();
+		Character club = new Character();
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		gamestate.setOgres(ogres);
+		club.setX(1);
+		club.setY(3);
+		
+
+		int i;
+		for(i = 0; i <gamestate.getOgres().size(); i++) {
+		gamestate.getOgres().get(i).setClub(club);
+		assertEquals(gamestate.getOgres().get(i).getX(),1);
+		assertEquals(gamestate.getOgres().get(i).getY(),4);
+		assertEquals(gamestate.getOgres().get(i).getClub(),club);
+		
+		}
+		
 		Gamestate gamestate2=new Gamestate();
 		gamestate2.setOgres(3);
+		club.setX(2);
+		club.setY(4);
+		for(i = 0; i <gamestate.getOgres().size(); i++) {
+		gamestate.getOgres().get(i).setClub(club);
+		assertEquals(gamestate.getOgres().get(i).getClub(),club);
+		assertEquals(gamestate.getOgres().get(i).getX(),1);
+		assertEquals(gamestate.getOgres().get(i).getY(),4);
+		}
+		
+		
+		
+		
 	}
+	
 
 
 
@@ -115,6 +142,8 @@ public class TestOgreLevel {
 		assertFalse(gamestate.isGameOver());
 		gamestate.heroMovement("R");
 		assertFalse(gamestate.isGameOver());	
+		
+
 	}
 
 	@Test
@@ -214,6 +243,10 @@ public class TestOgreLevel {
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
 
+		
+		/*
+		
+		
 		hero.setX(0);
 		hero.setY(4);
 		gamestate.heroMovement("L");
@@ -233,7 +266,7 @@ public class TestOgreLevel {
 		gamestate.heroMovement("L");
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
-		assertFalse(gamestate2.isFreeOgre());
+		assertFalse(gamestate2.isFreeOgre());*/
 
 	}
 
@@ -282,9 +315,14 @@ public class TestOgreLevel {
 	public void testOgreMovement() {
 		Gamestate gamestate = new Gamestate(map2);
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
+	
+		gamestate.ogreMovement();
+		gamestate.setOgres(0);
+		assertEquals(gamestate.ogreMovement(), "");
+		
 		gamestate.setOgres(ogres);
 		ogres = gamestate.getOgres();
-
+		
 		for(Ogre ogre: ogres) {
 			ogre.stunCounter = 2;
 			ogre.isStunned  = true;		
@@ -297,8 +335,6 @@ public class TestOgreLevel {
 			ogre.stunCounter = 0;
 			assertEquals(ogre.stunCounter, 0);
 
-		
-			gamestate.ogreMovement();
 			ogre.isStunned  = false;
 			gamestate.currentMap[ogre.getX()][ogre.getY()] ="S";
 			assertEquals(ogre.getX(),ogre.getXn());
@@ -357,8 +393,7 @@ public class TestOgreLevel {
 		Gamestate gamestate = new Gamestate();
 		Ogre ogre = new Ogre();
 		Character club = new Character();
-
-
+	
 		gamestate.newPositionClub(ogre);
 		ogre.setX(3);
 		ogre.setY(3);
@@ -405,7 +440,6 @@ public class TestOgreLevel {
 	}
 
 
-
-
+	
 
 }

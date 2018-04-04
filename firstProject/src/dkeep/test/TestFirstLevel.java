@@ -9,7 +9,7 @@ import dkeep.logic.*;
 
 public class TestFirstLevel { 
 
-	
+
 	String[][] map1={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 			{"X", " ", "O", " ", "I", " ", "X", " ", " ", "X"},
@@ -100,11 +100,14 @@ public class TestFirstLevel {
 
 		hero.setX(4);
 		hero.setY(0);
+		gamestate.setHero(hero);
+		gamestate2.setHero(hero);
+		
 		gamestate.heroMovement("D");
 		gamestate2.heroMovement("D");
 		assertFalse(gamestate.isFreeGuard());
 		assertFalse(gamestate2.isFreeGuard());
-
+		
 
 
 	}
@@ -126,6 +129,9 @@ public class TestFirstLevel {
 
 		hero.setX(4);
 		hero.setY(0);
+		gamestate.setHero(hero);
+		gamestate2.setHero(hero);
+		
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeGuard());
@@ -173,6 +179,9 @@ public class TestFirstLevel {
 
 		hero.setX(4);
 		hero.setY(0);
+		gamestate.setHero(hero);
+		gamestate2.setHero(hero);
+
 		gamestate.heroMovement("R");
 		gamestate2.heroMovement("R");
 		assertFalse(gamestate.isFreeGuard());
@@ -193,7 +202,7 @@ public class TestFirstLevel {
 
 		rookie.setLength(1);
 		int length;
-		
+
 
 		for(length = rookie.getLength(); length < 24; length++)
 		{				
@@ -399,4 +408,15 @@ public class TestFirstLevel {
 		}
 	}
 
-}
+	@Test
+	public void testHeroDefaultMovement() {
+		Gamestate gamestate = new Gamestate(map1);
+		gamestate.setLevelManualy(1);
+		Hero hero = new Hero();
+		hero.setX(1);
+		hero.setY(1);
+		gamestate.setHero(hero);
+		gamestate.heroDefaultMovement();
+		assertTrue(gamestate.currentMap[hero.getX()][hero.getY()].equals("H"));
+	}
+	}

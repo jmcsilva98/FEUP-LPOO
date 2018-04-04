@@ -412,7 +412,6 @@ public boolean isFreeOgreX0() {
 	if (hero.x==0) {
 		if (!isFreeOgreX0Default("O")) return false;
 		if (!isFreeOgreX0Default("*")) return false;
-		if(!isFreeX0Y0("O")) return false;
 	}
 	return true;
 }
@@ -423,6 +422,7 @@ public boolean isFreeOgreX0() {
 public boolean isFreeOgreX0Default(String type) {
 	if (currentMap[hero.x][hero.y+1] ==type)return false;
 	if (currentMap[hero.x+1][hero.y] ==type)return false;
+	if(!isFreeX0Y0("O")) return false;
 	
 	return true;
 }
@@ -475,8 +475,8 @@ public boolean isFreeOgreYLengthDefault(String type) {
 }
 public void newPositionClub(Ogre ogre) {
 	if ( ogre.x>0 && currentMap[ogre.x-1][ogre.y]==" ") {
-		ogre.getClub().x=ogre.x;
-		ogre.getClub().y=ogre.y-1;
+		ogre.getClub().x=ogre.x-1;
+		ogre.getClub().y=ogre.y;
 	}
 	else if ( ogre.x<currentMap.length && currentMap[ogre.x+1][ogre.y]==" ") {
 		ogre.getClub().x=ogre.x+1;
