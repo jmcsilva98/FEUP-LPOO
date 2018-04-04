@@ -87,6 +87,7 @@ public class MenuPanel {
 		springLayout.putConstraint(SpringLayout.EAST, btnNewLevel, 0, SpringLayout.EAST, btnNewGame);
 		frame.getContentPane().add(btnNewLevel);
 	}
+	
 
 	private void initializeExitButton() {
 		btnExit = new JButton("Exit");
@@ -96,6 +97,7 @@ public class MenuPanel {
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int exitPressed = JOptionPane.showConfirmDialog(null, "Are you sure that you want to exit the game?", "Exit", JOptionPane.YES_NO_OPTION);
+				
 				if (exitPressed==JOptionPane.YES_OPTION)
 					System.exit(0);
 
@@ -144,7 +146,6 @@ public class MenuPanel {
 			private void playPressed(PlayPanel other) {
 				other.setGuard("Rookie");
 				other.setOgresNumber(1);
-				other.game.start("Rookie",1);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}

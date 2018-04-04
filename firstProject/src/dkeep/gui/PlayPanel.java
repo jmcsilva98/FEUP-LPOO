@@ -50,9 +50,9 @@ public class PlayPanel {
 	private JButton btnUp;
 	private JButton btnRight;
 	private JButton btnDown;
-	static String guard="Rookie";
+	private String guard="Rookie";
 	private JPanel settings;
-	public  int ogresNumber;
+	public  int ogresNumber=1;
 	private JTextField numberOgres;
 	private JComboBox guardPersonality;
 	private JPanel exitButtons;
@@ -66,7 +66,7 @@ public class PlayPanel {
 		this.ogresNumber=ogresNumber;
 		this.game=game;
 		initialize();
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -92,7 +92,7 @@ public class PlayPanel {
 		initialize();
 	}
 	public PlayPanel(String guard,int ogres) throws IOException {
-		
+
 		this.guard=guard;
 		this.ogresNumber=ogres;
 		this.game=new GuiInteraction();
@@ -112,6 +112,7 @@ public class PlayPanel {
 		frame.getContentPane().setLayout(new GridLayout(2, 2));
 
 		initializeSettings();
+
 		initializeMoveButtons();
 		initializeExitButton();
 
@@ -264,7 +265,8 @@ public class PlayPanel {
 		gbl_settings.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		settings.setLayout(gbl_settings);
 		initializeNumberOgresTextField();
-		
+		initializeGuardPersonality();
+
 	}
 	private void initializeGuardPersonality() {
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
@@ -275,7 +277,7 @@ public class PlayPanel {
 		gbc_lblGuardPersonality.gridy = 2;
 		settings.add(lblGuardPersonality, gbc_lblGuardPersonality);
 		guardPersonality = new JComboBox();
-		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious",""}));
 
 		selectGuardPersonality();
 		GridBagConstraints gbc_guardPersonality = new GridBagConstraints();
@@ -290,6 +292,10 @@ public class PlayPanel {
 		frame.getContentPane().add(settings);
 	}
 	public void selectGuardPersonality() {
+		if (guard==null) {
+			guardPersonality.setSelectedIndex(3);
+			return;
+		}
 		switch(guard) {
 		case "Rookie":
 			guardPersonality.setSelectedIndex(0);
@@ -301,7 +307,7 @@ public class PlayPanel {
 			guardPersonality.setSelectedIndex(2);
 			break;
 		default:
-			guardPersonality.setSelectedIndex(0);
+			guardPersonality.setSelectedIndex(3);
 			break;
 
 		}
@@ -316,7 +322,7 @@ public class PlayPanel {
 		settings.add(lblNumberOfOgres, gbc_lblNumberOfOgres);
 
 		numberOgres = new JTextField();
-
+		numberOgres.setText(""+ogresNumber);
 		numberOgres.setEnabled(false);
 		GridBagConstraints gbc_numberOgres = new GridBagConstraints();
 		gbc_numberOgres.gridwidth = 2;
@@ -330,7 +336,7 @@ public class PlayPanel {
 
 	private void newGamePressed() {
 		this.game.start(guard,ogresNumber);
-		//guardPersonality.setEnabled(false);
+		guardPersonality.setEnabled(false);
 		gameArea.setMaze(game.getGame().getMap());
 		lblYou.setText("You can play now");
 	}
@@ -345,6 +351,7 @@ public class PlayPanel {
 		}
 
 		gameArea.setMaze(game.getGame().getMap());
+
 		gameArea.requestFocusInWindow();
 	}
 
@@ -392,14 +399,12 @@ public class PlayPanel {
 					ogre.setX(i);
 					ogre.setY(j);
 					ogre.updatePosition();
-					System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
 					game.getGame().setOgre(ogre);
 					ogresNumber++;
 					break;
 				default:
 					break;
 				}
-			System.out.println("OGRES NUMBER ::::"+ogresNumber);
 		}
 		gameArea.setMaze(map);
 	}

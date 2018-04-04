@@ -1,13 +1,11 @@
 package dkeep.gui;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 
 import java.awt.image.BufferedImage;
@@ -18,7 +16,8 @@ public class GamePanel extends JPanel  {
 
 	private JFrame frame;
 	private String[][] map;
-
+	private int xSize;
+	private int ySize;
 	private static BufferedImage wall;
 	private static BufferedImage floor;
 	private static BufferedImage closedDoor;
@@ -60,13 +59,13 @@ public class GamePanel extends JPanel  {
 
 
 		if (map==null) return;
-		int xSize=getWidth()/map[0].length;
-		int ySize= getHeight()/map.length;
+		xSize=getWidth()/map[0].length;
+		ySize= getHeight()/map.length;
 		g.drawRect(0, 0, (map.length-1)*xSize,(map.length-1)*ySize);
 		for (int i =0; i <map.length ;i++) {
 			for (int j = 0; j<map[0].length;j++) {
-				if(!switchPaintComponent(g, xSize, ySize, i, j))
-				switchPaintComponent1(g, xSize, ySize, i, j);
+				if(!switchPaintComponent(g, i, j))
+				switchPaintComponent1(g, i, j);
 			}
 
 		}
@@ -74,7 +73,7 @@ public class GamePanel extends JPanel  {
 
 
 
-	private boolean switchPaintComponent(Graphics g, int xSize, int ySize, int i, int j) {
+	private boolean switchPaintComponent(Graphics g, int i, int j) {
 		switch(map[i][j]) {
 		case " ":
 			g.drawImage(floor, j*xSize, i*ySize, null);
@@ -101,7 +100,7 @@ public class GamePanel extends JPanel  {
 		}
 		return true;
 	}
-	private void switchPaintComponent1(Graphics g, int xSize, int ySize, int i, int j) {
+	private void switchPaintComponent1(Graphics g, int i, int j) {
 
 		switch(map[i][j]) {
 		case "G":
@@ -119,6 +118,9 @@ public class GamePanel extends JPanel  {
 		case "8":
 			g.drawImage(stunnedOgre, j*xSize, i*ySize, null);
 			break;
+		case "*":
+			g.drawImage(club, j*xSize, i*ySize, null);
+			break;
 		default:
 			g.drawImage(floor, j*xSize, i*ySize, null);
 			break;
@@ -126,8 +128,9 @@ public class GamePanel extends JPanel  {
 	}
 
 	public void setMaze(String[][] map) {
-
+		map[0][0]="X";
 		this.map=map;
+		
 		repaint();
 	} 
 

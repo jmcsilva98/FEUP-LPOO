@@ -12,7 +12,7 @@ public class CellPosition {
 		this.y=y;
 	} 
 @Override
-	public boolean equals(Object obj) {
+public boolean equals(Object obj) {
 		if (this==obj) return true;
 		
 		if (obj==null)

@@ -2,8 +2,6 @@ package dkeep.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 
@@ -11,6 +9,7 @@ import dkeep.logic.*;
 
 public class TestFirstLevel { 
 
+	
 	String[][] map1={		 
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 			{"X", " ", "O", " ", "I", " ", "X", " ", " ", "X"},
