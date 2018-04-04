@@ -76,6 +76,12 @@ public class Gamestate {
 		this.hero=hero;
 	}
 	public void setOgre(Ogre ogre) {
+		Character club= new Character();
+		club.setX(1);
+		club.setY(3);
+		club.updatePosition();
+		ogre.setClub(club);
+		ogre.updatePosition();
 		this.ogre = ogre;
 		ogres.add(ogre);
 	}
@@ -99,17 +105,20 @@ public class Gamestate {
 		this.ogres=ogres;
 	}
 	public void setOgres(int numberOfOgres) {
-		ArrayList<Ogre> ogres= new ArrayList<Ogre>();
 		for(int i = 0; i < numberOfOgres; i++) {
-
 			Ogre ogre = new Ogre();
+			Character club = new Character();
+			club.setX(2);
+			club.setY(4);
+			club.updatePosition();
 			ogre.setX(1);
 			ogre.setY(4);
+			ogre.updatePosition();
+			ogre.setClub(club);
 			ogres.add(ogre);
 		}
 
 		this.ogres=ogres;
-		System.out.println("size::::"+this.ogres.size());
 	}
 
 
@@ -186,8 +195,9 @@ public class Gamestate {
 
 			}
 		}
-		if (level!=0)setOgres(numberOgres);
-		System.out.println("level:::"+this.level);
+		if (level!=0)
+			setOgres(numberOgres);
+		
 		}
 	public void start(boolean application,String gua, int numberOgres) {
 		Hero hero = new Hero();
@@ -325,14 +335,6 @@ public class Gamestate {
 			int i =0;
 			if (ogres.size()==0) return ret;
 			for (Ogre ogre : ogres) {
-				/*ogre.updatePosition();
-				currentMap[ogre.xn][ogre.yn]=" ";
-				ret=ogre.movement();
-				if (currentMap[ogre.x][ogre.y]!=" ")
-					ogre.updatePosition();
-				currentMap[ogre.x][ogre.y]="O";
-				System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
-				ogre.updatePosition();*/
 				currentMap[ogre.x][ogre.y]=" ";
 				currentMap[ogre.xn][ogre.yn]=" ";
 				if (ogre.isStunned) {
@@ -355,12 +357,13 @@ public class Gamestate {
 					}
 
 				}
-				//currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
-				//newPositionClub(ogre);
-				//currentMap[ogre.getClub().x][ogre.getClub().y]="*";
-				//ogre.getClub().updatePosition();
+				currentMap[ogre.getClub().xn][ogre.getClub().yn]=" ";
+				newPositionClub(ogre);
+				currentMap[ogre.getClub().x][ogre.getClub().y]="*";
+				
 				currentMap[ogre.x][ogre.y]=ogre.symbol;
 				ogre.updatePosition();
+				ogre.getClub().updatePosition();
 			}
 			return ret;
 
@@ -412,13 +415,18 @@ public boolean isFreeOgreX0() {
 	if (hero.x==0) {
 		if (!isFreeOgreX0Default("O")) return false;
 		if (!isFreeOgreX0Default("*")) return false;
+		if(!isFreeX0Y0("O")) return false;
 	}
 	return true;
 }
+	public boolean isFreeX0Y0(String type) {
+		if (currentMap[hero.x][hero.y-1] ==type)return false;
+		return true;
+	}
 public boolean isFreeOgreX0Default(String type) {
 	if (currentMap[hero.x][hero.y+1] ==type)return false;
 	if (currentMap[hero.x+1][hero.y] ==type)return false;
-	if (currentMap[hero.x][hero.y-1] ==type)return false;
+	
 	return true;
 }
 public boolean isFreeOgreLength() {

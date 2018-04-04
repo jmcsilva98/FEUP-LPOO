@@ -10,7 +10,6 @@ public class GuiInteraction {
 
 	public GuiInteraction() {
 		this.game =new Gamestate();
-		this.start(guard, numberOgres);
 
 	}
 	public void start(String guard, int numberOgres) {
