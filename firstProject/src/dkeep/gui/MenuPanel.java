@@ -146,7 +146,6 @@ public class MenuPanel {
 			private void playPressed(PlayPanel other) {
 				other.setGuard("Rookie");
 				other.setOgresNumber(1);
-				other.game.start("Rookie",1);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}

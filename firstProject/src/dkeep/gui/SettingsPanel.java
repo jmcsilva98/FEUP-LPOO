@@ -134,7 +134,6 @@ public class SettingsPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				other.game.start(guard,ogresNumber);
 				other.frame.setVisible(true);
 				frame.setVisible(false);
 			}

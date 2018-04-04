@@ -295,8 +295,8 @@ public class Gamestate {
 
 	public void heroChangeLevel() {
 		if(level == 1) {
-
 			setLevel(2);
+			
 			hero.setX(7);
 			hero.setY(1);
 		} 
