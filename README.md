@@ -17,3 +17,8 @@ Email - up201208979@fe.up.pt
 
 
 Status Badge:
+
+
+
+![EclEmma](../master/firstProject/EclEmma.png)
+![PIT](../master/firstProject/Pit.png)
