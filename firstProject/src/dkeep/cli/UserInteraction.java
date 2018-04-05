@@ -31,7 +31,12 @@ public class UserInteraction {
 			return;
 
 		}
-		game.start(false,null,0);
+		//game.start(false,null,0);
+		for (int i =0;i<game.getMap().length;i++) {
+			for (int j =0;j<game.getMap().length;j++)
+				if (game.getMap()[i][j]=="G")
+					game.getMap()[i][j]=" ";
+		}
 		
 		while(game.getLevel()==2&&game.isFreeOgre()) {
 			print_map(game.getMap(),game.getLevel());
@@ -48,6 +53,7 @@ public class UserInteraction {
 	{ 
 		if (n==1) n=10;
 		else n=9;
+		map[0][0]="X";
 		for (int i = 0 ; i<n; i++) {
 			for (int j =0 ; j<n;j++) {
 				System.out.print(map[i][j]);

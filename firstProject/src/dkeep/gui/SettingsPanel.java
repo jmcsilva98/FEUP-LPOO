@@ -94,15 +94,20 @@ public class SettingsPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayPanel other = null;
 				
-				playPressed(other);
+				try {
+					playPressed(other);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
-			private void playPressed(PlayPanel other) {
+			private void playPressed(PlayPanel other) throws IOException {
 				playPressedAction(other);
 
 			}
 
-			public void playPressedAction(PlayPanel other) {
+			public void playPressedAction(PlayPanel other) throws IOException {
 				int number=0;
 				String guard;
 				try{
@@ -120,10 +125,14 @@ public class SettingsPanel {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
 				}
+				
 				if ( number >5 || number <0) {
 
 					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
-					number=Integer.parseInt(numberOgres.getText());
+					SettingsPanel stay= new SettingsPanel();
+					stay.frame.setVisible(true);
+					frame.setVisible(false);
+					return;
 				}
 				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
 				System.out.println(guard);

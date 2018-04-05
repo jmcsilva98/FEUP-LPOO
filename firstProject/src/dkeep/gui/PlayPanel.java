@@ -11,7 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
@@ -38,8 +45,12 @@ import java.awt.Font;
 import javax.swing.JLayeredPane;
 import javax.swing.JSplitPane;
 
-public class PlayPanel {
+public class PlayPanel implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JFrame frame;
 	private String[][] map;
 	private GamePanel gameArea;
@@ -52,7 +63,7 @@ public class PlayPanel {
 	private JButton btnDown;
 	static String guard="Rookie";
 	private JPanel settings;
-	public  int ogresNumber;
+	public  int ogresNumber=1;
 	private JTextField numberOgres;
 	private JComboBox guardPersonality;
 	private JPanel exitButtons;
@@ -66,7 +77,7 @@ public class PlayPanel {
 		this.ogresNumber=ogresNumber;
 		this.game=game;
 		initialize();
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -92,7 +103,7 @@ public class PlayPanel {
 		initialize();
 	}
 	public PlayPanel(String guard,int ogres) throws IOException {
-		
+
 		this.guard=guard;
 		this.ogresNumber=ogres;
 		this.game=new GuiInteraction();
@@ -263,8 +274,9 @@ public class PlayPanel {
 		gbl_settings.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_settings.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		settings.setLayout(gbl_settings);
+		initializeGuardPersonality();
 		initializeNumberOgresTextField();
-		
+
 	}
 	private void initializeGuardPersonality() {
 		JLabel lblGuardPersonality = new JLabel("Guard Personality");
@@ -275,7 +287,7 @@ public class PlayPanel {
 		gbc_lblGuardPersonality.gridy = 2;
 		settings.add(lblGuardPersonality, gbc_lblGuardPersonality);
 		guardPersonality = new JComboBox();
-		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious"}));
+		guardPersonality.setModel(new DefaultComboBoxModel(new String[] {"Rookie", "Drunken", "Suspicious",""}));
 
 		selectGuardPersonality();
 		GridBagConstraints gbc_guardPersonality = new GridBagConstraints();
@@ -290,6 +302,10 @@ public class PlayPanel {
 		frame.getContentPane().add(settings);
 	}
 	public void selectGuardPersonality() {
+		if (guard==null) {
+			guardPersonality.setSelectedIndex(3);
+			return;
+		}
 		switch(guard) {
 		case "Rookie":
 			guardPersonality.setSelectedIndex(0);
@@ -326,16 +342,19 @@ public class PlayPanel {
 		gbc_numberOgres.gridy = 1;
 		settings.add(numberOgres, gbc_numberOgres);
 		numberOgres.setColumns(10);
+		numberOgres.setText(""+ogresNumber);
 	}
 
 	private void newGamePressed() {
 		this.game.start(guard,ogresNumber);
-		//guardPersonality.setEnabled(false);
+		guardPersonality.setEnabled(false);
 		gameArea.setMaze(game.getGame().getMap());
 		lblYou.setText("You can play now");
 	}
 	private void buttonPressed(String move) {
+
 		if (!game.checkGameStatus(move)) {
+			System.out.println("GAME OVER !!!");
 			JOptionPane.showMessageDialog(frame, "GAME OVER!");
 			System.exit(0);
 		}
@@ -389,18 +408,64 @@ public class PlayPanel {
 					break;
 				case "O":
 					Ogre ogre =new Ogre();
+					Character club= new Character();
 					ogre.setX(i);
 					ogre.setY(j);
 					ogre.updatePosition();
-					System.out.println("X:: "+ogre.getX()+"::: Y::"+ogre.getY());
+
+					club.setX(i);
+					club.setY(j-1);
+					club.updatePosition();
+
+					ogre.setClub(club);
+
 					game.getGame().setOgre(ogre);
 					ogresNumber++;
 					break;
 				default:
 					break;
 				}
-			System.out.println("OGRES NUMBER ::::"+ogresNumber);
 		}
 		gameArea.setMaze(map);
+	}
+	public void saveGameDataToFile(File file) {   
+
+		try {   
+			FileOutputStream fileStream = new FileOutputStream(file);   
+			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);   
+
+			objectStream.writeObject(game.getGame().getHero());   
+			objectStream.writeObject(game.getGame().getMap());   
+			objectStream.writeObject(game.getGame().getGuard());   
+			objectStream.writeObject(game.getGame().getOgres());   
+			objectStream.writeObject(game.getGame().getLevel()); 
+
+			objectStream.close();   
+			fileStream.close();   
+
+			JOptionPane.showConfirmDialog(frame, 
+					"Save game state successfully.", 
+					"Game",   
+					JOptionPane.DEFAULT_OPTION);   
+		} catch (Exception e) {   
+			JOptionPane.showConfirmDialog(frame, 
+					e.toString() + "\nFail to save game state.",   
+					"Snake Game", 
+					JOptionPane.DEFAULT_OPTION);   
+		}   
+	}
+	public void loadGameDataFromFile(File file) throws ClassNotFoundException, IOException{   
+
+		FileInputStream fileStream = new FileInputStream(file);   
+		ObjectInputStream objectStream = new ObjectInputStream(fileStream);   
+		Hero savedHero = (Hero) objectStream.readObject();   
+		String[][] savedMap = (String[][]) objectStream.readObject();
+		Guard savedGuard = (Guard) objectStream.readObject();     
+		ArrayList<Ogre> savedOgres = (ArrayList<Ogre>) objectStream.readObject();   
+		int savedLevel = (int) objectStream.readObject(); 
+
+		objectStream.close();   
+		fileStream.close(); 
+
 	}
 }

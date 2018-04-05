@@ -343,7 +343,6 @@ public class MapCreator extends JFrame {
 				ogresNumber = switchElements(ogresNumber, i, j);
 			}
 		this.numberOgres=ogresNumber;
-		System.out.println("NUMBER OGRES:::"+ogresNumber);
 		return ogresNumber;
 	}
 

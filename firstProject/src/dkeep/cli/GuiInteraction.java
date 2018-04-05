@@ -25,14 +25,20 @@ public class GuiInteraction {
 	}
 
 	public boolean checkGameStatus(String move) {
-		deleteGuard();
+		//deleteGuard();
+		//deleteClub();
+		System.out.println(game.getLevel());
+		
 		if (game.getLevel()==1 &&game.isFreeGuard()) {
-			game.heroMovement(move);
 			game.guardMovement();
+			game.heroMovement(move);
 			return true;
 		}
+		if (!game.isFreeGuard()) {
+		return false;
+
+		}
 		else if (game.getLevel()==2 && game.isFreeOgre()) {
-			
 			game.heroMovement(move);
 			game.ogreMovement();
 			return true;
@@ -58,6 +64,13 @@ public class GuiInteraction {
 	}
 	public void setGuard(String guard) {
 		this.guard=guard;
+	}
+	public void deleteClub() {
+		for (int i =0;i<game.getMap().length;i++)
+			for(int j=0;j<game.getMap().length;j++)
+				if (game.getMap()[i][j]=="*")
+					game.getMap()[i][j]=" ";
+		
 	}
 public int getNumberOgres() {
 	return numberOgres;
