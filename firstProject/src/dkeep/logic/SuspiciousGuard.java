@@ -5,6 +5,9 @@ public class SuspiciousGuard extends Guard {
 	public boolean backMovement = false;
 	public boolean functionWasCalled;
 	public int aux;
+	/**
+	 * Function to move suspicious guard
+	 */
 	public void movement() {
 		 aux =randomGenerator(2);
 		if (aux==0)
@@ -24,7 +27,9 @@ public class SuspiciousGuard extends Guard {
 			position++;
 		auxMovement();
 	}
-
+	/**
+	 * Function to auxiliar movement function
+	 */
 	public void auxMovement() {
 		functionWasCalled = true;
 		switch(movement[position]) {

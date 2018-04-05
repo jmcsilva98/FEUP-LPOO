@@ -3,6 +3,9 @@ package dkeep.logic;
 public class DrunkenGuard extends Guard{
 	public int xMove, yMove;
 	public boolean functionWasCalled = false;
+	/**
+	 * Function to move drunken guard
+	 */
 	public void movement() {
 		randomMovement();	
 
@@ -10,7 +13,9 @@ public class DrunkenGuard extends Guard{
 		if (y<0 || y>9) y=yn;
 
 	}
-
+	/**
+	 * Function to generate random movement
+	 */
 	public void randomMovement() {
 		functionWasCalled = true;
 		xMove =randomGenerator(3);

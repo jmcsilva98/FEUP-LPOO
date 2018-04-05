@@ -6,7 +6,10 @@ public class Ogre extends Character {
 	public String symbol="O";
 	public int stunCounter = 0;
 	
-	
+	/**
+	 * Function to move ogre
+	 * @return move direction 
+	 */
 	public String movement() {
 	
 		calculateNewPosition();
@@ -21,6 +24,9 @@ public class Ogre extends Character {
 
 		return null;
 	}
+	/**
+	 * Function to calculate ogre's new position 
+	 */
 	public void calculateNewPosition() {
 		int aux=randomGenerator(2);
 		switch(aux) {

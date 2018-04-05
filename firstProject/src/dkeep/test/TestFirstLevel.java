@@ -200,11 +200,11 @@ public class TestFirstLevel {
 		String[] path= {"0", "L", "D", "D","D","D", "L",  "L", "L", "L", "L", "L", "D", "R", "R", "R", "R", "R", "R", "R", "U","U","U","U" };
 		assertEquals(rookie.movement, path);
 
-		rookie.setLength(1);
+		rookie.setPostion(1);
 		int length;
 
 
-		for(length = rookie.getLength(); length < 24; length++)
+		for(length = rookie.getPosition(); length < 24; length++)
 		{				
 			rookie.movement();
 			int xn = rookie.getX();
@@ -221,8 +221,8 @@ public class TestFirstLevel {
 
 		}
 		rookie.movement();
-		rookie.setLength(1);		
-		assertEquals(rookie.getLength(), 1);
+		rookie.setPostion(1);		
+		assertEquals(rookie.getPosition(), 1);
 
 
 		/*while(length < 24) {

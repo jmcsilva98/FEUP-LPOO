@@ -5,13 +5,22 @@ import java.util.Objects;
 public class CellPosition {
 
 	public int x,y;
-
+/**
+ * Cell position constructor
+ * @param x value
+ * @param y value
+ */
 	public CellPosition(int x,int y){
 
 		this.x=x;
 		this.y=y;
 	} 
 @Override
+/**
+ * Function to compare two cell positions 
+ * @param Object to compare
+ * @return True if objects are equal or not
+ */
 public boolean equals(Object obj) {
 		if (this==obj) return true;
 		

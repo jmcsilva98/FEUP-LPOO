@@ -4,13 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,10 +38,16 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.LayoutManager;
+
 import net.miginfocom.swing.MigLayout;
 import java.awt.Font;
 import javax.swing.JLayeredPane;
 import javax.swing.JSplitPane;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
+import javax.swing.BoxLayout;
 
 public class PlayPanel implements java.io.Serializable {
 
@@ -118,13 +122,15 @@ public class PlayPanel implements java.io.Serializable {
 		GamePanel.loadImages();
 		frame = new JFrame();
 
-		frame.setBounds(100, 100, 450, 313);
+		frame.setBounds(100, 100, 509, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(2, 2));
 
 		initializeSettings();
 		initializeMoveButtons();
+		
 		initializeExitButton();
+		initializeGameArea();
 
 		getFocus();
 		gameArea.requestFocusInWindow();
@@ -155,10 +161,14 @@ public class PlayPanel implements java.io.Serializable {
 		gbl_exitButtons.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gbl_exitButtons.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		exitButtons.setLayout(gbl_exitButtons);
+		
+	}
+
+	private void initializeGameArea() {
 		gameArea = new GamePanel();
 		gameArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-		gameArea.setLayout(new GridLayout(1, 0, 0, 0));
 		frame.getContentPane().add(gameArea);
+		gameArea.setLayout(null);
 		initializeMainMenuButton();
 	}
 	public void initializeMainMenuButton() {
@@ -428,44 +438,5 @@ public class PlayPanel implements java.io.Serializable {
 		}
 		gameArea.setMaze(map);
 	}
-	public void saveGameDataToFile(File file) {   
-
-		try {   
-			FileOutputStream fileStream = new FileOutputStream(file);   
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);   
-
-			objectStream.writeObject(game.getGame().getHero());   
-			objectStream.writeObject(game.getGame().getMap());   
-			objectStream.writeObject(game.getGame().getGuard());   
-			objectStream.writeObject(game.getGame().getOgres());   
-			objectStream.writeObject(game.getGame().getLevel()); 
-
-			objectStream.close();   
-			fileStream.close();   
-
-			JOptionPane.showConfirmDialog(frame, 
-					"Save game state successfully.", 
-					"Game",   
-					JOptionPane.DEFAULT_OPTION);   
-		} catch (Exception e) {   
-			JOptionPane.showConfirmDialog(frame, 
-					e.toString() + "\nFail to save game state.",   
-					"Snake Game", 
-					JOptionPane.DEFAULT_OPTION);   
-		}   
-	}
-	public void loadGameDataFromFile(File file) throws ClassNotFoundException, IOException{   
-
-		FileInputStream fileStream = new FileInputStream(file);   
-		ObjectInputStream objectStream = new ObjectInputStream(fileStream);   
-		Hero savedHero = (Hero) objectStream.readObject();   
-		String[][] savedMap = (String[][]) objectStream.readObject();
-		Guard savedGuard = (Guard) objectStream.readObject();     
-		ArrayList<Ogre> savedOgres = (ArrayList<Ogre>) objectStream.readObject();   
-		int savedLevel = (int) objectStream.readObject(); 
-
-		objectStream.close();   
-		fileStream.close(); 
-
-	}
+	
 }

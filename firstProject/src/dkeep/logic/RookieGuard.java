@@ -1,13 +1,15 @@
 package dkeep.logic;
 
 public class RookieGuard extends Guard{
-	int length=1;
-
+	int position=1;
+	/**
+	 * Function to move rookie guard
+	 */
 	public void movement() {
 	
-		if(length < 24) {
+		if(position < 24) {
 			
-			switch(movement[length]) {
+			switch(movement[position]) {
 			case "U" : x--;
 			break;
 			case "D" : x++;
@@ -18,16 +20,24 @@ public class RookieGuard extends Guard{
 			break;
 			default : break;
 			}
-			length++;
+			position++;
 		}
 			else
-				length=1;
+				position=1;
 }
-	public int getLength() {
-		return length;
+	/**
+	 * Function to get  actual position in the array
+	 * @return actual position
+	 */
+	public int getPosition() {
+		return position;
 	}
-	public void setLength(int length) {
-		this.length = length;
+	/**
+	 * Function to set actual position in the array
+	 * @param position Actual position
+	 */
+	public void setPostion(int position) {
+		this.position = position;
 	}
 
 }

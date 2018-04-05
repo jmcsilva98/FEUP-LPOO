@@ -93,7 +93,7 @@ public class SettingsPanel {
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PlayPanel other = null;
-				
+
 				try {
 					playPressed(other);
 				} catch (IOException e) {
@@ -125,13 +125,10 @@ public class SettingsPanel {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(frame, "You have to select the personality of guard!");
 				}
-				
+
 				if ( number >5 || number <0) {
 
 					JOptionPane.showMessageDialog(frame, "You have to insert a positive number less than 5!");
-					SettingsPanel stay= new SettingsPanel();
-					stay.frame.setVisible(true);
-					frame.setVisible(false);
 					return;
 				}
 				guard=(String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());

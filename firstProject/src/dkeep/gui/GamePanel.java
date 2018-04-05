@@ -16,8 +16,8 @@ public class GamePanel extends JPanel  {
 
 	private JFrame frame;
 	private String[][] map;
-	private int xSize;
-	private int ySize;
+	private float xSize;
+	private float ySize;
 	private static BufferedImage wall;
 	private static BufferedImage floor;
 	private static BufferedImage closedDoor;
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel  {
 		if (map==null) return;
 		xSize=getWidth()/map[0].length;
 		ySize= getHeight()/map.length;
-		g.drawRect(0, 0, (map.length-1)*xSize,(map.length-1)*ySize);
+		g.drawRect(0, 0, (int) ((map.length)*xSize),(int) ((map.length)*ySize));
 		for (int i =0; i <map.length ;i++) {
 			for (int j = 0; j<map[0].length;j++) {
 				if(!switchPaintComponent(g, i, j))
@@ -76,22 +76,22 @@ public class GamePanel extends JPanel  {
 	private boolean switchPaintComponent(Graphics g, int i, int j) {
 		switch(map[i][j]) {
 		case " ":
-			g.drawImage(floor, j*xSize, i*ySize, null);
+			g.drawImage(floor, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "H":
-			g.drawImage(hero, j*xSize, i*ySize, null);
+			g.drawImage(hero, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "S":
-			g.drawImage(openDoor, j*xSize, i*ySize, null);
+			g.drawImage(openDoor, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;				
 		case "X": 
-			g.drawImage(wall, j*xSize, i*ySize, null);
+			g.drawImage(wall, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "k":
-			g.drawImage(key, j*xSize, i*ySize, null);
+			g.drawImage(key, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break; 
 		case "I":
-			g.drawImage(closedDoor, j*xSize, i*ySize, null);
+			g.drawImage(closedDoor, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 			default:
 				return false;
@@ -104,25 +104,25 @@ public class GamePanel extends JPanel  {
 
 		switch(map[i][j]) {
 		case "G":
-			g.drawImage(guard, j*xSize, i*ySize, null);
+			g.drawImage(guard, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);		
 			break;
 		case "A":
-			g.drawImage(heroArmed, j*xSize, i*ySize, null);
+			g.drawImage(heroArmed, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "K":
-			g.drawImage(hero, j*xSize, i*ySize, null);
+			g.drawImage(hero, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "O":
-			g.drawImage(ogre, j*xSize, i*ySize, null);
+			g.drawImage(ogre, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "8":
-			g.drawImage(stunnedOgre, j*xSize, i*ySize, null);
+			g.drawImage(stunnedOgre, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		case "*":
-			g.drawImage(club, j*xSize, i*ySize, null);
+			g.drawImage(club, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		default:
-			g.drawImage(floor, j*xSize, i*ySize, null);
+			g.drawImage(floor, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
 		}
 	}
