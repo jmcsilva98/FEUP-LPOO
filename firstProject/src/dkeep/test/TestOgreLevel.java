@@ -79,15 +79,20 @@ public class TestOgreLevel {
 		Character club = new Character();
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
 		gamestate.setOgres(ogres);
-		club.setX(1);
-		club.setY(3);
+		club.setX(2);
+		club.setY(4);
+		club.updatePosition();
+		int x = club.getX();
+		int y = club.getY();
 		
-
+		
 		int i;
 		for(i = 0; i <gamestate.getOgres().size(); i++) {
 		gamestate.getOgres().get(i).setClub(club);
 		assertEquals(gamestate.getOgres().get(i).getX(),1);
 		assertEquals(gamestate.getOgres().get(i).getY(),4);
+		assertEquals(gamestate.getOgres().get(i).getClub().getX(),x);
+		assertEquals(gamestate.getOgres().get(i).getClub().getY(),y);
 		assertEquals(gamestate.getOgres().get(i).getClub(),club);
 		
 		}
@@ -108,9 +113,6 @@ public class TestOgreLevel {
 		
 	}
 	
-
-
-
 	@Test(timeout=1000)
 	public void testSomeRandomBehaviour(){
 		Gamestate gamestate=new Gamestate(map3);
@@ -129,7 +131,56 @@ public class TestOgreLevel {
 			else if (move=="L") left=true;
 			else if (move ==null) count++;
 		}
+		
 
+	}
+	/*
+	@Test
+	public void testOgreMovementString() {
+		Gamestate gamestate=new Gamestate(map3);
+		String move="";
+		int count=0;
+		Ogre ogre=new Ogre();
+		ogre.movement();
+		ogre.setX(8);
+		ogre.setY(8);
+		ogre.setXn(8);
+		ogre.setYn(8);
+		gamestate.setOgre(ogre);
+		assertEquals(ogre.getX(), ogre.getXn());
+		assertEquals(ogre.getY(), ogre.getYn());
+		
+	
+		ogre.setX(5);
+		ogre.setXn(2);
+		ogre.setY(5);
+		ogre.setYn(5);
+		gamestate.setOgre(ogre);
+		assertEquals(gamestate.getOgre().movement(), "D");
+		
+		//ogre.movement();
+		ogre.setX(2);
+		ogre.setXn(5);
+		ogre.setY(2);
+		ogre.setYn(2);
+		gamestate.setOgre(ogre);
+		assertEquals(gamestate.getOgre().movement(), "U");
+		
+		//ogre.movement();
+		ogre.setX(5);
+		ogre.setXn(5);
+		ogre.setY(3);
+		ogre.setYn(2);
+		gamestate.setOgre(ogre);
+		assertEquals(gamestate.getOgre().movement(), "R");
+		
+		//ogre.movement();
+		ogre.setX(5);
+		ogre.setXn(5);
+		ogre.setY(2);
+		ogre.setYn(3);
+		gamestate.setOgre(ogre);
+		assertEquals(gamestate.getOgre().movement(), "L");
 	}
 
 	@Test
@@ -144,7 +195,7 @@ public class TestOgreLevel {
 		assertFalse(gamestate.isGameOver());	
 		
 
-	}
+	}*/
 
 	@Test
 	public void testHeroisCapturedDown() {
