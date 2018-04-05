@@ -20,5 +20,5 @@ Status Badge:
 
 
 
-![EclEmma](tree/firstProject/EclEmma.png)
-![PIT](tree/firstProject/Pit.png)
+![EclEmma](firstProject/EclEmma.png)
+![PIT](firstProject/Pit.png)
