@@ -20,8 +20,8 @@ public class Gamestate {
 	 * Gamestate constructor
 	 */
 	public Gamestate() {
-		this.currentMap=Map.getMap(2);
-		level=2;
+		this.currentMap=Map.getMap(1);
+		level=1;
 	}
 	/**
 	 * Gamestate constructor
@@ -398,14 +398,19 @@ public class Gamestate {
 	 * Function to change level
 	 */
 	public void heroChangeLevel() {
+		
 		if(level == 1) {
 			setLevel(2);
 
 			hero.setX(7);
 			hero.setY(1);
 		} 
-		else 
+		
+		else {
+			hero.setX(hero.xn);
+			hero.setY(hero.yn);
 			gameWon=true;
+		}
 	}
 	/**
 	 * Function to verify if hero is armed 
@@ -516,8 +521,9 @@ public class Gamestate {
 		if (!isFreeOgreX()) return false;
 
 		else if (!isFreeOgreY()) return false;
-
+	
 		else if (!isFreeDefault("O"))return false;
+		
 		else if (!isFreeDefault("*")) return false;
 		return true;
 	}
@@ -527,8 +533,9 @@ public class Gamestate {
 	 */
 	public boolean isFreeDefault(String type) {
 		if (currentMap[hero.x-1][hero.y]==type)return false;
-		if (currentMap[hero.x][hero.y+1] ==type)return false;
-		if (currentMap[hero.x+1][hero.y] ==type)return false;
+		else if (currentMap[hero.x][hero.y+1] ==type)return false;
+		else if (currentMap[hero.x+1][hero.y] ==type)return false;
+		else if (currentMap[hero.x][hero.y-1] ==type)return false;
 		return true;
 	}
 	/**
@@ -539,7 +546,7 @@ public class Gamestate {
 	public boolean isFreeOgreX() {
 		if (!isFreeOgreX0()) return false;
 
-		else if (! isFreeOgreLength()) return false;
+		else if (!isFreeOgreLength()) return false;
 		return true;
 	}
 	/**

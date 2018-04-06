@@ -43,13 +43,16 @@ public class UserInteraction {
 			user_input();
 			game.ogreMovement();
 		}
+		if (game.gameWon) {
+			System.out.println("GAME WON!");
+			return;
+		}
 		if (!game.isFreeOgre()) {
 			System.out.println("GAME OVER!");
 			return;
 
 		}
-		else 
-			System.out.println("GAME WON!");
+		
 	}
 	public 	void print_map(String[][]map,int n)
 	{ 
