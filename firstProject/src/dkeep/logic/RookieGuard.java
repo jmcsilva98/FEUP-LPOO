@@ -5,10 +5,10 @@ public class RookieGuard extends Guard{
 	/**
 	 * Function to move rookie guard
 	 */
+
 	public void movement() {
 	
-		if(position < 24) {
-			
+		if(position < movement.length) {
 			switch(movement[position]) {
 			case "U" : x--;
 			break;
@@ -25,19 +25,23 @@ public class RookieGuard extends Guard{
 			else
 				position=1;
 }
+
 	/**
 	 * Function to get  actual position in the array
 	 * @return actual position
 	 */
+
 	public int getPosition() {
 		return position;
 	}
+
 	/**
 	 * Function to set actual position in the array
 	 * @param position Actual position
 	 */
-	public void setPostion(int position) {
+	public void setPosition(int position) {
 		this.position = position;
+
 	}
 
 }

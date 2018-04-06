@@ -124,6 +124,7 @@ public class GamePanel extends JPanel  {
 		default:
 			g.drawImage(floor, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
+			
 		}
 	}
 

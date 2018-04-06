@@ -200,30 +200,48 @@ public class TestFirstLevel {
 		String[] path= {"0", "L", "D", "D","D","D", "L",  "L", "L", "L", "L", "L", "D", "R", "R", "R", "R", "R", "R", "R", "U","U","U","U" };
 		assertEquals(rookie.movement, path);
 
+
 		rookie.setPostion(1);
+
 		int length;
+		
+		
+
+		for(length = rookie.getPosition(); length < 24; length++)
+		{				
+			int xn = rookie.getX();
+			int yn = rookie.getY();	
+			rookie.movement();
+			
+			if(rookie.movement[length].equals("U")) 
+				assertEquals(rookie.getX(), --xn);
+			else if(rookie.movement[length].equals("D")) 
+				assertEquals(rookie.getX(), ++xn);
+			else if(rookie.movement[length].equals("R")) 
+				assertEquals(rookie.getY(), ++yn);
+			else 
+				assertEquals(rookie.getY(), --yn);
+			
+		}
+	
+		rookie.setPosition(24);	
+		rookie.movement();
+		assertEquals(rookie.getPosition(), 1);
 
 
+		rookie.setPosition(1);
 		for(length = rookie.getPosition(); length < 24; length++)
 		{				
 			rookie.movement();
 			int xn = rookie.getX();
-			int yn = rookie.getY();	
-
-			if(rookie.movement[length].equals("U")) 
-				assertEquals(rookie.getX(), xn--);
-			else if(rookie.movement[length].equals("D")) 
-				assertEquals(rookie.getX(), xn++);
-			else if(rookie.movement[length].equals("R")) 
-				assertEquals(rookie.getY(), yn++);
-			else 
-				assertEquals(rookie.getY(), yn--);
-
+			int yn = rookie.getY();
+			assertEquals(rookie.getX(), xn);
+			assertEquals(rookie.getY(), yn);
 		}
-		rookie.movement();
-		rookie.setPostion(1);		
-		assertEquals(rookie.getPosition(), 1);
 
+		rookie.movement();
+		rookie.setPosition(1);		
+		assertEquals(rookie.getPosition(), 1);
 
 		/*while(length < 24) {
 			rookie.movement();
