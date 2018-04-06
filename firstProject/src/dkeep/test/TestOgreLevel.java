@@ -84,35 +84,35 @@ public class TestOgreLevel {
 		club.updatePosition();
 		int x = club.getX();
 		int y = club.getY();
-		
-		
+
+
 		int i;
 		for(i = 0; i <gamestate.getOgres().size(); i++) {
-		gamestate.getOgres().get(i).setClub(club);
-		assertEquals(gamestate.getOgres().get(i).getX(),1);
-		assertEquals(gamestate.getOgres().get(i).getY(),4);
-		assertEquals(gamestate.getOgres().get(i).getClub().getX(),x);
-		assertEquals(gamestate.getOgres().get(i).getClub().getY(),y);
-		assertEquals(gamestate.getOgres().get(i).getClub(),club);
-		
+			gamestate.getOgres().get(i).setClub(club);
+			assertEquals(gamestate.getOgres().get(i).getX(),1);
+			assertEquals(gamestate.getOgres().get(i).getY(),4);
+			assertEquals(gamestate.getOgres().get(i).getClub().getX(),x);
+			assertEquals(gamestate.getOgres().get(i).getClub().getY(),y);
+			assertEquals(gamestate.getOgres().get(i).getClub(),club);
+
 		}
-		
+
 		Gamestate gamestate2=new Gamestate();
 		gamestate2.setOgres(3);
 		club.setX(2);
 		club.setY(4);
 		for(i = 0; i <gamestate.getOgres().size(); i++) {
-		gamestate.getOgres().get(i).setClub(club);
-		assertEquals(gamestate.getOgres().get(i).getClub(),club);
-		assertEquals(gamestate.getOgres().get(i).getX(),1);
-		assertEquals(gamestate.getOgres().get(i).getY(),4);
+			gamestate.getOgres().get(i).setClub(club);
+			assertEquals(gamestate.getOgres().get(i).getClub(),club);
+			assertEquals(gamestate.getOgres().get(i).getX(),1);
+			assertEquals(gamestate.getOgres().get(i).getY(),4);
 		}
-		
-		
-		
-		
+
+
+
+
 	}
-	
+
 	@Test(timeout=1000)
 	public void testSomeRandomBehaviour(){
 		Gamestate gamestate=new Gamestate(map3);
@@ -131,56 +131,8 @@ public class TestOgreLevel {
 			else if (move=="L") left=true;
 			else if (move ==null) count++;
 		}
-		
 
-	}
-	/*
-	@Test
-	public void testOgreMovementString() {
-		Gamestate gamestate=new Gamestate(map3);
-		String move="";
-		int count=0;
-		Ogre ogre=new Ogre();
-		ogre.movement();
-		ogre.setX(8);
-		ogre.setY(8);
-		ogre.setXn(8);
-		ogre.setYn(8);
-		gamestate.setOgre(ogre);
-		assertEquals(ogre.getX(), ogre.getXn());
-		assertEquals(ogre.getY(), ogre.getYn());
-		
-	
-		ogre.setX(5);
-		ogre.setXn(2);
-		ogre.setY(5);
-		ogre.setYn(5);
-		gamestate.setOgre(ogre);
-		assertEquals(gamestate.getOgre().movement(), "D");
-		
-		//ogre.movement();
-		ogre.setX(2);
-		ogre.setXn(5);
-		ogre.setY(2);
-		ogre.setYn(2);
-		gamestate.setOgre(ogre);
-		assertEquals(gamestate.getOgre().movement(), "U");
-		
-		//ogre.movement();
-		ogre.setX(5);
-		ogre.setXn(5);
-		ogre.setY(3);
-		ogre.setYn(2);
-		gamestate.setOgre(ogre);
-		assertEquals(gamestate.getOgre().movement(), "R");
-		
-		//ogre.movement();
-		ogre.setX(5);
-		ogre.setXn(5);
-		ogre.setY(2);
-		ogre.setYn(3);
-		gamestate.setOgre(ogre);
-		assertEquals(gamestate.getOgre().movement(), "L");
+
 	}
 
 	@Test
@@ -193,9 +145,9 @@ public class TestOgreLevel {
 		assertFalse(gamestate.isGameOver());
 		gamestate.heroMovement("R");
 		assertFalse(gamestate.isGameOver());	
-		
 
-	}*/
+
+	}
 
 	@Test
 	public void testHeroisCapturedDown() {
@@ -294,10 +246,10 @@ public class TestOgreLevel {
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
 
-		
+
 		/*
-		
-		
+
+
 		hero.setX(0);
 		hero.setY(4);
 		gamestate.heroMovement("L");
@@ -311,7 +263,7 @@ public class TestOgreLevel {
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
 		assertFalse(gamestate2.isFreeOgre());
-		
+
 		hero.setX(4);
 		hero.setY(8);
 		gamestate.heroMovement("L");
@@ -366,14 +318,14 @@ public class TestOgreLevel {
 	public void testOgreMovement() {
 		Gamestate gamestate = new Gamestate(map2);
 		ArrayList<Ogre> ogres = new ArrayList<Ogre>();
-	
+
 		gamestate.ogreMovement();
 		gamestate.setOgres(0);
 		assertEquals(gamestate.ogreMovement(), "");
-		
+
 		gamestate.setOgres(ogres);
 		ogres = gamestate.getOgres();
-		
+
 		for(Ogre ogre: ogres) {
 			ogre.stunCounter = 2;
 			ogre.isStunned  = true;		
@@ -444,7 +396,7 @@ public class TestOgreLevel {
 		Gamestate gamestate = new Gamestate();
 		Ogre ogre = new Ogre();
 		Character club = new Character();
-	
+
 		gamestate.newPositionClub(ogre);
 		ogre.setX(3);
 		ogre.setY(3);
@@ -491,6 +443,6 @@ public class TestOgreLevel {
 	}
 
 
-	
+
 
 }

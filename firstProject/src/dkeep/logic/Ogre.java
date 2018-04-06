@@ -5,10 +5,10 @@ public class Ogre extends Character {
 	private Character club;
 	public String symbol="O";
 	public int stunCounter = 0;
-	
-	
+
+
 	public String movement() {
-	
+
 		calculateNewPosition();
 		if (x >= 8 || x <=0)
 			x =xn;
@@ -36,7 +36,7 @@ public class Ogre extends Character {
 			break;
 		}
 	}
-public void clubMovement() {
+	public void clubMovement() {
 		int x= this.x;
 		int y =this.y;
 		int auxR= randomGenerator(2);
@@ -52,10 +52,10 @@ public void clubMovement() {
 		if (y>=8 || y<=0) club.y=club.yn;
 	}
 
-public Character getClub() {
-	return club;
-}
-public void setClub(Character club) {
-	this.club=club;
-}
+	public Character getClub() {
+		return club;
+	}
+	public void setClub(Character club) {
+		this.club=club;
+	}
 }
