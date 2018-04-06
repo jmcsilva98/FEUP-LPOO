@@ -102,6 +102,7 @@ public class SettingsPanel {
 					return;
 				}
 
+				
 				try { 
 					guard = (String) guardPersonality.getItemAt(guardPersonality.getSelectedIndex());
 

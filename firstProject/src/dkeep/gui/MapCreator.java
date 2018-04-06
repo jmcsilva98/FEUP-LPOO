@@ -302,6 +302,7 @@ public class MapCreator extends JFrame {
 			map[y][x]="O";
 			map[y+1][x]="*";
 			return true;
+			
 		}
 		if (map[y][x].equals("O"))
 		{

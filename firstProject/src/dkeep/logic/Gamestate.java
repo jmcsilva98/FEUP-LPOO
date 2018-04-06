@@ -142,6 +142,7 @@ public class Gamestate {
 		Random n = new Random();
 
 		int numberOfOgres = n.nextInt(3) + 1;
+		numberOfOgres=0;
 		for(int i = 0; i <numberOfOgres; ++i) {
 			Ogre ogre = new Ogre();
 			Character club= new Character();
@@ -534,6 +535,7 @@ public class Gamestate {
 	 * Function to verify if hero is in adjacent position of ogre when hero.x=0 or hero.x = map length-1
 	 * @return true if hero is in adjacent position of guard
 	 */
+	
 	public boolean isFreeOgreX() {
 		if (!isFreeOgreX0()) return false;
 

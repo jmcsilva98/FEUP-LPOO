@@ -72,7 +72,6 @@ public class UserInteraction {
 	public 	void user_input() {
 		System.out.println("Please input the character commands (U/D/L/R)");
 		String move = s.nextLine();
-		System.out.println(move);
 		game.heroMovement(move);
 	}
 }

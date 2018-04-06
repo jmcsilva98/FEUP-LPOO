@@ -364,7 +364,6 @@ public class PlayPanel implements java.io.Serializable {
 	private void buttonPressed(String move) {
 
 		if (!game.checkGameStatus(move)) {
-			System.out.println("GAME OVER !!!");
 			JOptionPane.showMessageDialog(frame, "GAME OVER!");
 			MenuPanel other=null;
 			try {
@@ -374,8 +373,7 @@ public class PlayPanel implements java.io.Serializable {
 				e.printStackTrace();
 				
 			}
-			this.game=null;
-			this.map=null;
+		
 			other.frame.setVisible(true);
 			frame.setVisible(false);
 			return;

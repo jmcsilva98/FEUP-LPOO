@@ -132,7 +132,6 @@ public class GamePanel extends JPanel  {
 	public void setMaze(String[][] map) {
 		map[0][0]="X";
 		this.map=map;
-		
 		repaint();
 	} 
 
