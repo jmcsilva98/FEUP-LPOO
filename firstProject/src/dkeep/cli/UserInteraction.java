@@ -38,7 +38,7 @@ public class UserInteraction {
 					game.getMap()[i][j]=" ";
 		}
 		
-		while(game.getLevel()==2&&game.isFreeOgre()) {
+		while(game.getLevel()==2&&game.isFreeOgre()&& !game.gameWon) {
 			print_map(game.getMap(),game.getLevel());
 			user_input();
 			game.ogreMovement();
@@ -48,6 +48,8 @@ public class UserInteraction {
 			return;
 
 		}
+		else 
+			System.out.println("GAME WON!");
 	}
 	public 	void print_map(String[][]map,int n)
 	{ 

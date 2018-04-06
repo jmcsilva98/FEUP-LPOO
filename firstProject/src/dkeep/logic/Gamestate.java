@@ -20,8 +20,8 @@ public class Gamestate {
 	 * Gamestate constructor
 	 */
 	public Gamestate() {
-		this.currentMap=Map.getMap(1);
-		level=1;
+		this.currentMap=Map.getMap(2);
+		level=2;
 	}
 	/**
 	 * Gamestate constructor
@@ -142,7 +142,6 @@ public class Gamestate {
 		Random n = new Random();
 
 		int numberOfOgres = n.nextInt(3) + 1;
-		numberOfOgres=0;
 		for(int i = 0; i <numberOfOgres; ++i) {
 			Ogre ogre = new Ogre();
 			Character club= new Character();
@@ -528,7 +527,6 @@ public class Gamestate {
 		if (currentMap[hero.x-1][hero.y]==type)return false;
 		if (currentMap[hero.x][hero.y+1] ==type)return false;
 		if (currentMap[hero.x+1][hero.y] ==type)return false;
-		if (currentMap[hero.x][hero.y-1]==type)return false;
 		return true;
 	}
 	/**
