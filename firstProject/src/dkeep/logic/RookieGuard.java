@@ -7,8 +7,9 @@ public class RookieGuard extends Guard{
 	 */
 
 	public void movement() {
-	
 		if(position < movement.length) {
+
+
 			switch(movement[position]) {
 			case "U" : x--;
 			break;
@@ -22,6 +23,7 @@ public class RookieGuard extends Guard{
 			}
 			position++;
 		}
+
 			else
 				position=1;
 }

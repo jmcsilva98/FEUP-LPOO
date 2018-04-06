@@ -5,8 +5,6 @@ import java.util.Random;
 
 public class Gamestate {
 
-
-
 	public String[][] currentMap;
 
 	int level;
@@ -299,9 +297,6 @@ public class Gamestate {
 			hero.setY(1); 
 			setHero(hero);
 		}
-
-
-
 
 	}
 	/**
@@ -676,7 +671,6 @@ public class Gamestate {
  * @return guard
  */
 	public Guard getGuard() {
-		// TODO Auto-generated method stub
 		return guard;
 	}
 

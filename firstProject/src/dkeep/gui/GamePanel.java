@@ -109,6 +109,7 @@ public class GamePanel extends JPanel  {
 		case "A":
 			g.drawImage(heroArmed, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;
+			
 		case "K":
 			g.drawImage(hero, (int) (j*xSize), (int) (i*ySize), (int)xSize, (int)ySize, null);
 			break;

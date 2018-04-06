@@ -102,12 +102,12 @@ public class TestFirstLevel {
 		hero.setY(0);
 		gamestate.setHero(hero);
 		gamestate2.setHero(hero);
-		
+
 		gamestate.heroMovement("D");
 		gamestate2.heroMovement("D");
 		assertFalse(gamestate.isFreeGuard());
 		assertFalse(gamestate2.isFreeGuard());
-		
+
 
 
 	}
@@ -131,7 +131,7 @@ public class TestFirstLevel {
 		hero.setY(0);
 		gamestate.setHero(hero);
 		gamestate2.setHero(hero);
-		
+
 		gamestate.heroMovement("U");
 		gamestate2.heroMovement("U");
 		assertFalse(gamestate.isFreeGuard());
@@ -201,18 +201,18 @@ public class TestFirstLevel {
 		assertEquals(rookie.movement, path);
 
 
-		rookie.setPostion(1);
+		rookie.setPosition(1);
 
 		int length;
-		
-		
+
+
 
 		for(length = rookie.getPosition(); length < 24; length++)
 		{				
 			int xn = rookie.getX();
 			int yn = rookie.getY();	
 			rookie.movement();
-			
+
 			if(rookie.movement[length].equals("U")) 
 				assertEquals(rookie.getX(), --xn);
 			else if(rookie.movement[length].equals("D")) 
@@ -221,9 +221,9 @@ public class TestFirstLevel {
 				assertEquals(rookie.getY(), ++yn);
 			else 
 				assertEquals(rookie.getY(), --yn);
-			
+
 		}
-	
+
 		rookie.setPosition(24);	
 		rookie.movement();
 		assertEquals(rookie.getPosition(), 1);
@@ -239,9 +239,11 @@ public class TestFirstLevel {
 			assertEquals(rookie.getY(), yn);
 		}
 
+
 		rookie.movement();
 		rookie.setPosition(1);		
 		assertEquals(rookie.getPosition(), 1);
+
 
 		/*while(length < 24) {
 			rookie.movement();
@@ -437,4 +439,4 @@ public class TestFirstLevel {
 		gamestate.heroDefaultMovement();
 		assertTrue(gamestate.currentMap[hero.getX()][hero.getY()].equals("H"));
 	}
-	}
+}

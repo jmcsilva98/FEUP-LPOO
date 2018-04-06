@@ -23,7 +23,7 @@ public class TestDungeonGameLogic {
 			{"X", " ", "I", " ", "I", " ", " ", "k", " ", "X"},
 			{"X", "X", "X", "X", "X", "X", "X", "X", "X", "X"},
 	};
-
+ 
 	String[][] map2={		 
 			{"X", "X", "X", "X"},
 			{"X", " ", " ", "X"},
@@ -74,7 +74,7 @@ public class TestDungeonGameLogic {
 		assertTrue(gamestate.heroIsArmed());
 	}  
 
-/*@Test
+	@Test
 	public void testToString() {
 		Gamestate gamestate=new Gamestate();
 		assertEquals("" +gamestate, "XXXXXXXXXX\nXH  I X  X\nXXX XXX  X\n"
@@ -83,7 +83,7 @@ public class TestDungeonGameLogic {
 		gamestate.setLevel(2);
 		assertEquals("" +gamestate, "XXXXXXXXX\nI      kX\nX       X\n"
 				+"X       X\nX       X\nX C     X\nX       X\nX       X\nXXXXXXXXX\n");
-	}*/
+	}
 
 	@Test(timeout=1000)
 	public void testStartConsole() {
@@ -256,7 +256,7 @@ public class TestDungeonGameLogic {
 		Gamestate gamestate=new Gamestate();
 		assertEquals(gamestate.getLevel(), 1);
 	}
-	 
+
 	@Test
 	public void testMoveHeroIntoFreeCell() {
 

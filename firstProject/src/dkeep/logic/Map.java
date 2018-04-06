@@ -35,9 +35,9 @@ public class Map {
 		this.map=map;
 
 	}
-	
+
 	public String[][]getMap() {
-		
+
 		return this.map;
 	}
 }
