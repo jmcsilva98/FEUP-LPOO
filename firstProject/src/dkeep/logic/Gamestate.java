@@ -359,13 +359,16 @@ public class Gamestate {
 		if (level==1) {
 			currentMap[5][0] = "S";
 			currentMap[6][0] = "S";
+			currentMap[hero.x][hero.y]="K";
 			hero.hasKey=true;
 		}
-		else if (level==2)
+		else if (level==2) {
 			currentMap[1][0]="S";
+			currentMap[hero.x][hero.y]="A";
+		}
 		else 
 			whereIsDoor();
-		currentMap[hero.x][hero.y]="A";
+		
 		hero.hasKey=true;
 	}
 	/**
@@ -407,6 +410,9 @@ public class Gamestate {
 	 */
 	public void heroHasKey() {
 		if(hero.hasKey) {
+			if (level==1)
+				currentMap[hero.x][hero.y]="K";
+			else
 			currentMap[hero.x][hero.y]="A";
 		}
 		else {

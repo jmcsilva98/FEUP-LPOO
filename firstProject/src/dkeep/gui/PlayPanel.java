@@ -366,11 +366,29 @@ public class PlayPanel implements java.io.Serializable {
 		if (!game.checkGameStatus(move)) {
 			System.out.println("GAME OVER !!!");
 			JOptionPane.showMessageDialog(frame, "GAME OVER!");
-			System.exit(0);
+			MenuPanel other=null;
+			try {
+				 other= new MenuPanel();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.game=null;
+			other.frame.setVisible(true);
+			frame.setVisible(false);
+			return;
 		}
 		if (game.getGame().gameWon) {
 			JOptionPane.showMessageDialog(frame, "GAME WON!");
-			System.exit(0);
+			MenuPanel other=null;
+			try {
+				 other= new MenuPanel();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			other.frame.setVisible(true);
+			frame.setVisible(false);
 		}
 
 		gameArea.setMaze(game.getGame().getMap());

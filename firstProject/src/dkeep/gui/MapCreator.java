@@ -29,8 +29,8 @@ public class MapCreator extends JFrame {
 	private int numberOgres;
 	private boolean hasHero=false;
 	private boolean hasOgre=false;
-	private boolean hasExitDoor=true;
-	private boolean hasKey=true;
+	private boolean hasExitDoor=false;
+	private boolean hasKey=false;
 	private boolean hasWall=true;
 	private GamePanel gameArea;
 	private String element;
@@ -209,23 +209,23 @@ public class MapCreator extends JFrame {
 		frame.getContentPane().add(gameArea);
 	}
 	private void initializeHero() {
-		chooseHeroPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		chooseHeroPosition(xPressed/(200/dimension),yPressed/(200/dimension));
 		gameArea.setMaze(map);
 	}
 	private void initializeOgre() {
-		chooseOgrePosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		chooseOgrePosition(xPressed/(200/dimension),yPressed/(200/dimension));
 		gameArea.setMaze(map);
 	}
 	private void initializeWalls() {
-		chooseWallPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		chooseWallPosition(xPressed/(200/dimension),yPressed/(200/dimension));
 		gameArea.setMaze(map);
 	}
 	private void initializeKey() {
-		chooseKeyPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		chooseKeyPosition(xPressed/(200/dimension),yPressed/(200/dimension));
 		gameArea.setMaze(map);
 	}
 	private void initializeExitDoor() {
-		chooseExitDoorPosition(xPressed/(2*dimension),yPressed/(2*dimension));
+		chooseExitDoorPosition(xPressed/(200/dimension),yPressed/(200/dimension));
 		gameArea.setMaze(map);
 	}
 	public void createMap(int length) {
@@ -266,7 +266,10 @@ public class MapCreator extends JFrame {
 		if (hasHero && hasKey && hasOgre && hasWall && hasExitDoor && ogresNumber<5) {
 			return generatePlayPanel();
 		}
-		else  return false;
+		else {
+			JOptionPane.showMessageDialog(frame, "You have to insert a hero, ogres, exit door and the key!");
+			return false;
+		}
 	}
 
 	public boolean generatePlayPanel() throws IOException {
@@ -348,6 +351,10 @@ public class MapCreator extends JFrame {
 				ogresNumber = switchElements(ogresNumber, i, j);
 			}
 		this.numberOgres=ogresNumber;
+		if (numberOgres >5) {
+			JOptionPane.showMessageDialog(frame, "You have to insert a number less than 5 to ogres!");
+			return 0;
+		}
 		return ogresNumber;
 	}
 

@@ -25,9 +25,7 @@ public class GuiInteraction {
 	}
 
 	public boolean checkGameStatus(String move) {
-		deleteGuard();
 		deleteClub();
-		System.out.println(game.getLevel());
 		
 		if (game.getLevel()==1 &&game.isFreeGuard()) {
 			game.guardMovement();
@@ -39,6 +37,7 @@ public class GuiInteraction {
 
 		}
 		else if (game.getLevel()==2 && game.isFreeOgre()) {
+			deleteGuard();
 			game.heroMovement(move);
 			game.ogreMovement();
 			return true;
