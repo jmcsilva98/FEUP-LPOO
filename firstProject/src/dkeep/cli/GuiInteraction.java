@@ -16,7 +16,7 @@ public class GuiInteraction {
 
 		this.guard=guard;
 		this.numberOgres=numberOgres;
-		
+
 		game.start(true,guard, numberOgres);
 
 	}
@@ -25,15 +25,15 @@ public class GuiInteraction {
 	}
 
 	public boolean checkGameStatus(String move) {
-		
+
 		deleteClub();
 		if (game.getLevel()==1 &&game.isFreeGuard()) {
 			game.guardMovement();
 			game.heroMovement(move);
 			return true;
 		}
-		if (!game.isFreeGuard()) {
-		return false;
+		else if (game.getLevel()==1 &&!game.isFreeGuard()) {
+			return false;
 
 		}
 		else if (game.getLevel()==2 && game.isFreeOgre()) {
@@ -42,7 +42,7 @@ public class GuiInteraction {
 			game.ogreMovement();
 			return true;
 		}
-		
+
 		else if (game.isFreeOgre()) {
 			game.heroMovement(move);
 			game.ogreMovement();
@@ -69,11 +69,11 @@ public class GuiInteraction {
 			for(int j=0;j<game.getMap().length;j++)
 				if (game.getMap()[i][j]=="*")
 					game.getMap()[i][j]=" ";
-		
+
 	}
-public int getNumberOgres() {
-	return numberOgres;
-}
+	public int getNumberOgres() {
+		return numberOgres;
+	}
 	public static void main(String[] args) {
 		GuiInteraction new_game=new GuiInteraction();
 	}
