@@ -247,9 +247,6 @@ public class TestOgreLevel {
 		assertFalse(gamestate2.isFreeOgre());
 
 
-		/*
-
-
 		hero.setX(0);
 		hero.setY(4);
 		gamestate.heroMovement("L");
@@ -269,7 +266,7 @@ public class TestOgreLevel {
 		gamestate.heroMovement("L");
 		gamestate2.heroMovement("L");
 		assertFalse(gamestate.isFreeOgre());
-		assertFalse(gamestate2.isFreeOgre());*/
+		assertFalse(gamestate2.isFreeOgre());
 
 	}
 

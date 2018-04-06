@@ -57,6 +57,9 @@ public class TestFirstLevel {
 			{" ", " ", " ", " ", " ", " ", " "},
 	};
 
+	
+	
+	
 	@Test
 	public void testHeroisFree() {
 		Gamestate gamestate=new Gamestate(map1);
@@ -245,26 +248,7 @@ public class TestFirstLevel {
 		assertEquals(rookie.getPosition(), 1);
 
 
-		/*while(length < 24) {
-			rookie.movement();
-			int xn = rookie.getX();
-			int yn = rookie.getY();
-
-			if(rookie.movement[length].equals("U")) 
-				assertEquals(rookie.getX(), xn--);
-			else if(rookie.movement[length].equals("D")) 
-				assertEquals(rookie.getX(), xn++);
-			else if(rookie.movement[length].equals("R")) 
-				assertEquals(rookie.getY(), yn++);
-			else if(rookie.movement[length].equals("L")) 
-				assertEquals(rookie.getY(), yn--);
-
-			length++;
-		}*/
-
-
-
-
+	
 	}
 
 	@Test(timeout = 1000)
@@ -290,7 +274,7 @@ public class TestFirstLevel {
 
 			count++;
 
-		} //VER QUAL DAS VERSOES E MELHOR
+		} 
 	}
 
 	@Test
@@ -305,37 +289,6 @@ public class TestFirstLevel {
 		assertEquals( drunkenGuard.getY(), y+drunkenGuard.yMove);
 	}
 
-
-
-	/*@Test
-
-	public void testDrunkenGuardMovement() {
-
-		DrunkenGuard drunkenGuard = new DrunkenGuard();
-
-		drunkenGuard.movement();
-		drunkenGuard.setX(-2);
-		drunkenGuard.setXn(-2);
-		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
-
-		drunkenGuard.movement();
-		drunkenGuard.setX(10);
-		drunkenGuard.setXn(10);
-		assertEquals(drunkenGuard.getX(), 	drunkenGuard.getXn());
-
-		drunkenGuard.movement();
-		drunkenGuard.setY(-2);
-		drunkenGuard.setYn(-2);
-		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
-
-		drunkenGuard.movement();
-		drunkenGuard.setY(10);
-		drunkenGuard.setYn(10);
-		assertEquals(drunkenGuard.getY(), 	drunkenGuard.getYn());
-
-
-
-	}*/
 
 
 	@Test
@@ -439,4 +392,36 @@ public class TestFirstLevel {
 		gamestate.heroDefaultMovement();
 		assertTrue(gamestate.currentMap[hero.getX()][hero.getY()].equals("H"));
 	}
+	
+	
+	@Test
+	public void testGetGuards() {
+		Gamestate gamestate = new Gamestate();
+		RookieGuard rookie = new RookieGuard();
+		SuspiciousGuard suspicious = new SuspiciousGuard();
+		DrunkenGuard drunken = new DrunkenGuard();
+		
+		rookie.setX(2);
+		rookie.setY(2);
+		gamestate.setGuard(rookie);
+		assertEquals(rookie.getX(),2);
+		assertEquals(rookie.getY(),2);
+		
+		drunken.setX(3);
+		drunken.setY(3);
+		gamestate.setGuard(drunken);
+		assertEquals(drunken.getX(),3);
+		assertEquals(drunken.getY(),3);
+		
+		suspicious.setX(3);
+		suspicious.setY(3);
+		gamestate.setGuard(drunken);
+		assertEquals(suspicious.getX(),3);
+		assertEquals(suspicious.getY(),3);
+	}
+	
+	
+	
+	
+	
 }
