@@ -137,6 +137,7 @@ public class Gamestate {
 	 * @param ogres Array of ogres 
 	 */
 
+	
 
 	public void setOgres(ArrayList<Ogre> ogres) {
 
