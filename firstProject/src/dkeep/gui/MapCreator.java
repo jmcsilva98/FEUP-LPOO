@@ -96,7 +96,7 @@ public class MapCreator extends JFrame {
 		btnPlay.setBounds(335, 206, 89, 23);
 		frame.getContentPane().add(btnPlay);
 
-		JLabel lblNowYouCan = new JLabel("Now, you can create your own map.");
+		JLabel lblNowYouCan = new JLabel("You can create your own map.");
 		lblNowYouCan.setBounds(24, 236, 200, 14);
 		frame.getContentPane().add(lblNowYouCan);
 
@@ -300,12 +300,13 @@ public class MapCreator extends JFrame {
 		if (x<0 || y<0) return false;
 		if (map[y][x].equals(" ")) {
 			map[y][x]="O";
-			map[y-1][x]="*";
+			map[y+1][x]="*";
 			return true;
 		}
 		if (map[y][x].equals("O"))
 		{
 			map[y][x]=" ";
+			map[y+1][x]=" ";
 			return true;
 		}
 		else

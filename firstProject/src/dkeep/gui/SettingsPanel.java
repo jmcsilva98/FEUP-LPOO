@@ -63,23 +63,6 @@ public class SettingsPanel {
 	}
 
 	private void initializeNewLevelButton() {
-		JButton btnCreateNewLevel = new JButton("Create new level");
-		btnCreateNewLevel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MapCreator other= null;
-				try {
-					other= new MapCreator();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				other.frame.setVisible(true);
-				frame.setVisible(false);
-
-			}
-		});
-		btnCreateNewLevel.setBounds(302, 123, 113, 23);
-		frame.getContentPane().add(btnCreateNewLevel);
 	}
 
 	private void initializeMainButtons() {

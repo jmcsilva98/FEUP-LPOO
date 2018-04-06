@@ -139,6 +139,7 @@ public class MenuPanel {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 				}
 				playPressed(other);
 			}
@@ -156,4 +157,5 @@ public class MenuPanel {
 		frame.getContentPane().setLayout(springLayout);
 		frame.getContentPane().add(btnNewGame);
 	}
+	
 }

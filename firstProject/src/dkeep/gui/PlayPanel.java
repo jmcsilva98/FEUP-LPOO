@@ -372,8 +372,10 @@ public class PlayPanel implements java.io.Serializable {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			}
 			this.game=null;
+			this.map=null;
 			other.frame.setVisible(true);
 			frame.setVisible(false);
 			return;
