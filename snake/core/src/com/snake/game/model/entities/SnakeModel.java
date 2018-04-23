@@ -3,7 +3,7 @@ package com.snake.game.model.entities;
 public class SnakeModel extends EntityModel {
     private int size;
 
-    SnakeModel(int size, float x, float y,float rotation){
+    public  SnakeModel(int size, float x, float y,float rotation){
         super(x,y,rotation);
         this.size=size;
 
