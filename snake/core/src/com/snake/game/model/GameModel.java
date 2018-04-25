@@ -2,6 +2,7 @@ package com.snake.game.model;
 
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
+import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
 
@@ -40,6 +41,20 @@ public class GameModel {
     public List<CoinModel> getCoins(){
         return coins;
     }
+    public void createSquare (int value) {
+        SquareModel square = new SquareModel(10, 10, 0, value);
+        squares.add(square);
+
+    }
+    public void remove (EntityModel m1){
+        if (m1 instanceof SquareModel)
+            squares.remove(m1);
+        else if (m1 instanceof BallModel)
+            balls.remove(m1);
+        else if (m1 instanceof CoinModel)
+            coins.remove(m1);
+    }
+
 
 
 }
