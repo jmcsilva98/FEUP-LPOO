@@ -103,12 +103,19 @@ return to the main menu or leave the game.
 3.	Test Design – Unit tests
 
 a.	Test collisions with the different objects of the game: squares, walls, circles and coins;
+
 b.	Test if when the snake disappears (number of circles = 0), the game is over;
+
 c.	Test if the snake gains the number of circles indicated when colliding with a circle;
+
 d.	Test if the snake loses the number of circles indicated when colliding with a square and the square disappears;
+
 e.	Test if the number of coins increases by one when colliding with a coin;
+
 f.	Implement test for the diferente levels: beginner, intermediate and impossible;
+
 g.	Test buttons behaviour (play, exit, settings, sound, select levels,…);
+
 h.	Test snake movement;
 
 
