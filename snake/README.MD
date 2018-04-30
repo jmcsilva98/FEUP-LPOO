@@ -40,6 +40,8 @@ the game results on social media and exit the
 game.
 
 
+![a](https://user-images.githubusercontent.com/28101797/39446024-f756d1d6-4cb4-11e8-89ef-ae50f1ee944e.png)
+
 b.	Settings Menu
 
 In the settings menu we will have na option
@@ -49,6 +51,8 @@ will be playing with.
 After changing the settings, the player can return
 to the main menu or just exit the game.
 
+
+![b](https://user-images.githubusercontent.com/28101797/39446089-2bba89ae-4cb5-11e8-9d3d-b636337aa6df.png)
 
 
 c.	Game Mode
@@ -66,6 +70,8 @@ In the game, the player may also collect coins,
  number of coins gained and the current score
  will be shown in the game.
 
+![d](https://user-images.githubusercontent.com/28101797/39446134-5767fc26-4cb5-11e8-865e-b2f4e23ce464.png)
+
 
 d.	Game Over
 
@@ -73,6 +79,9 @@ d.	Game Over
  to the main menu, leave the game or play again.
  the score will appear on the screen and a crown
  will indicate if a new high score is reached. 
+ 
+ 
+![e](https://user-images.githubusercontent.com/28101797/39446173-857b811e-4cb5-11e8-89d1-e593ac02609e.png)
 
 e.	Scores Menu
 
@@ -81,6 +90,7 @@ obtained in the game. The player may
 return to the main menu or leave the game.
 
 
+![c](https://user-images.githubusercontent.com/28101797/39446102-39908d80-4cb5-11e8-8ebb-d592c69adc28.png)
 
 
 
