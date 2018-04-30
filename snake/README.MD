@@ -38,7 +38,9 @@ and impossible). In this menu we will also be able
 to go to the settings or the scores menu, share
 the game results on social media and exit the
 game.
+
 ![a](https://user-images.githubusercontent.com/28101797/39429375-9d4a1d6a-4c82-11e8-8ca9-10abf2ae74b6.png)
+
 b.	Settings Menu
 
 In the settings menu we will have na option
@@ -68,7 +70,6 @@ In the game, the player may also collect coins,
  will be shown in the game.
 
 ![c](https://user-images.githubusercontent.com/28101797/39429425-c81d36ee-4c82-11e8-954d-fe8c09907a2e.png)
-
 
 
 
