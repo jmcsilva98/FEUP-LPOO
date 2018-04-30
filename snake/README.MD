@@ -39,7 +39,6 @@ to go to the settings or the scores menu, share
 the game results on social media and exit the
 game.
 
-![a](https://user-images.githubusercontent.com/28101797/39429375-9d4a1d6a-4c82-11e8-8ca9-10abf2ae74b6.png)
 
 b.	Settings Menu
 
@@ -49,8 +48,6 @@ will also get to choose the color of the snake he
 will be playing with. 
 After changing the settings, the player can return
 to the main menu or just exit the game.
-
-![b](https://user-images.githubusercontent.com/28101797/39429408-bc0aa0ee-4c82-11e8-9342-59fc8ff6dab0.png)
 
 
 
@@ -69,10 +66,6 @@ In the game, the player may also collect coins,
  number of coins gained and the current score
  will be shown in the game.
 
-![c](https://user-images.githubusercontent.com/28101797/39429425-c81d36ee-4c82-11e8-954d-fe8c09907a2e.png)
-
-
-
 
 d.	Game Over
 
@@ -81,21 +74,11 @@ d.	Game Over
  the score will appear on the screen and a crown
  will indicate if a new high score is reached. 
 
-![d](https://user-images.githubusercontent.com/28101797/39429461-dbfbfb50-4c82-11e8-858f-62313ff1c050.png)
-
 e.	Scores Menu
 
 This menu will show the highest scores
 obtained in the game. The player may
 return to the main menu or leave the game.
-
-
-
-![e](https://user-images.githubusercontent.com/28101797/39429506-f7e84814-4c82-11e8-8e72-7f249757c739.png)
-
-
-
-
 
 
 
