@@ -5,15 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.assets.AssetManager;
 
 public class SnakeSmash extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	private AssetManager assetManager;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		assetManager = new AssetManager();
+
 	}
 
 	@Override
@@ -24,10 +27,14 @@ public class SnakeSmash extends ApplicationAdapter {
 		batch.draw(img, 0, 0);
 		batch.end();
 	}
-	
+
+	public AssetManager getAssetManager() {
+		return assetManager;
+	}
+
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		assetManager.dispose();
 	}
 }

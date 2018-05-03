@@ -3,6 +3,7 @@ package com.snake.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.snake.game.SnakeSmash;
@@ -26,6 +27,7 @@ public class GameView extends ScreenAdapter {
 
     public GameView(SnakeSmash game){
     this.game=game;
+    loadAssets();
     this.camera= createCamera();
 
 }
@@ -43,6 +45,17 @@ public class GameView extends ScreenAdapter {
     }
 
     private void loadAssets(){
+
+        this.game.getAssetManager().load( "bigWall.png" , Texture.class);
+        this.game.getAssetManager().load( "mediumWall.png" , Texture.class);
+        this.game.getAssetManager().load( "blueSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "greenSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "pinkSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "yellowSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "pinkSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "lightpinkSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "mustardSquare.png" , Texture.class);
+        this.game.getAssetManager().load( "whiteBall.png" , Texture.class);
 
     }
   /*  private void render(float delta){
