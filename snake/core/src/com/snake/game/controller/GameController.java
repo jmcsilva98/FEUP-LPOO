@@ -6,9 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.snake.game.controller.entities.BallBody;
 import com.snake.game.controller.entities.SnakeBody;
-import com.snake.game.controller.entities.SquareModel;
+import com.snake.game.controller.entities.SquareBody;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
 
@@ -22,7 +21,7 @@ public class GameController implements ContactListener {
     private final World world;
     private final SnakeBody snakeBody;
     private List<BallModel> ballToAdd= new ArrayList<BallModel>();
-    private List <SquareModel> squaresToAdd= new ArrayList<SquareModel>();
+    private List <SquareBody> squaresToAdd= new ArrayList<SquareBody>();
 
     private float timeToNextShoot;
     private GameController(){
