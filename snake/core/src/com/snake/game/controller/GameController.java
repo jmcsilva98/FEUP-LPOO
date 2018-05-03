@@ -20,26 +20,28 @@ public class GameController implements ContactListener {
 
     private final World world;
     private final SnakeBody snakeBody;
-    private List<BallModel> ballToAdd= new ArrayList<BallModel>();
-    private List <SquareBody> squaresToAdd= new ArrayList<SquareBody>();
-
+    private List<BallModel> ballToAdd = new ArrayList<BallModel>();
+    private List<SquareBody> squaresToAdd = new ArrayList<SquareBody>();
+    private float accumulator;
     public static final int SCREEN_WIDTH = 100;
     public static final int SCREEN_HEIGHT = 50;
 
     private float timeToNextShoot;
-    private GameController(){
-        world= new World(new Vector2(0,0),true);
+
+    private GameController() {
+        world = new World(new Vector2(0, 0), true);
         snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
         List<BallModel> balls = GameModel.getInstance().getBalls();
 
         world.setContactListener(this);
     }
 
-    public static GameController getInstance(){
-        if (instance==null)
+    public static GameController getInstance() {
+        if (instance == null)
             instance = new GameController();
         return instance;
     }
+
     @Override
     public void beginContact(Contact contact) {
 
@@ -58,5 +60,25 @@ public class GameController implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public void removeFlagged() {
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void update(float delta) {
+        GameModel.getInstance().update(delta);
+
+        timeToNextShoot -= delta;
+
+        float frameTime = Math.min(delta, 0.25f);
+        accumulator += frameTime;
+        while (accumulator >= 1 / 60f) {
+            world.step(1 / 60f, 6, 2);
+            accumulator -= 1 / 60f;
+        }
     }
 }

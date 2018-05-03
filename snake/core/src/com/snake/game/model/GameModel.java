@@ -56,5 +56,7 @@ public class GameModel {
     }
 
 
-
+    public void update(float delta) {
+        snake.setY(snake.getY()+snake.getY()/delta);
+    }
 }

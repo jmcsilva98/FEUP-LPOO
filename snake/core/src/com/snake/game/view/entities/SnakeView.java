@@ -11,7 +11,7 @@ public class SnakeView extends EntityView {
     }
     public Sprite createSprite(SnakeSmash game)
     {
-        Texture texture= null; //To be changed
+        Texture texture=game.getAssetManager().get("whiteBall.png");
         return new Sprite(texture, texture.getWidth(),texture.getHeight());
     }
 }

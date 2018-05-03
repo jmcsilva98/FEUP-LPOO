@@ -1,6 +1,7 @@
 package com.snake.game.view.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.snake.game.model.entities.EntityModel;
 import com.snake.game.SnakeSmash;
 
@@ -17,5 +18,9 @@ public abstract class EntityView {
     public void update(EntityModel model){
         sprite.setCenter(model.getX()/PIXEL_TO_METER,model.getY()/PIXEL_TO_METER);
         sprite.setRotation((float) Math.toDegrees(model.getRotation()));
+    }
+
+    public  void draw(SpriteBatch batch){
+        sprite.draw(batch);
     }
 }
