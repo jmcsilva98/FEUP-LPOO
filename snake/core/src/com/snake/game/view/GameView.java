@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.snake.game.SnakeSmash;
-import com.snake.game.controller.GameController;
+import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
+import static com.snake.game.controller.GameController.SCREEN_WIDTH;
+
 
 public class GameView extends ScreenAdapter {
     private static final boolean DEBUG_PHYSICS = false;
@@ -46,6 +48,7 @@ public class GameView extends ScreenAdapter {
 
     private void loadAssets(){
 
+        this.game.getAssetManager().load( "background.png" , Texture.class);
         this.game.getAssetManager().load( "bigWall.png" , Texture.class);
         this.game.getAssetManager().load( "mediumWall.png" , Texture.class);
         this.game.getAssetManager().load( "blueSquare.png" , Texture.class);
@@ -63,4 +66,9 @@ public class GameView extends ScreenAdapter {
 
     }*/
 
+    private void drawBackground() {
+        Texture background = game.getAssetManager().get("background.png", Texture.class);
+        background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        game.getBatch().draw(background, 0, 0, 0, 0, (int)(SCREEN_WIDTH / PIXEL_TO_METER), (int) (SCREEN_HEIGHT / PIXEL_TO_METER));
+    }
 }

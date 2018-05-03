@@ -23,6 +23,9 @@ public class GameController implements ContactListener {
     private List<BallModel> ballToAdd= new ArrayList<BallModel>();
     private List <SquareBody> squaresToAdd= new ArrayList<SquareBody>();
 
+    public static final int SCREEN_WIDTH = 100;
+    public static final int SCREEN_HEIGHT = 50;
+
     private float timeToNextShoot;
     private GameController(){
         world= new World(new Vector2(0,0),true);

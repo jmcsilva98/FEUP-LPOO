@@ -37,4 +37,8 @@ public class SnakeSmash extends ApplicationAdapter {
 		batch.dispose();
 		assetManager.dispose();
 	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
 }
