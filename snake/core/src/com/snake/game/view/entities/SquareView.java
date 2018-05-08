@@ -11,7 +11,7 @@ public  class SquareView extends EntityView {
 
     @Override
     public Sprite createSprite(SnakeSmash game) {
-        Texture texture= null; //To be changed
+        Texture texture= game.getAssetManager().get("greenSquare.png");; //To be changed
         return new Sprite(texture, texture.getWidth(),texture.getHeight());
     }
 }

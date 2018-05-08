@@ -1,6 +1,7 @@
 package com.snake.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +15,7 @@ import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.SnakeModel;
+import com.snake.game.model.entities.SquareModel;
 import com.snake.game.view.entities.EntityView;
 import com.snake.game.view.entities.ViewFactory;
 
@@ -86,7 +88,7 @@ public class GameView implements Screen {
     public void render(float delta){
         //GameController.getInstance().removeFlagged();
           GameController.getInstance().update(delta);
-
+        handleInputs(delta);
         Gdx.gl.glClearColor( 103/255f, 69/255f, 117/255f, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
         game.getBatch().begin();
@@ -125,10 +127,22 @@ public class GameView implements Screen {
     private void drawEntities() {
         //int size =GameModel.getInstance().getSnake().getSize();
         EntityView view;
-        SnakeModel snake =GameModel.getInstance().getSnake();
-        view = ViewFactory.makeView(game,snake);
+        SnakeModel snake = GameModel.getInstance().getSnake();
+        view = ViewFactory.makeView(game, snake);
         view.update(snake);
         view.draw(game.getBatch());
-
+        SquareModel square = GameModel.getInstance().getSquares().get(0);
+        view=ViewFactory.makeView(game,square);
+        view.draw(game.getBatch());
+    }
+    private void handleInputs(float delta){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            GameController.getInstance().shiftRight(delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            GameController.getInstance().shiftLeft(delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP))
+            GameController.getInstance().shiftUp(delta);
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+            GameController.getInstance().shiftDown(delta);
     }
 }

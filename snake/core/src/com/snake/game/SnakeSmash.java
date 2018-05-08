@@ -1,6 +1,8 @@
 package com.snake.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
 import com.snake.game.tools.GameCamera;
@@ -42,7 +44,7 @@ public class SnakeSmash extends Game {
 	}
 	@Override
 	public void render () {
-		//batch.setProjectionMatrix(cam.combined());
+		batch.setProjectionMatrix(camera.combined());
 		super.render();
 	}
 

@@ -9,19 +9,19 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class GameCamera {
 
-    private OrthographicCamera camera;
+    private OrthographicCamera cam;
     private StretchViewport viewport;
 
     public GameCamera (int width, int height) {
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(width, height, camera);
+        cam = new OrthographicCamera();
+        viewport = new StretchViewport(width, height, cam);
         viewport.apply();
-        camera.position.set(width / 2, height / 2, 0);
-        camera.update();
+        cam.position.set(width / 2, height / 2, 0);
+        cam.update();
     }
 
     public Matrix4 combined() {
-        return camera.combined;
+        return cam.combined;
     }
 
     public void update (int width, int height) {
@@ -30,7 +30,7 @@ public class GameCamera {
 
     public Vector2 getInputInGameWorld () {
         Vector3 inputScreen = new Vector3(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), 0);
-        Vector3 unprojected = camera.unproject(inputScreen);
+        Vector3 unprojected = cam.unproject(inputScreen);
         return new Vector2(unprojected.x, unprojected.y);
     }
 

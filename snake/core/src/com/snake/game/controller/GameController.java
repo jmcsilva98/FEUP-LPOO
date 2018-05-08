@@ -82,4 +82,20 @@ public class GameController implements ContactListener {
 
         }*/
     }
+    public void shiftRight(float delta){
+        GameModel.getInstance().getSnake().setX( GameModel.getInstance().getSnake().getX()+4 * Gdx.graphics.getDeltaTime());
+    
+    }
+
+
+    public void shiftLeft(float delta) {
+        GameModel.getInstance().getSnake().setX( GameModel.getInstance().getSnake().getX()-4 * Gdx.graphics.getDeltaTime());
+    }
+
+    public void shiftUp(float delta) {
+        GameModel.getInstance().getSnake().setY( GameModel.getInstance().getSnake().getY()+4 * Gdx.graphics.getDeltaTime());
+    }
+
+    public void shiftDown(float delta) {
+    }
 }
