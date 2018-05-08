@@ -23,7 +23,7 @@ public class GameModel {
         return instance;
     }
     public GameModel(){
-        snake = new SnakeModel(6,10,10,0);
+        snake = new SnakeModel(1,10,10,0);
         balls= new ArrayList<BallModel>();
         squares = new ArrayList<SquareModel>();
         coins = new ArrayList<CoinModel>();
@@ -57,6 +57,7 @@ public class GameModel {
 
 
     public void update(float delta) {
-        snake.setY(snake.getY()+snake.getY()/delta);
+         snake.setY((float) (snake.getY()-0.001));
+
     }
 }

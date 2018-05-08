@@ -1,15 +1,19 @@
 package com.snake.game.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.snake.game.controller.entities.SnakeBody;
 import com.snake.game.controller.entities.SquareBody;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
+import com.snake.game.model.entities.EntityModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +27,13 @@ public class GameController implements ContactListener {
     private List<BallModel> ballToAdd = new ArrayList<BallModel>();
     private List<SquareBody> squaresToAdd = new ArrayList<SquareBody>();
     private float accumulator;
-    public static final int SCREEN_WIDTH = 100;
-    public static final int SCREEN_HEIGHT = 50;
-
-    private float timeToNextShoot;
+    public static final int SCREEN_WIDTH = 50;
+    public static final int SCREEN_HEIGHT = 100;
 
     private GameController() {
         world = new World(new Vector2(0, 0), true);
         snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
         List<BallModel> balls = GameModel.getInstance().getBalls();
-
         world.setContactListener(this);
     }
 
@@ -71,14 +72,14 @@ public class GameController implements ContactListener {
 
     public void update(float delta) {
         GameModel.getInstance().update(delta);
+        /*world.step(delta, 6, 2);
+        Array<Body> bodies = new Array<Body>();
+        world.getBodies(bodies);
 
-        timeToNextShoot -= delta;
+        for(Body  body:bodies) {
 
-        float frameTime = Math.min(delta, 0.25f);
-        accumulator += frameTime;
-        while (accumulator >= 1 / 60f) {
-            world.step(1 / 60f, 6, 2);
-            accumulator -= 1 / 60f;
-        }
+            ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
+
+        }*/
     }
 }

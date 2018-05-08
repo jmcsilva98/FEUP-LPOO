@@ -12,7 +12,7 @@ public abstract class EntityBody {
    public EntityBody(World world, EntityModel model) {
        BodyDef bodyDef = new BodyDef();
        bodyDef.type = BodyDef.BodyType.DynamicBody;
-       bodyDef.position.set(model.getX(),model.getY());
+       bodyDef.position.set((float)model.getX(),(float)model.getY());
        bodyDef.angle=model.getRotation();
        body = world.createBody(bodyDef);
        body.setUserData(model);

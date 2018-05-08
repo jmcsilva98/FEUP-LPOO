@@ -1,6 +1,11 @@
 package com.snake.game.model.entities;
 
 public abstract class EntityModel {
+    public void setPosition(float x, float y){
+        this.x=x++;
+        this.y=y++;
+    }
+
     public enum ModelType {SNAKE,SQUARE,WALL,COIN,BALL};
 
     private float x;

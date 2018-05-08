@@ -7,6 +7,11 @@ import com.snake.game.SnakeSmash;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = SnakeSmash.WIDTH;
+		config.height = SnakeSmash.HEIGHT;
+		config.resizable = true;
+		config.foregroundFPS=60;
+
 		new LwjglApplication(new SnakeSmash(), config);
 	}
 }

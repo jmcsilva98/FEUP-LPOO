@@ -16,7 +16,7 @@ public abstract class EntityView {
     public abstract Sprite createSprite(SnakeSmash game);
 
     public void update(EntityModel model){
-        sprite.setCenter(model.getX()/PIXEL_TO_METER,model.getY()/PIXEL_TO_METER);
+        sprite.setCenter((float)model.getX()/PIXEL_TO_METER,(float)model.getY()/PIXEL_TO_METER);
         sprite.setRotation((float) Math.toDegrees(model.getRotation()));
     }
 
