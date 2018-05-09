@@ -19,6 +19,8 @@ public class ViewFactory {
                 cache.put(model.getType(), new CoinView(game));
             if (model.getType() == EntityModel.ModelType.SQUARE)
                 cache.put(model.getType(), new SquareView(game));
+            if (model.getType() == EntityModel.ModelType.WALL)
+                cache.put(model.getType(), new WallView(game));
         }
         return cache.get(model.getType());
     }

@@ -8,13 +8,14 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.GameView;
+import com.snake.game.view.menus.MainMenu;
 
 
 public class SnakeSmash extends Game {
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 720;
 	public static boolean IS_MOBILE = false;
-	SpriteBatch batch;
+	public SpriteBatch batch;
 	private AssetManager assetManager;
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
@@ -29,7 +30,7 @@ public class SnakeSmash extends Game {
 	}
 
 	private void startGame() {
-		setScreen(new GameView(this));
+		setScreen(new MainMenu(this));
 	}
 
 
