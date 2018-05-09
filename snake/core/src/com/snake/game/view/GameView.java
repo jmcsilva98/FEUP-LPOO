@@ -87,7 +87,7 @@ public class GameView implements Screen {
 
     public void render(float delta){
         //GameController.getInstance().removeFlagged();
-          GameController.getInstance().update(delta);
+         // GameController.getInstance().update(delta);
         handleInputs(delta);
         Gdx.gl.glClearColor( 103/255f, 69/255f, 117/255f, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
@@ -132,17 +132,12 @@ public class GameView implements Screen {
         view.update(snake);
         view.draw(game.getBatch());
         SquareModel square = GameModel.getInstance().getSquares().get(0);
-        view=ViewFactory.makeView(game,square);
-        view.draw(game.getBatch());
+       view.draw(game.getBatch());
     }
     private void handleInputs(float delta){
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
             GameController.getInstance().shiftRight(delta);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             GameController.getInstance().shiftLeft(delta);
-        if (Gdx.input.isKeyPressed(Input.Keys.UP))
-            GameController.getInstance().shiftUp(delta);
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-            GameController.getInstance().shiftDown(delta);
     }
 }

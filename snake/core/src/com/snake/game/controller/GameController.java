@@ -27,8 +27,13 @@ public class GameController implements ContactListener {
     private List<BallModel> ballToAdd = new ArrayList<BallModel>();
     private List<SquareBody> squaresToAdd = new ArrayList<SquareBody>();
     private float accumulator;
-    public static final int SCREEN_WIDTH = 50;
-    public static final int SCREEN_HEIGHT = 100;
+    public static final int SCREEN_WIDTH = 480;
+    public static final int SCREEN_HEIGHT = 720;
+    public static final int SNAKE_WIDTH_PIXEL = 17;
+    public static final int SNAKE_HEIGHT_PIXEL = 32;
+    public static final int SNAKE_WIDTH = SNAKE_WIDTH_PIXEL * 3;
+    public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
+
 
     private GameController() {
         world = new World(new Vector2(0, 0), true);
@@ -83,19 +88,22 @@ public class GameController implements ContactListener {
         }*/
     }
     public void shiftRight(float delta){
-        GameModel.getInstance().getSnake().setX( GameModel.getInstance().getSnake().getX()+4 * Gdx.graphics.getDeltaTime());
+        float x = GameModel.getInstance().getSnake().getX()+ 4* Gdx.graphics.getDeltaTime();
+        System.out.println("Gdx witdth"+Gdx.graphics.getWidth());
+        System.out.println("Snake width"+x);
+        if (x> 18.7)
+            x=(float)18.7;
+
+        GameModel.getInstance().getSnake().setX(x);
     
     }
 
 
     public void shiftLeft(float delta) {
-        GameModel.getInstance().getSnake().setX( GameModel.getInstance().getSnake().getX()-4 * Gdx.graphics.getDeltaTime());
+        float x = GameModel.getInstance().getSnake().getX()-4 * Gdx.graphics.getDeltaTime();
+        if (x < 0.48)
+            x =(float)0.48;
+        GameModel.getInstance().getSnake().setX(x);
     }
 
-    public void shiftUp(float delta) {
-        GameModel.getInstance().getSnake().setY( GameModel.getInstance().getSnake().getY()+4 * Gdx.graphics.getDeltaTime());
-    }
-
-    public void shiftDown(float delta) {
-    }
 }

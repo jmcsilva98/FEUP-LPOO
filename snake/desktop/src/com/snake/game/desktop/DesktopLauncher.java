@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = SnakeSmash.WIDTH;
 		config.height = SnakeSmash.HEIGHT;
-		config.resizable = true;
+		//config.resizable = true;
 		config.foregroundFPS=60;
 
 		new LwjglApplication(new SnakeSmash(), config);

@@ -1,5 +1,6 @@
 package com.snake.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
@@ -58,7 +59,7 @@ public class GameModel {
 
 
     public void update(float delta) {
-         snake.setY((float) (snake.getY()+0.001));
+         snake.setY((float) (snake.getY()+2* Gdx.graphics.getDeltaTime()));
 
     }
 }
