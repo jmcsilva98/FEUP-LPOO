@@ -127,9 +127,7 @@ public class GameController implements ContactListener {
         }*/
     }
     public void shiftRight(float delta){
-        float x = GameModel.getInstance().getSnake().getX()+ 4* Gdx.graphics.getDeltaTime();
-        System.out.println("Gdx witdth"+Gdx.graphics.getWidth());
-        System.out.println("Snake width"+x);
+        float x = GameModel.getInstance().getSnake().getX()+ 9* Gdx.graphics.getDeltaTime();
         if (x> 18.7)
             x=(float)18.7;
 
@@ -139,7 +137,7 @@ public class GameController implements ContactListener {
 
 
     public void shiftLeft(float delta) {
-        float x = GameModel.getInstance().getSnake().getX()-4 * Gdx.graphics.getDeltaTime();
+        float x = GameModel.getInstance().getSnake().getX()-9 * Gdx.graphics.getDeltaTime();
         if (x < 0.48)
             x =(float)0.48;
         GameModel.getInstance().getSnake().setX(x);

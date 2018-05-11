@@ -42,8 +42,9 @@ public class GameModel {
     public List<CoinModel> getCoins(){
         return coins;
     }
-    public void createSquare (float x, float y, int value) {
-        SquareModel square = new SquareModel(x, y, 0, value);
+    public void createSquare (float x, float y, int value,EntityModel.ModelType model) {
+        SquareModel square;
+        square = new SquareModel(x, y, 0,value, model);
         squares.add(square);
 
     }

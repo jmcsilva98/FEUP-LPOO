@@ -1,6 +1,5 @@
 package com.snake.game.model.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.snake.game.tools.CollisionDetect;
 
 
@@ -10,12 +9,14 @@ public class SquareModel extends EntityModel{
     public static final int WIDTH =16;
     public static final int HEIGHT =16;
     public boolean toRemove=false;
+    public ModelType modelType;
 
     CollisionDetect collision;
-    public SquareModel(float x, float y, float rotation, int value){
+    public SquareModel(float x, float y, float rotation, int value,ModelType model){
         super(x,y,rotation);
         this.collision= new CollisionDetect(x,y,WIDTH,HEIGHT);
         this.value=value;
+        this.modelType=model;
 
 
     }
@@ -29,17 +30,22 @@ public class SquareModel extends EntityModel{
 
     @Override
     public ModelType getType() {
-        return ModelType.SQUARE;
+        return modelType;
     }
 
     public void update(float delta){
         setY(getY()-SPEED*delta);
-        if (getY()<2)
+        if (getY()<0)
             toRemove=true;
-        collision.move(getX(),getY());
+        //collision.move(getX(),getY());
     }
 
     public CollisionDetect getCollisionDetect() {
         return collision;
+    }
+
+    public void setType(ModelType model){
+        this.modelType=model;
+
     }
 }

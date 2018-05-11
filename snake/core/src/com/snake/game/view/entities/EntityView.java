@@ -13,6 +13,7 @@ public abstract class EntityView {
         sprite = createSprite(game);
     }
 
+
     public abstract Sprite createSprite(SnakeSmash game);
 
     public void update(EntityModel model){

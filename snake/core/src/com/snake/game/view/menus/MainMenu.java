@@ -114,7 +114,7 @@ public class MainMenu implements Screen {
             }
         }
 
-        x = x + 25 + DEFAULT_ICON_WIDTH;
+        x += 25 + DEFAULT_ICON_WIDTH;
         game.getBatch().draw(scoresBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
         if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
             if(Gdx.input.isTouched()){
@@ -122,7 +122,7 @@ public class MainMenu implements Screen {
             }
         }
 
-        x = x + 25 + DEFAULT_ICON_WIDTH;
+        x += 25 + DEFAULT_ICON_WIDTH;
         game.getBatch().draw(facebookBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
         if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
             if(Gdx.input.isTouched()){

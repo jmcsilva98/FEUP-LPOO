@@ -6,7 +6,7 @@ public abstract class EntityModel {
         this.y=y++;
     }
 
-    public enum ModelType {SNAKE,SQUARE,WALL,COIN,BALL};
+    public enum ModelType {SNAKE,PINKSQUARE,WALL,COIN,BALL,YELLOWSQUARE,LIGHTPINKSQUARE,REDSQUARE,MUSTARDSQUARE,BLUESQUARE,GREENSQUARE};
 
     private float x;
     private float y;
