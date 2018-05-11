@@ -26,12 +26,13 @@ public class MainMenu implements Screen {
     private static final int DEFAULT_ICON_HEIGHT = 75;
     private static final int DEFAULT_PLAY_WIDTH = 175;
     private static final int DEFAULT_PLAY_HEIGHT = 92;
-    private static final int TITLE_WIDTH = 440;
-    private static final int TITLE_HEIGHT = 85;
-    private static final int TITLE_Y = 550;
+    private static final int TITLE_WIDTH = 372;
+    private static final int TITLE_HEIGHT = 189;
+    private static final int TITLE_Y = 500;
     private static final int BEGINNER_Y = 400;
     private static final int INTERMEDIATE_Y = 300;
     private static final int ICON_Y = 100;
+    private static final int IMPOSSIBLE_Y = 200;
 
     private Viewport viewport;
     protected Stage stage;
@@ -44,6 +45,8 @@ public class MainMenu implements Screen {
     private Texture beginnerInactiveBtn;
     private Texture intermediateInactiveBtn;
     private Texture intermediateActiveBtn;
+    private Texture impossibleInactiveBtn;
+    private Texture impossibleActiveBtn;
     private Texture facebookBtn;
     private Texture scoresBtn;
     private Texture title;
@@ -58,7 +61,9 @@ public class MainMenu implements Screen {
         beginnerInactiveBtn = new Texture("beginnerInactive.png");
         intermediateActiveBtn = new Texture("IntermediateActive.png");
         intermediateInactiveBtn = new Texture("IntermediateInactive.png");
-        facebookBtn = new Texture("facebook.png");
+        impossibleActiveBtn = new Texture("impossibleActive.png");
+        impossibleInactiveBtn = new Texture("impossibleInactive.png");
+        facebookBtn = new Texture("shareBtn.png");
         scoresBtn = new Texture("scoresBtn.png");
         title = new Texture("title.png");
 
@@ -73,7 +78,7 @@ public class MainMenu implements Screen {
         public void render(float delta) {
 
         // Clear the screen
-        Gdx.gl.glClearColor(129/255f, 129/255f, 129/255f, 1);
+        Gdx.gl.glClearColor(255/255f, 181/255f, 141/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // Draw the texture
@@ -97,6 +102,12 @@ public class MainMenu implements Screen {
             game.getBatch().draw(intermediateInactiveBtn, x, INTERMEDIATE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
         }
 
+        if(Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > IMPOSSIBLE_Y){
+            game.getBatch().draw(impossibleActiveBtn, x, IMPOSSIBLE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
+
+        }else{
+            game.getBatch().draw(impossibleInactiveBtn, x, IMPOSSIBLE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
+        }
 
         x = SCREEN_WIDTH  - DEFAULT_ICON_WIDTH - 50;
         game.getBatch().draw(exitBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
