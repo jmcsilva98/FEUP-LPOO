@@ -3,12 +3,8 @@ package com.snake.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.snake.game.SnakeSmash;
@@ -19,48 +15,28 @@ import com.snake.game.model.entities.SquareModel;
 import com.snake.game.view.entities.EntityView;
 import com.snake.game.view.entities.ViewFactory;
 
-
-import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
-import static com.snake.game.controller.GameController.SCREEN_WIDTH;
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class GameView implements Screen {
-    private static final boolean DEBUG_PHYSICS = false;
-
     public final static float PIXEL_TO_METER=0.04f;
-
-    private static final float VIEWPORT_WIDTH = 30;
 
     private final SnakeSmash game;
 
-  //  private final OrthographicCamera camera;
+    private float squareSpawnTimer;
+    private static final float MIN_SQUARE_SPAWN_TIME=2f;
+    private static final float MAX_SQUARE_SPAWN_TIME=4f;
 
-    private Box2DDebugRenderer debugRenderer;
-
-    private Matrix4 debugCamera;
-    private SnakeModel snake;
-    private ShapeRenderer shape;
-
+    Random random;
 
     public GameView(SnakeSmash game){
         this.game=game;
         loadAssets();
-        //this.camera= createCamera();
-       // this.snake= new SnakeModel(1,10,10,0);
+        random= new Random();
+        squareSpawnTimer=random.nextFloat()*(MAX_SQUARE_SPAWN_TIME-MIN_SQUARE_SPAWN_TIME)+MIN_SQUARE_SPAWN_TIME;
         game.scrollingBackground.setSpeedFixed(false);
 
-    }
-    private OrthographicCamera createCamera(){
-       OrthographicCamera camera = new OrthographicCamera(480 ,720);
-        camera.position.set(camera.viewportWidth /2f, camera.viewportHeight/2f,0);
-        camera.update();
-        if (DEBUG_PHYSICS){
-            debugRenderer=new Box2DDebugRenderer();
-            debugCamera = camera.combined.cpy();
-            debugCamera.scl(1/PIXEL_TO_METER);
-
-        }
-        return camera;
     }
 
     private void loadAssets(){
@@ -95,7 +71,37 @@ public class GameView implements Screen {
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
         drawEntities();
         game.getBatch().end();
+        squareSpawnTimer-=delta;
+        int showOrNot;
+        if (squareSpawnTimer<=0){
+            squareSpawnTimer=random.nextFloat()*(MAX_SQUARE_SPAWN_TIME-MIN_SQUARE_SPAWN_TIME)+MIN_SQUARE_SPAWN_TIME;
+            for (int i = 0; i<4;i++){
+                showOrNot=random.nextInt(2);
+                if (showOrNot==1)
+                GameModel.getInstance().createSquare(i*5+2,16,i*2+1);
 
+
+            }
+
+        }
+        ArrayList<SquareModel> squaresToRemove= new ArrayList<SquareModel>();
+        for (SquareModel square : GameModel.getInstance().getSquares()){
+            square.update(delta);
+            if (square.toRemove)
+                squaresToRemove.add(square);
+        }
+
+    for (SquareModel square : GameModel.getInstance().getSquares()){
+        if (square.getCollisionDetect().collidesWith(GameModel.getInstance().getSnake().getCollisionDetect())) {
+
+            if (square.getValue() < GameModel.getInstance().getSnake().getSize()) {
+                squaresToRemove.add(square);
+                GameModel.getInstance().getSnake().setSize(GameModel.getInstance().getSnake().getSize() - square.getValue());
+            }
+            System.out.println("Size:::" + GameModel.getInstance().getSnake().getSize() + ":::Square value::" + square.getValue());
+        }
+        }
+        GameModel.getInstance().getSquares().removeAll(squaresToRemove);
     }
 
     @Override
@@ -131,7 +137,11 @@ public class GameView implements Screen {
         view = ViewFactory.makeView(game, snake);
         view.update(snake);
         view.draw(game.getBatch());
-        SquareModel square = GameModel.getInstance().getSquares().get(0);
+        for (SquareModel square :GameModel.getInstance().getSquares()) {
+            view = ViewFactory.makeView(game, square);
+            view.update(square);
+            view.draw(game.getBatch());
+        }
        view.draw(game.getBatch());
     }
     private void handleInputs(float delta){
@@ -139,5 +149,7 @@ public class GameView implements Screen {
             GameController.getInstance().shiftRight(delta);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
             GameController.getInstance().shiftLeft(delta);
+
     }
+
 }

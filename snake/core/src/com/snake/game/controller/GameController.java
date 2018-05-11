@@ -13,7 +13,10 @@ import com.snake.game.controller.entities.SnakeBody;
 import com.snake.game.controller.entities.SquareBody;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
+import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
+import com.snake.game.model.entities.SnakeModel;
+import com.snake.game.model.entities.SquareModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +27,9 @@ public class GameController implements ContactListener {
 
     private final World world;
     private final SnakeBody snakeBody;
-    private List<BallModel> ballToAdd = new ArrayList<BallModel>();
-    private List<SquareBody> squaresToAdd = new ArrayList<SquareBody>();
+    private List<BallModel> balls=new ArrayList<BallModel>();
+    private ArrayList<SquareBody> squares = new ArrayList<SquareBody>();
+    private ArrayList<CoinModel> coinArray=new ArrayList<CoinModel>();
     private float accumulator;
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 720;
@@ -33,13 +37,14 @@ public class GameController implements ContactListener {
     public static final int SNAKE_HEIGHT_PIXEL = 32;
     public static final int SNAKE_WIDTH = SNAKE_WIDTH_PIXEL * 3;
     public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
-
+    public int coins;
 
     private GameController() {
         world = new World(new Vector2(0, 0), true);
         snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
         List<BallModel> balls = GameModel.getInstance().getBalls();
         world.setContactListener(this);
+        coins=0;
     }
 
     public static GameController getInstance() {
@@ -50,7 +55,41 @@ public class GameController implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        Body bodyA = contact.getFixtureA().getBody();
+        Body bodyB = contact.getFixtureB().getBody();
 
+
+        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof SquareModel)
+           snakeSquareCollision(bodyA, bodyB);
+        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof BallModel)
+            snakeBallCollision(bodyA, bodyB);
+        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof CoinModel)
+            snakeCoinCollision(bodyA, bodyB);
+
+    }
+
+    private void snakeCoinCollision(Body snakeBody, Body coinBody) {
+        CoinModel coin=(CoinModel) coinBody.getUserData();
+        coins+=coin.getValue();
+        coinArray.remove(coin);
+
+    }
+
+    private void snakeBallCollision(Body snakeBody, Body ballBody) {
+        BallModel ball = (BallModel) ballBody.getUserData();
+        GameModel.getInstance().getSnake().addBalls(ball.getValue());
+        balls.remove(ball);
+
+
+    }
+
+    private void snakeSquareCollision(Body snakeBody, Body squareBody) {
+        SquareModel square = (SquareModel) squareBody.getUserData();
+        GameModel.getInstance().getSnake().updateSize(square.getValue());
+        if (GameModel.getInstance().getSnake().getSize()<=0)
+            System.out.println("GAME OVER");
+        else
+            System.out.println("continue");
     }
 
     @Override

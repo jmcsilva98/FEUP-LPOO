@@ -24,11 +24,10 @@ public class GameModel {
         return instance;
     }
     public GameModel(){
-        snake = new SnakeModel(1,10,10,0);
+        snake = new SnakeModel(20,10,10,0);
         balls= new ArrayList<BallModel>();
         squares = new ArrayList<SquareModel>();
         coins = new ArrayList<CoinModel>();
-        createSquare(10);
     }
 
     public SnakeModel getSnake(){
@@ -43,8 +42,8 @@ public class GameModel {
     public List<CoinModel> getCoins(){
         return coins;
     }
-    public void createSquare (int value) {
-        SquareModel square = new SquareModel(20, 20, 0, value);
+    public void createSquare (float x, float y, int value) {
+        SquareModel square = new SquareModel(x, y, 0, value);
         squares.add(square);
 
     }
