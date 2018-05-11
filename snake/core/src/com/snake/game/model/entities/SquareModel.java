@@ -6,8 +6,8 @@ import com.snake.game.tools.CollisionDetect;
 public class SquareModel extends EntityModel{
     int value;
     public static final int SPEED=6;
-    public static final int WIDTH =16;
-    public static final int HEIGHT =16;
+    public static final int WIDTH =96;
+    public static final int HEIGHT =96;
     public boolean toRemove=false;
     public ModelType modelType;
 
@@ -37,7 +37,7 @@ public class SquareModel extends EntityModel{
         setY(getY()-SPEED*delta);
         if (getY()<0)
             toRemove=true;
-        //collision.move(getX(),getY());
+        collision.move(getX(),getY());
     }
 
     public CollisionDetect getCollisionDetect() {

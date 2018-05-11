@@ -3,8 +3,8 @@ package com.snake.game.model.entities;
 import com.snake.game.tools.CollisionDetect;
 
 public class SnakeModel extends EntityModel {
-    public static final int WIDTH =6;
-    public static final int HEIGHT =6;
+    public static final int WIDTH =17;
+    public static final int HEIGHT =17;
     private int size;
     CollisionDetect collision;
     public  SnakeModel(int size, float x, float y,float rotation){

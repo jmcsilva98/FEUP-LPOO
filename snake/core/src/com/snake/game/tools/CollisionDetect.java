@@ -15,7 +15,7 @@ public class CollisionDetect {
         this.y=y;
     }
     public boolean collidesWith(CollisionDetect collision){
-        return x<collision.x+collision.width && y < collision.y +collision.height && x +width > collision.x && y+height > collision.y;
+        return x < collision.x + collision.width && y < collision.y + collision.height && x + width > collision.x && y + height > collision.y;
     }
 
 }

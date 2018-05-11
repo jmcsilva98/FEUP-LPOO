@@ -94,16 +94,19 @@ public class GameView implements Screen {
                 squaresToRemove.add(square);
         }
 
-  /*  for (SquareModel square : GameModel.getInstance().getSquares()){
+   for (SquareModel square : GameModel.getInstance().getSquares()){
         if (square.getCollisionDetect().collidesWith(GameModel.getInstance().getSnake().getCollisionDetect())) {
 
             if (square.getValue() < GameModel.getInstance().getSnake().getSize()) {
                 squaresToRemove.add(square);
                 GameModel.getInstance().getSnake().setSize(GameModel.getInstance().getSnake().getSize() - square.getValue());
             }
+            else {
+                System.out.println("End game\n");
+            }
             System.out.println("Size:::" + GameModel.getInstance().getSnake().getSize() + ":::Square value::" + square.getValue());
         }
-        }*/
+        }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
 
     }
@@ -162,7 +165,6 @@ public class GameView implements Screen {
 
     public void defineSquareColors(int i) {
         generateSquareColors++;
-        System.out.println(generateSquareColors);
         if (generateSquareColors == 7) generateSquareColors = 0;
             switch (generateSquareColors) {
                 case 0:

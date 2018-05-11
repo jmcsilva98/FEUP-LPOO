@@ -55,6 +55,7 @@ public class GameController implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        System.out.println("start contact");
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
@@ -116,7 +117,7 @@ public class GameController implements ContactListener {
 
     public void update(float delta) {
         GameModel.getInstance().update(delta);
-        /*world.step(delta, 6, 2);
+        world.step(delta, 6, 2);
         Array<Body> bodies = new Array<Body>();
         world.getBodies(bodies);
 
@@ -124,7 +125,7 @@ public class GameController implements ContactListener {
 
             ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
 
-        }*/
+        }
     }
     public void shiftRight(float delta){
         float x = GameModel.getInstance().getSnake().getX()+ 9* Gdx.graphics.getDeltaTime();
