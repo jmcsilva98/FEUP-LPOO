@@ -20,7 +20,7 @@ import java.util.Random;
 
 
 public class GameView extends ScreenAdapter {
-    public final static float PIXEL_TO_METER = 0.04f;
+    public final static float PIXEL_TO_SQUARE = 0.04f;
 
     private final SnakeSmash game;
 
@@ -92,23 +92,35 @@ public class GameView extends ScreenAdapter {
         }
         ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
         for (SquareModel square : GameModel.getInstance().getSquares()) {
-            square.update(delta);
+            square.update(delta,speed);
             if (square.toRemove)
                 squaresToRemove.add(square);
         }
 
    for (SquareModel square : GameModel.getInstance().getSquares()) {
-       System.out.println("XSNAKE:::" + GameModel.getInstance().getSnake().getX()+"YSNAKE::");
-       if (square.getY() < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 17*0.04 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 3) {
-           System.out.println("square value:::"+square.getValue());
-           while(square.getValue()>0){
-               square.setValue(square.getValue()-1);
-               System.out.println("square value:::"+square.getValue());
+      // System.out.println("XSNAKE:::" + GameModel.getInstance().getSnake().getX()+"YS");
+       if (square.getY()-2< GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 1.9 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9) {
+           //System.out.println("square value:::"+square.getValue());
+           speed=0;
+           if (square.getValue()==0) {
+               squaresToRemove.add(square);
+               speed=9;
            }
-           squaresToRemove.add(square);
+           else
+             decrementSquare(delta,square);
        }
    }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
+
+    }
+
+    private void decrementSquare(float delta,SquareModel square) {
+        square.time_to_decrement-=delta*10;
+        System.out.println("time_to_decrement:::"+square.time_to_decrement);
+        if (square.time_to_decrement<=0) {
+            square.setValue(square.getValue() - 1);
+            square.time_to_decrement=2;
+        }
 
     }
 

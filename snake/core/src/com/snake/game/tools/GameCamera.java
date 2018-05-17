@@ -6,13 +6,12 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import static com.snake.game.view.GameView.PIXEL_TO_METER;
+import static com.snake.game.view.GameView.PIXEL_TO_SQUARE;
 
 public class GameCamera {
-    private static final boolean DEBUG_PHYSICS = true;
+    private static final boolean DEBUG_PHYSICS = false;
     private OrthographicCamera camera;
     private Box2DDebugRenderer debugRenderer;
     private StretchViewport viewport;
@@ -28,7 +27,7 @@ public class GameCamera {
         if (DEBUG_PHYSICS) {
             debugRenderer = new Box2DDebugRenderer();
             debugCamera = camera.combined.cpy();
-            debugCamera.scl(1 / PIXEL_TO_METER);
+            debugCamera.scl(1 / PIXEL_TO_SQUARE);
         }
     }
 

@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.snake.game.model.entities.EntityModel;
 
-import static com.snake.game.view.GameView.PIXEL_TO_METER;
+import static com.snake.game.view.GameView.PIXEL_TO_SQUARE;
 
 public abstract class EntityBody {
     final static short BALL_BODY = 0x0001;
@@ -53,7 +53,7 @@ public abstract class EntityBody {
 
             if (i % 2 != 0) vertexes[i] *= -1;          // invert the y-coordinate
 
-            vertexes[i] *= PIXEL_TO_METER;              // scale from pixel to meter
+            vertexes[i] *= PIXEL_TO_SQUARE;              // scale from pixel to meter
         }
 
         PolygonShape polygon = new PolygonShape();

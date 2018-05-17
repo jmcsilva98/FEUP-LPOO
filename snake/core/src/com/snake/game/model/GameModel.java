@@ -58,8 +58,8 @@ public class GameModel {
     }
 
 
-    public void update(float delta) {
-         snake.setY((float) (snake.getY()+2* Gdx.graphics.getDeltaTime()));
+    public void update(float delta,float speed) {
+         snake.setY((float) (snake.getY()+speed* Gdx.graphics.getDeltaTime()));
 
     }
 }

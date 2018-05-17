@@ -14,9 +14,9 @@ import sun.security.pkcs11.wrapper.Constants;
 
 public class SquareModel extends EntityModel{
     int value;
-    public static final int SPEED=6;
     public static final int WIDTH =96;
     public static final int HEIGHT =96;
+    public float time_to_decrement=1f;
     public Body body;
     public boolean toRemove=false;
     public ModelType modelType;
@@ -41,8 +41,8 @@ public class SquareModel extends EntityModel{
         return modelType;
     }
 
-    public void update(float delta){
-        setY(getY()-SPEED*delta);
+    public void update(float delta,float speed){
+        setY(getY()-speed*delta);
         if (getY()<0)
             toRemove=true;
        collision.move(getX(),getY());

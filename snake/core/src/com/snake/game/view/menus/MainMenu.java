@@ -57,7 +57,7 @@ public class MainMenu implements Screen {
         this.game = game;
         exitBtn = new Texture("exitBtn.png");
         settingsBtn = new Texture("settingsBtn.png");
-        beginnerActiveBtn = new Texture("beginnerActive.png");
+        beginnerActiveBtn = new Texture("BeginnerActive.png");
         beginnerInactiveBtn = new Texture("beginnerInactive.png");
         intermediateActiveBtn = new Texture("intermediateActive.png");
         intermediateInactiveBtn = new Texture("intermediateInactive.png");
