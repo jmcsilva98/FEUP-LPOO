@@ -59,8 +59,8 @@ public class MainMenu implements Screen {
         settingsBtn = new Texture("settingsBtn.png");
         beginnerActiveBtn = new Texture("beginnerActive.png");
         beginnerInactiveBtn = new Texture("beginnerInactive.png");
-        intermediateActiveBtn = new Texture("IntermediateActive.png");
-        intermediateInactiveBtn = new Texture("IntermediateInactive.png");
+        intermediateActiveBtn = new Texture("intermediateActive.png");
+        intermediateInactiveBtn = new Texture("intermediateInactive.png");
         impossibleActiveBtn = new Texture("impossibleActive.png");
         impossibleInactiveBtn = new Texture("impossibleInactive.png");
         facebookBtn = new Texture("shareBtn.png");
