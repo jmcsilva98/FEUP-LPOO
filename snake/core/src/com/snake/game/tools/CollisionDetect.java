@@ -14,7 +14,10 @@ package com.snake.game.tools;
             this.y=y;
         }
         public boolean collidesWith(CollisionDetect collision){
-            return x < collision.x + collision.width && y < collision.y + collision.height && x + width > collision.x && y + height > collision.y;
+           System.out.println("collision::"+x+"::width"+width);
+           System.out.println("collision.x+collision.width::"+collision.x+collision.width);
+
+            return x < collision.x + collision.width && y < collision.y + collision.height; //&& x + width > collision.x && y + height > collision.y;
         }
 
     }

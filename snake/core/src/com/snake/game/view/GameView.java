@@ -74,7 +74,7 @@ public class GameView extends ScreenAdapter {
         game.getBatch().begin();
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
         drawEntities();
-        drawSquares();
+         drawSquares();
         game.getBatch().end();
         squareSpawnTimer -= delta;
         int showOrNot;
@@ -97,20 +97,17 @@ public class GameView extends ScreenAdapter {
                 squaresToRemove.add(square);
         }
 
-  /* for (SquareModel square : GameModel.getInstance().getSquares()){
-        if (square.getCollisionDetect().collidesWith(GameModel.getInstance().getSnake().getCollisionDetect())) {
-
-            if (square.getValue() < GameModel.getInstance().getSnake().getSize()) {
-                squaresToRemove.add(square);
-                GameModel.getInstance().getSnake().setSize(GameModel.getInstance().getSnake().getSize() - square.getValue());
-            }
-            else {
-                System.out.println("End game\n");
-                System.exit(0);
-            }
-            System.out.println("Size:::" + GameModel.getInstance().getSnake().getSize() + ":::Square value::" + square.getValue());
-        }
-        }*/
+   for (SquareModel square : GameModel.getInstance().getSquares()) {
+       System.out.println("XSNAKE:::" + GameModel.getInstance().getSnake().getX()+"YSNAKE::");
+       if (square.getY() < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 17*0.04 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 3) {
+           System.out.println("square value:::"+square.getValue());
+           while(square.getValue()>0){
+               square.setValue(square.getValue()-1);
+               System.out.println("square value:::"+square.getValue());
+           }
+           squaresToRemove.add(square);
+       }
+   }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
 
     }

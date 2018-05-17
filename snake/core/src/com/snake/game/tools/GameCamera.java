@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import static com.snake.game.view.GameView.PIXEL_TO_METER;
 
 public class GameCamera {
-    private static final boolean DEBUG_PHYSICS = false;
+    private static final boolean DEBUG_PHYSICS = true;
     private OrthographicCamera camera;
     private Box2DDebugRenderer debugRenderer;
     private StretchViewport viewport;

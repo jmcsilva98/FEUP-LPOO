@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.snake.game.controller.GameController;
 import com.snake.game.tools.CollisionDetect;
 
+import java.awt.HeadlessException;
+
 import sun.security.pkcs11.wrapper.Constants;
 
 public class SquareModel extends EntityModel{
@@ -18,11 +20,12 @@ public class SquareModel extends EntityModel{
     public Body body;
     public boolean toRemove=false;
     public ModelType modelType;
-  //  CollisionDetect collision;
+     CollisionDetect collision;
     public SquareModel(float x, float y, float rotation, int value,ModelType model){
         super(x,y,rotation);
         this.value=value;
         this.modelType=model;
+        this.collision= new CollisionDetect(x,y,WIDTH, HEIGHT);
 
     }
     public int getValue(){
@@ -42,12 +45,12 @@ public class SquareModel extends EntityModel{
         setY(getY()-SPEED*delta);
         if (getY()<0)
             toRemove=true;
-//     collision.move(getX(),getY());
+       collision.move(getX(),getY());
 }
 
-   /* public CollisionDetect getCollisionDetect() {
+   public CollisionDetect getCollisionDetect() {
         return collision;
-    }*/
+    }
 
     public void setType(ModelType model){
         this.modelType=model;
