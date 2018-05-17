@@ -21,7 +21,7 @@ import com.snake.game.model.entities.SquareModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameController implements ContactListener {
+public class GameController implements ContactListener{
 
     private static GameController instance;
 
@@ -42,8 +42,10 @@ public class GameController implements ContactListener {
     private GameController() {
         world = new World(new Vector2(0, 0), true);
         snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
+
         List<BallModel> balls = GameModel.getInstance().getBalls();
         world.setContactListener(this);
+
         coins=0;
     }
 
@@ -53,44 +55,37 @@ public class GameController implements ContactListener {
         return instance;
     }
 
+
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void update(float delta) {
+        world.step(delta, 6, 2);
+
+    }
+    public void shiftRight(float delta, float speed){
+        float x = GameModel.getInstance().getSnake().getX()+ speed* Gdx.graphics.getDeltaTime();
+        if (x> 18.7)
+            x=(float)18.7;
+
+        GameModel.getInstance().getSnake().setX(x);
+    
+    }
+
+
+    public void shiftLeft(float delta, float speed) {
+        float x = GameModel.getInstance().getSnake().getX()-speed * Gdx.graphics.getDeltaTime();
+        if (x < 0.48)
+            x =(float)0.48;
+        GameModel.getInstance().getSnake().setX(x);
+    }
+
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("start contact");
-        Body bodyA = contact.getFixtureA().getBody();
-        Body bodyB = contact.getFixtureB().getBody();
 
-
-        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof SquareModel)
-           snakeSquareCollision(bodyA, bodyB);
-        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof BallModel)
-            snakeBallCollision(bodyA, bodyB);
-        if (bodyA.getUserData() instanceof SnakeModel && bodyB.getUserData() instanceof CoinModel)
-            snakeCoinCollision(bodyA, bodyB);
-
-    }
-
-    private void snakeCoinCollision(Body snakeBody, Body coinBody) {
-        CoinModel coin=(CoinModel) coinBody.getUserData();
-        coins+=coin.getValue();
-        coinArray.remove(coin);
-
-    }
-
-    private void snakeBallCollision(Body snakeBody, Body ballBody) {
-        BallModel ball = (BallModel) ballBody.getUserData();
-        GameModel.getInstance().getSnake().addBalls(ball.getValue());
-        balls.remove(ball);
-
-
-    }
-
-    private void snakeSquareCollision(Body snakeBody, Body squareBody) {
-        SquareModel square = (SquareModel) squareBody.getUserData();
-        GameModel.getInstance().getSnake().updateSize(square.getValue());
-        if (GameModel.getInstance().getSnake().getSize()<=0)
-            System.out.println("GAME OVER");
-        else
-            System.out.println("continue");
+        System.out.println("CONTACT");
     }
 
     @Override
@@ -107,41 +102,4 @@ public class GameController implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
     }
-
-    public void removeFlagged() {
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public void update(float delta) {
-        GameModel.getInstance().update(delta);
-        world.step(delta, 6, 2);
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
-
-        for(Body  body:bodies) {
-
-            ((EntityModel) body.getUserData()).setPosition(body.getPosition().x, body.getPosition().y);
-
-        }
-    }
-    public void shiftRight(float delta){
-        float x = GameModel.getInstance().getSnake().getX()+ 9* Gdx.graphics.getDeltaTime();
-        if (x> 18.7)
-            x=(float)18.7;
-
-        GameModel.getInstance().getSnake().setX(x);
-    
-    }
-
-
-    public void shiftLeft(float delta) {
-        float x = GameModel.getInstance().getSnake().getX()-9 * Gdx.graphics.getDeltaTime();
-        if (x < 0.48)
-            x =(float)0.48;
-        GameModel.getInstance().getSnake().setX(x);
-    }
-
 }

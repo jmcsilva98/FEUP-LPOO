@@ -3,6 +3,7 @@ package com.snake.game.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class GameView implements Screen {
+public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_METER = 0.04f;
 
     private final SnakeSmash game;
@@ -27,14 +28,16 @@ public class GameView implements Screen {
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
     private static final float MAX_SQUARE_SPAWN_TIME = 2f;
     private float deltaTime = 0;
-
+    private float speed;
     Random random;
     public int generateSquareColors = 0;
 
-    public GameView(SnakeSmash game) {
+    public GameView(SnakeSmash game,int speed) {
         this.game = game;
+        this.speed=speed;
         loadAssets();
         random = new Random();
+
         squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
         game.scrollingBackground.setSpeedFixed(false);
 
@@ -64,7 +67,7 @@ public class GameView implements Screen {
 
     public void render(float delta) {
         //GameController.getInstance().removeFlagged();
-        // GameController.getInstance().update(delta);
+         GameController.getInstance().update(delta);
         handleInputs(delta);
         Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
@@ -80,10 +83,10 @@ public class GameView implements Screen {
             squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
             for (int i = 0; i < 5; i++) {
                 showOrNot = random.nextInt(2);
-                if (showOrNot == 1 || deltaTime == 4)
+                if (showOrNot == 1 || deltaTime == 6)
                     defineSquareColors(i);
             }
-            if (deltaTime == 4)
+            if (deltaTime == 6)
                 deltaTime = 0;
 
         }
@@ -94,7 +97,7 @@ public class GameView implements Screen {
                 squaresToRemove.add(square);
         }
 
-   for (SquareModel square : GameModel.getInstance().getSquares()){
+  /* for (SquareModel square : GameModel.getInstance().getSquares()){
         if (square.getCollisionDetect().collidesWith(GameModel.getInstance().getSnake().getCollisionDetect())) {
 
             if (square.getValue() < GameModel.getInstance().getSnake().getSize()) {
@@ -103,10 +106,11 @@ public class GameView implements Screen {
             }
             else {
                 System.out.println("End game\n");
+                System.exit(0);
             }
             System.out.println("Size:::" + GameModel.getInstance().getSnake().getSize() + ":::Square value::" + square.getValue());
         }
-        }
+        }*/
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
 
     }
@@ -147,10 +151,28 @@ public class GameView implements Screen {
     }
 
     private void handleInputs(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            GameController.getInstance().shiftRight(delta);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            GameController.getInstance().shiftLeft(delta);
+        if (isRight()|| isJustRight())
+            GameController.getInstance().shiftRight(delta,speed);
+        if (isLeft() || isJustLeft())
+            GameController.getInstance().shiftLeft(delta,speed);
+
+    }
+    public boolean isRight(){
+        return Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.isTouched() && Gdx.input.getX()>=SnakeSmash.WIDTH/2);
+    }
+    public boolean isLeft(){
+        return Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.isTouched() && Gdx.input.getX()<SnakeSmash.WIDTH/2);
+
+
+    }
+    public boolean isJustRight(){
+        return Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || (Gdx.input.justTouched() && Gdx.input.getX()>SnakeSmash.WIDTH/2);
+
+
+    }
+    public boolean isJustLeft(){
+        return Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || (Gdx.input.justTouched() && Gdx.input.getX()<SnakeSmash.WIDTH/2);
+
 
     }
 
