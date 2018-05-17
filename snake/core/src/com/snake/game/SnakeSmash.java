@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.GameView;
+import com.snake.game.view.menus.GameOverMenu;
 import com.snake.game.view.menus.MainMenu;
 
 
@@ -34,8 +35,9 @@ public class SnakeSmash extends Game {
 	}
 
 	private void startGame() {
-		//setScreen(new MainMenu(this));
-		setScreen(new GameView(this,9));
+		setScreen(new MainMenu(this));
+		//setScreen(new GameOverMenu(this));
+	//	setScreen(new GameView(this,9));
 	}
 
 

@@ -34,9 +34,6 @@ public class MainMenu implements Screen {
     private static final int ICON_Y = 100;
     private static final int IMPOSSIBLE_Y = 200;
 
-    private Viewport viewport;
-    protected Stage stage;
-    private SpriteBatch batch;
     protected final SnakeSmash game;
 
     private Texture exitBtn;
@@ -122,6 +119,7 @@ public class MainMenu implements Screen {
         if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
             if(Gdx.input.isTouched()){
                 //go to settings menu
+                game.setScreen(new SettingsMenu(game));
             }
         }
 
@@ -129,7 +127,7 @@ public class MainMenu implements Screen {
         game.getBatch().draw(scoresBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
         if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
             if(Gdx.input.isTouched()){
-                //go to settings menu
+                //go to scores menu
             }
         }
 
@@ -137,7 +135,7 @@ public class MainMenu implements Screen {
         game.getBatch().draw(facebookBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
         if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
             if(Gdx.input.isTouched()){
-                //go to settings menu
+                //go to share menu
             }
         }
         game.batch.draw(title, SCREEN_WIDTH / 2 - TITLE_WIDTH / 2, TITLE_Y, TITLE_WIDTH, TITLE_HEIGHT);
