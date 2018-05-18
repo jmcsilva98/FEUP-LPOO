@@ -29,13 +29,13 @@ public class GameView extends ScreenAdapter {
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
     private static final float MAX_SQUARE_SPAWN_TIME = 2f;
     private float deltaTime = 0;
-    private float speed;
+
     Random random;
     public int generateSquareColors = 0;
 
     public GameView(SnakeSmash game,int speed) {
         this.game = game;
-        this.speed=speed;
+        GameController.getInstance().speed=speed;
         loadAssets();
         random = new Random();
 
@@ -84,46 +84,18 @@ public class GameView extends ScreenAdapter {
             squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
             for (int i = 0; i < 5; i++) {
                 showOrNot = random.nextInt(2);
-                if (showOrNot == 1 || deltaTime == 6)
+                if ((showOrNot == 1 || deltaTime == 6) && GameController.getInstance().speed>0)
                     defineSquareColors(i);
             }
             if (deltaTime == 6)
                 deltaTime = 0;
-
         }
-        ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
-        for (SquareModel square : GameModel.getInstance().getSquares()) {
-            square.update(delta,speed);
-            if (square.toRemove)
-                squaresToRemove.add(square);
-        }
-
-   for (SquareModel square : GameModel.getInstance().getSquares()) {
-      // System.out.println("XSNAKE:::" + GameModel.getInstance().getSnake().getX()+"YS");
-       if (square.getY()-2< GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 1.9 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9) {
-           //System.out.println("square value:::"+square.getValue());
-           speed=0;
-           if (square.getValue()==0) {
-               squaresToRemove.add(square);
-               speed=9;
-           }
-           else
-             decrementSquare(delta,square);
-       }
-   }
-        GameModel.getInstance().getSquares().removeAll(squaresToRemove);
+        GameController.getInstance().updateSquares(delta);
+        GameController.getInstance().detectCollision(delta);
 
     }
 
-    private void decrementSquare(float delta,SquareModel square) {
-        square.time_to_decrement-=delta*10;
-        System.out.println("time_to_decrement:::"+square.time_to_decrement);
-        if (square.time_to_decrement<=0) {
-            square.setValue(square.getValue() - 1);
-            square.time_to_decrement=2;
-        }
 
-    }
 
     @Override
     public void resize(int width, int height) {
@@ -162,9 +134,9 @@ public class GameView extends ScreenAdapter {
 
     private void handleInputs(float delta) {
         if (isRight()|| isJustRight())
-            GameController.getInstance().shiftRight(delta,speed);
+            GameController.getInstance().shiftRight(delta,GameController.getInstance().speed);
         if (isLeft() || isJustLeft())
-            GameController.getInstance().shiftLeft(delta,speed);
+            GameController.getInstance().shiftLeft(delta,GameController.getInstance().speed);
 
     }
     public boolean isRight(){

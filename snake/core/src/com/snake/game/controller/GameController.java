@@ -30,7 +30,9 @@ public class GameController implements ContactListener{
     private List<BallModel> balls=new ArrayList<BallModel>();
     private ArrayList<SquareBody> squares = new ArrayList<SquareBody>();
     private ArrayList<CoinModel> coinArray=new ArrayList<CoinModel>();
+    ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
     private float accumulator;
+    public float speed;
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 720;
     public static final int SNAKE_WIDTH_PIXEL = 17;
@@ -81,7 +83,41 @@ public class GameController implements ContactListener{
             x =(float)0.48;
         GameModel.getInstance().getSnake().setX(x);
     }
+    public void updateSquares(float delta){
 
+        for (SquareModel square : GameModel.getInstance().getSquares()) {
+            square.update(delta,speed);
+            if (square.toRemove)
+                squaresToRemove.add(square);
+        }
+
+    }
+    public void detectCollision(float delta){
+
+        for (SquareModel square : GameModel.getInstance().getSquares()) {
+            // System.out.println("XSNAKE:::" + GameModel.getInstance().getSnake().getX()+"YS");
+            if (square.getY()-2.3< GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 1.9 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9 && GameModel.getInstance().getSnake().getY()<square.getY()) {
+                //System.out.println("square value:::"+square.getValue());
+                speed=0;
+                if (square.getValue()==0) {
+                    squaresToRemove.add(square);
+                    speed=9;
+                }
+                else
+                    decrementSquare(delta,square);
+            }
+        }
+        GameModel.getInstance().getSquares().removeAll(squaresToRemove);
+    }
+    private void decrementSquare(float delta,SquareModel square) {
+        square.time_to_decrement-=delta*10;
+        System.out.println("time_to_decrement:::"+square.time_to_decrement);
+        if (square.time_to_decrement<=0) {
+            square.setValue(square.getValue() - 1);
+            square.time_to_decrement=2;
+        }
+
+    }
     @Override
     public void beginContact(Contact contact) {
 
