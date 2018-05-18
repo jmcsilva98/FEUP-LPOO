@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.GameView;
+import com.snake.game.view.menus.GameOverMenu;
 import com.snake.game.view.menus.MainMenu;
 
 

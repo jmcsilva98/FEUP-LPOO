@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
@@ -23,7 +24,7 @@ public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_SQUARE = 0.04f;
 
     private final SnakeSmash game;
-
+    Sound gameMusic;
     private float squareSpawnTimer;
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
     private static final float MAX_SQUARE_SPAWN_TIME = 2f;
