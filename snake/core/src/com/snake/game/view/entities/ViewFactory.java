@@ -11,10 +11,7 @@ public class ViewFactory {
 
     private static Map<EntityModel.ModelType, EntityView> cache =
             new HashMap<EntityModel.ModelType, EntityView>();
-    public static int getRandomValue(){
-        Random random=new Random();
-        return random.nextInt(6);
-    }
+
 
     public static EntityView makeView(SnakeSmash game, EntityModel model) {
         if (!cache.containsKey(model.getType())) {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 
 public class BallModel extends EntityModel {
     int value ;
-    boolean wasCatched =false;
+    public boolean toRemove =false;
     public BallModel(float x, float y, float rotation, int value) {
         super(x, y, rotation);
         this.value =value;
@@ -19,10 +19,17 @@ public class BallModel extends EntityModel {
         this.value =value;
     }
     public boolean getCatched(){
-        return wasCatched;
+        return toRemove;
     }
     public void setCatched(){
-        this.wasCatched=true;
+        this.toRemove=true;
+    }
+
+    public void update(float delta,float speed){
+        setY(getY()-speed*delta);
+        if (getY()<0)
+            toRemove=true;
+
     }
 
 

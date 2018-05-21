@@ -15,6 +15,7 @@ public class GameModel {
     private static GameModel instance;
     private SnakeModel snake;
     private List<BallModel> balls;
+    public List<BallModel> snakeBalls;
     private List<SquareModel> squares;
     private List<CoinModel> coins;
 
@@ -28,6 +29,15 @@ public class GameModel {
         balls= new ArrayList<BallModel>();
         squares = new ArrayList<SquareModel>();
         coins = new ArrayList<CoinModel>();
+        snakeBalls=new ArrayList<BallModel>();
+        startSnake();
+    }
+
+    private void startSnake() {
+        snakeBalls.add(new BallModel(10,10,0,0));
+        for (int i =1;i<10;i++){
+            addBallToSnake(i);
+        }
     }
 
     public SnakeModel getSnake(){
@@ -48,18 +58,34 @@ public class GameModel {
         squares.add(square);
 
     }
-    public void remove (EntityModel m1){
-        if (m1 instanceof SquareModel)
-            squares.remove(m1);
-        else if (m1 instanceof BallModel)
-            balls.remove(m1);
-        else if (m1 instanceof CoinModel)
-            coins.remove(m1);
+    public void addBallToSnake(int i){
+        BallModel lastBall= snakeBalls.get(snakeBalls.size()-1);
+        BallModel ball = new BallModel(lastBall.getX()+0.1f*i,lastBall.getY()-1,0,0);
+        snakeBalls.add(ball);
+    }
+    public void updateSnake(float x){
+        BallModel lastBall=snakeBalls.get(0);
+        BallModel thatBall;
+        for (BallModel ball:snakeBalls){
+            thatBall=ball;
+            ball.setX(lastBall.getX());
+            lastBall=thatBall;
+        }
+
+        snakeBalls.get(0).setX(x);
+    }
+    public void deleteBallToSnake(){
+        if (snakeBalls.size()>0)
+            snakeBalls.remove(snakeBalls.size()-1);
+
+
+
+    }
+    public void createBall(float x, float y, int value){
+        BallModel ball;
+        ball= new BallModel(x,y,0,value);
+        balls.add(ball);
     }
 
 
-    public void update(float delta,float speed) {
-         snake.setY((float) (snake.getY()+speed* Gdx.graphics.getDeltaTime()));
-
-    }
 }

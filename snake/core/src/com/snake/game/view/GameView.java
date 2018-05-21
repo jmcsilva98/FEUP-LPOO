@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
+import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
@@ -26,8 +27,11 @@ public class GameView extends ScreenAdapter {
     private final SnakeSmash game;
     Sound gameMusic;
     private float squareSpawnTimer;
+    private float ballSpawnTimer;
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
-    private static final float MAX_SQUARE_SPAWN_TIME = 2f;
+    private static final float MAX_SQUARE_SPAWN_TIME = 4f;
+    private static final float MIN_BALL_SPAWN_TIME = 1f;
+    private static final float MAX_BALL_SPAWN_TIME = 3f;
     private float deltaTime = 0;
 
     Random random;
@@ -40,6 +44,7 @@ public class GameView extends ScreenAdapter {
         random = new Random();
 
         squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
+        ballSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
         game.scrollingBackground.setSpeedFixed(false);
 
     }
@@ -76,22 +81,45 @@ public class GameView extends ScreenAdapter {
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
         drawEntities();
          drawSquares();
+        drawBalls();
         game.getBatch().end();
-        squareSpawnTimer -= delta;
+        if (GameController.getInstance().speed !=0) {
+            squareSpawnTimer -= delta;
+            ballSpawnTimer -= delta;
+        }
         int showOrNot;
-        if (squareSpawnTimer <= 0) {
-            deltaTime++;
-            squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
-            for (int i = 0; i < 5; i++) {
-                showOrNot = random.nextInt(2);
-                if ((showOrNot == 1 || deltaTime == 6) && GameController.getInstance().speed>0)
-                    defineSquareColors(i);
+        showOrNot=random.nextInt(2);
+        if (showOrNot ==0) {
+            if (squareSpawnTimer <= 0) {
+                deltaTime++;
+                squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
+                for (int i = 0; i < 5; i++) {
+                    showOrNot = random.nextInt(2);
+                    if ((showOrNot == 1 || deltaTime == 6) && GameController.getInstance().speed > 0)
+                        defineSquareColors(i);
+                }
+                if (deltaTime == 6)
+                    deltaTime = 0;
             }
-            if (deltaTime == 6)
-                deltaTime = 0;
+        }
+        else {
+            if (ballSpawnTimer <= 0) {
+                ballSpawnTimer = random.nextFloat() * (MAX_BALL_SPAWN_TIME - MIN_BALL_SPAWN_TIME) + MIN_BALL_SPAWN_TIME;
+                for (int i = 0; i < 3; i++) {
+                    showOrNot = random.nextInt(2);
+                    if (showOrNot == 1 && GameController.getInstance().speed > 0) {
+                        GameModel.getInstance().createBall(i * 4 + 3, 35, i * 2 + 1);
+
+                    }
+                }
+
+            }
         }
         GameController.getInstance().updateSquares(delta);
-        GameController.getInstance().detectCollision(delta);
+        GameController.getInstance().updateBalls(delta);
+        GameController.getInstance().detectCollisionSquare(delta);
+        GameController.getInstance().detectCollisionBalls(delta);
+
 
     }
 
@@ -126,11 +154,18 @@ public class GameView extends ScreenAdapter {
     private void drawEntities() {
         //int size =GameModel.getInstance().getSnake().getSize();
         EntityView view;
-        SnakeModel snake = GameModel.getInstance().getSnake();
+       /* SnakeModel snake = GameModel.getInstance().getSnake();
         view = ViewFactory.makeView(game, snake);
         view.update(snake);
         view.draw(game.getBatch());
+    */
+       for (BallModel ball : GameModel.getInstance().snakeBalls){
+           view = ViewFactory.makeView(game, ball);
+           view.update(ball);
+           view.draw(game.getBatch());
+       }
     }
+
 
     private void handleInputs(float delta) {
         if (isRight()|| isJustRight())
@@ -166,7 +201,14 @@ public class GameView extends ScreenAdapter {
             view.draw(game.getBatch());
         }
     }
-
+    private void drawBalls(){
+        EntityView view;
+        for (BallModel ball : GameModel.getInstance().getBalls()) {
+            view = ViewFactory.makeView(game, ball);
+            view.update(ball);
+            view.draw(game.getBatch());
+        }
+    }
     public void defineSquareColors(int i) {
         generateSquareColors++;
         if (generateSquareColors == 7) generateSquareColors = 0;
