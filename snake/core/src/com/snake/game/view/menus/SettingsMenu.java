@@ -56,16 +56,12 @@ public class SettingsMenu implements Screen {
                 int x = SCREEN_WIDTH /2 - DEFAULT_ICON_WIDTH / 2;
                 if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y) {
 
-                    //this.dispose();
                     if (!game.getMusic()) {
                         game.setMusic(true);
 
-                        //play   music
-
-                       // musicOn = true;
                     } else {
                         game.setMusic(false);
-                       // musicOn = false;
+
                     }
 
                 }

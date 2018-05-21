@@ -1,6 +1,7 @@
 package com.snake.game.view.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,7 +38,7 @@ public class GameOverMenu implements Screen {
     private Texture crown;
     private Texture homeBtn;
 
-    public GameOverMenu(SnakeSmash game) {
+    public GameOverMenu(final SnakeSmash game) {
         this.game = game;
         exitBtn = new Texture("exitBtn.png");
         homeBtn = new Texture("homeBtn.png");
@@ -45,6 +46,36 @@ public class GameOverMenu implements Screen {
         playAgainBtn = new Texture("playAgainBtn.png");
         scoresBase = new Texture("scoreBase.png");
         crown = new Texture("crown.png");
+
+        final GameOverMenu gameOverMenuScreen = this;
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
+                if (Gdx.input.getX() < x + PLAY_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > PLAY_Y) {
+                        gameOverMenuScreen.dispose();
+                        game.setScreen(new GameView(game, 6));
+
+                }
+                x = 125;
+                if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                        gameOverMenuScreen.dispose();
+                        game.setScreen(new MainMenu(game));
+                }
+                x += 75 + DEFAULT_ICON_WIDTH;
+                if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                        gameOverMenuScreen.dispose();
+                        Gdx.app.exit();
+
+                }
+
+
+                return super.touchUp(screenX,screenY,pointer,button);
+            }
+
+        });
     }
 
     @Override
@@ -67,32 +98,14 @@ public class GameOverMenu implements Screen {
 
         int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
         game.getBatch().draw(playAgainBtn, x, PLAY_Y,PLAY_WIDTH, PLAY_HEIGHT);
-        if (Gdx.input.getX() < x + PLAY_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > PLAY_Y) {
-
-            if (Gdx.input.isTouched()) {
-                this.dispose();
-                game.setScreen(new GameView(game, 6));
-            }
-
-        }
 
 
         x = 125;
         game.getBatch().draw(homeBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-        if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
-            if (Gdx.input.isTouched()) {
-                this.dispose();
-                game.setScreen(new MainMenu(game));
-            }
-        }
 
-            x += 75 + DEFAULT_ICON_WIDTH;
-            game.getBatch().draw(exitBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-            if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
-                if (Gdx.input.isTouched()) {
-                    Gdx.app.exit();
-                }
-            }
+        x += 75 + DEFAULT_ICON_WIDTH;
+        game.getBatch().draw(exitBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
+
 
             game.getBatch().end();
     }
