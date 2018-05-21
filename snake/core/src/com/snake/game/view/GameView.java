@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,7 +26,7 @@ public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_SQUARE = 0.04f;
 
     private final SnakeSmash game;
-    Sound gameMusic;
+    private Music music;
     private float squareSpawnTimer;
     private float ballSpawnTimer;
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
@@ -62,13 +63,18 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("lightpinkSquare.png", Texture.class);
         this.game.getAssetManager().load("mustardSquare.png", Texture.class);
         this.game.getAssetManager().load("whiteBall.png", Texture.class);
+        this.game.getAssetManager().load("gameMusic.mp3", Music.class);
         this.game.getAssetManager().finishLoading();
 
     }
 
     @Override
     public void show() {
-
+        music = game.getAssetManager().get("gameMusic.mp3");
+        music.setLooping(true);
+        if(game.getMusic()){
+            music.play();
+        }
     }
 
     public void render(float delta) {

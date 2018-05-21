@@ -121,6 +121,6 @@ public class GameOverMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        Gdx.input.setInputProcessor(null);
     }
 }

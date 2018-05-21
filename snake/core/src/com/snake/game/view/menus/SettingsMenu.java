@@ -1,11 +1,14 @@
 package com.snake.game.view.menus;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
-
-import com.badlogic.gdx.Screen;
 import com.snake.game.view.GameView;
+import com.badlogic.gdx.Screen;
+
+
+import java.util.Set;
 
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
@@ -33,9 +36,8 @@ public class SettingsMenu implements Screen {
     private Texture base;
     private Texture homeBtn;
 
-    private boolean musicOn = true;
 
-    public SettingsMenu(SnakeSmash game) {
+    public SettingsMenu(final SnakeSmash game) {
         this.game = game;
         exitBtn = new Texture("exitBtn.png");
         homeBtn = new Texture("homeBtn.png");
@@ -43,8 +45,48 @@ public class SettingsMenu implements Screen {
         musicActiveBtn = new Texture("musicActiveBtn.png");
         musicInactiveBtn = new Texture("musicInactiveBtn.png");
         base = new Texture("baseBtn.png");
-    }
 
+        final SettingsMenu settingsMenuScreen = this;
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+                int x = SCREEN_WIDTH /2 - DEFAULT_ICON_WIDTH / 2;
+                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y) {
+
+                    //this.dispose();
+                    if (!game.getMusic()) {
+                        game.setMusic(true);
+
+                        //play   music
+
+                       // musicOn = true;
+                    } else {
+                        game.setMusic(false);
+                       // musicOn = false;
+                    }
+
+                }
+                x = 100;
+                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                        settingsMenuScreen.dispose();
+                        game.setScreen(new MainMenu(game));
+                }
+
+                x += 125 + DEFAULT_ICON_WIDTH;
+                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                        settingsMenuScreen.dispose();
+                        Gdx.app.exit();
+
+                }
+
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
+
+        });
+    }
     @Override
     public void show() {
 
@@ -63,23 +105,22 @@ public class SettingsMenu implements Screen {
         game.getBatch().draw(base, SCREEN_WIDTH / 2 - BASE_WIDTH / 2, BASE_Y, BASE_WIDTH, BASE_HEIGHT);
 
         int x = SCREEN_WIDTH /2 - DEFAULT_ICON_WIDTH / 2;
-        if(musicOn)
+        if(game.getMusic())
         game.getBatch().draw(musicActiveBtn, x, MUSIC_ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
         else
         game.getBatch().draw(musicInactiveBtn, x, MUSIC_ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
 
-        if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y){
-
+       if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y){
 
             if(Gdx.input.isTouched()){
                 //this.dispose();
-                if(!musicOn){
+                if(!game.getMusic()){
                     //play music
                     game.getBatch().draw(musicActiveBtn, x, MUSIC_ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-                    musicOn = true;
+                   // game.setMusic(true);
                 }else{
                     game.getBatch().draw(musicInactiveBtn, x, MUSIC_ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-                    musicOn = false;
+                  //  game.setMusic(false);
                 }
 
             }
@@ -87,21 +128,9 @@ public class SettingsMenu implements Screen {
 
         x = 100;
         game.getBatch().draw(homeBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-        if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
-            if(Gdx.input.isTouched()){
-                this.dispose();
-                game.setScreen(new MainMenu(game));
-            }
-        }
-
 
         x += 125 + DEFAULT_ICON_WIDTH;
         game.getBatch().draw(exitBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
-        if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
-            if(Gdx.input.isTouched()){
-                Gdx.app.exit();
-            }
-        }
 
         game.getBatch().end();
     }
@@ -127,6 +156,6 @@ public class SettingsMenu implements Screen {
 
     @Override
     public void dispose() {
-
+        Gdx.input.setInputProcessor(null);
     }
 }

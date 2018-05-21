@@ -134,6 +134,7 @@ public class GameController {
         }
         if (GameModel.getInstance().snakeBalls.size()<=0){
             System.out.println("GAME OVER   ");
+
             System.exit(0);
             //chamar game over menu
         }

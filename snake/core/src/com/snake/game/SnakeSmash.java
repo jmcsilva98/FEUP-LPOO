@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
@@ -23,6 +24,8 @@ public class SnakeSmash extends Game {
 	private AssetManager assetManager;
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
+	private boolean music = true;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -31,12 +34,14 @@ public class SnakeSmash extends Game {
 		assetManager = new AssetManager();
 		if (Gdx.app.getType()== ApplicationType.Android || Gdx.app.getType()==ApplicationType.iOS)
             IS_MOBILE = true;
+
+
 	startGame();
 	}
 
 	private void startGame() {
-		//setScreen(new MainMenu(this));
-		setScreen(new GameView(this,9));
+		setScreen(new MainMenu(this));
+		//setScreen(new GameView(this,9));
 	}
 
 
@@ -67,4 +72,11 @@ public class SnakeSmash extends Game {
 	}
 
 
+	public boolean getMusic() {
+		return music;
+	}
+
+	public void setMusic(boolean music) {
+		this.music = music;
+	}
 }
