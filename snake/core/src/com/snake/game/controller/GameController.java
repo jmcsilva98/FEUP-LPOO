@@ -11,13 +11,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.entities.SnakeBody;
-import com.snake.game.controller.entities.SquareBody;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
+import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
+import com.snake.game.model.entities.WallModel;
 import com.snake.game.view.menus.GameOverMenu;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class GameController {
     private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
     private ArrayList<CoinModel> coinArray = new ArrayList<CoinModel>();
     private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
+    private ArrayList<WallModel> wallsToRemove = new ArrayList<WallModel>();
     public float speed;
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 720;
@@ -88,6 +90,9 @@ public class GameController {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
             square.update(delta, speed);
+            for (NumberModel number : square.numbers){
+                number.update(delta,speed);
+            }
             if (square.toRemove)
                 squaresToRemove.add(square);
         }
@@ -101,7 +106,13 @@ public class GameController {
                 ballsToRemove.add(ball);
         }
     }
-
+    public void updateWalls(float delta){
+        for (WallModel wall : GameModel.getInstance().getWalls()) {
+            wall.update(delta,speed);
+            if (wall.toRemove)
+                wallsToRemove.add(wall);
+        }
+    }
     public void detectCollisionSquare(float delta) {
         for (SquareModel square : GameModel.getInstance().getSquares()) {
             if (square.getY() - 2.3 < GameModel.getInstance().snakeBalls.get(0).getY() && GameModel.getInstance().snakeBalls.get(0).getX() + 1.9 > square.getX() && GameModel.getInstance().snakeBalls.get(0).getX() < square.getX() + 1.9 && GameModel.getInstance().snakeBalls.get(0).getY() < square.getY()) {
@@ -129,14 +140,24 @@ public class GameController {
         square.time_to_decrement -= delta * 10;
         if (square.time_to_decrement <= 0 && GameModel.getInstance().snakeBalls.size()>0) {
             square.setValue(square.getValue() - 1);
+            GameModel.getInstance().calculateNumbers(square);
             square.time_to_decrement = 2;
             GameModel.getInstance().deleteBallToSnake();
         }
         if (GameModel.getInstance().snakeBalls.size()<=0){
             System.out.println("GAME OVER   ");
 
-            System.exit(0);
+            System.exit(0); //apagar
             //chamar game over menu
+        }
+    }
+
+    public void detectCollisionWalls(float delta) {
+        for (WallModel wall : GameModel.getInstance().getWalls()) {
+            if (wall.getX() + 1 <= GameModel.getInstance().snakeBalls.get(0).getX() && GameModel.getInstance().snakeBalls.get(0).getX()< wall.getX()+1&& wall.getY() <= GameModel.getInstance().snakeBalls.get(0).getY()+3 &&GameModel.getInstance().snakeBalls.get(0).getY()< wall.getY()+10) {
+                System.out.println("collide walls");
+                GameModel.getInstance().snakeBalls.get(0).setX(wall.getX()+1f);
+            }
         }
     }
 }

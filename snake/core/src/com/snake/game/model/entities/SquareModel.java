@@ -2,11 +2,14 @@ package com.snake.game.model.entities;
 
 import com.badlogic.gdx.physics.box2d.Body;
 
+import java.util.ArrayList;
+
 public class SquareModel extends EntityModel{
     int value;
     public static final int WIDTH =96;
     public static final int HEIGHT =96;
     public float time_to_decrement=1f;
+    public ArrayList<NumberModel>numbers=new ArrayList<NumberModel>();
     public Body body;
     public boolean toRemove=false;
     public ModelType modelType;

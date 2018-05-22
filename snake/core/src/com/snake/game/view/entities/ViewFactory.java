@@ -5,7 +5,6 @@ import com.snake.game.model.entities.EntityModel;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class ViewFactory {
 
@@ -37,6 +36,26 @@ public class ViewFactory {
                 cache.put(model.getType(), new YellowSquareView(game));
             if (model.getType() == EntityModel.ModelType.WALL)
                 cache.put(model.getType(), new WallView(game));
+            if (model.getType() == EntityModel.ModelType.ZERO)
+                cache.put(model.getType(), new ZeroView(game));
+            if (model.getType() == EntityModel.ModelType.ONE)
+                cache.put(model.getType(), new OneView(game));
+            if (model.getType() == EntityModel.ModelType.TWO)
+                cache.put(model.getType(), new TwoView(game));
+            if (model.getType() == EntityModel.ModelType.THREE)
+                cache.put(model.getType(), new ThreeView(game));
+            if (model.getType() == EntityModel.ModelType.FOUR)
+                cache.put(model.getType(), new FourView(game));
+            if (model.getType() == EntityModel.ModelType.FIVE)
+                cache.put(model.getType(), new FiveView(game));
+            if (model.getType() == EntityModel.ModelType.SIX)
+                cache.put(model.getType(), new SixView(game));
+            if (model.getType() == EntityModel.ModelType.SEVEN)
+                cache.put(model.getType(), new SevenView(game));
+            if (model.getType() == EntityModel.ModelType.EIGHT)
+                cache.put(model.getType(), new EightView(game));
+            if (model.getType() == EntityModel.ModelType.NINE)
+                cache.put(model.getType(), new NineView(game));
         }
         return cache.get(model.getType());
     }

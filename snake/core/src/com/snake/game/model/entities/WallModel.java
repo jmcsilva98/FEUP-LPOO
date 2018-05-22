@@ -4,6 +4,7 @@ package com.snake.game.model.entities;
 
 public class WallModel extends EntityModel {
     float size;
+    public boolean toRemove;
 
     public WallModel(float x, float y, float rotation,float size) {
         super(x, y, rotation);
@@ -19,5 +20,11 @@ public class WallModel extends EntityModel {
     @Override
     public ModelType getType() {
         return ModelType.WALL;
+    }
+
+    public void update(float delta, float speed) {
+        setY(getY()-speed*delta);
+        if (getY()<0)
+            toRemove=true;
     }
 }

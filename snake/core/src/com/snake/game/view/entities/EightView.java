@@ -4,16 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.snake.game.SnakeSmash;
 
-public class WallView extends EntityView {
+public class EightView extends EntityView {
 
-
-    WallView(SnakeSmash game) {
+    public EightView(SnakeSmash game) {
         super(game);
     }
-
-    @Override
-    public Sprite createSprite(SnakeSmash game) {
-        Texture texture= game.getAssetManager().get("bigWall.png");
+    public Sprite createSprite(SnakeSmash game)
+    {
+        Texture texture= game.getAssetManager().get("8.png");
         return new Sprite(texture, texture.getWidth(),texture.getHeight());
     }
 }

@@ -40,8 +40,8 @@ public class SnakeSmash extends Game {
 	}
 
 	private void startGame() {
-		setScreen(new MainMenu(this));
-		//setScreen(new GameView(this,9));
+		//setScreen(new MainMenu(this));
+		setScreen(new GameView(this,9));
 	}
 
 
