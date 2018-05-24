@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Align;
 import com.snake.game.SnakeSmash;
+import com.snake.game.controller.GameController;
+import com.snake.game.model.GameModel;
 import com.snake.game.view.GameView;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
@@ -77,13 +79,16 @@ public class GameOverMenu implements Screen {
                 int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
                 if (game.camera.getInputInGameWorld().x < x + PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > PLAY_Y) {
                         gameOverMenuScreen.dispose();
-                  //  game.restart();
+                         GameModel.restart();
+                         GameController.restart();
                         game.setScreen(new GameView(game, 6));
 
                 }
                 x = 125;
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                         gameOverMenuScreen.dispose();
+                        GameModel.restart();
+                        GameController.restart();
                         game.setScreen(new MainMenu(game));
                 }
                 x += 75 + DEFAULT_ICON_WIDTH;

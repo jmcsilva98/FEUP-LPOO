@@ -191,5 +191,6 @@ public class GameModel {
 
     public static void restart(){
         instance = null;
+
     }
 }
