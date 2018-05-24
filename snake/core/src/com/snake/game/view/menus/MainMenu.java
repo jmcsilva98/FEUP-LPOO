@@ -82,10 +82,12 @@ public class MainMenu implements Screen {
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < INTERMEDIATE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > INTERMEDIATE_Y) {
                     mainMenuScreen.dispose();
                     //Go to intermediate game view
+                    game.setScreen(new GameView(game, 12));
 
                 }
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > IMPOSSIBLE_Y) {
                     mainMenuScreen.dispose();
+                    game.setScreen(new GameView(game, 16));
                     //go to impossible game view
 
                 }

@@ -12,6 +12,9 @@ launchIPadSimulator.dependsOn build
 launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
+dependencies{
+    compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+}
 robovm {
 	archs = "thumbv7:arm64"
 }

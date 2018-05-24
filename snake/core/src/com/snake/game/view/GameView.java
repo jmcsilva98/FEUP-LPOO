@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
@@ -21,8 +23,8 @@ import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
 import com.snake.game.view.entities.EntityView;
 import com.snake.game.view.entities.ViewFactory;
+import com.snake.game.view.menus.GameOverMenu;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -46,14 +48,17 @@ public class GameView extends ScreenAdapter {
     private static final float MAX_COIN_SPAWN_TIME = 3f;
     int coinNumber=0;
     private float deltaTime = 0;
+    BitmapFont scoreFont;
 
     Random random;
     public int generateSquareColors = 0;
 
-    public GameView(SnakeSmash game,int speed) {
+    public GameView(SnakeSmash game, int speed) {
         this.game = game;
-        GameController.getInstance().speed=speed;
+        GameController.getInstance().speed = speed;
         loadAssets();
+        scoreFont = game.getFont();
+
         random = new Random();
         roll=2;
         rolls= new Animation[6];
@@ -112,7 +117,13 @@ public class GameView extends ScreenAdapter {
     public void render(float delta) {
         //GameController.getInstance().removeFlagged();
         GameController.getInstance().update(delta);
-        handleInputs(delta);
+
+        if(GameController.getInstance().gameOver) {
+            this.dispose();
+            game.setScreen(new GameOverMenu(game, GameController.getInstance().getScore()));
+            return;
+        }
+
         Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         game.getBatch().begin();
@@ -120,10 +131,12 @@ public class GameView extends ScreenAdapter {
         stateTime+=delta;
         drawEntities();
         drawCoin();
+        drawScore();
+
         //drawWalls();
 
         drawSquares();
-      //  drawBalls();
+        drawBalls();
         game.getBatch().end();
         if (GameController.getInstance().speed !=0) {
             squareSpawnTimer -= delta;
@@ -168,13 +181,18 @@ public class GameView extends ScreenAdapter {
                 j+=3;
             }
         }
-        GameController.getInstance().updateCoin(delta);
-        GameController.getInstance().updateWalls(delta);
-        GameController.getInstance().updateSquares(delta);
-        GameController.getInstance().updateBalls(delta);
-        GameController.getInstance().detectCollisionSquare(delta);
-        GameController.getInstance().detectCollisionBalls(delta);
-        GameController.getInstance().detectCollisionWalls(delta);
+
+        if(!GameController.getInstance().gameOver){
+            handleInputs(delta);
+            GameController.getInstance().updateCoin(delta);
+            GameController.getInstance().updateWalls(delta);
+            GameController.getInstance().updateSquares(delta);
+            GameController.getInstance().updateBalls(delta);
+            GameController.getInstance().detectCollisionSquare(delta);
+            GameController.getInstance().detectCollisionBalls(delta);
+            GameController.getInstance().detectCollisionWalls(delta);
+        }
+
 
 
     }
@@ -314,5 +332,13 @@ private void drawCoin(){
                 GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.MUSTARDSQUARE);
                 break;
         }
+    }
+
+
+    public void drawScore(){
+        int score = GameController.getInstance().getScore();
+        System.out.println(score);
+
+        scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
     }
 }

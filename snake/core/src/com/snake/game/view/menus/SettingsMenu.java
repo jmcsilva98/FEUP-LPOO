@@ -54,7 +54,7 @@ public class SettingsMenu implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
                 int x = SCREEN_WIDTH /2 - DEFAULT_ICON_WIDTH / 2;
-                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y) {
+                if(game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH &&game.camera.getInputInGameWorld().x> x && SCREEN_HEIGHT -game.camera.getInputInGameWorld().y < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > MUSIC_ICON_Y) {
 
                     if (!game.getMusic()) {
                         game.setMusic(true);
@@ -66,13 +66,13 @@ public class SettingsMenu implements Screen {
 
                 }
                 x = 100;
-                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                if(game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x> x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                         settingsMenuScreen.dispose();
                         game.setScreen(new MainMenu(game));
                 }
 
                 x += 125 + DEFAULT_ICON_WIDTH;
-                if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                if(game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT -game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                         settingsMenuScreen.dispose();
                         Gdx.app.exit();
 
@@ -106,7 +106,7 @@ public class SettingsMenu implements Screen {
         else
         game.getBatch().draw(musicInactiveBtn, x, MUSIC_ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
 
-       if(Gdx.input.getX() < x + DEFAULT_ICON_WIDTH&& Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > MUSIC_ICON_Y){
+       if(game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < MUSIC_ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > MUSIC_ICON_Y){
 
             if(Gdx.input.isTouched()){
                 //this.dispose();

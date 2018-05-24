@@ -188,4 +188,8 @@ public class GameModel {
         coin =new CoinModel(x,y,0,0);
         coins.add(coin);
     }
+
+    public static void restart(){
+        instance = null;
+    }
 }

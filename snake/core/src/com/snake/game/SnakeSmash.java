@@ -5,10 +5,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.snake.game.controller.GameController;
+import com.snake.game.model.GameModel;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.GameView;
@@ -25,6 +30,7 @@ public class SnakeSmash extends Game {
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
 	private boolean music = true;
+	private BitmapFont bitmapfont;
 
 	@Override
 	public void create () {
@@ -34,6 +40,8 @@ public class SnakeSmash extends Game {
 		assetManager = new AssetManager();
 		if (Gdx.app.getType()== ApplicationType.Android || Gdx.app.getType()==ApplicationType.iOS)
             IS_MOBILE = true;
+
+		initFont();
 
 
 	startGame();
@@ -52,7 +60,10 @@ public class SnakeSmash extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		GameController.restart();
+		GameModel.restart();
 		assetManager.dispose();
+		bitmapfont.dispose();
 	}
 	@Override
 	public void render () {
@@ -78,5 +89,22 @@ public class SnakeSmash extends Game {
 
 	public void setMusic(boolean music) {
 		this.music = music;
+	}
+
+	public void initFont(){
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HVD_Comic_Serif_Pro.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+		parameter.size = 30;
+		parameter.color = Color.WHITE;
+		parameter.borderWidth = 1;
+		parameter.borderColor = Color.BLACK;
+		bitmapfont = generator.generateFont(parameter); // font size 12
+
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+	}
+
+	public BitmapFont getFont() {
+		return bitmapfont;
 	}
 }
