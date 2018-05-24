@@ -75,16 +75,16 @@ public class MainMenu implements Screen {
              public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 //Goes to the game view
                 int x = SCREEN_WIDTH / 2 - DEFAULT_PLAY_WIDTH / 2;
-                if (Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < BEGINNER_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > BEGINNER_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT -  game.camera.getInputInGameWorld().y < BEGINNER_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > BEGINNER_Y) {
                     mainMenuScreen.dispose();
                     game.setScreen(new GameView(game, 6));
                 }
-                if (Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < INTERMEDIATE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > INTERMEDIATE_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < INTERMEDIATE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > INTERMEDIATE_Y) {
                     mainMenuScreen.dispose();
                     //Go to intermediate game view
 
                 }
-                if (Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > IMPOSSIBLE_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > IMPOSSIBLE_Y) {
                     mainMenuScreen.dispose();
                     //go to impossible game view
 
@@ -95,7 +95,7 @@ public class MainMenu implements Screen {
                     Gdx.app.exit();
                 }
                 x = 50;
-                if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH &&game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                     mainMenuScreen.dispose();
                     //go to settings menu
                     game.setScreen(new SettingsMenu(game));
@@ -103,14 +103,14 @@ public class MainMenu implements Screen {
                 }
 
                 x += 25 + DEFAULT_ICON_WIDTH;
-                if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                     mainMenuScreen.dispose();
                     //go to scores menu
-
+                    game.setScreen(new HighscoresMenu(game));
                 }
 
                 x += 25 + DEFAULT_ICON_WIDTH;
-                if (Gdx.input.getX() < x + DEFAULT_ICON_WIDTH && Gdx.input.getX() > x && SCREEN_HEIGHT - Gdx.input.getY() < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > ICON_Y) {
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                     mainMenuScreen.dispose();
                     //go to share menu
 
@@ -139,21 +139,21 @@ public class MainMenu implements Screen {
         game.getBatch().begin();
 
         int x = SCREEN_WIDTH /2 - DEFAULT_PLAY_WIDTH / 2;
-        if(Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < BEGINNER_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > BEGINNER_Y){
+        if(game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x> x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < BEGINNER_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > BEGINNER_Y){
             game.getBatch().draw(beginnerActiveBtn, x, BEGINNER_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
 
         }else{
             game.getBatch().draw(beginnerInactiveBtn, x, BEGINNER_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
         }
 
-        if(Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < INTERMEDIATE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > INTERMEDIATE_Y){
+        if(game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x> x && SCREEN_HEIGHT -game.camera.getInputInGameWorld().y < INTERMEDIATE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > INTERMEDIATE_Y){
             game.getBatch().draw(intermediateActiveBtn, x, INTERMEDIATE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
 
         }else{
             game.getBatch().draw(intermediateInactiveBtn, x, INTERMEDIATE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
         }
 
-        if(Gdx.input.getX() < x + DEFAULT_PLAY_WIDTH && Gdx.input.getX()> x && SCREEN_HEIGHT - Gdx.input.getY() < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - Gdx.input.getY() > IMPOSSIBLE_Y){
+        if(game.camera.getInputInGameWorld().x < x + DEFAULT_PLAY_WIDTH && game.camera.getInputInGameWorld().x> x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < IMPOSSIBLE_Y + DEFAULT_PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > IMPOSSIBLE_Y){
             game.getBatch().draw(impossibleActiveBtn, x, IMPOSSIBLE_Y, DEFAULT_PLAY_WIDTH, DEFAULT_PLAY_HEIGHT);
 
         }else{
