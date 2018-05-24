@@ -18,6 +18,7 @@ public class GameModel {
 
     private static GameModel instance;
     private SnakeModel snake;
+    public int directionSnake=1;
     private List<BallModel> balls;
     public List<BallModel> snakeBalls;
     private List<SquareModel> squares;
@@ -75,15 +76,18 @@ public class GameModel {
     public void calculateNumbers(SquareModel square) {
         square.numbers.clear();
         int i = square.getValue()/10;
-        if (i>0)
-            whichNumber(square, i,square.getX());
+
 
         int j = square.getValue () %10;
-        System.out.println("::j::"+j);
+        if (i>0) {
+            whichNumber(square, i, square.getX()-0.5f);
+            whichNumber(square, j, square.getX()+0.5f);
 
-        whichNumber(square,j,square.getX());
-        System.out.println("::numbers::"+square.numbers.size());
-
+        }
+        else
+        {
+            whichNumber(square, j, square.getX());
+        }
     }
 
     private void whichNumber(SquareModel square, int i,float x) {
@@ -127,25 +131,44 @@ public class GameModel {
 
     public void addBallToSnake(int i){
         BallModel lastBall= snakeBalls.get(snakeBalls.size()-1);
-        BallModel ball = new BallModel(lastBall.getX()+0.1f*i,lastBall.getY()-1,0,0);
+        BallModel ball = new BallModel(lastBall.getX()+1,lastBall.getY()-0.1f,0,0);
         snakeBalls.add(ball);
     }
-    public void updateSnake(float x){
-        BallModel lastBall=snakeBalls.get(0);
-        BallModel thatBall;
-        for (BallModel ball:snakeBalls){
-            thatBall=ball;
-            ball.setX(lastBall.getX());
-            lastBall=thatBall;
-        }
+    public void updateSnakeWithInput(float x){
+        float lastX=snakeBalls.get(0).getX();
+        float lastY=snakeBalls.get(0).getY();
+        float currX,currY;
+        for (int i =1;i<snakeBalls.size();i++){
+            currX=snakeBalls.get(i).getX();
+            currY=snakeBalls.get(i).getY();
+            //System.out.println("ball::"+i+" ::: "+currX+" ::: "+currY);
+            //System.out.println("LastBall::"+i+" ::: "+lastX+" ::: "+lastY);
+            snakeBalls.get(i).setX(lastX+directionSnake*0.8f);
+           snakeBalls.get(i).setY(lastY-0.2f);
+            lastX=currX;
+            lastY=currY;
 
+
+        }
         snakeBalls.get(0).setX(x);
+        snakeBalls.get(0).setY(snakeBalls.get(0).getY());
+        //System.out.println(snakeBalls.get(0).getY());
+    }
+    public void updateSnakeWithoutInput(){
+        float lastX=snakeBalls.get(0).getX();
+        float lastY=snakeBalls.get(0).getY();
+        float currX,currY;
+        for (int i =1;i<snakeBalls.size();i++){
+            snakeBalls.get(i).setX(lastX);
+            snakeBalls.get(i).setY(lastY-i);
+
+        }
+        snakeBalls.get(0).setY(snakeBalls.get(0).getY());
+
     }
     public void deleteBallToSnake(){
         if (snakeBalls.size()>0)
             snakeBalls.remove(snakeBalls.size()-1);
-
-
 
     }
     public void createBall(float x, float y, int value){
@@ -158,5 +181,11 @@ public class GameModel {
         WallModel wall;
         wall=new WallModel(x,y,0,0);
         walls.add(wall);
+    }
+
+    public void createCoin(float x, float y) {
+        CoinModel coin;
+        coin =new CoinModel(x,y,0,0);
+        coins.add(coin);
     }
 }

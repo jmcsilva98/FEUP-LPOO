@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.snake.game.SnakeSmash;
 import com.snake.game.view.GameView;
 
-import sun.applet.Main;
+//import sun.applet.Main;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;

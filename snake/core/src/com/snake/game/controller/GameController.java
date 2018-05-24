@@ -31,7 +31,7 @@ public class GameController {
     private final World world;
     private final SnakeBody snakeBody;
     private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
-    private ArrayList<CoinModel> coinArray = new ArrayList<CoinModel>();
+    public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
     private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
     private ArrayList<WallModel> wallsToRemove = new ArrayList<WallModel>();
     public float speed;
@@ -68,22 +68,23 @@ public class GameController {
     }
 
     public void shiftRight(float delta, float speed) {
-        float x = GameModel.getInstance().snakeBalls.get(0).getX() + speed * Gdx.graphics.getDeltaTime();
+        float x = GameModel.getInstance().snakeBalls.get(0).getX() + (speed *1.5f)* Gdx.graphics.getDeltaTime();
 
         if (x > 18.7)
             x = (float) 18.7;
-        GameModel.getInstance().updateSnake(x);
+        GameModel.getInstance().directionSnake=-1;
+        GameModel.getInstance().updateSnakeWithInput(x);
 
 
     }
 
 
     public void shiftLeft(float delta, float speed) {
-        float x = GameModel.getInstance().snakeBalls.get(0).getX() - speed * Gdx.graphics.getDeltaTime();
+        float x = GameModel.getInstance().snakeBalls.get(0).getX() - (speed *1.5f)* Gdx.graphics.getDeltaTime();
         if (x < 0.48)
             x = (float) 0.48;
-
-        GameModel.getInstance().updateSnake(x);
+        GameModel.getInstance().directionSnake=1;
+        GameModel.getInstance().updateSnakeWithInput(x);
 }
 
     public void updateSquares(float delta) {
@@ -104,6 +105,13 @@ public class GameController {
             ball.update(delta,speed);
             if (ball.toRemove)
                 ballsToRemove.add(ball);
+        }
+    }
+    public void updateCoin(float delta){
+        for (CoinModel coin : GameModel.getInstance().getCoins()){
+            coin.update(delta,speed);
+            if (coin.toRemove)
+                coinsToRemove.add(coin);
         }
     }
     public void updateWalls(float delta){
@@ -160,4 +168,9 @@ public class GameController {
             }
         }
     }
+
+    public void noInput(float delta) {
+        GameModel.getInstance().updateSnakeWithoutInput();
+    }
+
 }

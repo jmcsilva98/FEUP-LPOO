@@ -2,21 +2,21 @@ package com.snake.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
+import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.NumberModel;
-import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
 import com.snake.game.view.entities.EntityView;
@@ -28,17 +28,23 @@ import java.util.Random;
 
 public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_SQUARE = 0.04f;
-
+    public static final float ANIMATION_COIN_SPEED=0.1f;
     private final SnakeSmash game;
-    private Animation[]rolls;
+    Animation[] rolls;
     int roll;
+    float stateTime=0;
+    int j =0;
     private Music music;
     private float squareSpawnTimer;
     private float ballSpawnTimer;
+    private float coinSpawnTimer;
     private static final float MIN_SQUARE_SPAWN_TIME = 0.6f;
     private static final float MAX_SQUARE_SPAWN_TIME = 4f;
     private static final float MIN_BALL_SPAWN_TIME = 1f;
     private static final float MAX_BALL_SPAWN_TIME = 3f;
+    private static final float MIN_COIN_SPAWN_TIME = 1f;
+    private static final float MAX_COIN_SPAWN_TIME = 3f;
+    int coinNumber=0;
     private float deltaTime = 0;
 
     Random random;
@@ -51,10 +57,13 @@ public class GameView extends ScreenAdapter {
         random = new Random();
         roll=2;
         rolls= new Animation[6];
-
-
+        TextureRegion[][] rollSpriteSheet=TextureRegion.split(new Texture("coin.png"),10,70);
+        rolls[0] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
+        rolls[1] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
+        rolls[2] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
         squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
         ballSpawnTimer = random.nextFloat() * (MAX_BALL_SPAWN_TIME - MIN_BALL_SPAWN_TIME) + MIN_BALL_SPAWN_TIME;
+        coinSpawnTimer=  random.nextFloat() * (MAX_COIN_SPAWN_TIME - MIN_COIN_SPAWN_TIME) + MIN_COIN_SPAWN_TIME;
         game.scrollingBackground.setSpeedFixed(false);
 
     }
@@ -82,8 +91,7 @@ public class GameView extends ScreenAdapter {
         this.game.getAssetManager().load("7.png", Texture.class);
         this.game.getAssetManager().load("8.png", Texture.class);
         this.game.getAssetManager().load("9.png", Texture.class);
-
-
+        this.game.getAssetManager().load("coin.png",Texture.class);
 
 
 
@@ -109,17 +117,21 @@ public class GameView extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         game.getBatch().begin();
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
+        stateTime+=delta;
         drawEntities();
+        drawCoin();
         //drawWalls();
+
         drawSquares();
-        drawBalls();
+      //  drawBalls();
         game.getBatch().end();
         if (GameController.getInstance().speed !=0) {
             squareSpawnTimer -= delta;
             ballSpawnTimer -= delta;
+            coinSpawnTimer-=delta;
         }
         int showOrNot;
-        showOrNot=random.nextInt(2);
+        showOrNot=random.nextInt(3);
         if (showOrNot ==0) {
             if (squareSpawnTimer <= 0) {
                 deltaTime++;
@@ -133,20 +145,30 @@ public class GameView extends ScreenAdapter {
                     deltaTime = 0;
             }
         }
-        else {
+        else if (showOrNot==1){
             if (ballSpawnTimer <= 0) {
                 ballSpawnTimer = random.nextFloat() * (MAX_BALL_SPAWN_TIME - MIN_BALL_SPAWN_TIME) + MIN_BALL_SPAWN_TIME;
                 for (int i = 0; i < 3; i++) {
                     showOrNot = random.nextInt(2);
                     if (showOrNot == 1 && GameController.getInstance().speed > 0) {
                         GameModel.getInstance().createBall(i * 4 + 3, 35, i * 2 + 1);
-                        GameModel.getInstance().createWall(i*4+3,40);
+                        GameModel.getInstance().createWall(i * 4 + 3, 40);
 
                     }
                 }
 
             }
         }
+        else{
+            if (coinSpawnTimer<=0){
+                coinSpawnTimer=  random.nextFloat() * (MAX_COIN_SPAWN_TIME - MIN_COIN_SPAWN_TIME) + MIN_COIN_SPAWN_TIME;
+                GameModel.getInstance().createCoin(10+j,35);
+
+                coinNumber++;
+                j+=3;
+            }
+        }
+        GameController.getInstance().updateCoin(delta);
         GameController.getInstance().updateWalls(delta);
         GameController.getInstance().updateSquares(delta);
         GameController.getInstance().updateBalls(delta);
@@ -184,7 +206,22 @@ public class GameView extends ScreenAdapter {
 
     }
 
+private void drawCoin(){
+       // System.out.println("COIN SIZE:::"+ GameModel.getInstance().getCoins().size());
+        GameModel.getInstance().getCoins().removeAll(GameController.getInstance().coinsToRemove);
+    EntityView view;
+   /* for (CoinModel coin : GameModel.getInstance().getCoins()){
+        view = ViewFactory.makeView(game, coin);
+        view.update(coin);
+        view.draw(game.getBatch());
+    }´*/
+       for (CoinModel coin : GameModel.getInstance().getCoins()) {
+            System.out.println("x:: "+coin.getX()+":: y ::"+coin.getY());
+           game.getBatch().draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), 480*coin.getX()/18.7f, 720*coin.getX()/37.4f);
+            System.out.println("onde :::: x:: "+480*coin.getX()/18.7+":: y ::"+720*coin.getY()/37.4);
+        }
 
+}
     private void drawEntities() {
         EntityView view;
         for (BallModel ball : GameModel.getInstance().snakeBalls){
@@ -205,8 +242,10 @@ public class GameView extends ScreenAdapter {
     private void handleInputs(float delta) {
         if (isRight()|| isJustRight())
             GameController.getInstance().shiftRight(delta,GameController.getInstance().speed);
-        if (isLeft() || isJustLeft())
+       else if (isLeft() || isJustLeft())
             GameController.getInstance().shiftLeft(delta,GameController.getInstance().speed);
+        else
+            GameController.getInstance().noInput(delta);
 
     }
     public boolean isRight(){
