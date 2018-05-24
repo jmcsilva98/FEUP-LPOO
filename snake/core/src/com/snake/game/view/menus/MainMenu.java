@@ -108,7 +108,7 @@ public class MainMenu implements Screen {
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                     mainMenuScreen.dispose();
                     //go to scores menu
-                    game.setScreen(new HighscoresMenu(game));
+                    //game.setScreen(new HighscoresMenu(game));
                 }
 
                 x += 25 + DEFAULT_ICON_WIDTH;

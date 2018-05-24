@@ -8,28 +8,29 @@ import com.snake.game.SnakeSmash;
 import com.snake.game.view.GameView;
 
 public class CoinView extends EntityView {
-    private final Animation<TextureRegion> animation;
+    private Animation<TextureRegion> animation;
     private float stateTime = 0;
     Texture texture;
     public CoinView(SnakeSmash game) {
         super(game);
-        texture = game.getAssetManager().get("coin.png");
-        TextureRegion[][] thrustRegion = TextureRegion.split(texture, texture.getWidth() / 6, texture.getHeight());
-        // Put the frames into a uni-dimensional array
-        TextureRegion[] frames = new TextureRegion[10];
-        System.arraycopy(thrustRegion[0], 0, frames, 0, 10);
-
-        animation = new Animation<TextureRegion>(.25f, frames);
 
 
 
-
+    }
+    public void updateCoin(float delta){
+        stateTime += delta;
+        sprite.setRegion(animation.getKeyFrame(stateTime, true));
     }
 
     public Sprite createSprite(SnakeSmash game)
 
     {
-        //Texture texture= game.getAssetManager().get("coin.png");
-        return new Sprite(texture, texture.getWidth(),texture.getHeight());
+        texture = game.getAssetManager().get("coin.png");
+        TextureRegion[][] thrustRegion = TextureRegion.split(texture, texture.getWidth() / 6, texture.getHeight());
+        TextureRegion[] frames = new TextureRegion[6];
+        System.arraycopy(thrustRegion[0], 0, frames, 0, 6);
+        animation = new Animation<TextureRegion>(.25f, frames);
+
+        return new Sprite(animation.getKeyFrame(0));
     }
 }

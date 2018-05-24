@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.snake.game.Position;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.entities.SnakeBody;
 import com.snake.game.model.GameModel;
@@ -33,9 +34,11 @@ public class GameController {
     private final SnakeBody snakeBody;
     private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
     public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
+
     private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
     private ArrayList<WallModel> wallsToRemove = new ArrayList<WallModel>();
     public float speed;
+    public float saveSpeed;
     public static final int SCREEN_WIDTH = 480;
     public static final int SCREEN_HEIGHT = 720;
     public static final int SNAKE_WIDTH_PIXEL = 17;
@@ -51,6 +54,7 @@ public class GameController {
         snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
         score = 0;
         List<BallModel> balls = GameModel.getInstance().getBalls();
+        saveSpeed=speed;
         coins = 0;
         saveSpeed = speed;
     }
@@ -77,6 +81,7 @@ public class GameController {
         if (x > 18.7)
             x = (float) 18.7;
         GameModel.getInstance().directionSnake=-1;
+
         GameModel.getInstance().updateSnakeWithInput(x);
 
 
@@ -150,6 +155,17 @@ public class GameController {
         GameModel.getInstance().getBalls().removeAll(ballsToRemove);
 
     }
+    public void detectCollisionCoins(float delta){
+        for (CoinModel coin : GameModel.getInstance().getCoins()){
+
+            if (coin.getY()-0.2 < GameModel.getInstance().snakeBalls.get(0).getY() && coin.getX() < GameModel.getInstance().snakeBalls.get(0).getX() + 0.8 && GameModel.getInstance().snakeBalls.get(0).getX() < coin.getX() + 0.8 && GameModel.getInstance().snakeBalls.get(0).getY() < coin.getY()){
+                GameModel.getInstance().addBallToSnake(5);
+                coinsToRemove.add(coin);
+            }
+        }
+        GameModel.getInstance().getCoins().removeAll(coinsToRemove);
+    }
+
     private void decrementSquare(float delta, SquareModel square) {
         square.time_to_decrement -= delta * 10;
         if (square.time_to_decrement <= 0 && GameModel.getInstance().snakeBalls.size()>0) {

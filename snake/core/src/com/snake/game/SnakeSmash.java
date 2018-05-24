@@ -102,6 +102,7 @@ public class SnakeSmash extends Game {
 		bitmapfont = generator.generateFont(parameter); // font size 12
 
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
+
 	}
 
 	public BitmapFont getFont() {

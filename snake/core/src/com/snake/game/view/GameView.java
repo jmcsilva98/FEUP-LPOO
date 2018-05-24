@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.snake.game.Position;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
@@ -21,10 +23,12 @@ import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
+import com.snake.game.view.entities.CoinView;
 import com.snake.game.view.entities.EntityView;
 import com.snake.game.view.entities.ViewFactory;
 import com.snake.game.view.menus.GameOverMenu;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -32,10 +36,7 @@ public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_SQUARE = 0.04f;
     public static final float ANIMATION_COIN_SPEED=0.1f;
     private final SnakeSmash game;
-    Animation[] rolls;
-    int roll;
-    float stateTime=0;
-    int j =0;
+    public ArrayList<Position> positions;
     private Music music;
     private float squareSpawnTimer;
     private float ballSpawnTimer;
@@ -60,12 +61,7 @@ public class GameView extends ScreenAdapter {
         scoreFont = game.getFont();
 
         random = new Random();
-        roll=2;
-        rolls= new Animation[6];
-        TextureRegion[][] rollSpriteSheet=TextureRegion.split(new Texture("coin.png"),10,70);
-        rolls[0] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
-        rolls[1] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
-        rolls[2] = new Animation(ANIMATION_COIN_SPEED, rollSpriteSheet[0]);
+        positions = new ArrayList<Position>();
         squareSpawnTimer = random.nextFloat() * (MAX_SQUARE_SPAWN_TIME - MIN_SQUARE_SPAWN_TIME) + MIN_SQUARE_SPAWN_TIME;
         ballSpawnTimer = random.nextFloat() * (MAX_BALL_SPAWN_TIME - MIN_BALL_SPAWN_TIME) + MIN_BALL_SPAWN_TIME;
         coinSpawnTimer=  random.nextFloat() * (MAX_COIN_SPAWN_TIME - MIN_COIN_SPAWN_TIME) + MIN_COIN_SPAWN_TIME;
@@ -115,7 +111,6 @@ public class GameView extends ScreenAdapter {
     }
 
     public void render(float delta) {
-        //GameController.getInstance().removeFlagged();
         GameController.getInstance().update(delta);
 
         if(GameController.getInstance().gameOver) {
@@ -128,11 +123,9 @@ public class GameView extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         game.getBatch().begin();
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
-        stateTime+=delta;
         drawEntities();
-        drawCoin();
         drawScore();
-
+        drawCoin(delta);
         //drawWalls();
 
         drawSquares();
@@ -175,10 +168,8 @@ public class GameView extends ScreenAdapter {
         else{
             if (coinSpawnTimer<=0){
                 coinSpawnTimer=  random.nextFloat() * (MAX_COIN_SPAWN_TIME - MIN_COIN_SPAWN_TIME) + MIN_COIN_SPAWN_TIME;
-                GameModel.getInstance().createCoin(10+j,35);
+                GameModel.getInstance().createCoin(10,35);
 
-                coinNumber++;
-                j+=3;
             }
         }
 
@@ -224,30 +215,35 @@ public class GameView extends ScreenAdapter {
 
     }
 
-private void drawCoin(){
+private void drawCoin(float delta){
        // System.out.println("COIN SIZE:::"+ GameModel.getInstance().getCoins().size());
-        GameModel.getInstance().getCoins().removeAll(GameController.getInstance().coinsToRemove);
-    EntityView view;
-   /* for (CoinModel coin : GameModel.getInstance().getCoins()){
+           EntityView view;
+   for (CoinModel coin : GameModel.getInstance().getCoins()){
         view = ViewFactory.makeView(game, coin);
         view.update(coin);
+        CoinView coinView=(CoinView)view;
+        coinView.updateCoin(delta);
         view.draw(game.getBatch());
-    }´*/
-       for (CoinModel coin : GameModel.getInstance().getCoins()) {
-            System.out.println("x:: "+coin.getX()+":: y ::"+coin.getY());
-           game.getBatch().draw((TextureRegion) rolls[roll].getKeyFrame(stateTime, true), 480*coin.getX()/18.7f, 720*coin.getX()/37.4f);
-            System.out.println("onde :::: x:: "+480*coin.getX()/18.7+":: y ::"+720*coin.getY()/37.4);
-        }
-
+    }
 }
     private void drawEntities() {
         EntityView view;
-        for (BallModel ball : GameModel.getInstance().snakeBalls){
-            view = ViewFactory.makeView(game, ball);
-            view.update(ball);
-            view.draw(game.getBatch());
+        view = ViewFactory.makeView(game, GameModel.getInstance().snakeBalls.get(0));
+        view.update(GameModel.getInstance().snakeBalls.get(0));
+        view.draw(game.getBatch());
+        Position actual = new Position(GameModel.getInstance().snakeBalls.get(0).getX(),GameModel.getInstance().snakeBalls.get(0).getY());
+        positions.add(0,actual);
+        //System.out.print("Add: " + actual.getX());
+
+        for (int i =1; i < GameModel.getInstance().snakeBalls.size();i++){
+            if (i*5<positions.size()) {
+                BallModel ball = new BallModel(positions.get(i *5).getX(), 10-i, 0, 0);
+                view.update(ball);
+                view.draw(game.getBatch());
+            }
         }
-    }
+        System.out.println();
+     }
     private void drawWalls(){
         EntityView view;
         for (WallModel wall : GameModel.getInstance().getWalls()){
@@ -339,6 +335,6 @@ private void drawCoin(){
         int score = GameController.getInstance().getScore();
         System.out.println(score);
 
-        scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
+        //scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
     }
 }

@@ -24,4 +24,5 @@ public abstract class EntityView {
     public  void draw(SpriteBatch batch){
         sprite.draw(batch);
     }
+
 }
