@@ -24,7 +24,6 @@ public class SnakeModel extends EntityModel {
 
     public int updateSize(int value){
         this.size= this.size+value;
-
         return this.size;
     }
 

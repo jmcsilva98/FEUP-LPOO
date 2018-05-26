@@ -37,15 +37,9 @@ public class GameModel {
         coins = new ArrayList<CoinModel>();
         snakeBalls=new ArrayList<BallModel>();
         walls=new ArrayList<WallModel>();
-        startSnake();
     }
 
-    private void startSnake() {
-        snakeBalls.add(new BallModel(10,10,0,0));
-        for (int i =1;i<10;i++){
-            addBallToSnake(i);
-        }
-    }
+
 
     public SnakeModel getSnake(){
         return snake;
@@ -129,45 +123,6 @@ public class GameModel {
 
     }
 
-    public void addBallToSnake(int i){
-        for (int j =0;j<i;j++) {
-            BallModel lastBall = snakeBalls.get(snakeBalls.size() - 1);
-            BallModel ball = new BallModel(lastBall.getX() + 1, lastBall.getY() - 0.1f, 0, 0);
-            snakeBalls.add(ball);
-        }
-    }
-    public void updateSnakeWithInput(float x){
-        float lastX=snakeBalls.get(0).getX();
-        float lastY=snakeBalls.get(0).getY();
-        float currX,currY;
-        for (int i =1;i<snakeBalls.size();i++){
-            currX=snakeBalls.get(i).getX();
-            currY=snakeBalls.get(i).getY();
-            //System.out.println("ball::"+i+" ::: "+currX+" ::: "+currY);
-            //System.out.println("LastBall::"+i+" ::: "+lastX+" ::: "+lastY);
-            snakeBalls.get(i).setX((float) (lastX+directionSnake*0.8));
-           snakeBalls.get(i).setY(lastY-0.2f);
-            lastX=currX;
-            lastY=currY;
-
-
-        }
-        snakeBalls.get(0).setX(x);
-        //snakeBalls.get(0).setY(snakeBalls.get(0).getY());
-        //System.out.println(snakeBalls.get(0).getY());
-    }
-    public void updateSnakeWithoutInput(){
-        float lastX=snakeBalls.get(0).getX();
-        float lastY=snakeBalls.get(0).getY();
-        float currX,currY;
-        for (int i =1;i<snakeBalls.size();i++){
-            snakeBalls.get(i).setX(lastX);
-            snakeBalls.get(i).setY(lastY-i);
-
-        }
-        snakeBalls.get(0).setY(snakeBalls.get(0).getY());
-
-    }
     public void deleteBallToSnake(){
         if (snakeBalls.size()>0)
             snakeBalls.remove(snakeBalls.size()-1);

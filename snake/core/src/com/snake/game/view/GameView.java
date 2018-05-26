@@ -4,15 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.snake.game.Position;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
@@ -34,7 +28,6 @@ import java.util.Random;
 
 public class GameView extends ScreenAdapter {
     public final static float PIXEL_TO_SQUARE = 0.04f;
-    public static final float ANIMATION_COIN_SPEED=0.1f;
     private final SnakeSmash game;
     public ArrayList<Position> positions;
     private Music music;
@@ -57,6 +50,7 @@ public class GameView extends ScreenAdapter {
     public GameView(SnakeSmash game, int speed) {
         this.game = game;
         GameController.getInstance().speed = speed;
+        GameController.getInstance().saveSpeed=speed;
         loadAssets();
         scoreFont = game.getFont();
 
@@ -175,10 +169,12 @@ public class GameView extends ScreenAdapter {
 
         if(!GameController.getInstance().gameOver){
             handleInputs(delta);
+
             GameController.getInstance().updateCoin(delta);
             GameController.getInstance().updateWalls(delta);
             GameController.getInstance().updateSquares(delta);
             GameController.getInstance().updateBalls(delta);
+            GameController.getInstance().detectCollisionCoins(delta);
             GameController.getInstance().detectCollisionSquare(delta);
             GameController.getInstance().detectCollisionBalls(delta);
             GameController.getInstance().detectCollisionWalls(delta);
@@ -228,14 +224,12 @@ private void drawCoin(float delta){
 }
     private void drawEntities() {
         EntityView view;
-        view = ViewFactory.makeView(game, GameModel.getInstance().snakeBalls.get(0));
-        view.update(GameModel.getInstance().snakeBalls.get(0));
+        view = ViewFactory.makeView(game, GameModel.getInstance().getSnake());
+        view.update(GameModel.getInstance().getSnake());
         view.draw(game.getBatch());
-        Position actual = new Position(GameModel.getInstance().snakeBalls.get(0).getX(),GameModel.getInstance().snakeBalls.get(0).getY());
+        Position actual = new Position(GameModel.getInstance().getSnake().getX(),GameModel.getInstance().getSnake().getY());
         positions.add(0,actual);
-        //System.out.print("Add: " + actual.getX());
-
-        for (int i =1; i < GameModel.getInstance().snakeBalls.size();i++){
+        for (int i =1; i < GameModel.getInstance().getSnake().getSize();i++){
             if (i*5<positions.size()) {
                 BallModel ball = new BallModel(positions.get(i *5).getX(), 10-i, 0, 0);
                 view.update(ball);
@@ -258,8 +252,6 @@ private void drawCoin(float delta){
             GameController.getInstance().shiftRight(delta,GameController.getInstance().speed);
        else if (isLeft() || isJustLeft())
             GameController.getInstance().shiftLeft(delta,GameController.getInstance().speed);
-        else
-            GameController.getInstance().noInput(delta);
 
     }
     public boolean isRight(){
@@ -335,6 +327,6 @@ private void drawCoin(float delta){
         int score = GameController.getInstance().getScore();
         System.out.println(score);
 
-        //scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
+        scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
     }
 }
