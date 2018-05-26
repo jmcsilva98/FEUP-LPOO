@@ -99,6 +99,7 @@ public class GameView extends ScreenAdapter {
     public void show() {
         music = game.getAssetManager().get("gameMusic.mp3");
         music.setLooping(true);
+
         if(game.getMusic()){
             music.play();
         }
@@ -109,6 +110,7 @@ public class GameView extends ScreenAdapter {
 
         if(GameController.getInstance().gameOver) {
             this.dispose();
+            music.stop();
             game.setScreen(new GameOverMenu(game, GameController.getInstance().getScore()));
             return;
         }

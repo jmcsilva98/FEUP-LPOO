@@ -9,12 +9,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Align;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
+import com.snake.game.tools.SaveData;
 import com.snake.game.view.GameView;
 
+import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.keyTyped;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
@@ -32,11 +35,12 @@ public class GameOverMenu implements Screen {
     private static final int SCORE_WIDTH = 210;
     private static final int SCORE_HEIGHT = 60;
     private static final int SCORE_Y = 350;
-    private static final int CROWN_WIDTH = 100;
-    private static final int CROWN_HEIGHT = 100;
+    private static final int CROWN_WIDTH = 75;
+    private static final int CROWN_HEIGHT = 75;
     private static final int CROWN_Y = 425;
 
-    protected final SnakeSmash game;
+
+      protected final SnakeSmash game;
 
     private Texture exitBtn;
     private Texture title;
@@ -44,13 +48,19 @@ public class GameOverMenu implements Screen {
     private Texture scoresBase;
     private Texture crown;
     private Texture homeBtn;
+
     int score, highscore;
     BitmapFont scoreFont;
+
+    /*private boolean newHighscore;
+    private String playerName;
+    private int currentChar;
+    private ShapeRenderer shapeRenderer;*/
 
     public GameOverMenu(final SnakeSmash game, int score) {
         this.game = game;
         this.score = score;
-
+        SaveData.loadData();
         //gets highscore from the save file
         Preferences prefs = Gdx.app.getPreferences("snakesmash");
         this.highscore = prefs.getInteger("highscore", 0);
@@ -60,6 +70,13 @@ public class GameOverMenu implements Screen {
             prefs.putInteger("highscore", score);
             prefs.flush(); //saves the file
         }
+
+       /*newHighscore = SaveData.gameData.isHighscore(score);
+       if(newHighscore){
+           playerName = new char[] {'A','A', 'A', 'A', 'A'};
+           currentChar = 0;
+       }*/
+
 
         scoreFont = game.getFont();
         exitBtn = new Texture("exitBtn.png");
@@ -79,6 +96,7 @@ public class GameOverMenu implements Screen {
                 int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
                 if (game.camera.getInputInGameWorld().x < x + PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > PLAY_Y) {
                         gameOverMenuScreen.dispose();
+                         scoreFont.setColor(Color.WHITE);
                          GameModel.restart();
                          GameController.restart();
                         game.setScreen(new GameView(game, 6));
@@ -124,20 +142,10 @@ public class GameOverMenu implements Screen {
         game.getBatch().begin();
 
         game.batch.draw(title, SCREEN_WIDTH / 2 - TITLE_WIDTH / 2, TITLE_Y, TITLE_WIDTH, TITLE_HEIGHT);
-        game.getBatch().draw(crown, SCREEN_WIDTH / 2 - CROWN_WIDTH / 2, CROWN_Y, CROWN_WIDTH, CROWN_HEIGHT);
         game.getBatch().draw(scoresBase, SCREEN_WIDTH / 2 - SCORE_WIDTH / 2, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
 
         int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
         game.getBatch().draw(playAgainBtn, x, PLAY_Y,PLAY_WIDTH, PLAY_HEIGHT);
-       /* if (game.camera.getInputInGameWorld().x < x + PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > PLAY_Y)
-            {
-                if(Gdx.input.isTouched()) {
-                    this.dispose();
-                    //game.getBatch().end();
-                    game.setScreen(new GameView(game, 6));
-                }
-            }*/
-
 
 
         x = 125;
@@ -146,9 +154,73 @@ public class GameOverMenu implements Screen {
         x += 75 + DEFAULT_ICON_WIDTH;
         game.getBatch().draw(exitBtn, x, ICON_Y, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT);
 
-
+        if(score >= 100)
+        scoreFont.draw(game.getBatch(), ""+score, SCREEN_WIDTH / 2 - SCORE_WIDTH / 2 + 80, SCORE_Y + 45 );
+        else
         scoreFont.draw(game.getBatch(), ""+score, SCREEN_WIDTH / 2 - SCORE_WIDTH / 2 + 90, SCORE_Y + 45 );
-        //scoreFont.draw(game.getBatch(), ""+highscore, SCREEN_WIDTH / 2 - SCORE_WIDTH / 2 + 90, SCORE_Y - 50 );
+
+        if(highscore > score)
+        {
+            scoreFont.draw(game.getBatch(), "Highscore: " + highscore, SCREEN_WIDTH / 2 - SCORE_WIDTH/ 2, 500);
+        }else{
+            scoreFont.setColor(Color.YELLOW);
+            game.getBatch().draw(crown, SCREEN_WIDTH / 2 - CROWN_WIDTH / 2, CROWN_Y, CROWN_WIDTH, CROWN_HEIGHT);
+
+            //scoreFont.draw(game.getBatch(), "Insert your name (max 5 ch)\n", SCREEN_WIDTH / 2 -  CROWN_WIDTH / 2, 280);
+
+            /*for(int i = 0; i < playerName.length; i++){
+                scoreFont.draw(game.getBatch(), Character.toString(playerName[i]),230 + 14 * i, 250);
+            }*/
+
+        }
+
+
+        /*shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.line(230 + 14 * currentChar, 240, 244 + 14 * currentChar, 240, 258 + 14 * currentChar, + 272 + 14 * currentChar );
+        shapeRenderer.end();
+
+        if(Gdx.input.getInputProcessor().keyTyped(' ')){
+            if(newHighscore){
+                SaveData.gameData.addHighscore(score, new String(playerName));
+            }
+            SaveData.saveData();
+        }
+
+        if(Gdx.input.getInputProcessor().keyTyped('w')){
+            if(playerName[currentChar] == ' '){
+                playerName[currentChar] = 'Z';
+            }
+        }else{
+            playerName[currentChar]--;
+            if(playerName[currentChar] < 'A'){
+                playerName[currentChar] = ' ';
+            }
+        }
+
+        if(Gdx.input.getInputProcessor().keyTyped('s')){
+            if(playerName[currentChar] == ' '){
+                playerName[currentChar] = 'A';
+            }
+        }else{
+            playerName[currentChar]++;
+            if(playerName[currentChar] > 'Z'){
+                playerName[currentChar] = ' ';
+            }
+        }
+        if(Gdx.input.getInputProcessor().keyTyped('d')){
+
+            if(currentChar < playerName.length -1){
+                currentChar++;
+
+            }
+        }
+        if(Gdx.input.getInputProcessor().keyTyped('a')){
+
+            if(currentChar > 0){
+                currentChar--;
+            }
+        }*/
+
         game.getBatch().end();
     }
 

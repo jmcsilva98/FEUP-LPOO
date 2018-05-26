@@ -10,6 +10,9 @@ import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
+import com.snake.game.tools.GameData;
+import com.snake.game.tools.SaveData;
+import com.snake.game.view.menus.GameOverMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class GameController {
     public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
     public int coins;
     public boolean gameOver = false;
+
 
     private GameController() {
         world = new World(new Vector2(0, 0), true);

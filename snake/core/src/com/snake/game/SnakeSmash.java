@@ -1,23 +1,17 @@
 package com.snake.game;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
-import com.snake.game.view.GameView;
-import com.snake.game.view.menus.GameOverMenu;
 import com.snake.game.view.menus.MainMenu;
 
 
@@ -41,6 +35,7 @@ public class SnakeSmash extends Game {
 		if (Gdx.app.getType()== ApplicationType.Android || Gdx.app.getType()==ApplicationType.iOS)
             IS_MOBILE = true;
 
+		//Gdx.input.setInputProcessor(new GameInputProcessor());
 		initFont();
 
 
@@ -69,6 +64,7 @@ public class SnakeSmash extends Game {
 	public void render () {
 		batch.setProjectionMatrix(camera.combined());
 		super.render();
+
 	}
 
 	@Override
