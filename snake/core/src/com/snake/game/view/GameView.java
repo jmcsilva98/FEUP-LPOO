@@ -43,6 +43,7 @@ public class GameView extends ScreenAdapter {
     int coinNumber=0;
     private float deltaTime = 0;
     BitmapFont scoreFont;
+    BitmapFont snakeNumber;
 
     Random random;
     public int generateSquareColors = 0;
@@ -53,6 +54,7 @@ public class GameView extends ScreenAdapter {
         GameController.getInstance().saveSpeed=speed;
         loadAssets();
         scoreFont = game.getFont();
+        this.snakeNumber=game.getFont();
 
         random = new Random();
         positions = new ArrayList<Position>();
@@ -120,12 +122,12 @@ public class GameView extends ScreenAdapter {
         game.getBatch().begin();
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
         drawEntities();
-        drawScore();
         drawCoin(delta);
         //drawWalls();
-
-        drawSquares();
         drawBalls();
+        drawSquares();
+
+        drawScore();
         game.getBatch().end();
         if (GameController.getInstance().speed !=0) {
             squareSpawnTimer -= delta;
@@ -229,6 +231,7 @@ private void drawCoin(float delta){
         view = ViewFactory.makeView(game, GameModel.getInstance().getSnake());
         view.update(GameModel.getInstance().getSnake());
         view.draw(game.getBatch());
+       snakeNumber.draw(game.getBatch(),""+GameModel.getInstance().getSnake().getSize(), (GameModel.getInstance().getSnake().getX()-1)*480/18.7f, 720*15/37f);
         Position actual = new Position(GameModel.getInstance().getSnake().getX(),GameModel.getInstance().getSnake().getY());
         positions.add(0,actual);
         for (int i =1; i < GameModel.getInstance().getSnake().getSize();i++){
@@ -327,8 +330,6 @@ private void drawCoin(float delta){
 
     public void drawScore(){
         int score = GameController.getInstance().getScore();
-        //System.out.println(score);
-
         scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
     }
 }
