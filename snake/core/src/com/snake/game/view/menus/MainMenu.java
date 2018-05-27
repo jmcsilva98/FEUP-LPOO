@@ -2,27 +2,15 @@ package com.snake.game.view.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.snake.game.SnakeSmash;
 import com.snake.game.view.GameView;
-
-//import sun.applet.Main;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
-
+//import sun.applet.Main;
 
 public class MainMenu implements Screen {
     private static final int DEFAULT_ICON_WIDTH = 75;

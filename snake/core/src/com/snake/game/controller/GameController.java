@@ -10,9 +10,6 @@ import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
-import com.snake.game.tools.GameData;
-import com.snake.game.tools.SaveData;
-import com.snake.game.view.menus.GameOverMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +68,16 @@ public class GameController {
 
         if (x > 18.7)
             x = (float) 18.7;
+        for (SquareModel square :GameModel.getInstance().getSquares()){
+            if ( x > square.getX()-2.8f && x<=square.getX()-2.4f && x<square.getX() && square.getY() - 2.8 <= GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getY() <= square.getY()+2.8) {
+                x = square.getX() - 2.6f;
+                System.out.println(x +"___"+square.getX()+"___"+square.getY());
+                if (x<0.48){
+                    x =0.48f;
+                }
+
+            }
+        }
         GameModel.getInstance().getSnake().setX(x);
 
 
@@ -81,6 +88,16 @@ public class GameController {
         float x = GameModel.getInstance().getSnake().getX() - (speed *1.5f)* Gdx.graphics.getDeltaTime();
         if (x < 0.48)
             x = (float) 0.48;
+
+        for (SquareModel square :GameModel.getInstance().getSquares()){
+            if ( x >= square.getX()+ 2f&& x<=square.getX()+2.4f && x>square.getX() && square.getY() - 2.4 <= GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getY() <= square.getY()+2.8) {
+                x = square.getX() + 2.4f;
+                if (x>18.7){
+                    x =18.7f;
+                }
+
+            }
+        }
         GameModel.getInstance().getSnake().setX(x);
 }
 
@@ -121,13 +138,15 @@ public class GameController {
     public void detectCollisionSquare(float delta) {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
-            if (!gameOver && square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() + 1.9 > square.getX() && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9 && GameModel.getInstance().getSnake().getY() < square.getY()) {
-                speed = 0;
-                if (square.getValue() == 0) {
-                    squaresToRemove.add(square);
-                    speed = saveSpeed;
-                } else
-                    decrementSquare(delta, square);
+
+            if (!gameOver && square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() > square.getX()-2.4 && GameModel.getInstance().getSnake().getX() < square.getX() + 2.4 && GameModel.getInstance().getSnake().getY() < square.getY()) {
+                    speed = 0;
+
+                    if (square.getValue() == 0) {
+                        squaresToRemove.add(square);
+                        speed = saveSpeed;
+                    } else
+                        decrementSquare(delta, square);
             }
         }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);

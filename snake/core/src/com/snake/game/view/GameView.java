@@ -238,7 +238,7 @@ private void drawCoin(float delta){
                 view.draw(game.getBatch());
             }
         }
-        System.out.println();
+        //System.out.println();
      }
     private void drawWalls(){
         EntityView view;
@@ -327,7 +327,7 @@ private void drawCoin(float delta){
 
     public void drawScore(){
         int score = GameController.getInstance().getScore();
-        System.out.println(score);
+        //System.out.println(score);
 
         scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
     }
