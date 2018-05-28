@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
-import com.snake.game.tools.FacebookApi;
 import com.snake.game.view.GameView;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
@@ -25,7 +24,6 @@ public class MainMenu implements Screen {
     private static final int INTERMEDIATE_Y = 300;
     private static final int ICON_Y = 100;
     private static final int IMPOSSIBLE_Y = 200;
-
 
     protected final SnakeSmash game;
 
@@ -103,10 +101,8 @@ public class MainMenu implements Screen {
 
                 x += 25 + DEFAULT_ICON_WIDTH;
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
-                   // mainMenuScreen.dispose();
+                    mainMenuScreen.dispose();
                     //go to share menu
-
-
 
 
                 }
