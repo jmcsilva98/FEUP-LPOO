@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
+import com.snake.game.tools.FacebookApi;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.menus.MainMenu;
@@ -25,6 +26,8 @@ public class SnakeSmash extends Game {
 	public GameCamera camera;
 	private boolean music = true;
 	private BitmapFont bitmapfont;
+	private static final String API_APP_ID = "611409215906032";
+	private FacebookApi facebookApi;
 
 	@Override
 	public void create () {
@@ -35,6 +38,8 @@ public class SnakeSmash extends Game {
 		if (Gdx.app.getType()== ApplicationType.Android || Gdx.app.getType()==ApplicationType.iOS)
             IS_MOBILE = true;
 
+		facebookApi = new FacebookApi(API_APP_ID);
+
 		//Gdx.input.setInputProcessor(new GameInputProcessor());
 		initFont();
 
@@ -43,7 +48,8 @@ public class SnakeSmash extends Game {
 	}
 
 	private void startGame() {
-		setScreen(new MainMenu(this));
+		facebookApi.signIn();
+		//setScreen(new MainMenu(this));
 		//setScreen(new GameView(this,9));
 	}
 
