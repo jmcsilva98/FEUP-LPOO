@@ -1,10 +1,12 @@
 package com.snake.game.view.menus;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
+import com.snake.game.tools.FacebookApi;
 import com.snake.game.view.GameView;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
@@ -24,6 +26,8 @@ public class MainMenu implements Screen {
     private static final int INTERMEDIATE_Y = 300;
     private static final int ICON_Y = 100;
     private static final int IMPOSSIBLE_Y = 200;
+    private static final String API_APP_ID = "611409215906032";
+    private FacebookApi facebookApi;
 
     protected final SnakeSmash game;
 
@@ -46,7 +50,7 @@ public class MainMenu implements Screen {
         exitBtn = new Texture("exitBtn.png");
         settingsBtn = new Texture("settingsBtn.png");
         beginnerActiveBtn = new Texture("BeginnerActive.png");
-        beginnerInactiveBtn = new Texture("beginnerInactive.png");
+        beginnerInactiveBtn = new Texture("BeginnerInactive.png");
         intermediateActiveBtn = new Texture("intermediateActive.png");
         intermediateInactiveBtn = new Texture("intermediateInactive.png");
         impossibleActiveBtn = new Texture("impossibleActive.png");
@@ -54,7 +58,7 @@ public class MainMenu implements Screen {
         facebookBtn = new Texture("shareBtn.png");
         scoresBtn = new Texture("scoresBtn.png");
         title = new Texture("title.png");
-
+        facebookApi = new FacebookApi(API_APP_ID);
         final MainMenu mainMenuScreen = this;
 
         Gdx.input.setInputProcessor(new InputAdapter(){
@@ -103,6 +107,8 @@ public class MainMenu implements Screen {
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                     mainMenuScreen.dispose();
                     //go to share menu
+
+                    facebookApi.signIn();
 
 
                 }
