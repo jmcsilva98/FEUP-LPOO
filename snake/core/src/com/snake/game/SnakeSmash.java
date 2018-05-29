@@ -26,6 +26,7 @@ public class SnakeSmash extends Game {
 	private boolean music = true;
 	private BitmapFont bitmapfont;
 
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

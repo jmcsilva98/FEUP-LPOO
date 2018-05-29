@@ -37,9 +37,8 @@ public class GameModel {
         coins = new ArrayList<CoinModel>();
         snakeBalls=new ArrayList<BallModel>();
         walls=new ArrayList<WallModel>();
+
     }
-
-
 
     public SnakeModel getSnake(){
         return snake;
@@ -47,20 +46,38 @@ public class GameModel {
     public List<BallModel> getBalls(){
         return balls;
     }
-    public List<SquareModel> getSquares() {
-        return squares;
+    public List<SquareModel> getSquares() {return squares;}
+    public List<CoinModel> getCoins(){return coins;}
+    public List<WallModel> getWalls() {return walls;}
+    public List<BallModel> getSnakeBalls() {return snakeBalls;}
+
+    public void setSnake(SnakeModel snake) {
+        this.snake = snake;
     }
 
-    public List<WallModel> getWalls() {
-        return walls;
+    public void setBalls(List<BallModel> balls) {
+        this.balls = balls;
+    }
+    public void setSnakeBalls(List<BallModel> snakeBalls){
+        this.snakeBalls = snakeBalls;
     }
 
-    public List<CoinModel> getCoins(){
-        return coins;
+    public void setCoins(List<CoinModel> coins) {
+        this.coins = coins;
     }
+
+    public void setSquares(List<SquareModel> squares) {
+        this.squares = squares;
+    }
+
+    public void setWalls(List<WallModel> walls) {
+        this.walls = walls;
+    }
+
+
+
     public void createSquare (float x, float y, int value,EntityModel.ModelType model) {
-        SquareModel square;
-        square = new SquareModel(x, y, 0,value, model);
+        SquareModel square = new SquareModel(x, y, 0,value, model);
         calculateNumbers(square);
         squares.add(square);
 
@@ -84,7 +101,7 @@ public class GameModel {
         }
     }
 
-    private void whichNumber(SquareModel square, int i,float x) {
+    public void whichNumber(SquareModel square, int i, float x) {
         switch (i) {
             case 0:
                 square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.ZERO));
