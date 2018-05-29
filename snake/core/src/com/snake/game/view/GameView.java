@@ -48,7 +48,7 @@ public class GameView extends ScreenAdapter {
     Random random;
     public int generateSquareColors = 0;
 
-    public GameView(SnakeSmash game, int speed) {
+    public GameView(SnakeSmash game, float speed) {
         this.game = game;
         GameController.getInstance().speed = speed;
         GameController.getInstance().saveSpeed=speed;

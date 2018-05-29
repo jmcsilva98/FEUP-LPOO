@@ -99,7 +99,7 @@ public class GameOverMenu implements Screen {
                          scoreFont.setColor(Color.WHITE);
                          GameModel.restart();
                          GameController.restart();
-                        game.setScreen(new GameView(game, 6));
+                        game.setScreen(new GameView(game, 9));
 
                 }
                 x = 125;
