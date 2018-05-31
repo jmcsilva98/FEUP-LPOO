@@ -24,6 +24,7 @@ public class SnakeSmash extends Game {
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
 	private boolean music = true;
+	private boolean vibrate =true;
 	private BitmapFont bitmapfont;
 
 
@@ -82,6 +83,9 @@ public class SnakeSmash extends Game {
 
 	public boolean getMusic() {
 		return music;
+	}
+	public boolean getVibrate() {
+		return vibrate;
 	}
 
 	public void setMusic(boolean music) {

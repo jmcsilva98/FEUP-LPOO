@@ -5,6 +5,7 @@ public class SnakeModel extends EntityModel {
     public static final int WIDTH =17;
     public static final int HEIGHT =17;
     private int size;
+    public boolean collideWithSquare=false;
 
     public  SnakeModel(int size, float x, float y,float rotation){
         super(x,y,rotation);

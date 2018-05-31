@@ -141,10 +141,11 @@ public class GameController {
 
             if (!gameOver && square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() > square.getX()-2.4 && GameModel.getInstance().getSnake().getX() < square.getX() + 2.4 && GameModel.getInstance().getSnake().getY() < square.getY()) {
                     speed = 0;
-
+                GameModel.getInstance().getSnake().collideWithSquare=true;
                     if (square.getValue() == 0) {
                         squaresToRemove.add(square);
                         speed = saveSpeed;
+                        GameModel.getInstance().getSnake().collideWithSquare=false;
                     } else
                         decrementSquare(delta, square);
             }
