@@ -7,6 +7,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
+import com.snake.game.controller.GameController;
 import com.snake.game.tools.FacebookApi;
 import com.snake.game.view.GameView;
 
@@ -113,7 +114,7 @@ public class MainMenu extends ScreenAdapter {
                     //go to share menu
 
                    // facebookApi.signIn();
-                    game.getFacebook().login();
+
 
                 }
 

@@ -39,6 +39,7 @@ public class GameOverMenu extends ScreenAdapter {
     private static final int CROWN_WIDTH = 75;
     private static final int CROWN_HEIGHT = 75;
     private static final int CROWN_Y = 425;
+    private static final int SHARE_Y = 260;
 
 
       protected final SnakeSmash game;
@@ -49,16 +50,13 @@ public class GameOverMenu extends ScreenAdapter {
     private Texture scoresBase;
     private Texture crown;
     private Texture homeBtn;
+    private Texture shareBtn;
 
     int score, highscore;
     BitmapFont scoreFont;
 
-    /*private boolean newHighscore;
-    private String playerName;
-    private int currentChar;
-    private ShapeRenderer shapeRenderer;*/
 
-    public GameOverMenu(final SnakeSmash game, int score) {
+    public GameOverMenu(final SnakeSmash game, final int score) {
         this.game = game;
         this.score = score;
         SaveData.loadData();
@@ -72,12 +70,6 @@ public class GameOverMenu extends ScreenAdapter {
             prefs.flush(); //saves the file
         }
 
-       /*newHighscore = SaveData.gameData.isHighscore(score);
-       if(newHighscore){
-           playerName = new char[] {'A','A', 'A', 'A', 'A'};
-           currentChar = 0;
-       }*/
-
 
         scoreFont = game.getFont();
         exitBtn = new Texture("exitBtn.png");
@@ -86,7 +78,7 @@ public class GameOverMenu extends ScreenAdapter {
         playAgainBtn = new Texture("playAgainBtn.png");
         scoresBase = new Texture("scoreBase.png");
         crown = new Texture("crown.png");
-
+        shareBtn = new Texture("shareBtn.png");
 
         final GameOverMenu gameOverMenuScreen = this;
 
@@ -117,7 +109,13 @@ public class GameOverMenu extends ScreenAdapter {
 
                 }
 
+                x = 200;
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
+                   gameOverMenuScreen.dispose();
+                   game.getFacebook().login();
+                   game.getFacebook().publishing(score);
 
+                }
                 return super.touchUp(screenX,screenY,pointer,button);
             }
 
@@ -158,60 +156,12 @@ public class GameOverMenu extends ScreenAdapter {
             scoreFont.setColor(Color.YELLOW);
             game.getBatch().draw(crown, SCREEN_WIDTH / 2 - CROWN_WIDTH / 2, CROWN_Y, CROWN_WIDTH, CROWN_HEIGHT);
 
-            //scoreFont.draw(game.getBatch(), "Insert your name (max 5 ch)\n", SCREEN_WIDTH / 2 -  CROWN_WIDTH / 2, 280);
-
-            /*for(int i = 0; i < playerName.length; i++){
-                scoreFont.draw(game.getBatch(), Character.toString(playerName[i]),230 + 14 * i, 250);
-            }*/
 
         }
 
+        x = 200;
+        game.getBatch().draw(shareBtn, x, SHARE_Y);
 
-        /*shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.line(230 + 14 * currentChar, 240, 244 + 14 * currentChar, 240, 258 + 14 * currentChar, + 272 + 14 * currentChar );
-        shapeRenderer.end();
-
-        if(Gdx.input.getInputProcessor().keyTyped(' ')){
-            if(newHighscore){
-                SaveData.gameData.addHighscore(score, new String(playerName));
-            }
-            SaveData.saveData();
-        }
-
-        if(Gdx.input.getInputProcessor().keyTyped('w')){
-            if(playerName[currentChar] == ' '){
-                playerName[currentChar] = 'Z';
-            }
-        }else{
-            playerName[currentChar]--;
-            if(playerName[currentChar] < 'A'){
-                playerName[currentChar] = ' ';
-            }
-        }
-
-        if(Gdx.input.getInputProcessor().keyTyped('s')){
-            if(playerName[currentChar] == ' '){
-                playerName[currentChar] = 'A';
-            }
-        }else{
-            playerName[currentChar]++;
-            if(playerName[currentChar] > 'Z'){
-                playerName[currentChar] = ' ';
-            }
-        }
-        if(Gdx.input.getInputProcessor().keyTyped('d')){
-
-            if(currentChar < playerName.length -1){
-                currentChar++;
-
-            }
-        }
-        if(Gdx.input.getInputProcessor().keyTyped('a')){
-
-            if(currentChar > 0){
-                currentChar--;
-            }
-        }*/
 
         game.getBatch().end();
     }

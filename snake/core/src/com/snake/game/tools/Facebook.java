@@ -6,7 +6,10 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.scope.ScopeBuilder;
+import com.restfb.types.GraphResponse;
 import com.restfb.types.User;
+
+import static java.lang.System.out;
 
 
 public class Facebook {
@@ -28,6 +31,12 @@ public class Facebook {
         Gdx.net.openURI(loginDialogUrl);
     }
 
+    public void publishing(int score){
+
+       GraphResponse publishMessageResponse = facebookClient.publish("me/feed", GraphResponse.class,
+                Parameter.with("message", "I just scored " + score + " in Snake Smash!"));
+        out.println("Published message ID: " + publishMessageResponse.getId());
+    }
 
 
 
