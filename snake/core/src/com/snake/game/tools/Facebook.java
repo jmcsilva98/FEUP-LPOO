@@ -29,6 +29,7 @@ public class Facebook {
     public void login() {
         String loginDialogUrl = facebookClient.getLoginDialogUrl(appId, redirectUri, scopeBuilder);
         Gdx.net.openURI(loginDialogUrl);
+
     }
 
     public void publishing(int score){
