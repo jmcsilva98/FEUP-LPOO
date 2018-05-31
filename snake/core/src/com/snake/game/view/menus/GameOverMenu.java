@@ -114,7 +114,7 @@ public class GameOverMenu extends ScreenAdapter {
                    gameOverMenuScreen.dispose();
                    /*game.getFacebook().login();
                    game.getFacebook().publishing(score);*/
-                   
+
 
                 }
                 return super.touchUp(screenX,screenY,pointer,button);
