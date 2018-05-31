@@ -112,8 +112,8 @@ public class GameOverMenu extends ScreenAdapter {
                 x = 200;
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                    gameOverMenuScreen.dispose();
-                   game.getFacebook().login();
-                   game.getFacebook().publishing(score);
+                   /*game.getFacebook().login();
+                   game.getFacebook().publishing(score);*/
 
                 }
                 return super.touchUp(screenX,screenY,pointer,button);

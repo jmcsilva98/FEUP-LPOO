@@ -114,7 +114,8 @@ public class MainMenu extends ScreenAdapter {
                     //go to share menu
 
                    // facebookApi.signIn();
-
+                    game.getFacebook().login();
+                    game.getFacebook().publishing(150);
 
                 }
 
