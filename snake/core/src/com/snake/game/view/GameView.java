@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -31,6 +32,7 @@ public class GameView extends ScreenAdapter {
     private final SnakeSmash game;
     public ArrayList<Position> positions;
     private Music music;
+    public Sound coinSound;
     private float squareSpawnTimer;
     private float ballSpawnTimer;
     private float coinSpawnTimer;
@@ -94,6 +96,7 @@ public class GameView extends ScreenAdapter {
 
 
         this.game.getAssetManager().load("gameMusic.mp3", Music.class);
+        this.game.getAssetManager().load("coinSound.mp3", Sound.class);
         this.game.getAssetManager().finishLoading();
 
     }
@@ -101,6 +104,8 @@ public class GameView extends ScreenAdapter {
     @Override
     public void show() {
         music = game.getAssetManager().get("gameMusic.mp3");
+
+
         music.setLooping(true);
 
         if(game.getMusic()){
@@ -197,25 +202,6 @@ public class GameView extends ScreenAdapter {
 
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
 
 private void drawCoin(float delta){
        // System.out.println("COIN SIZE:::"+ GameModel.getInstance().getCoins().size());
@@ -356,4 +342,8 @@ private void drawCoin(float delta){
 
 
     }
+
+ /*  public Sound getCoinSound(){
+        return coinSound;
+    }*/
 }

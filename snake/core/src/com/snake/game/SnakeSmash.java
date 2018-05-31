@@ -3,16 +3,20 @@ package com.snake.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
+import com.snake.game.tools.Facebook;
 import com.snake.game.tools.GameCamera;
 import com.snake.game.tools.ScrollingBackground;
 import com.snake.game.view.menus.MainMenu;
+
 
 
 public class SnakeSmash extends Game {
@@ -20,12 +24,15 @@ public class SnakeSmash extends Game {
 	public static final int HEIGHT = 720;
 	public static boolean IS_MOBILE = false;
 	public SpriteBatch batch;
+	private Sound coinSound;
 	private AssetManager assetManager;
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
 	private boolean music = true;
 	private boolean vibrate =true;
 	private BitmapFont bitmapfont;
+
+	private Facebook facebook;
 
 
 	@Override
@@ -37,7 +44,9 @@ public class SnakeSmash extends Game {
 		if (Gdx.app.getType()== ApplicationType.Android || Gdx.app.getType()==ApplicationType.iOS)
             IS_MOBILE = true;
 
+		facebook = new Facebook();
 		//Gdx.input.setInputProcessor(new GameInputProcessor());
+
 		initFont();
 
 
@@ -84,6 +93,11 @@ public class SnakeSmash extends Game {
 	public boolean getMusic() {
 		return music;
 	}
+
+	public Sound getCoinSound() {
+		return coinSound;
+	}
+
 	public boolean getVibrate() {
 		return vibrate;
 	}
@@ -108,5 +122,9 @@ public class SnakeSmash extends Game {
 
 	public BitmapFont getFont() {
 		return bitmapfont;
+	}
+
+	public Facebook getFacebook() {
+		return facebook;
 	}
 }

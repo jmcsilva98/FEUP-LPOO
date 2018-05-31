@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +22,7 @@ import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.keyTyped;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
-public class GameOverMenu implements Screen {
+public class GameOverMenu extends ScreenAdapter {
 
     private static final int DEFAULT_ICON_WIDTH = 75;
     private static final int DEFAULT_ICON_HEIGHT = 75;
@@ -124,15 +125,6 @@ public class GameOverMenu implements Screen {
     }
 
     @Override
-    public void show() {
-
-
-
-
-
-    }
-
-    @Override
     public void render(float delta) {
         // Clear the screen
         Gdx.gl.glClearColor(255 / 255f, 181 / 255f, 141 / 255f, 1);
@@ -224,27 +216,6 @@ public class GameOverMenu implements Screen {
         game.getBatch().end();
     }
 
-
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {

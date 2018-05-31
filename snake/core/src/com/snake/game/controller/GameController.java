@@ -1,6 +1,7 @@
 package com.snake.game.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.snake.game.controller.entities.SnakeBody;
@@ -10,6 +11,7 @@ import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
 import com.snake.game.model.entities.WallModel;
+import com.snake.game.view.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class GameController {
     public static final int SNAKE_WIDTH = SNAKE_WIDTH_PIXEL * 3;
     public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
     private int coins;
+    private Sound sound;
     public boolean gameOver = false;
 
 
@@ -45,6 +48,8 @@ public class GameController {
         List<BallModel> balls = GameModel.getInstance().getBalls();
         coins = 0;
         saveSpeed = speed;
+
+
     }
 
     public static GameController getInstance() {

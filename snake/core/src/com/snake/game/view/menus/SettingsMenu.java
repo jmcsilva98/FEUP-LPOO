@@ -1,6 +1,7 @@
 package com.snake.game.view.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
@@ -13,7 +14,7 @@ import java.util.Set;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 
-public class SettingsMenu implements Screen {
+public class SettingsMenu extends ScreenAdapter {
 
     private static final int DEFAULT_ICON_WIDTH = 75;
     private static final int DEFAULT_ICON_HEIGHT = 75;
@@ -83,10 +84,7 @@ public class SettingsMenu implements Screen {
 
         });
     }
-    @Override
-    public void show() {
 
-    }
 
     @Override
     public void render(float delta) {
@@ -130,25 +128,7 @@ public class SettingsMenu implements Screen {
 
         game.getBatch().end();
     }
-    @Override
-    public void resize(int width, int height) {
 
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {

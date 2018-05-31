@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,7 +17,7 @@ import com.snake.game.tools.SaveData;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
-public class HighscoresMenu implements Screen {
+public class HighscoresMenu extends ScreenAdapter {
 
     private int highscore;
     protected final SnakeSmash game;
@@ -82,11 +83,6 @@ public class HighscoresMenu implements Screen {
 
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
     public void render(float delta) {
         // Clear the screen
         Gdx.gl.glClearColor(255 / 255f, 181 / 255f, 141 / 255f, 1);
@@ -133,25 +129,6 @@ public class HighscoresMenu implements Screen {
         game.getBatch().end();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {

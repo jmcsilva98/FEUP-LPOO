@@ -3,6 +3,7 @@ package com.snake.game.view.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
@@ -14,7 +15,7 @@ import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
 //import sun.applet.Main;
 
-public class MainMenu implements Screen {
+public class MainMenu extends ScreenAdapter {
     private static final int DEFAULT_ICON_WIDTH = 75;
     private static final int DEFAULT_ICON_HEIGHT = 75;
     private static final int DEFAULT_PLAY_WIDTH = 175;
@@ -26,9 +27,10 @@ public class MainMenu implements Screen {
     private static final int INTERMEDIATE_Y = 300;
     private static final int ICON_Y = 100;
     private static final int IMPOSSIBLE_Y = 200;
-    private static final String API_APP_ID = "611409215906032";
-    private FacebookApi facebookApi;
 
+    /*private static final String API_APP_ID = "611409215906032";
+    private FacebookApi facebookApi;
+    */
     protected final SnakeSmash game;
 
     private Texture exitBtn;
@@ -58,7 +60,9 @@ public class MainMenu implements Screen {
         facebookBtn = new Texture("shareBtn.png");
         scoresBtn = new Texture("scoresBtn.png");
         title = new Texture("title.png");
-        facebookApi = new FacebookApi(API_APP_ID);
+
+       // facebookApi = new FacebookApi(API_APP_ID);
+
         final MainMenu mainMenuScreen = this;
 
         Gdx.input.setInputProcessor(new InputAdapter(){
@@ -108,8 +112,8 @@ public class MainMenu implements Screen {
                     mainMenuScreen.dispose();
                     //go to share menu
 
-                    facebookApi.signIn();
-
+                   // facebookApi.signIn();
+                    game.getFacebook().login();
 
                 }
 
@@ -119,10 +123,7 @@ public class MainMenu implements Screen {
 
         });
     }
-    @Override
-    public void show() {
 
-    }
 
     @Override
         public void render(float delta) {
@@ -174,25 +175,7 @@ public class MainMenu implements Screen {
         game.getBatch().end();
     }
 
-    @Override
-    public void resize(int width, int height) {
 
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
 
     @Override
     public void dispose() {
