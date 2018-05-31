@@ -40,9 +40,9 @@ public class GameView extends ScreenAdapter {
     private static final float MAX_BALL_SPAWN_TIME = 3f;
     private static final float MIN_COIN_SPAWN_TIME = 1f;
     private static final float MAX_COIN_SPAWN_TIME = 3f;
-    int coinNumber=0;
     private float deltaTime = 0;
-    BitmapFont scoreFont;
+    private Texture singleCoin;
+    BitmapFont font;
     BitmapFont snakeNumber;
 
     Random random;
@@ -53,8 +53,9 @@ public class GameView extends ScreenAdapter {
         GameController.getInstance().speed = speed;
         GameController.getInstance().saveSpeed=speed;
         loadAssets();
-        scoreFont = game.getFont();
+        font = game.getFont();
         this.snakeNumber=game.getFont();
+        singleCoin = new Texture("singleCoin.png");
 
         random = new Random();
         positions = new ArrayList<Position>();
@@ -126,7 +127,7 @@ public class GameView extends ScreenAdapter {
         //drawWalls();
         drawBalls();
         drawSquares();
-
+        drawCoinNumber();
         drawScore();
         game.getBatch().end();
         if (GameController.getInstance().speed !=0) {
@@ -330,6 +331,27 @@ private void drawCoin(float delta){
 
     public void drawScore(){
         int score = GameController.getInstance().getScore();
-        scoreFont.draw(game.getBatch(),"Score\n"+score, 385, 700);
+
+        if(score >= 100)
+            font.draw(game.getBatch(),""+score, 410, 710);
+        else if (score >= 10)
+            font.draw(game.getBatch(),""+score, 420, 710);
+        else
+            font.draw(game.getBatch(),""+score, 430, 710);
+    }
+
+    public void drawCoinNumber(){
+        int coins = GameController.getInstance().getCoins();
+
+        game.getBatch().draw(singleCoin,370, 643);
+
+        if(coins >= 100)
+            font.draw(game.getBatch(), ""+coins, 410, 670);
+        else if(coins >= 10)
+            font.draw(game.getBatch(), ""+coins, 420, 670);
+        else
+            font.draw(game.getBatch(), ""+coins, 430, 670);
+
+
     }
 }

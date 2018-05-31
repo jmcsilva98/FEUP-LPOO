@@ -34,7 +34,7 @@ public class GameController {
     public static final int SNAKE_HEIGHT_PIXEL = 32;
     public static final int SNAKE_WIDTH = SNAKE_WIDTH_PIXEL * 3;
     public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
-    public int coins;
+    private int coins;
     public boolean gameOver = false;
 
 
@@ -165,6 +165,7 @@ public class GameController {
         for (CoinModel coin : GameModel.getInstance().getCoins()){
 
             if (coin.getY()-0.2 < GameModel.getInstance().getSnake().getY() && coin.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < coin.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < coin.getY()){
+                coins++;
                 GameModel.getInstance().getSnake().updateSize(5);
                 coinsToRemove.add(coin);
             }
@@ -202,4 +203,5 @@ public class GameController {
     public int getScore(){
         return score;
     }
+    public int getCoins() {return coins;}
 }
