@@ -35,9 +35,10 @@ ___
 ___
 a. Sigleton - Ensures that a class has only one instance, and provides a global point of access to it. In this case was used in the gameModel and gameController classes.
 
-b. Template - 
+b. Template -  Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure. In this case many functions are overrided.
 
-c. Update -
+c. Update - The game world maintains a collection of objects. Each object implements an update method that simulates one frame of the object’s behavior. Each frame, the game updates every object in the collection. In this case, there are squares, snake , balls and coins that are updated each frame.
+
 
 
 
