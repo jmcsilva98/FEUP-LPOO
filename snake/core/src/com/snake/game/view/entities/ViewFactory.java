@@ -34,8 +34,6 @@ public class ViewFactory {
                 cache.put(model.getType(), new MustardSquareView(game));
             if (model.getType() == EntityModel.ModelType.YELLOWSQUARE)
                 cache.put(model.getType(), new YellowSquareView(game));
-            if (model.getType() == EntityModel.ModelType.WALL)
-                cache.put(model.getType(), new WallView(game));
             if (model.getType() == EntityModel.ModelType.ZERO)
                 cache.put(model.getType(), new ZeroView(game));
             if (model.getType() == EntityModel.ModelType.ONE)

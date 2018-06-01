@@ -1,18 +1,14 @@
 package com.snake.game.model;
 
-import com.badlogic.gdx.Gdx;
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
-import com.snake.game.model.entities.WallModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static jdk.nashorn.internal.parser.TokenType.CASE;
 
 public class GameModel {
 

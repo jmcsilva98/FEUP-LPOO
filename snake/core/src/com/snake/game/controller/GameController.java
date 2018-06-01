@@ -1,9 +1,5 @@
 package com.snake.game.controller;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import com.snake.game.controller.entities.SnakeBody;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
@@ -13,13 +9,15 @@ import com.snake.game.model.entities.SquareModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game controller class
+ */
+
 public class GameController {
 
     private static GameController instance;
 
-    private final World world;
     private int score;
-    private final SnakeBody snakeBody;
     private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
     public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
     public boolean catchCoin=false;
@@ -36,19 +34,21 @@ public class GameController {
     public boolean gameOver = false;
 
     /**
-     *
+     * Game controller constructor
      */
 
     private GameController() {
-        world = new World(new Vector2(0, 0), true);
-        snakeBody = new SnakeBody(world, GameModel.getInstance().getSnake());
         score = 0;
-        List<BallModel> balls = GameModel.getInstance().getBalls();
         coins = 0;
         saveSpeed = speed;
 
 
     }
+
+    /**
+     * Function to get game instance
+     * @return instance
+     */
 
     public static GameController getInstance() {
         if (instance == null)
@@ -57,6 +57,10 @@ public class GameController {
     }
 
 
+    /**
+     * Function to shift snake to the right called by handle input.
+     * @param speed speed to calculate new snake position
+     */
 
     public void shiftRight(float speed) {
         float x = GameModel.getInstance().getSnake().getX() + (speed *1.5f)* Gdx.graphics.getDeltaTime();
@@ -77,6 +81,10 @@ public class GameController {
 
     }
 
+    /**
+     * Function to shift snake to the left called by handle input.
+     * @param speed speed to calculate new snake position
+     */
 
     public void shiftLeft(float speed) {
         float x = GameModel.getInstance().getSnake().getX() - (speed *1.5f)* Gdx.graphics.getDeltaTime();
@@ -95,6 +103,11 @@ public class GameController {
         GameModel.getInstance().getSnake().setX(x);
 }
 
+    /**
+     * Function to update squares positions.
+     * @param delta time since last update(ms)
+     */
+
     public void updateSquares(float delta) {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
@@ -108,6 +121,11 @@ public class GameController {
 
     }
 
+    /**
+     * Function to update balls positions
+     * @param delta time since last update(ms)
+     */
+
     public void updateBalls(float delta){
         for (BallModel ball : GameModel.getInstance().getBalls()){
             ball.update(delta,speed);
@@ -115,6 +133,11 @@ public class GameController {
                 ballsToRemove.add(ball);
         }
     }
+
+    /**
+     * Function to update coins positions
+     * @param delta time since last update (ms)
+     */
     public void updateCoin(float delta){
         for (CoinModel coin : GameModel.getInstance().getCoins()){
             coin.update(delta,speed);
@@ -123,6 +146,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Function to detect collision between squares and snake
+     * @param delta delta time
+     */
     public void detectCollisionSquare(float delta) {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
@@ -140,6 +167,10 @@ public class GameController {
         }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
     }
+
+    /**
+     * Function to detect collision between snake and balls
+     */
     public void detectCollisionBalls(){
         for (BallModel ball : GameModel.getInstance().getBalls()) {
             if (ball.getY() -0.2 < GameModel.getInstance().getSnake().getY() && ball.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < ball.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < ball.getY()) {
@@ -150,6 +181,10 @@ public class GameController {
         GameModel.getInstance().getBalls().removeAll(ballsToRemove);
 
     }
+
+    /**
+     * Function to detect collision between snake and coins
+     */
     public void detectCollisionCoins(){
         for (CoinModel coin : GameModel.getInstance().getCoins()){
 
@@ -162,6 +197,12 @@ public class GameController {
         }
         GameModel.getInstance().getCoins().removeAll(coinsToRemove);
     }
+
+    /**
+     * Function to decrement square when snake collides with 
+     * @param delta
+     * @param square
+     */
 
     private void decrementSquare(float delta, SquareModel square) {
         square.time_to_decrement -= delta * 10;
