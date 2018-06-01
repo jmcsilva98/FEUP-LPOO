@@ -72,7 +72,7 @@ The objective of the game is to get the largest Snake possible. When the snake c
 
 #### d. Game Over
 ___
-![gameovernotcoins](https://user-images.githubusercontent.com/28363713/40865014-2d16dca6-65ee-11e8-9e8a-3bfe1dc14b66.PNG)[gameovercoins](https://user-images.githubusercontent.com/28363713/40865022-3e79811a-65ee-11e8-9205-e48541b34db8.PNG)[newhighscore](https://user-images.githubusercontent.com/28363713/40865039-4ceba85e-65ee-11e8-8da7-4d9ea58a5b68.PNG)
+![gameovernotcoins](https://user-images.githubusercontent.com/28363713/40865014-2d16dca6-65ee-11e8-9e8a-3bfe1dc14b66.PNG)![gameovercoins](https://user-images.githubusercontent.com/28363713/40865022-3e79811a-65ee-11e8-9205-e48541b34db8.PNG)![newhighscore](https://user-images.githubusercontent.com/28363713/40865039-4ceba85e-65ee-11e8-8da7-4d9ea58a5b68.PNG)
 
 
 When losing the game, the score achieved by the player is shown in the screen, telling if the player achieved the highest score ever reached in the game or not. Having 5 or more coins the player is able to continue playing with the same score. The player can also restart the game (in the same difficulty), go back to the main menu or just exit the game.
