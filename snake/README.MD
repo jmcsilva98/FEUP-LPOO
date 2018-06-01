@@ -43,7 +43,7 @@ c. Update -
 
 a.  Main Menu
 ___
-![mainmenu](https://user-images.githubusercontent.com/28363713/40864406-94ac2d24-65eb-11e8-9f02-2d9155b283c4.PNG)
+![mainmenu](https://user-images.githubusercontent.com/28363713/40864571-3cd1f434-65ec-11e8-9eb4-402847bb668c.PNG)
 
 
 This is the main menu. The player can choose to play between three existent difficulties (beginner, intermediate and impossible). In this menu the player can also go to the settings menu, go see the current highest score in the game, login in Facebook and close the app.
