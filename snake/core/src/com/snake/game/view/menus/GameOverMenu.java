@@ -33,7 +33,7 @@ public class GameOverMenu extends ScreenAdapter {
     private static final int CROWN_WIDTH = 75;
     private static final int CROWN_HEIGHT = 75;
     private static final int CROWN_Y = 425;
-    private static final int SHARE_Y = 260;
+    private static final int SPEND_Y = 260;
 
 
       protected final SnakeSmash game;
@@ -44,15 +44,18 @@ public class GameOverMenu extends ScreenAdapter {
     private Texture scoresBase;
     private Texture crown;
     private Texture homeBtn;
-    private Texture shareBtn;
+    private Texture spendCoinBtn;
+    private Texture spendInactiveCoinBtn;
 
-    int score, highscore;
-    BitmapFont scoreFont;
-
+    int score, highscore, coins;
+    BitmapFont scoreFont, font;
+    boolean drawMessage = false;
 
     public GameOverMenu(final SnakeSmash game, final int score) {
         this.game = game;
         this.score = score;
+        coins = GameController.getInstance().getCoins();
+
         //gets highscore from the save file
         Preferences prefs = Gdx.app.getPreferences("snakesmash");
         this.highscore = prefs.getInteger("highscore", 0);
@@ -63,15 +66,17 @@ public class GameOverMenu extends ScreenAdapter {
             prefs.flush(); //saves the file
         }
 
-
         scoreFont = game.getFont();
+        font = game.getGameOverFont();
         exitBtn = new Texture("exitBtn.png");
         homeBtn = new Texture("homeBtn.png");
         title = new Texture("gameOverTitle.png");
         playAgainBtn = new Texture("playAgainBtn.png");
         scoresBase = new Texture("scoreBase.png");
         crown = new Texture("crown.png");
-        shareBtn = new Texture("shareBtn.png");
+        spendCoinBtn = new Texture("spendCoin.png");
+        spendInactiveCoinBtn = new Texture("spendInactiveCoin.png");
+
 
         final GameOverMenu gameOverMenuScreen = this;
 
@@ -109,10 +114,23 @@ public class GameOverMenu extends ScreenAdapter {
                 }
 
                 x = 200;
-                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
-                   gameOverMenuScreen.dispose();
-                   /*game.getFacebook().login();
-                   game.getFacebook().publishing(score);*/
+                if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < SPEND_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > SPEND_Y) {
+
+                    if(coins >= 5){
+                        gameOverMenuScreen.dispose();
+                        float lastSpeed= GameController.getInstance().saveSpeed;
+                        scoreFont.setColor(Color.WHITE);
+                        GameController.getInstance().setCoins(coins - 5);
+                        GameModel.getInstance().getSnake().setSize(10);
+                        GameModel.getInstance().getSnake().setY(10);
+                        GameController.getInstance().gameOver = false;
+                        GameController.getInstance().speed = lastSpeed;
+                        game.setScreen(new GameView(game, lastSpeed));
+
+                    }else{
+                      drawMessage = true;
+                    }
+
 
                 }
                 return super.touchUp(screenX,screenY,pointer,button);
@@ -159,7 +177,15 @@ public class GameOverMenu extends ScreenAdapter {
         }
 
         x = 200;
-        game.getBatch().draw(shareBtn, x, SHARE_Y);
+        if(coins >= 5) {
+            game.getBatch().draw(spendCoinBtn, x, SPEND_Y);
+            font.draw(game.getBatch(), "You have more than 5 coins!\nClick the Coin Button to continue your game", 50, 70);
+        }
+        else
+            game.getBatch().draw(spendInactiveCoinBtn, x, SPEND_Y);
+
+        if(drawMessage)
+            font.draw(game.getBatch(), "You don't have 5 coins...", 50, 70);
 
 
         game.getBatch().end();

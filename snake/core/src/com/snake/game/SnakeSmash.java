@@ -30,6 +30,7 @@ public class SnakeSmash extends Game {
 	private boolean music = true;
 	private boolean vibration =true;
 	private BitmapFont bitmapfont;
+	private BitmapFont gameFont, gameOverFont;
 
 	private Facebook facebook;
 
@@ -47,6 +48,7 @@ public class SnakeSmash extends Game {
 		//Gdx.input.setInputProcessor(new GameInputProcessor());
 
 		initFont();
+		initGameOverFont();
 
 
 	startGame();
@@ -68,7 +70,7 @@ public class SnakeSmash extends Game {
 		GameController.restart();
 		GameModel.restart();
 		assetManager.dispose();
-		bitmapfont.dispose();
+		gameFont.dispose();
 	}
 	@Override
 	public void render () {
@@ -113,15 +115,27 @@ public class SnakeSmash extends Game {
 		parameter.color = Color.WHITE;
 		parameter.borderWidth = 1;
 		parameter.borderColor = Color.BLACK;
-		bitmapfont = generator.generateFont(parameter); // font size 12
+		gameFont = generator.generateFont(parameter); // font size 12
 
 		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 
 	}
+	public void initGameOverFont(){
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/HVD_Comic_Serif_Pro.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-	public BitmapFont getFont() {
-		return bitmapfont;
+		parameter.size = 15;
+		parameter.color = Color.ORANGE;
+		parameter.borderWidth = 1;
+		parameter.borderColor = Color.BLACK;
+		gameOverFont = generator.generateFont(parameter); // font size 12
+
+		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 	}
+	public BitmapFont getFont() {
+		return gameFont;
+	}
+	public BitmapFont getGameOverFont() {return gameOverFont;}
 
 	public Facebook getFacebook() {
 		return facebook;
