@@ -102,7 +102,7 @@ The user can login to facebook. Also made function to publish the score of the p
 ___
 
 
-Our main difficulty was without a doubt was implementing facebook. Most of the documentations we found were all outdated and not correct, causing us numerous problems with the gradle dependencies and also with trying to import facebook sdk. Eventually we found a workable api "restfb" which finally allowed us to login to facebook. However, even though we tried everything, all of the permissions to publish to facebook were removed, being impossible to implement that feature into our game.
+Our main difficulty was without a doubt implementing facebook. Most of the documentations we found were all outdated and not correct, causing us numerous problems with the gradle dependencies and also with trying to import facebook sdk. Eventually we found a workable api "restfb" which finally allowed us to login to facebook. However, even though we tried everything, all of the permissions to publish to facebook were removed, being impossible to implement that feature into our game.
 
 
 
