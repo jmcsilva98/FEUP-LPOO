@@ -1,12 +1,13 @@
 package com.snake.game.test;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
+
+
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
 import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
+import com.snake.game.model.entities.SnakeModel;
 import com.snake.game.model.entities.SquareModel;
 
 import org.junit.Test;
@@ -19,26 +20,14 @@ import static org.junit.Assert.*;
 public class GameControllerTest {
 
     @Test
-    public void getInstance() {
+    public void testGetInstance() {
         GameController gameController = GameController.getInstance();
         assertEquals(gameController,GameController.getInstance());
     }
 
 
     @Test
-    public void shiftRight() {
-        GameController gameController = GameController.getInstance();
-        float x = 20;
-
-
-    }
-
-    @Test
-    public void shiftLeft() {
-    }
-
-    @Test
-    public void updateSquares() {
+    public void testUpdateSquares() {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
@@ -54,7 +43,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void updateBalls() {
+    public void testUpdateBalls() {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         List<BallModel> balls = gameModel.getBalls();
@@ -68,7 +57,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void updateCoin() {
+    public void testUpdateCoin() {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         List<CoinModel> coins = gameModel.getCoins();
@@ -82,35 +71,76 @@ public class GameControllerTest {
     }
 
     @Test
-    public void detectCollisionSquare() {
+    public void testDetectCollisionSquare() {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         ArrayList<SquareModel> squares = new ArrayList<SquareModel>();
-        SquareModel square = new SquareModel(10,15,0,5, EntityModel.ModelType.BLUESQUARE);
+        SquareModel square = new SquareModel(10,11,0,5, EntityModel.ModelType.BLUESQUARE);
         squares.add(square);
         gameModel.setSquares(squares);
+        SnakeModel snake = new SnakeModel(1,10,10,0);
+        gameModel.setSnake(snake);
+        gameController.detectCollisionSquare(5);
+        assertTrue(GameModel.getInstance().getSnake().collideWithSquare);
+        gameModel.getSquares().get(0).setValue(0);
+        gameController.detectCollisionSquare(5);
+        assertEquals(GameController.getInstance().speed,GameController.getInstance().saveSpeed,0);
+        assertFalse(GameModel.getInstance().getSnake().collideWithSquare);
+    }
 
-
-
-
-
+    @Test
+    public void testDetectCollisionBalls() {
+        GameController gameController = GameController.getInstance();
+        GameModel gameModel = GameModel.getInstance();
+        ArrayList<BallModel> balls = new ArrayList<BallModel>();
+        BallModel ball = new BallModel(10,11,0,5);
+        balls.add(ball);
+        gameModel.setBalls(balls);
+        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        gameModel.setSnake(snake);
+        gameController.detectCollisionBalls();
+        assertEquals(2,gameModel.getSnake().getSize());
+        assertEquals(1,gameController.getBallsToRemove().size());
+        assertEquals(0,gameModel.getBalls().size());
 
     }
 
     @Test
-    public void detectCollisionBalls() {
+    public void testDetectCollisionCoins() {
+        GameModel.restart();
+        GameController.restart();
+        GameController gameController = GameController.getInstance();
+        GameModel gameModel = GameModel.getInstance();
+        ArrayList<CoinModel> coins = new ArrayList <CoinModel>();
+        CoinModel coin = new CoinModel(10,11,0,1);
+        coins.add(coin);
+        gameModel.setCoins(coins);
+        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        gameModel.setSnake(snake);
+        gameController.detectCollisionCoins();
+        assertEquals(1,gameController.getCoins());
+        assertEquals(5,gameController.getScore());
+        assertTrue(gameController.catchCoin);
+        assertEquals(0,gameModel.getCoins().size());
     }
 
     @Test
-    public void detectCollisionCoins() {
+    public void testDecrementSquare(){
+        GameController gameController = GameController.getInstance();
+        GameModel gameModel = GameModel.getInstance();
+        SquareModel square = new SquareModel(10,10,0,5, EntityModel.ModelType.BLUESQUARE);
+        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        gameModel.setSnake(snake);
+        gameController.decrementSquare(5,square);
+        assertEquals(2,gameController.getScore());
+        assertEquals(4, square.getValue());
+        assertEquals(2, square.time_to_decrement,0);
+        assertEquals(0,snake.getSize());
+        assertTrue(gameController.gameOver);
     }
 
     @Test
-    public void detectCollisionWalls() {
-    }
-
-    @Test
-    public void restart() {
+    public void testRestart() {
         GameController gameController = GameController.getInstance();
         GameController newGame = GameController.getInstance();
         gameController.restart();
@@ -119,7 +149,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getScore() {
+    public void testGetScore() {
         GameController gameController = GameController.getInstance();
         int score = 2;
         gameController.setScore(score);
@@ -127,7 +157,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getCoins() {
+    public void testGetCoins() {
         GameController gameController = GameController.getInstance();
         int coins = 2;
         gameController.setCoins(coins);

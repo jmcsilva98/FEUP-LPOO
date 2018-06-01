@@ -18,10 +18,11 @@ public class GameController {
     private static GameController instance;
 
     private int score;
-    private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
-    public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
+    private final SnakeBody snakeBody;
+    private List<BallModel> ballsToRemove;
+    private ArrayList<CoinModel> coinsToRemove;
     public boolean catchCoin=false;
-    private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
+    private ArrayList<SquareModel> squaresToRemove;
     public float speed;
     public float saveSpeed;
     public static final int SCREEN_WIDTH = 480;
@@ -42,7 +43,9 @@ public class GameController {
         coins = 0;
         saveSpeed = speed;
 
-
+        ballsToRemove = new ArrayList<BallModel>();
+        coinsToRemove = new ArrayList<CoinModel>();
+        squaresToRemove = new ArrayList<SquareModel>();
     }
 
     /**
@@ -155,7 +158,7 @@ public class GameController {
         for (SquareModel square : GameModel.getInstance().getSquares()) {
 
             if (square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() > square.getX()-2.3f && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9f && GameModel.getInstance().getSnake().getY() < square.getY()) {
-                    speed = 0;
+                speed = 0;
                 GameModel.getInstance().getSnake().collideWithSquare=true;
                     if (square.getValue() == 0) {
                         squaresToRemove.add(square);
@@ -204,7 +207,7 @@ public class GameController {
      * @param square
      */
 
-    private void decrementSquare(float delta, SquareModel square) {
+    public void decrementSquare(float delta, SquareModel square) {
         square.time_to_decrement -= delta * 10;
         if (square.time_to_decrement <= 0 && GameModel.getInstance().getSnake().getSize()>0) {
             square.setValue(square.getValue() - 1);
@@ -226,6 +229,9 @@ public class GameController {
         return score;
     }
     public int getCoins() {return coins;}
+    public ArrayList<CoinModel> getCoinsToRemove(){return coinsToRemove;}
+    public List <BallModel> getBallsToRemove() {return ballsToRemove;}
+    public ArrayList <SquareModel> getSquaresToRemove() {return squaresToRemove;}
     public void setScore(int score){this.score = score;}
     public void setCoins(int coins) {this.coins = coins;}
 }

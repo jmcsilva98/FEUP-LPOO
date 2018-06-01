@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.snake.game.model.entities.EntityModel.ModelType.BLUESQUARE;
 import static com.snake.game.model.entities.EntityModel.ModelType.PINKSQUARE;
 import static org.junit.Assert.*;
 
@@ -69,11 +70,6 @@ public class GameModelTest extends GameTest {
 
     }
 
-    @Test
-    public void testCalculateNumbers() {
-        GameModel gameModel = GameModel.getInstance();
-
-    }
 
     @Test
     public void testWhichNumber(){
