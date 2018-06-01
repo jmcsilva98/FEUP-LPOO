@@ -75,10 +75,10 @@ public class GameControllerTest {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         ArrayList<SquareModel> squares = new ArrayList<SquareModel>();
-        SquareModel square = new SquareModel(10,11,0,5, EntityModel.ModelType.BLUESQUARE);
+        SquareModel square = new SquareModel(10,11,5, EntityModel.ModelType.BLUESQUARE);
         squares.add(square);
         gameModel.setSquares(squares);
-        SnakeModel snake = new SnakeModel(1,10,10,0);
+        SnakeModel snake = new SnakeModel(1,10,10);
         gameModel.setSnake(snake);
         gameController.detectCollisionSquare(5);
         assertTrue(GameModel.getInstance().getSnake().collideWithSquare);
@@ -93,10 +93,10 @@ public class GameControllerTest {
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
         ArrayList<BallModel> balls = new ArrayList<BallModel>();
-        BallModel ball = new BallModel(10,11,0,5);
+        BallModel ball = new BallModel(10,11,5);
         balls.add(ball);
         gameModel.setBalls(balls);
-        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        SnakeModel snake = new SnakeModel(1,10,10.9f);
         gameModel.setSnake(snake);
         gameController.detectCollisionBalls();
         assertEquals(2,gameModel.getSnake().getSize());
@@ -115,7 +115,7 @@ public class GameControllerTest {
         CoinModel coin = new CoinModel(10,11,0,1);
         coins.add(coin);
         gameModel.setCoins(coins);
-        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        SnakeModel snake = new SnakeModel(1,10,10.9f);
         gameModel.setSnake(snake);
         gameController.detectCollisionCoins();
         assertEquals(1,gameController.getCoins());
@@ -128,8 +128,8 @@ public class GameControllerTest {
     public void testDecrementSquare(){
         GameController gameController = GameController.getInstance();
         GameModel gameModel = GameModel.getInstance();
-        SquareModel square = new SquareModel(10,10,0,5, EntityModel.ModelType.BLUESQUARE);
-        SnakeModel snake = new SnakeModel(1,10,10.9f,0);
+        SquareModel square = new SquareModel(10,10,5, EntityModel.ModelType.BLUESQUARE);
+        SnakeModel snake = new SnakeModel(1,10,10.9f);
         gameModel.setSnake(snake);
         gameController.decrementSquare(5,square);
         assertEquals(2,gameController.getScore());

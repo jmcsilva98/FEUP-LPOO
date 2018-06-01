@@ -100,17 +100,6 @@ public class GameModelTest extends GameTest {
 
     }
 
-    @Test
-    public void tetDeleteBallToSnake() {
-        GameModel gameModel = GameModel.getInstance();
-        List<BallModel> snakeballs =  new ArrayList<BallModel>();
-        gameModel.setSnakeBalls(snakeballs);
-        BallModel ball = new BallModel(2,2, 2);
-        gameModel.getSnakeBalls().add(ball);
-        gameModel.deleteBallToSnake();
-        assertEquals(0,gameModel.getSnakeBalls().size());
-
-    }
 
     @Test
     public void testCreateBall() {
