@@ -5,9 +5,11 @@
 ### **1. Setup**
 
 a. Project Setup
+
     Import the project as a gradle project.
 
 b.	App installation procedure
+
     Install the .apk file in the executables folder
 
 
