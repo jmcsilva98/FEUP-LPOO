@@ -97,4 +97,17 @@ ___
 The user can login to facebook. Also made function to publish the score of the player, but couldn't publish due to new facebook permissions...
 
 
+### ***6.   Difficulties***
+___
+
+
+
+
+### ***7.   Overal time and work distribution***
+___
+
+
+
+### ***8.   Credits***
+___
 
