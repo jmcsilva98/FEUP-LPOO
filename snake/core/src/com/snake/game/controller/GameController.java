@@ -18,7 +18,6 @@ public class GameController {
     private static GameController instance;
 
     private int score;
-    private final SnakeBody snakeBody;
     private List<BallModel> ballsToRemove;
     private ArrayList<CoinModel> coinsToRemove;
     public boolean catchCoin=false;
