@@ -2,6 +2,7 @@ package com.snake.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -17,14 +18,16 @@ import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.EntityModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
-import com.snake.game.model.entities.WallModel;
 import com.snake.game.view.entities.CoinView;
 import com.snake.game.view.entities.EntityView;
 import com.snake.game.view.entities.ViewFactory;
 import com.snake.game.view.menus.GameOverMenu;
 
+
 import java.util.ArrayList;
 import java.util.Random;
+
+import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 
 
 public class GameView extends ScreenAdapter {
@@ -42,16 +45,21 @@ public class GameView extends ScreenAdapter {
     private static final float MAX_BALL_SPAWN_TIME = 3f;
     private static final float MIN_COIN_SPAWN_TIME = 1f;
     private static final float MAX_COIN_SPAWN_TIME = 6f;
+    private static final int ICON_WIDTH = 50;
+    private static final int ICON_HEIGHT = 50;
+    private static final int ICON_Y = 650;
     private float deltaTime = 0;
     private Texture singleCoin;
     BitmapFont font;
     BitmapFont snakeNumber;
     BitmapFont ballNumber;
+    private Texture play, pause;
 
     Random random;
     public int generateSquareColors = 0;
+    private boolean pausedGame = false;
 
-    public GameView(SnakeSmash game, float speed) {
+    public GameView(final SnakeSmash game, float speed) {
         this.game = game;
         GameController.getInstance().speed = speed;
         GameController.getInstance().saveSpeed=speed;
@@ -60,6 +68,8 @@ public class GameView extends ScreenAdapter {
         this.snakeNumber=game.getFont();
         this.ballNumber=game.getFont();
         singleCoin = new Texture("singleCoin.png");
+        play = new Texture("play.png");
+        pause = new Texture("pause.png");
 
         random = new Random();
         positions = new ArrayList<Position>();
@@ -68,6 +78,29 @@ public class GameView extends ScreenAdapter {
         coinSpawnTimer=  random.nextFloat() * (MAX_COIN_SPAWN_TIME - MIN_COIN_SPAWN_TIME) + MIN_COIN_SPAWN_TIME;
         game.scrollingBackground.setSpeedFixed(false);
 
+
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                int x = 10;
+                if (game.camera.getInputInGameWorld().x < x + ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
+
+                    if (!pausedGame) {
+                        GameController.getInstance().speed = 0;
+                        pausedGame = true;
+                    } else {
+                        GameController.getInstance().speed = GameController.getInstance().saveSpeed;
+                        pausedGame = false;
+                    }
+                }
+                return super.touchUp(screenX,screenY,pointer,button);
+                }
+
+
+
+        });
     }
 
     private void loadAssets() {
@@ -125,16 +158,24 @@ public class GameView extends ScreenAdapter {
 
         Gdx.gl.glClearColor(103 / 255f, 69 / 255f, 117 / 255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
         game.getBatch().begin();
+
         game.scrollingBackground.updateAndRender(delta, game.getBatch());
         drawEntities();
         drawCoin(delta);
-        //drawWalls();
         drawBalls();
         drawSquares();
         drawCoinNumber();
         drawScore();
+
+        if(pausedGame)
+            game.getBatch().draw(play,20,ICON_Y);
+        else
+            game.getBatch().draw(pause,20,ICON_Y);
+
         game.getBatch().end();
+
         if (GameController.getInstance().speed !=0) {
             squareSpawnTimer -= delta;
             ballSpawnTimer -= delta;
@@ -192,7 +233,6 @@ public class GameView extends ScreenAdapter {
             }
 
         }
-
 
 
 
@@ -289,25 +329,25 @@ private void drawCoin(float delta){
         if (generateSquareColors == 7) generateSquareColors = 0;
         switch (generateSquareColors) {
             case 0:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(3) * 2 + 1,EntityModel.ModelType.GREENSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(3) * 2 + 1,EntityModel.ModelType.GREENSQUARE);
                 break;
             case 1:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(7) * 2 + 1,EntityModel.ModelType.PINKSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(7) * 2 + 1,EntityModel.ModelType.PINKSQUARE);
                 break;
             case 2:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(5) * 2 + 1, EntityModel.ModelType.LIGHTPINKSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(5) * 2 + 1, EntityModel.ModelType.LIGHTPINKSQUARE);
                 break;
             case 3:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(6) * 2 + 1,EntityModel.ModelType.BLUESQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(6) * 2 + 1,EntityModel.ModelType.BLUESQUARE);
                 break;
             case 4:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(4) * 2 + 1,EntityModel.ModelType.REDSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(4) * 2 + 1,EntityModel.ModelType.REDSQUARE);
                 break;
             case 5:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(6) * 2 + 1,EntityModel.ModelType.YELLOWSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, random.nextInt(6) * 2 + 1,EntityModel.ModelType.YELLOWSQUARE);
                 break;
             case 6:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.MUSTARDSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 30, i * 2 + 1,EntityModel.ModelType.MUSTARDSQUARE);
                 break;
         }
     }
