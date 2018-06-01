@@ -199,7 +199,7 @@ public class SnakeSmash extends Game {
 
     /**
      * Function to set vibration on or off
-     * @param vibration boolean true if music turns on, false otherwise 
+     * @param vibration boolean true if music turns on, false otherwise
      */
 
 	public void setVibration(boolean vibration) {
