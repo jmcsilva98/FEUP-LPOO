@@ -44,7 +44,7 @@ c. Update -
 
 a.  Main Menu
 ___
-<p align="center">![mainmenu](https://user-images.githubusercontent.com/28363713/40864571-3cd1f434-65ec-11e8-9eb4-402847bb668c.PNG)</p>
+ <div style="text-align:center">![mainmenu](https://user-images.githubusercontent.com/28363713/40864571-3cd1f434-65ec-11e8-9eb4-402847bb668c.PNG)</div>
 
 
 
