@@ -1,4 +1,4 @@
-### LPOO - Final Project Delivery
+## LPOO - Final Project Delivery
 ### Snake Smash
 __
 
