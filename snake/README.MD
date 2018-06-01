@@ -111,6 +111,7 @@ For the rest of the project we didn't have many problems, mostly because we work
 ___
 
 Approximately 170 hours.
+
 Both of the group elements worked together and showed the same amount of interest and effort during the development of the project.
 
 
