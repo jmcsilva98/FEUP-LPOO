@@ -110,7 +110,7 @@ For the rest of the project we didn't have many problems, mostly because we work
 ### **7.   Overal time and work distribution**
 ___
 
-Approximately 170 hours.
+Approximately 200 hours.
 
 Both of the group elements worked together and showed the same amount of interest and effort during the development of the project.
 
