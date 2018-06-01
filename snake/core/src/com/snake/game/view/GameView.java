@@ -116,7 +116,6 @@ public class GameView extends ScreenAdapter {
     }
 
     public void render(float delta) {
-        GameController.getInstance().update(delta);
 
         if(GameController.getInstance().gameOver) {
             this.dispose();
@@ -181,12 +180,11 @@ public class GameView extends ScreenAdapter {
         if(!GameController.getInstance().gameOver){
             handleInputs(delta);
             GameController.getInstance().updateCoin(delta);
-            GameController.getInstance().updateWalls(delta);
             GameController.getInstance().updateSquares(delta);
             GameController.getInstance().updateBalls(delta);
-            GameController.getInstance().detectCollisionCoins(delta);
+            GameController.getInstance().detectCollisionCoins();
             GameController.getInstance().detectCollisionSquare(delta);
-            GameController.getInstance().detectCollisionBalls(delta);
+            GameController.getInstance().detectCollisionBalls();
             if (GameModel.getInstance().getSnake(). collideWithSquare)
                 Gdx.input.vibrate(200);
         }
@@ -234,9 +232,9 @@ private void drawCoin(float delta){
 
     private void handleInputs(float delta) {
         if (isRight()|| isJustRight())
-            GameController.getInstance().shiftRight(delta,GameController.getInstance().speed);
+            GameController.getInstance().shiftRight(GameController.getInstance().speed);
        else if (isLeft() || isJustLeft())
-            GameController.getInstance().shiftLeft(delta,GameController.getInstance().speed);
+            GameController.getInstance().shiftLeft(GameController.getInstance().speed);
 
 
     }

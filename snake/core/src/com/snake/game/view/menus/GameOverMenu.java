@@ -3,22 +3,16 @@ package com.snake.game.view.menus;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Align;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
-import com.snake.game.tools.SaveData;
 import com.snake.game.view.GameView;
 
-import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.keyTyped;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 

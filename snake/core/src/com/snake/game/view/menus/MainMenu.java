@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
-import com.snake.game.tools.FacebookApi;
 import com.snake.game.view.GameView;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
@@ -29,9 +28,6 @@ public class MainMenu extends ScreenAdapter {
     private static final int ICON_Y = 100;
     private static final int IMPOSSIBLE_Y = 200;
 
-    /*private static final String API_APP_ID = "611409215906032";
-    private FacebookApi facebookApi;
-    */
     protected final SnakeSmash game;
 
     private Texture exitBtn;
@@ -62,7 +58,7 @@ public class MainMenu extends ScreenAdapter {
         scoresBtn = new Texture("scoresBtn.png");
         title = new Texture("title.png");
 
-       // facebookApi = new FacebookApi(API_APP_ID);
+
 
         final MainMenu mainMenuScreen = this;
 
