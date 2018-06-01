@@ -24,6 +24,7 @@ b.	App installation procedure
 
 ###  **3. UML Diagram**
 
+![34200981_1886874938001116_8016746308423385088_n](https://user-images.githubusercontent.com/28363713/40865703-99240b5a-65f1-11e8-96eb-9927fc90617a.png)
 
 
 
