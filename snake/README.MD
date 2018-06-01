@@ -44,7 +44,7 @@ c. Update -
 
 a.  Main Menu
 ___
- <div style="text-align:center">![mainmenu](https://user-images.githubusercontent.com/28363713/40864571-3cd1f434-65ec-11e8-9eb4-402847bb668c.PNG)</div>
+ ![mainmenu](https://user-images.githubusercontent.com/28363713/40864571-3cd1f434-65ec-11e8-9eb4-402847bb668c.PNG)
 
 
 
@@ -53,8 +53,7 @@ This is the main menu. The player can choose to play between three existent diff
 
 b. Settings Menu
 ___
-
-<p align="center">![options menu](https://user-images.githubusercontent.com/28363713/40864653-9928f4d0-65ec-11e8-9049-e877323b1586.PNG)</p>
+![options menu](https://user-images.githubusercontent.com/28363713/40864653-9928f4d0-65ec-11e8-9049-e877323b1586.PNG)
 
 
 In the settings menu the user is able to enable/disable the music of the game and the vibration when the snake collides with the squares (android feature). We can also return to the main menu or just close the app.
