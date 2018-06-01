@@ -42,7 +42,6 @@ dependencies{
     natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
 
     compile 'com.facebook.android:facebook-android-sdk:4.33.0'
-
 }
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders

@@ -90,8 +90,13 @@ public class GameOverMenu extends ScreenAdapter {
                        float lastSpeed= GameController.getInstance().saveSpeed;
                         gameOverMenuScreen.dispose();
                          scoreFont.setColor(Color.WHITE);
-                         GameModel.restart();
-                         GameController.restart();
+                         GameModel.getInstance().getSnake().setSize(10);
+                         GameModel.getInstance().getSnake().setX(10);
+                         GameController.getInstance().gameOver=false;
+                         GameController.getInstance().speed=lastSpeed;
+
+                        // GameModel.restart();
+                        // GameController.restart();
                         game.setScreen(new GameView(game, lastSpeed));
 
                 }

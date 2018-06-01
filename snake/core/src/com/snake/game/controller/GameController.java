@@ -25,7 +25,7 @@ public class GameController {
     private final SnakeBody snakeBody;
     private List<BallModel> ballsToRemove = new ArrayList<BallModel>();
     public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
-
+    public boolean catchCoin=false;
     private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
     private ArrayList<WallModel> wallsToRemove = new ArrayList<WallModel>();
     public float speed;
@@ -40,6 +40,9 @@ public class GameController {
     private Sound sound;
     public boolean gameOver = false;
 
+    /**
+     *
+     */
 
     private GameController() {
         world = new World(new Vector2(0, 0), true);
@@ -172,6 +175,7 @@ public class GameController {
             if (coin.getY()-0.2 < GameModel.getInstance().getSnake().getY() && coin.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < coin.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < coin.getY()){
                 coins++;
                 score+=5;
+                catchCoin=true;
                 coinsToRemove.add(coin);
             }
         }

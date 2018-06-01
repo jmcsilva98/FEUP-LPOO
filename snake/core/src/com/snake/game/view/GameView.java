@@ -106,8 +106,7 @@ public class GameView extends ScreenAdapter {
     @Override
     public void show() {
         music = game.getAssetManager().get("gameMusic.mp3");
-
-
+        coinSound = game.getAssetManager().get("coinSound.mp3");
         music.setLooping(true);
 
         if(game.getMusic()){
@@ -187,9 +186,15 @@ public class GameView extends ScreenAdapter {
             GameController.getInstance().detectCollisionCoins(delta);
             GameController.getInstance().detectCollisionSquare(delta);
             GameController.getInstance().detectCollisionBalls(delta);
-            if (GameModel.getInstance().getSnake(). collideWithSquare)
+            if (GameModel.getInstance().getSnake(). collideWithSquare && game.getVibration())
                 Gdx.input.vibrate(200);
+            if (GameController.getInstance().catchCoin){
+                coinSound.play();
+                GameController.getInstance().catchCoin=false;
+            }
+
         }
+
 
 
 

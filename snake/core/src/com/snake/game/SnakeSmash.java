@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
@@ -29,7 +28,7 @@ public class SnakeSmash extends Game {
 	public ScrollingBackground scrollingBackground;
 	public GameCamera camera;
 	private boolean music = true;
-	private boolean vibrate =true;
+	private boolean vibration =true;
 	private BitmapFont bitmapfont;
 
 	private Facebook facebook;
@@ -98,8 +97,8 @@ public class SnakeSmash extends Game {
 		return coinSound;
 	}
 
-	public boolean getVibrate() {
-		return vibrate;
+	public boolean getVibration() {
+		return vibration;
 	}
 
 	public void setMusic(boolean music) {
@@ -126,5 +125,9 @@ public class SnakeSmash extends Game {
 
 	public Facebook getFacebook() {
 		return facebook;
+	}
+
+	public void setVibration(boolean b) {
+		this.vibration =b;
 	}
 }
