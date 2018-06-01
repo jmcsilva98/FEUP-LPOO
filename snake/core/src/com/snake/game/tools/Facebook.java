@@ -10,6 +10,9 @@ import com.restfb.scope.ScopeBuilder;
 import com.restfb.types.FacebookType;
 import com.restfb.types.Page;
 
+/**
+ * Facebook class
+ */
 
 public class Facebook {
 
@@ -21,7 +24,9 @@ public class Facebook {
     private FacebookClient facebookClient;
     private ScopeBuilder scopeBuilder;
 
-
+    /**
+     * Facebook constructor
+     */
     public Facebook() {
         scopeBuilder = new ScopeBuilder();
         scopeBuilder.addPermission(FacebookPermissions.PUBLIC_PROFILE);
@@ -33,11 +38,19 @@ public class Facebook {
 
     }
 
+    /**
+     * Function to login in facebook
+     */
     public void login() {
         String loginDialogUrl = facebookClient.getLoginDialogUrl(appId, redirectUri, scopeBuilder);
         Gdx.net.openURI(loginDialogUrl);
 
     }
+
+    /**
+     * Function to publish score in facebook timeline
+     * @param score score done by player
+     */
 
     public void publishing(int score){
         String aux =facebookClient.obtainAppAccessToken(appId,appSecret).getAccessToken();
@@ -46,12 +59,6 @@ public class Facebook {
     //   out.println("Published message ID: " + publishMessageResponse.getId());
     }
 
-
-
-
-    public String getAccessToken(){
-        return accessToken;
-    }
 
 
 }

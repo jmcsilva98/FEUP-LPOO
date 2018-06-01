@@ -10,6 +10,9 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import static com.snake.game.view.GameView.PIXEL_TO_SQUARE;
 
+/**
+ * Game camera class
+ */
 public class GameCamera {
     private static final boolean DEBUG_PHYSICS = false;
     private OrthographicCamera camera;
@@ -17,6 +20,11 @@ public class GameCamera {
     private StretchViewport viewport;
     private Matrix4 debugCamera;
 
+    /**
+     * Game Camera constructor
+     * @param width camera width
+     * @param height camer height
+     */
     public GameCamera (int width, int height) {
         camera = new OrthographicCamera();
         debugRenderer= new Box2DDebugRenderer();
@@ -31,14 +39,29 @@ public class GameCamera {
         }
     }
 
+    /**
+     * Combined camera
+     * @return combined camera
+     */
+
     public Matrix4 combined() {
         return camera.combined;
     }
+
+    /**
+     * Function to update viewport
+     * @param width width
+     * @param height height
+     */
 
     public void update (int width, int height) {
         viewport.update(width, height);
     }
 
+    /**
+     * Function to get input in  game world
+     * @return vector2
+     */
     public Vector2 getInputInGameWorld () {
         Vector3 inputScreen = new Vector3(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY(), 0);
         Vector3 unprojected = camera.unproject(inputScreen);

@@ -10,24 +10,34 @@ import com.snake.game.model.entities.SquareModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game model class
+ */
 public class GameModel {
 
     private static GameModel instance;
     private SnakeModel snake;
-    public int directionSnake=1;
     private List<BallModel> balls;
     public List<BallModel> snakeBalls;
     private List<SquareModel> squares;
     private List<CoinModel> coins;
 
+    /**
+     * Function to get game model instance
+     * @return instance
+     */
 
     public static GameModel getInstance(){
         if (instance==null)
             instance = new GameModel();
         return instance;
     }
+
+    /**
+     * Game model constructor
+     */
     public GameModel(){
-        snake = new SnakeModel(20,10,10,0);
+        snake = new SnakeModel(20,10,10);
         balls= new ArrayList<BallModel>();
         squares = new ArrayList<SquareModel>();
         coins = new ArrayList<CoinModel>();
@@ -35,41 +45,86 @@ public class GameModel {
 
     }
 
+    /**
+     * Function to get snake
+     * @return Snake model
+     */
     public SnakeModel getSnake(){
         return snake;
     }
+
+    /**
+     * Function to get balls
+     * @return list of current balls
+     */
     public List<BallModel> getBalls(){
         return balls;
     }
-    public List<SquareModel> getSquares() {return squares;}
-    public List<CoinModel> getCoins(){return coins;}
-    public List<BallModel> getSnakeBalls() {return snakeBalls;}
 
+    /**
+     * Function to get current squares
+     * @return list of current squares
+     */
+    public List<SquareModel> getSquares() {return squares;}
+
+    /**
+     * Function to get current coins
+     * @return current coins
+     */
+    public List<CoinModel> getCoins(){return coins;}
+
+    /**
+     * Function to set snake
+     * @param snake snake to be setted
+     */
     public void setSnake(SnakeModel snake) {
         this.snake = snake;
     }
+
+    /**
+     * Function to set balls
+     * @param balls to be setted
+     */
     public void setBalls(List<BallModel> balls) {
         this.balls = balls;
     }
-    public void setSnakeBalls(List<BallModel> snakeBalls){
-        this.snakeBalls = snakeBalls;
-    }
+
+    /**
+     * Function to set coins
+     * @param coins coins to be setted
+     */
     public void setCoins(List<CoinModel> coins) {
         this.coins = coins;
     }
+
+    /**
+     * Function to set squares
+     * @param squares squares to be setted
+     */
     public void setSquares(List<SquareModel> squares) {
         this.squares = squares;
     }
 
-
+    /**
+     * Function to create new square
+     * @param x horizontal position
+     * @param y vertical position
+     * @param value square value
+     * @param model model of square (different colors)
+     */
 
     public void createSquare (float x, float y, int value,EntityModel.ModelType model) {
-        SquareModel square = new SquareModel(x, y, 0,value, model);
+        SquareModel square = new SquareModel(x, y, value, model);
         calculateNumbers(square);
         squares.add(square);
 
 
     }
+
+    /**
+     * Function to calculate number to draw on square
+     * @param square square where numbers will be drawn up
+     */
 
     public void calculateNumbers(SquareModel square) {
         square.numbers.clear();
@@ -88,38 +143,44 @@ public class GameModel {
         }
     }
 
+    /**
+     * Function to choose the corresponding model type number
+     * @param square square where number will be drawn up
+     * @param i
+     * @param x
+     */
     public void whichNumber(SquareModel square, int i, float x) {
         switch (i) {
             case 0:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.ZERO));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.ZERO));
                 break;
             case 1:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.ONE));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.ONE));
                 break;
             case 2:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.TWO));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.TWO));
                 break;
             case 3:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.THREE));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.THREE));
                 break;
             case 4:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.FOUR));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.FOUR));
                 break;
             case 5:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.FIVE));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.FIVE));
                 break;
             case 6:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.SIX));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.SIX));
                 break;
 
             case 7:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.SEVEN));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.SEVEN));
                 break;
             case 8:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.EIGHT));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.EIGHT));
                 break;
             case 9:
-                square.numbers.add(new NumberModel(x, square.getY(), 0, 0, EntityModel.ModelType.NINE));
+                square.numbers.add(new NumberModel(x, square.getY(), 0, EntityModel.ModelType.NINE));
                 break;
 
 
@@ -127,23 +188,33 @@ public class GameModel {
 
     }
 
-    public void deleteBallToSnake(){
-        if (snakeBalls.size()>0)
-            snakeBalls.remove(snakeBalls.size()-1);
-
-    }
+    /**
+     * Function to create ball
+     * @param x horizontal position
+     * @param y vertical position
+     * @param value value of ball
+     */
     public void createBall(float x, float y, int value){
         BallModel ball;
-        ball= new BallModel(x,y,0,value);
+        ball= new BallModel(x,y, value);
         balls.add(ball);
     }
 
+    /**
+     * Function to create coin
+     * @param x horizontal position
+     * @param y vertical position
+     */
 
     public void createCoin(float x, float y) {
         CoinModel coin;
         coin =new CoinModel(x,y,0,0);
         coins.add(coin);
     }
+
+    /**
+     * Function to restart game model
+     */
 
     public static void restart(){
         instance = null;

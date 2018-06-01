@@ -9,7 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.snake.game.Position;
+import com.snake.game.tools.Position;
 import com.snake.game.SnakeSmash;
 import com.snake.game.controller.GameController;
 import com.snake.game.model.GameModel;
@@ -267,7 +267,7 @@ private void drawCoin(float delta){
         positions.add(0,actual);
         for (int i =1; i < GameModel.getInstance().getSnake().getSize();i++){
             if (i*5<positions.size()) {
-                BallModel ball = new BallModel(positions.get(i *5).getX(), 10-i, 0, 0);
+                BallModel ball = new BallModel(positions.get(i *5).getX(), 10-i, 0);
                 view.update(ball);
                 view.draw(game.getBatch());
             }

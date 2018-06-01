@@ -82,7 +82,7 @@ public class SnakeSmash extends Game {
 	@Override
 	public void resize(int width, int height) {
 		camera.update(width, height);
-		this.scrollingBackground.resize(width,height);
+		this.scrollingBackground.resize(width);
 		super.resize(width, height);
 	}
 

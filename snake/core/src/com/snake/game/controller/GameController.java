@@ -201,9 +201,9 @@ public class GameController {
     }
 
     /**
-     * Function to decrement square when snake collides with 
-     * @param delta
-     * @param square
+     * Function to decrement square when snake collides with square
+     * @param delta system time
+     * @param square square that snake collides with
      */
 
     public void decrementSquare(float delta, SquareModel square) {
@@ -214,23 +214,46 @@ public class GameController {
             GameModel.getInstance().calculateNumbers(square);
             square.time_to_decrement = 2;
             GameModel.getInstance().getSnake().updateSize(-1);
-            GameModel.getInstance().deleteBallToSnake();
         }
         if (GameModel.getInstance().getSnake().getSize()<=0){
             gameOver = true;
         }
     }
 
+    /**
+     * Function to restart instance
+     */
+
     public static void restart(){
         instance = null;
     }
+
+    /**
+     * Function to get score
+     * @return score
+     */
     public int getScore(){
         return score;
     }
+
+    /**
+     * Function to get number of coins
+     * @return number of coins
+     */
     public int getCoins() {return coins;}
     public ArrayList<CoinModel> getCoinsToRemove(){return coinsToRemove;}
     public List <BallModel> getBallsToRemove() {return ballsToRemove;}
     public ArrayList <SquareModel> getSquaresToRemove() {return squaresToRemove;}
+
+    /**
+     * Function to set score
+     * @param score score to be setted
+     */
     public void setScore(int score){this.score = score;}
+
+    /**
+     * Function to set number of coins
+     * @param coins coins to be setted
+     */
     public void setCoins(int coins) {this.coins = coins;}
 }

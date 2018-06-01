@@ -7,21 +7,39 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.snake.game.SnakeSmash;
 import com.snake.game.view.GameView;
 
+/**
+ * Coin view class
+ */
 public class CoinView extends EntityView {
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
     Texture texture;
+
+    /**
+     * Coin view class
+     * @param game game where coin view will be shown
+     */
     public CoinView(SnakeSmash game) {
         super(game);
 
 
 
     }
+
+    /**
+     * Function to update coin animation
+     * @param delta delta time
+     */
     public void updateCoin(float delta){
         stateTime += delta;
         sprite.setRegion(animation.getKeyFrame(stateTime, true));
     }
 
+    /**
+     * Function to create coin sprite
+     * @param game game where sprite will be shown
+     * @return created sprite
+     */
     public Sprite createSprite(SnakeSmash game)
 
     {

@@ -21,7 +21,7 @@ public class GameModelTest extends GameTest {
     @Test
     public void testGetSnake() {
         GameModel gameModel = GameModel.getInstance();
-        SnakeModel snake = new SnakeModel(20,10,10,0);
+        SnakeModel snake = new SnakeModel(20,10,10);
         gameModel.setSnake(snake);
         assertEquals(snake, gameModel.getSnake());
     }
@@ -59,7 +59,7 @@ public class GameModelTest extends GameTest {
         float y = 2;
         int value = 10;
         EntityModel.ModelType  model = PINKSQUARE;
-        squareModel = new SquareModel(x,y,0,value,model);
+        squareModel = new SquareModel(x,y, value,model);
 
         gameModel.calculateNumbers(squareModel);
         squares.add(squareModel);
@@ -74,7 +74,7 @@ public class GameModelTest extends GameTest {
     @Test
     public void testWhichNumber(){
         GameModel gameModel = GameModel.getInstance();
-        SquareModel square = new SquareModel(2,2,0,0,null);
+        SquareModel square = new SquareModel(2,2, 0,null);
         gameModel.whichNumber(square, 0, 2);
         assertEquals(square.numbers.get(0).modelType, EntityModel.ModelType.ZERO);
         gameModel.whichNumber(square, 1, 2);
@@ -105,7 +105,7 @@ public class GameModelTest extends GameTest {
         GameModel gameModel = GameModel.getInstance();
         List<BallModel> snakeballs =  new ArrayList<BallModel>();
         gameModel.setSnakeBalls(snakeballs);
-        BallModel ball = new BallModel(2,2,0,2);
+        BallModel ball = new BallModel(2,2, 2);
         gameModel.getSnakeBalls().add(ball);
         gameModel.deleteBallToSnake();
         assertEquals(0,gameModel.getSnakeBalls().size());
@@ -117,7 +117,7 @@ public class GameModelTest extends GameTest {
         float x = 2;
         float y = 3;
         int value = 12;
-        BallModel ball = new BallModel(x,y,0,value);
+        BallModel ball = new BallModel(x,y, value);
 
         GameModel gameModel = GameModel.getInstance();
         GameModel gameModel2 = GameModel.getInstance();

@@ -1,29 +1,45 @@
 package com.snake.game.model.entities;
 
-import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-
+/**
+ * Ball model class
+ */
 public class BallModel extends EntityModel {
     int value ;
     public boolean toRemove =false;
-    public BallModel(float x, float y, float rotation, int value) {
-        super(x, y, rotation);
+
+    /**
+     * Ball model constructor
+     * @param x x ball position
+     * @param y y ball position
+     * @param value
+     */
+    public BallModel(float x, float y, int value) {
+        super(x, y);
         this.value =value;
 
     }
 
+    /**
+     * Function to get ball value
+     * @return ball value
+     */
     public int getValue(){
         return value;
     }
+
+    /**
+     * Function to set ball value
+     * @param value new ball value
+     */
     public void setValue(int value){
         this.value =value;
     }
-    public boolean getCatched(){
-        return toRemove;
-    }
-    public void setCatched(){
-        this.toRemove=true;
-    }
+
+    /**
+     * Function to update ball position
+     * @param delta system time
+     * @param speed speed
+     */
 
     public void update(float delta,float speed){
         setY(getY()-speed*delta);
