@@ -59,7 +59,6 @@ public class GameOverMenu extends ScreenAdapter {
     public GameOverMenu(final SnakeSmash game, final int score) {
         this.game = game;
         this.score = score;
-        SaveData.loadData();
         //gets highscore from the save file
         Preferences prefs = Gdx.app.getPreferences("snakesmash");
         this.highscore = prefs.getInteger("highscore", 0);
@@ -88,11 +87,12 @@ public class GameOverMenu extends ScreenAdapter {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int x = SCREEN_WIDTH / 2 - PLAY_WIDTH / 2;
                 if (game.camera.getInputInGameWorld().x < x + PLAY_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < PLAY_Y + PLAY_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > PLAY_Y) {
+                       float lastSpeed= GameController.getInstance().saveSpeed;
                         gameOverMenuScreen.dispose();
                          scoreFont.setColor(Color.WHITE);
                          GameModel.restart();
                          GameController.restart();
-                        game.setScreen(new GameView(game, 9));
+                        game.setScreen(new GameView(game, lastSpeed));
 
                 }
                 x = 125;
@@ -114,7 +114,6 @@ public class GameOverMenu extends ScreenAdapter {
                    gameOverMenuScreen.dispose();
                    /*game.getFacebook().login();
                    game.getFacebook().publishing(score);*/
-
 
                 }
                 return super.touchUp(screenX,screenY,pointer,button);

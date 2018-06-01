@@ -76,7 +76,6 @@ public class GameController {
         for (SquareModel square :GameModel.getInstance().getSquares()){
             if ( x > square.getX()-2.8f && x<=square.getX()-2.4f && x<square.getX() && square.getY() - 2.8 <= GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getY() <= square.getY()+2.8) {
                 x = square.getX() - 2.6f;
-                System.out.println(x +"___"+square.getX()+"___"+square.getY());
                 if (x<0.48){
                     x =0.48f;
                 }
@@ -95,8 +94,8 @@ public class GameController {
             x = (float) 0.48;
 
         for (SquareModel square :GameModel.getInstance().getSquares()){
-            if ( x >= square.getX()+ 2f&& x<=square.getX()+2.4f && x>square.getX() && square.getY() - 2.4 <= GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getY() <= square.getY()+2.8) {
-                x = square.getX() + 2.4f;
+            if ( x > square.getX()+2f&& x<square.getX()+2.4f && x>square.getX() && square.getY() - 2.4 <= GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getY() <= square.getY()+2.8) {
+                x = square.getX() + 2.6f;
                 if (x>18.7){
                     x =18.7f;
                 }
@@ -144,7 +143,7 @@ public class GameController {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
 
-            if (!gameOver && square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() > square.getX()-2.4 && GameModel.getInstance().getSnake().getX() < square.getX() + 2.4 && GameModel.getInstance().getSnake().getY() < square.getY()) {
+            if (square.getY() - 2.3 < GameModel.getInstance().getSnake().getY() && GameModel.getInstance().getSnake().getX() > square.getX()-2.3f && GameModel.getInstance().getSnake().getX() < square.getX() + 1.9f && GameModel.getInstance().getSnake().getY() < square.getY()) {
                     speed = 0;
                 GameModel.getInstance().getSnake().collideWithSquare=true;
                     if (square.getValue() == 0) {
@@ -172,7 +171,7 @@ public class GameController {
 
             if (coin.getY()-0.2 < GameModel.getInstance().getSnake().getY() && coin.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < coin.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < coin.getY()){
                 coins++;
-                GameModel.getInstance().getSnake().updateSize(5);
+                score+=5;
                 coinsToRemove.add(coin);
             }
         }
@@ -191,15 +190,6 @@ public class GameController {
         }
         if (GameModel.getInstance().getSnake().getSize()<=0){
             gameOver = true;
-        }
-    }
-
-    public void detectCollisionWalls(float delta) {
-        for (WallModel wall : GameModel.getInstance().getWalls()) {
-            if (wall.getX() + 1 <= GameModel.getInstance().getSnake().getX() && GameModel.getInstance().getSnake().getX()< wall.getX()+1&& wall.getY() <= GameModel.getInstance().getSnake().getY()+3 &&GameModel.getInstance().getSnake().getY()< wall.getY()+10) {
-                System.out.println("collide walls");
-                GameModel.getInstance().getSnake().setX(wall.getX()+1f);
-            }
         }
     }
 

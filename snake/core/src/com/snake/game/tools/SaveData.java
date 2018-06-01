@@ -21,7 +21,6 @@ public class SaveData {
             outfile.close();
         }catch (Exception e){
             e.printStackTrace();
-            Gdx.app.exit();
         }
 
     }
@@ -36,7 +35,7 @@ public class SaveData {
             infile.close();
         }catch (Exception e){
             e.printStackTrace();
-            Gdx.app.exit();
+           // Gdx.app.exit();
         }
 
 

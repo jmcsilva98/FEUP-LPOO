@@ -151,11 +151,6 @@ public class GameModel {
         balls.add(ball);
     }
 
-    public void createWall(float x, float y){
-        WallModel wall;
-        wall=new WallModel(x,y,0,0);
-        walls.add(wall);
-    }
 
     public void createCoin(float x, float y) {
         CoinModel coin;

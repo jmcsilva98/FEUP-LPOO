@@ -41,11 +41,12 @@ public class GameView extends ScreenAdapter {
     private static final float MIN_BALL_SPAWN_TIME = 1f;
     private static final float MAX_BALL_SPAWN_TIME = 3f;
     private static final float MIN_COIN_SPAWN_TIME = 1f;
-    private static final float MAX_COIN_SPAWN_TIME = 3f;
+    private static final float MAX_COIN_SPAWN_TIME = 6f;
     private float deltaTime = 0;
     private Texture singleCoin;
     BitmapFont font;
     BitmapFont snakeNumber;
+    BitmapFont ballNumber;
 
     Random random;
     public int generateSquareColors = 0;
@@ -57,6 +58,7 @@ public class GameView extends ScreenAdapter {
         loadAssets();
         font = game.getFont();
         this.snakeNumber=game.getFont();
+        this.ballNumber=game.getFont();
         singleCoin = new Texture("singleCoin.png");
 
         random = new Random();
@@ -161,8 +163,7 @@ public class GameView extends ScreenAdapter {
                 for (int i = 0; i < 3; i++) {
                     showOrNot = random.nextInt(2);
                     if (showOrNot == 1 && GameController.getInstance().speed > 0) {
-                        GameModel.getInstance().createBall(i * 4 + 3, 35, i * 2 + 1);
-                        GameModel.getInstance().createWall(i * 4 + 3, 40);
+                        GameModel.getInstance().createBall(i * 4 + 3, 15, i * 2 + 1);
 
                     }
                 }
@@ -186,7 +187,6 @@ public class GameView extends ScreenAdapter {
             GameController.getInstance().detectCollisionCoins(delta);
             GameController.getInstance().detectCollisionSquare(delta);
             GameController.getInstance().detectCollisionBalls(delta);
-            GameController.getInstance().detectCollisionWalls(delta);
             if (GameModel.getInstance().getSnake(). collideWithSquare)
                 Gdx.input.vibrate(200);
         }
@@ -231,14 +231,6 @@ private void drawCoin(float delta){
         }
         //System.out.println();
      }
-    private void drawWalls(){
-        EntityView view;
-        for (WallModel wall : GameModel.getInstance().getWalls()){
-            view = ViewFactory.makeView(game, wall);
-            view.update(wall);
-            view.draw(game.getBatch());
-        }
-    }
 
     private void handleInputs(float delta) {
         if (isRight()|| isJustRight())
@@ -282,6 +274,7 @@ private void drawCoin(float delta){
     }
     private void drawBalls(){
         EntityView view;
+
         for (BallModel ball : GameModel.getInstance().getBalls()) {
             view = ViewFactory.makeView(game, ball);
             view.update(ball);
@@ -293,22 +286,22 @@ private void drawCoin(float delta){
         if (generateSquareColors == 7) generateSquareColors = 0;
         switch (generateSquareColors) {
             case 0:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.GREENSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(3) * 2 + 1,EntityModel.ModelType.GREENSQUARE);
                 break;
             case 1:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.PINKSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(7) * 2 + 1,EntityModel.ModelType.PINKSQUARE);
                 break;
             case 2:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1, EntityModel.ModelType.LIGHTPINKSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(5) * 2 + 1, EntityModel.ModelType.LIGHTPINKSQUARE);
                 break;
             case 3:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.BLUESQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(6) * 2 + 1,EntityModel.ModelType.BLUESQUARE);
                 break;
             case 4:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.REDSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(4) * 2 + 1,EntityModel.ModelType.REDSQUARE);
                 break;
             case 5:
-                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.YELLOWSQUARE);
+                GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, random.nextInt(6) * 2 + 1,EntityModel.ModelType.YELLOWSQUARE);
                 break;
             case 6:
                 GameModel.getInstance().createSquare(i * 4 + 1.9f, 35, i * 2 + 1,EntityModel.ModelType.MUSTARDSQUARE);
