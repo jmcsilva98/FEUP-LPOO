@@ -16,6 +16,9 @@ import com.snake.game.view.GameView;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
+/**
+ * Game Over menu class
+ */
 public class GameOverMenu extends ScreenAdapter {
 
     private static final int DEFAULT_ICON_WIDTH = 75;
@@ -51,6 +54,11 @@ public class GameOverMenu extends ScreenAdapter {
     BitmapFont scoreFont, font;
     boolean drawMessage = false;
 
+    /**
+     * Game over menu constructor
+     * @param game game where menu will be shown
+     * @param score score done by player
+     */
     public GameOverMenu(final SnakeSmash game, final int score) {
         this.game = game;
         this.score = score;
@@ -134,6 +142,11 @@ public class GameOverMenu extends ScreenAdapter {
         });
     }
 
+    /**
+     * Render function
+     * @param delta delta time
+     */
+
     @Override
     public void render(float delta) {
         // Clear the screen
@@ -186,6 +199,9 @@ public class GameOverMenu extends ScreenAdapter {
         game.getBatch().end();
     }
 
+    /**
+     * Dispose function
+     */
 
     @Override
     public void dispose() {

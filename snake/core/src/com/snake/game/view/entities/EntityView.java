@@ -29,11 +29,19 @@ public abstract class EntityView {
 
     public abstract Sprite createSprite(SnakeSmash game);
 
+    /**
+     * Function to update model
+     * @param model model to be updated
+     */
     public void update(EntityModel model){
         sprite.setCenter(model.getX()/ PIXEL_TO_SQUARE,
                 model.getY()/ PIXEL_TO_SQUARE);
     }
 
+    /**
+     * Function to draw sprite batch
+     * @param batch sprite batch to be drawn
+     */
     public  void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

@@ -13,6 +13,9 @@ import com.snake.game.SnakeSmash;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
+/**
+ * Highscore menu class
+ */
 public class HighscoresMenu extends ScreenAdapter {
 
     private int highscore;
@@ -35,6 +38,10 @@ public class HighscoresMenu extends ScreenAdapter {
     private Texture homeBtn;
     private Texture scoreBase;
 
+    /**
+     * High score menu constructor
+     * @param game game where menu will be shown
+     */
     public HighscoresMenu(final SnakeSmash game) {
         this.game = game;
         exitBtn = new Texture("exitBtn.png");
@@ -77,7 +84,10 @@ public class HighscoresMenu extends ScreenAdapter {
     }
 
 
-
+    /**
+     * Render function
+     * @param delta delta time
+     */
     @Override
     public void render(float delta) {
         // Clear the screen
@@ -98,17 +108,6 @@ public class HighscoresMenu extends ScreenAdapter {
 
         game.getBatch().draw(scoreBase, SCREEN_WIDTH / 2 - SCORE_WIDTH / 2, SCORE_Y, SCORE_WIDTH, SCORE_HEIGHT);
 
-        /*String scores;
-        int y = 540;
-        int i;
-        for( i = 0; i < highscores.length-1; i++){
-            scores = String.format("%2d. %7s %s", i+1, highscores[i], names[i]);
-            scoreFont.draw(game.getBatch(), scores, (SCREEN_WIDTH - 200) / 2, y);
-            y -= 30;
-        }
-
-        scores = String.format("%2d. %7s %s", i+1, highscores[i], names[i]);
-        scoreFont.draw(game.getBatch(), scores, (SCREEN_WIDTH - 213) / 2, y);*/
         scoreFont.setColor(Color.WHITE);
         scoreFont.draw(game.getBatch(), "Current High Score", 75, 460);
 
@@ -125,7 +124,9 @@ public class HighscoresMenu extends ScreenAdapter {
         game.getBatch().end();
     }
 
-
+    /**
+     * Dispose function
+     */
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);

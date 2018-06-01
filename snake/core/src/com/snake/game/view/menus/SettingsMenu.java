@@ -10,6 +10,9 @@ import com.snake.game.SnakeSmash;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 
+/**
+ * Settings menu class
+ */
 public class SettingsMenu extends ScreenAdapter {
 
     private static final int DEFAULT_ICON_WIDTH = 75;
@@ -36,6 +39,10 @@ public class SettingsMenu extends ScreenAdapter {
     private Texture base;
     private Texture homeBtn;
 
+    /**
+     * Settings menu constructor
+     * @param game game where menu will be shown
+     */
 
     public SettingsMenu(final SnakeSmash game) {
         this.game = game;
@@ -97,6 +104,10 @@ public class SettingsMenu extends ScreenAdapter {
         });
     }
 
+    /**
+     * Render function
+     * @param delta delta time
+     */
 
     @Override
     public void render(float delta) {
@@ -150,6 +161,9 @@ public class SettingsMenu extends ScreenAdapter {
         game.getBatch().end();
     }
 
+    /**
+     * Dispose function
+     */
 
     @Override
     public void dispose() {

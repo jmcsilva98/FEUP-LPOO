@@ -6,12 +6,20 @@ import com.snake.game.model.entities.EntityModel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * View factory class
+ */
 public class ViewFactory {
 
     private static Map<EntityModel.ModelType, EntityView> cache =
             new HashMap<EntityModel.ModelType, EntityView>();
 
-
+    /**
+     * Function to make view
+     * @param game game where view will be make
+     * @param model model to make view
+     * @return entity view
+     */
     public static EntityView makeView(SnakeSmash game, EntityModel model) {
         if (!cache.containsKey(model.getType())) {
             if (model.getType() == EntityModel.ModelType.SNAKE)

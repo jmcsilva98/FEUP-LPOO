@@ -2,18 +2,19 @@ package com.snake.game.view.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.snake.game.SnakeSmash;
-import com.snake.game.controller.GameController;
 import com.snake.game.view.GameView;
 
 import static com.snake.game.controller.GameController.SCREEN_HEIGHT;
 import static com.snake.game.controller.GameController.SCREEN_WIDTH;
 
-//import sun.applet.Main;
+/**
+ * Main menu class
+ */
+
 
 public class MainMenu extends ScreenAdapter {
     private static final int DEFAULT_ICON_WIDTH = 75;
@@ -42,6 +43,10 @@ public class MainMenu extends ScreenAdapter {
     private Texture scoresBtn;
     private Texture title;
 
+    /**
+     * Main menu constructor
+     * @param game game where menu will be shown
+     */
 
     public MainMenu(final SnakeSmash game){
 
@@ -122,7 +127,10 @@ public class MainMenu extends ScreenAdapter {
         });
     }
 
-
+    /**
+     * Render function
+     * @param delta delta time
+     */
     @Override
         public void render(float delta) {
 
@@ -173,7 +181,9 @@ public class MainMenu extends ScreenAdapter {
         game.getBatch().end();
     }
 
-
+    /**
+     * Dispose function
+     */
 
     @Override
     public void dispose() {

@@ -1,0 +1,9 @@
+com.snake.game
+com.snake.game.controller
+com.snake.game.model
+com.snake.game.model.entities
+com.snake.game.test
+com.snake.game.tools
+com.snake.game.view
+com.snake.game.view.entities
+com.snake.game.view.menus
