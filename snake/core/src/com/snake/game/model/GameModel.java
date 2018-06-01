@@ -23,7 +23,7 @@ public class GameModel {
     public List<BallModel> snakeBalls;
     private List<SquareModel> squares;
     private List<CoinModel> coins;
-    private List<WallModel> walls;
+
 
     public static GameModel getInstance(){
         if (instance==null)
@@ -36,7 +36,6 @@ public class GameModel {
         squares = new ArrayList<SquareModel>();
         coins = new ArrayList<CoinModel>();
         snakeBalls=new ArrayList<BallModel>();
-        walls=new ArrayList<WallModel>();
 
     }
 
@@ -48,30 +47,22 @@ public class GameModel {
     }
     public List<SquareModel> getSquares() {return squares;}
     public List<CoinModel> getCoins(){return coins;}
-    public List<WallModel> getWalls() {return walls;}
     public List<BallModel> getSnakeBalls() {return snakeBalls;}
 
     public void setSnake(SnakeModel snake) {
         this.snake = snake;
     }
-
     public void setBalls(List<BallModel> balls) {
         this.balls = balls;
     }
     public void setSnakeBalls(List<BallModel> snakeBalls){
         this.snakeBalls = snakeBalls;
     }
-
     public void setCoins(List<CoinModel> coins) {
         this.coins = coins;
     }
-
     public void setSquares(List<SquareModel> squares) {
         this.squares = squares;
-    }
-
-    public void setWalls(List<WallModel> walls) {
-        this.walls = walls;
     }
 
 

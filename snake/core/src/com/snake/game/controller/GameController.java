@@ -1,7 +1,6 @@
 package com.snake.game.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.snake.game.controller.entities.SnakeBody;
@@ -10,8 +9,6 @@ import com.snake.game.model.entities.BallModel;
 import com.snake.game.model.entities.CoinModel;
 import com.snake.game.model.entities.NumberModel;
 import com.snake.game.model.entities.SquareModel;
-import com.snake.game.model.entities.WallModel;
-import com.snake.game.view.GameView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +24,6 @@ public class GameController {
     public ArrayList<CoinModel> coinsToRemove = new ArrayList<CoinModel>();
     public boolean catchCoin=false;
     private ArrayList<SquareModel> squaresToRemove = new ArrayList<SquareModel>();
-    private ArrayList<WallModel> wallsToRemove = new ArrayList<WallModel>();
     public float speed;
     public float saveSpeed;
     public static final int SCREEN_WIDTH = 480;
@@ -37,7 +33,6 @@ public class GameController {
     public static final int SNAKE_WIDTH = SNAKE_WIDTH_PIXEL * 3;
     public static final int SNAKE_HEIGHT = SNAKE_HEIGHT_PIXEL * 3;
     private int coins;
-    private Sound sound;
     public boolean gameOver = false;
 
     /**
@@ -62,16 +57,8 @@ public class GameController {
     }
 
 
-    public World getWorld() {
-        return world;
-    }
 
-    public void update(float delta) {
-        world.step(delta, 6, 2);
-
-    }
-
-    public void shiftRight(float delta, float speed) {
+    public void shiftRight(float speed) {
         float x = GameModel.getInstance().getSnake().getX() + (speed *1.5f)* Gdx.graphics.getDeltaTime();
 
         if (x > 18.7)
@@ -91,7 +78,7 @@ public class GameController {
     }
 
 
-    public void shiftLeft(float delta, float speed) {
+    public void shiftLeft(float speed) {
         float x = GameModel.getInstance().getSnake().getX() - (speed *1.5f)* Gdx.graphics.getDeltaTime();
         if (x < 0.48)
             x = (float) 0.48;
@@ -135,13 +122,7 @@ public class GameController {
                 coinsToRemove.add(coin);
         }
     }
-    public void updateWalls(float delta){
-        for (WallModel wall : GameModel.getInstance().getWalls()) {
-            wall.update(delta,speed);
-            if (wall.toRemove)
-                wallsToRemove.add(wall);
-        }
-    }
+
     public void detectCollisionSquare(float delta) {
 
         for (SquareModel square : GameModel.getInstance().getSquares()) {
@@ -159,9 +140,9 @@ public class GameController {
         }
         GameModel.getInstance().getSquares().removeAll(squaresToRemove);
     }
-    public void detectCollisionBalls(float delta){
+    public void detectCollisionBalls(){
         for (BallModel ball : GameModel.getInstance().getBalls()) {
-            if (!gameOver && ball.getY() -0.2 < GameModel.getInstance().getSnake().getY() && ball.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < ball.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < ball.getY()) {
+            if (ball.getY() -0.2 < GameModel.getInstance().getSnake().getY() && ball.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < ball.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < ball.getY()) {
                 GameModel.getInstance().getSnake().updateSize(1);
                 ballsToRemove.add(ball);
             }
@@ -169,7 +150,7 @@ public class GameController {
         GameModel.getInstance().getBalls().removeAll(ballsToRemove);
 
     }
-    public void detectCollisionCoins(float delta){
+    public void detectCollisionCoins(){
         for (CoinModel coin : GameModel.getInstance().getCoins()){
 
             if (coin.getY()-0.2 < GameModel.getInstance().getSnake().getY() && coin.getX() < GameModel.getInstance().getSnake().getX() + 0.8 && GameModel.getInstance().getSnake().getX() < coin.getX() + 0.8 && GameModel.getInstance().getSnake().getY() < coin.getY()){
@@ -204,4 +185,6 @@ public class GameController {
         return score;
     }
     public int getCoins() {return coins;}
+    public void setScore(int score){this.score = score;}
+    public void setCoins(int coins) {this.coins = coins;}
 }
