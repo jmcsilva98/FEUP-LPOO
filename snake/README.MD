@@ -97,17 +97,21 @@ ___
 The user can login to facebook. Also made function to publish the score of the player, but couldn't publish due to new facebook permissions...
 
 
-### ***6.   Difficulties***
+### **6.   Difficulties**
 ___
 
 
 
 
-### ***7.   Overal time and work distribution***
+### **7.   Overal time and work distribution**
 ___
 
 
 
-### ***8.   Credits***
+### **8.   Credits**
 ___
 
+For our project we researched a lot and implemented some things we found. Here's the assets we used:
+https://restfb.com/documentation/
+https://github.com/libgdx/libgdx/wiki/Preferences
+http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html
