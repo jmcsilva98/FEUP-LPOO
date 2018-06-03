@@ -35,9 +35,10 @@ ___
 ___
 a. Sigleton - Ensures that a class has only one instance, and provides a global point of access to it. In this case was used in the gameModel and gameController classes.
 
-b. Template - 
+b. Template -  Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure. In this case many functions are overrided.
 
-c. Update -
+c. Update - The game world maintains a collection of objects. Each object implements an update method that simulates one frame of the object’s behavior. Each frame, the game updates every object in the collection. In this case, there are squares, snake , balls and coins that are updated each frame.
+
 
 
 
@@ -97,4 +98,30 @@ ___
 The user can login to facebook. Also made function to publish the score of the player, but couldn't publish due to new facebook permissions...
 
 
+### **6.   Difficulties**
+___
 
+
+Our main difficulty was without a doubt implementing facebook. Most of the documentations we found was all outdated and not correct, causing us numerous problems with the gradle dependencies and also with trying to import facebook sdk. Eventually we found a workable api "restfb" which finally allowed us to login to facebook. However, even though we tried everything, all of the permissions to publish to facebook were removed, being impossible to implement that feature into our game.
+For the rest of the project we didn't have many problems, mostly because we worked incrementally and were able to discuss our doubts in the practical classes.
+
+
+
+### **7.   Overal time and work distribution**
+___
+
+Approximately 200 hours.
+
+Both of the group elements worked together and showed the same amount of interest and effort during the development of the project.
+
+
+
+### **8.   Credits**
+___
+
+For our project we researched a lot and implemented some things we found. Here's the assets we used:
+https://restfb.com/documentation/
+
+https://github.com/libgdx/libgdx/wiki/Preferences
+
+http://manabreak.eu/java/2016/10/21/unittesting-libgdx.html
