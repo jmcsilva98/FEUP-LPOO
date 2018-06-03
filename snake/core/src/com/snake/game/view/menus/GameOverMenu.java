@@ -112,6 +112,8 @@ public class GameOverMenu extends ScreenAdapter {
                 x += 75 + DEFAULT_ICON_WIDTH;
                 if (game.camera.getInputInGameWorld().x < x + DEFAULT_ICON_WIDTH && game.camera.getInputInGameWorld().x > x && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y < ICON_Y + DEFAULT_ICON_HEIGHT && SCREEN_HEIGHT - game.camera.getInputInGameWorld().y > ICON_Y) {
                         gameOverMenuScreen.dispose();
+                        GameModel.restart();
+                        GameController.restart();
                         Gdx.app.exit();
 
                 }
